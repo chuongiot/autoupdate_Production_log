@@ -3891,7 +3891,7 @@ namespace NhatKySanXuat
                 SqlDataAdapter adapter = new SqlDataAdapter();
                 DataTable tb_buff = new DataTable();
                 command = sqlcon.CreateCommand();
-                command.CommandText = "select * from nhatkysanxuat where phanbon_nvl LIKE '%" + cbb_phanbonnvl_search.Text + "%' AND ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) ORDER BY dot_sx ASC";
+                command.CommandText = "select * from nhatkysanxuat where phanbon_nvl LIKE '%" + cbb_phanbonnvl_search.Text + "%' AND ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) ORDER BY dot_sx DESC";
                 adapter.SelectCommand = command;
                 tb_buff.Clear();
                 adapter.Fill(tb_buff);
@@ -4259,7 +4259,7 @@ namespace NhatKySanXuat
                 SqlDataAdapter adapter = new SqlDataAdapter();
                 DataTable tb_buff = new DataTable();
                 command = sqlcon.CreateCommand();
-                command.CommandText = "select * from nhatkysanxuat where thiet_bi = '" + cbb_thietbi_search.Text + "' AND phanbon_nvl LIKE '%" + cbb_phanbonnvl_search.Text + "%' AND ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) ORDER BY dot_sx ASC";
+                command.CommandText = "select * from nhatkysanxuat where thiet_bi = '" + cbb_thietbi_search.Text + "' AND phanbon_nvl LIKE '%" + cbb_phanbonnvl_search.Text + "%' AND ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) ORDER BY dot_sx DESC";
                 adapter.SelectCommand = command;
                 tb_buff.Clear();
                 adapter.Fill(tb_buff);
@@ -4628,7 +4628,7 @@ namespace NhatKySanXuat
                 SqlDataAdapter adapter = new SqlDataAdapter();
                 DataTable tb_buff = new DataTable();
                 command = sqlcon.CreateCommand();
-                command.CommandText = "select * from nhatkysanxuat where ma_BTP LIKE '%" + cbb_ma_BTP_search.Text + "%' AND ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) ORDER BY dot_sx ASC";
+                command.CommandText = "select * from nhatkysanxuat where ma_BTP LIKE '%" + cbb_ma_BTP_search.Text + "%' AND ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) ORDER BY dot_sx DESC";
                 adapter.SelectCommand = command;
                 tb_buff.Clear();
                 adapter.Fill(tb_buff);
@@ -4996,7 +4996,7 @@ namespace NhatKySanXuat
                 SqlDataAdapter adapter = new SqlDataAdapter();
                 DataTable tb_buff = new DataTable();
                 command = sqlcon.CreateCommand();
-                command.CommandText = "select * from nhatkysanxuat where thiet_bi = '" + cbb_thietbi_search.Text + "' AND ma_BTP LIKE '%" + cbb_ma_BTP_search.Text + "%' AND ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) ORDER BY dot_sx ASC";
+                command.CommandText = "select * from nhatkysanxuat where thiet_bi = '" + cbb_thietbi_search.Text + "' AND ma_BTP LIKE '%" + cbb_ma_BTP_search.Text + "%' AND ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) ORDER BY dot_sx DESC";
                 adapter.SelectCommand = command;
                 tb_buff.Clear();
                 adapter.Fill(tb_buff);
@@ -5365,7 +5365,7 @@ namespace NhatKySanXuat
                 SqlDataAdapter adapter = new SqlDataAdapter();
                 DataTable tb_buff = new DataTable();
                 command = sqlcon.CreateCommand();
-                command.CommandText = "select * from nhatkysanxuat where ma_BTP LIKE '%" + cbb_ma_BTP_search.Text + "%' dot_sx = '" + tb_dotsx_search.Text + "' AND loai = '" + cbb_search_loai.Text + "' AND phanbon_nvl LIKE '%" + cbb_phanbonnvl_search.Text + "%' AND ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) ORDER BY dot_sx ASC";
+                command.CommandText = "select * from nhatkysanxuat where ma_BTP LIKE '%" + cbb_ma_BTP_search.Text + "%' dot_sx = '" + tb_dotsx_search.Text + "' AND loai = '" + cbb_search_loai.Text + "' AND phanbon_nvl LIKE '%" + cbb_phanbonnvl_search.Text + "%' AND ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) ORDER BY dot_sx DESC";
                 adapter.SelectCommand = command;
                 tb_buff.Clear();
                 adapter.Fill(tb_buff);
@@ -5733,7 +5733,7 @@ namespace NhatKySanXuat
                 SqlDataAdapter adapter = new SqlDataAdapter();
                 DataTable tb_buff = new DataTable();
                 command = sqlcon.CreateCommand();
-                command.CommandText = "select * from nhatkysanxuat where thiet_bi = '" + cbb_thietbi_search.Text + "' AND ma_BTP LIKE '%" + cbb_ma_BTP_search.Text + "%' AND dot_sx = '" + tb_dotsx_search.Text + "' AND loai = '" + cbb_search_loai.Text + "' AND phanbon_nvl LIKE '%" + cbb_phanbonnvl_search.Text + "%' AND ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) ORDER BY dot_sx ASC";
+                command.CommandText = "select * from nhatkysanxuat where thiet_bi = '" + cbb_thietbi_search.Text + "' AND ma_BTP LIKE '%" + cbb_ma_BTP_search.Text + "%' AND dot_sx = '" + tb_dotsx_search.Text + "' AND loai = '" + cbb_search_loai.Text + "' AND phanbon_nvl LIKE '%" + cbb_phanbonnvl_search.Text + "%' AND ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) ORDER BY dot_sx DESC";
                 adapter.SelectCommand = command;
                 tb_buff.Clear();
                 adapter.Fill(tb_buff);
