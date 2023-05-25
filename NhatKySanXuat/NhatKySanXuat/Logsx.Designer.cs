@@ -1200,37 +1200,37 @@ namespace NhatKySanXuat
             this.label116.AutoSize = true;
             this.label116.Location = new System.Drawing.Point(-1, 107);
             this.label116.Name = "label116";
-            this.label116.Size = new System.Drawing.Size(61, 17);
+            this.label116.Size = new System.Drawing.Size(47, 17);
             this.label116.TabIndex = 3;
-            this.label116.Text = "0 Ngày :";
+            this.label116.Text = "0 day:";
             // 
             // label115
             // 
             this.label115.AutoSize = true;
             this.label115.Location = new System.Drawing.Point(-1, 79);
             this.label115.Name = "label115";
-            this.label115.Size = new System.Drawing.Size(87, 17);
+            this.label115.Size = new System.Drawing.Size(32, 17);
             this.label115.TabIndex = 2;
-            this.label115.Text = "TG ổn định :";
+            this.label115.Text = "TG:";
             // 
             // label114
             // 
             this.label114.AutoSize = true;
             this.label114.Location = new System.Drawing.Point(-1, 53);
             this.label114.Name = "label114";
-            this.label114.Size = new System.Drawing.Size(99, 17);
+            this.label114.Size = new System.Drawing.Size(29, 17);
             this.label114.TabIndex = 1;
-            this.label114.Text = "Coating layer :";
+            this.label114.Text = "CL:";
             // 
             // label113
             // 
             this.label113.AutoSize = true;
             this.label113.Location = new System.Drawing.Point(-1, 25);
             this.label113.Name = "label113";
-            this.label113.Size = new System.Drawing.Size(57, 17);
+            this.label113.Size = new System.Drawing.Size(32, 17);
             this.label113.TabIndex = 0;
-            this.label113.Text = "Độ ẩm :";
-            //
+            this.label113.Text = "Ẩm:";
+            // 
             // label146
             // 
             this.label146.AutoSize = true;
