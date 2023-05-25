@@ -18,7 +18,7 @@ namespace NhatKySanXuat
             InitializeComponent();
         }
         SqlConnection sqlcon = null;
-        string sqltring = "Data Source = 192.168.21.244,1433; Initial Catalog= RSFLOGSANXUAT ;User ID = sa; Password =mylan@2016";
+        string sqltring = "Data Source = 192.168.21.244,1433; Initial Catalog= RSFLOGSANXUAT ;User ID = sa; Password = mylan@2016";
         private void button2_Click(object sender, EventArgs e)
         {
             Application.Exit();

@@ -63,6 +63,7 @@ namespace NhatKySanXuat
             this.tbuser.Name = "tbuser";
             this.tbuser.Size = new System.Drawing.Size(132, 23);
             this.tbuser.TabIndex = 1;
+            this.tbuser.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbpassword_KeyDown);
             // 
             // tbpassword
             // 
