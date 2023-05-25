@@ -62,7 +62,7 @@ namespace NhatKySanXuat
             this.tbuser.MaxLength = 10;
             this.tbuser.Name = "tbuser";
             this.tbuser.Size = new System.Drawing.Size(132, 23);
-            this.tbuser.TabIndex = 2;
+            this.tbuser.TabIndex = 1;
             // 
             // tbpassword
             // 
@@ -73,7 +73,7 @@ namespace NhatKySanXuat
             this.tbpassword.Name = "tbpassword";
             this.tbpassword.PasswordChar = '*';
             this.tbpassword.Size = new System.Drawing.Size(132, 23);
-            this.tbpassword.TabIndex = 1;
+            this.tbpassword.TabIndex = 2;
             this.tbpassword.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbpassword_KeyDown);
             // 
             // label1
@@ -108,7 +108,7 @@ namespace NhatKySanXuat
             this.btnchangepassword.Margin = new System.Windows.Forms.Padding(4);
             this.btnchangepassword.Name = "btnchangepassword";
             this.btnchangepassword.Size = new System.Drawing.Size(132, 36);
-            this.btnchangepassword.TabIndex = 8;
+            this.btnchangepassword.TabIndex = 7;
             this.btnchangepassword.Text = "Đổi mật khẩu";
             this.btnchangepassword.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnchangepassword.UseVisualStyleBackColor = false;
@@ -162,7 +162,7 @@ namespace NhatKySanXuat
             this.checkBox_save_tk.Margin = new System.Windows.Forms.Padding(4);
             this.checkBox_save_tk.Name = "checkBox_save_tk";
             this.checkBox_save_tk.Size = new System.Drawing.Size(115, 21);
-            this.checkBox_save_tk.TabIndex = 9;
+            this.checkBox_save_tk.TabIndex = 6;
             this.checkBox_save_tk.Text = "Nhớ tài khoản";
             this.checkBox_save_tk.UseVisualStyleBackColor = true;
             this.checkBox_save_tk.CheckedChanged += new System.EventHandler(this.checkBox_save_tk_CheckedChanged);
