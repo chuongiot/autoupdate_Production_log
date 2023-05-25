@@ -1397,7 +1397,7 @@ namespace NhatKySanXuat
                 dateTimePickerngaysx.Text = dgv_coater_s1.SelectedRows[0].Cells[4].Value.ToString().Substring(0, 10);
                 cbmaBTP.Text = dgv_coater_s1.SelectedRows[0].Cells[6].Value.ToString();
                 tbkhoiluongphanbonnvl.Text = dgv_coater_s1.SelectedRows[0].Cells[7].Value.ToString();
-                cbbnguoinhap.Text= dgv_coater_s1.SelectedRows[0].Cells[9].Value.ToString();
+                cbbnguoinhap.Text = dgv_coater_s1.SelectedRows[0].Cells[9].Value.ToString();
             }
             catch (Exception ex)
             {
@@ -1496,6 +1496,53 @@ namespace NhatKySanXuat
             tbm3nuocthuycuc.Text = "";
             tbbaoholaodong.Text = "";
             tbghi_chu.Text = "";
+            tb_n1_1_kl.Text = "";
+            tb_n1_2_kl.Text = "";
+            tb_n1_3_kl.Text = "";
+            tb_n1_4_kl.Text = "";
+            tb_n1_1_code.Text = "";
+            tb_n1_2_code.Text = "";
+            tb_n1_3_code.Text = "";
+            tb_n1_4_code.Text = "";
+            tb_n1_1_lot.Text = "";
+            tb_n1_2_lot.Text = "";
+            tb_n1_3_lot.Text = "";
+            tb_n1_4_lot.Text = "";
+            tb_n2_1_kl.Text = "";
+            tb_n2_2_kl.Text = "";
+            tb_n2_3_kl.Text = "";
+            tb_n2_1_code.Text = "";
+            tb_n2_2_code.Text = "";
+            tb_n2_3_code.Text = "";
+            tb_n2_1_lot.Text = "";
+            tb_n2_2_lot.Text = "";
+            tb_n2_3_lot.Text = "";
+            tb_n3_1_kl.Text = "";
+            tb_n3_2_kl.Text = "";
+            tb_n3_3_kl.Text = "";
+            tb_n3_1_code.Text = "";
+            tb_n3_2_code.Text = "";
+            tb_n3_3_code.Text = "";
+            tb_n3_1_lot.Text = "";
+            tb_n3_2_lot.Text = "";
+            tb_n3_3_lot.Text = "";
+            lb_do_am.Text = "";
+            lb_coating.Text = "";
+            lb_TG_ondinh.Text = "";
+            lb_0.Text = "";
+            lb_7.Text = "";
+            lb_14.Text = "";
+            lb_21.Text = "";
+            lb_28.Text = "";
+            lb_42.Text = "";
+            lb_49.Text = "";
+            lb_56.Text = "";
+            lb_70.Text = "";
+            lb_84.Text = "";
+            lb_98.Text = "";
+            lb_112.Text = "";
+            lb_126.Text = "";
+            lb_140.Text = "";
         }
 
         private void dataGridView1_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
@@ -3439,7 +3486,7 @@ namespace NhatKySanXuat
                 }
                 dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length, "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
                                 "", Math.Round(TONG_KL_LT, 4), Math.Round(Hieu_suat_thu_tb / dataGridView1.Rows.Count, 4), Math.Round(Hieu_suat_release_tb / dataGridView1.Rows.Count, 4),
-                                "", "", "", KHOI_LUONG_NVL, "", "", Math.Round(Tong_N1_KL,4), "", "", Math.Round(Tong_N2_KL,4), "", "", Math.Round(Tong_N3_KL,4), "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
+                                "", "", "", KHOI_LUONG_NVL, "", "", Math.Round(Tong_N1_KL, 4), "", "", Math.Round(Tong_N2_KL, 4), "", "", Math.Round(Tong_N3_KL, 4), "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
                                 "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
                                 "", "", Math.Round(tb_do_am / count_doam, 4), Math.Round(tb_coating / count_coating, 4), "",
                                 Math.Round(tb_0ngay / count_0, 4), Math.Round(tb_7ngay / count_7, 4), Math.Round(tb_14ngay / count_14, 4),
@@ -14457,7 +14504,7 @@ namespace NhatKySanXuat
         {
             try
             {
-                tbhieusuatthu.Text = Math.Round(((Convert.ToDouble(tbtongklspthuduoc.Text) / Convert.ToDouble(tbkhoiluonglythuyet.Text)) * 100),4).ToString();
+                tbhieusuatthu.Text = Math.Round(((Convert.ToDouble(tbtongklspthuduoc.Text) / Convert.ToDouble(tbkhoiluonglythuyet.Text)) * 100), 4).ToString();
             }
             catch (Exception ex)
             {
