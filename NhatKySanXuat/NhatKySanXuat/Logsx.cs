@@ -1398,6 +1398,7 @@ namespace NhatKySanXuat
                 cbmaBTP.Text = dgv_coater_s1.SelectedRows[0].Cells[6].Value.ToString();
                 tbkhoiluongphanbonnvl.Text = dgv_coater_s1.SelectedRows[0].Cells[7].Value.ToString();
                 cbbnguoinhap.Text = dgv_coater_s1.SelectedRows[0].Cells[9].Value.ToString();
+                calu_polymer();
             }
             catch (Exception ex)
             {
@@ -1655,6 +1656,7 @@ namespace NhatKySanXuat
                 load_data_polymer_fill_textbox();
                 KL_lythuyet();
                 hieu_suat_thu();
+                hieu_suat_release();
             }
             catch (Exception ex)
             {
@@ -14383,6 +14385,9 @@ namespace NhatKySanXuat
                 kl_khongdongkhoi = Convert.ToDouble(tbspkhongbidongkhoi.Text);
             }
             tbtongklspthuduoc.Text = (kl_dongkhoi + kl_khongdongkhoi).ToString();
+            KL_lythuyet();
+            hieu_suat_release();
+            hieu_suat_thu();
         }
 
         private void tb_n1_1_kl_Leave(object sender, EventArgs e)
@@ -14425,7 +14430,6 @@ namespace NhatKySanXuat
             }
             tbn1157.Text = (N1_1 + N1_2 + N1_3 + N1_4).ToString();
         }
-
         private void tb_n2_1_kl_Leave(object sender, EventArgs e)
         {
             double N2_1 = 0;
@@ -14457,7 +14461,6 @@ namespace NhatKySanXuat
             }
             tbn221.Text = (N2_1 + N2_2 + N2_3).ToString();
         }
-
         private void tb_n3_1_kl_Leave(object sender, EventArgs e)
         {
             double N3_1 = 0;
@@ -14511,7 +14514,17 @@ namespace NhatKySanXuat
                 MessageBox.Show(ex.Message);
             }
         }
-
+        public void hieu_suat_release()
+        {
+            try
+            {
+                tbhieusuatrelease.Text = Math.Round((Convert.ToDouble(tbspkhongbidongkhoi.Text) / Convert.ToDouble(tbtongklspthuduoc.Text)) * 100, 4).ToString();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
         private void tbkhoiluonglythuyet_Click(object sender, EventArgs e)
         {
             KL_lythuyet();
@@ -14520,6 +14533,29 @@ namespace NhatKySanXuat
         private void tbhieusuatthu_Click(object sender, EventArgs e)
         {
             hieu_suat_thu();
+        }
+
+        private void tbhieusuatrelease_Click(object sender, EventArgs e)
+        {
+            hieu_suat_release();
+        }
+        public void calu_polymer()
+        {
+            double cl1 = 0;
+            double cl2 = 0;
+            double cl3 = 0;
+            double n1 = 0;
+            double n2 = 0;
+            double n3 = 0;
+            cl1 = Convert.ToDouble(tblot.Text.Substring(3, 2))/10;
+            cl2 = Convert.ToDouble(tblot.Text.Substring(5, 2))/10;
+            cl3 = Convert.ToDouble(tblot.Text.Substring(7, 2))/10;
+            n1 = cl1 / 100 * (Convert.ToDouble(tbkhoiluongphanbonnvl.Text)) * 4;
+            n2 = cl2 / 100 * (Convert.ToDouble(tbkhoiluongphanbonnvl.Text)) * 4;
+            n3 = cl3 / 100 * (Convert.ToDouble(tbkhoiluongphanbonnvl.Text)) * 4;
+            tbn1157.Text = n1.ToString();
+            tbn221.Text = n2.ToString();
+            tbn3190.Text = n3.ToString();
         }
     }
 }

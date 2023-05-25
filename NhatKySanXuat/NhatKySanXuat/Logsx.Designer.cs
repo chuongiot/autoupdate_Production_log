@@ -29,12 +29,12 @@ namespace NhatKySanXuat
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Logsx));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle102 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle103 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle104 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle105 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle106 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Logsx));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle107 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle108 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle109 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -262,6 +262,16 @@ namespace NhatKySanXuat
             this.label_coat_02 = new System.Windows.Forms.Label();
             this.pnQLSX = new System.Windows.Forms.Panel();
             this.dgv_coater_s1 = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column22 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column23 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tbngay_release = new System.Windows.Forms.TextBox();
             this.tbghi_chu = new System.Windows.Forms.TextBox();
             this.panel_coat_s1 = new System.Windows.Forms.Panel();
@@ -451,6 +461,84 @@ namespace NhatKySanXuat
             this.Column109 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column110 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column111 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabPageNhaprelease = new System.Windows.Forms.TabPage();
+            this.cbb_tb_release = new System.Windows.Forms.ComboBox();
+            this.label139 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.label138 = new System.Windows.Forms.Label();
+            this.tb_timkiem_dotsx_release = new System.Windows.Forms.TextBox();
+            this.label60 = new System.Windows.Forms.Label();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.tb_thoigianondinh = new System.Windows.Forms.TextBox();
+            this.tb_ngay140 = new System.Windows.Forms.TextBox();
+            this.tb_ngay126 = new System.Windows.Forms.TextBox();
+            this.tb_ngay112 = new System.Windows.Forms.TextBox();
+            this.tb_ngay98 = new System.Windows.Forms.TextBox();
+            this.tb_ngay84 = new System.Windows.Forms.TextBox();
+            this.tb_ngay70 = new System.Windows.Forms.TextBox();
+            this.tb_ngay56 = new System.Windows.Forms.TextBox();
+            this.tb_ngay49 = new System.Windows.Forms.TextBox();
+            this.tb_ngay42 = new System.Windows.Forms.TextBox();
+            this.tb_ngay28 = new System.Windows.Forms.TextBox();
+            this.tb_ngay21 = new System.Windows.Forms.TextBox();
+            this.tb_ngay14 = new System.Windows.Forms.TextBox();
+            this.tb_ngay7 = new System.Windows.Forms.TextBox();
+            this.tb_ngay0 = new System.Windows.Forms.TextBox();
+            this.tb_coating = new System.Windows.Forms.TextBox();
+            this.tb_do_am = new System.Windows.Forms.TextBox();
+            this.panel7 = new System.Windows.Forms.Panel();
+            this.label80 = new System.Windows.Forms.Label();
+            this.label93 = new System.Windows.Forms.Label();
+            this.label84 = new System.Windows.Forms.Label();
+            this.label65 = new System.Windows.Forms.Label();
+            this.label81 = new System.Windows.Forms.Label();
+            this.label82 = new System.Windows.Forms.Label();
+            this.label66 = new System.Windows.Forms.Label();
+            this.label83 = new System.Windows.Forms.Label();
+            this.label68 = new System.Windows.Forms.Label();
+            this.label78 = new System.Windows.Forms.Label();
+            this.label72 = new System.Windows.Forms.Label();
+            this.label79 = new System.Windows.Forms.Label();
+            this.label71 = new System.Windows.Forms.Label();
+            this.label70 = new System.Windows.Forms.Label();
+            this.label77 = new System.Windows.Forms.Label();
+            this.label73 = new System.Windows.Forms.Label();
+            this.label74 = new System.Windows.Forms.Label();
+            this.btt_updata_release = new System.Windows.Forms.Button();
+            this.label49 = new System.Windows.Forms.Label();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label33 = new System.Windows.Forms.Label();
+            this.label43 = new System.Windows.Forms.Label();
+            this.tb_lot_release = new System.Windows.Forms.TextBox();
+            this.label47 = new System.Windows.Forms.Label();
+            this.tb_dotsx_release = new System.Windows.Forms.TextBox();
+            this.tb_ngaysx_tabrelease = new System.Windows.Forms.TextBox();
+            this.pn_loading_release = new System.Windows.Forms.Panel();
+            this.label105 = new System.Windows.Forms.Label();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.dataGridView3 = new System.Windows.Forms.DataGridView();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column81 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column79 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column83 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column84 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column112 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column82 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column85 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column86 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column88 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column87 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column89 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column90 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column91 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column92 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column93 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column94 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column95 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column96 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column97 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPageImportexcel = new System.Windows.Forms.TabPage();
             this.panel5 = new System.Windows.Forms.Panel();
             this.E_ngay_release = new System.Windows.Forms.TextBox();
@@ -521,63 +609,6 @@ namespace NhatKySanXuat
             this.button2 = new System.Windows.Forms.Button();
             this.textBox_path = new System.Windows.Forms.TextBox();
             this.btt_insert_tt_database = new System.Windows.Forms.Button();
-            this.tabPageNhaprelease = new System.Windows.Forms.TabPage();
-            this.cbb_tb_release = new System.Windows.Forms.ComboBox();
-            this.label139 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.label138 = new System.Windows.Forms.Label();
-            this.tb_timkiem_dotsx_release = new System.Windows.Forms.TextBox();
-            this.label60 = new System.Windows.Forms.Label();
-            this.panel6 = new System.Windows.Forms.Panel();
-            this.tb_thoigianondinh = new System.Windows.Forms.TextBox();
-            this.tb_ngay140 = new System.Windows.Forms.TextBox();
-            this.tb_ngay126 = new System.Windows.Forms.TextBox();
-            this.tb_ngay112 = new System.Windows.Forms.TextBox();
-            this.tb_ngay98 = new System.Windows.Forms.TextBox();
-            this.tb_ngay84 = new System.Windows.Forms.TextBox();
-            this.tb_ngay70 = new System.Windows.Forms.TextBox();
-            this.tb_ngay56 = new System.Windows.Forms.TextBox();
-            this.tb_ngay49 = new System.Windows.Forms.TextBox();
-            this.tb_ngay42 = new System.Windows.Forms.TextBox();
-            this.tb_ngay28 = new System.Windows.Forms.TextBox();
-            this.tb_ngay21 = new System.Windows.Forms.TextBox();
-            this.tb_ngay14 = new System.Windows.Forms.TextBox();
-            this.tb_ngay7 = new System.Windows.Forms.TextBox();
-            this.tb_ngay0 = new System.Windows.Forms.TextBox();
-            this.tb_coating = new System.Windows.Forms.TextBox();
-            this.tb_do_am = new System.Windows.Forms.TextBox();
-            this.panel7 = new System.Windows.Forms.Panel();
-            this.label80 = new System.Windows.Forms.Label();
-            this.label93 = new System.Windows.Forms.Label();
-            this.label84 = new System.Windows.Forms.Label();
-            this.label65 = new System.Windows.Forms.Label();
-            this.label81 = new System.Windows.Forms.Label();
-            this.label82 = new System.Windows.Forms.Label();
-            this.label66 = new System.Windows.Forms.Label();
-            this.label83 = new System.Windows.Forms.Label();
-            this.label68 = new System.Windows.Forms.Label();
-            this.label78 = new System.Windows.Forms.Label();
-            this.label72 = new System.Windows.Forms.Label();
-            this.label79 = new System.Windows.Forms.Label();
-            this.label71 = new System.Windows.Forms.Label();
-            this.label70 = new System.Windows.Forms.Label();
-            this.label77 = new System.Windows.Forms.Label();
-            this.label73 = new System.Windows.Forms.Label();
-            this.label74 = new System.Windows.Forms.Label();
-            this.btt_updata_release = new System.Windows.Forms.Button();
-            this.label49 = new System.Windows.Forms.Label();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label33 = new System.Windows.Forms.Label();
-            this.label43 = new System.Windows.Forms.Label();
-            this.tb_lot_release = new System.Windows.Forms.TextBox();
-            this.label47 = new System.Windows.Forms.Label();
-            this.tb_dotsx_release = new System.Windows.Forms.TextBox();
-            this.tb_ngaysx_tabrelease = new System.Windows.Forms.TextBox();
-            this.pn_loading_release = new System.Windows.Forms.Panel();
-            this.label105 = new System.Windows.Forms.Label();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.dataGridView3 = new System.Windows.Forms.DataGridView();
             this.tabPagehistorylogin = new System.Windows.Forms.TabPage();
             this.btnxoals = new System.Windows.Forms.Button();
             this.dataGridViewblogtruycap = new System.Windows.Forms.DataGridView();
@@ -597,37 +628,6 @@ namespace NhatKySanXuat
             this.lb_history = new System.Windows.Forms.Label();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column81 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column79 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column83 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column84 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column112 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column82 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column85 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column86 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column88 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column87 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column89 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column90 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column91 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column92 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column93 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column94 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column95 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column96 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column97 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column22 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column23 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
             this.tabPageblogsx.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -641,9 +641,6 @@ namespace NhatKySanXuat
             this.pnloading.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            this.tabPageImportexcel.SuspendLayout();
-            this.panel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.tabPageNhaprelease.SuspendLayout();
             this.panel6.SuspendLayout();
             this.panel7.SuspendLayout();
@@ -651,6 +648,9 @@ namespace NhatKySanXuat
             this.pn_loading_release.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
+            this.tabPageImportexcel.SuspendLayout();
+            this.panel5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.tabPagehistorylogin.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewblogtruycap)).BeginInit();
             this.panel2.SuspendLayout();
@@ -2112,6 +2112,103 @@ namespace NhatKySanXuat
             this.dgv_coater_s1.TabIndex = 225;
             this.dgv_coater_s1.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgv_coater_s1_CellMouseDoubleClick);
             // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.DataPropertyName = "DOT_SX";
+            dataGridViewCellStyle102.BackColor = System.Drawing.SystemColors.Info;
+            this.dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle102;
+            this.dataGridViewTextBoxColumn1.HeaderText = "Đợt Sản Xuất";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            this.dataGridViewTextBoxColumn1.Width = 40;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.DataPropertyName = "ME_THU";
+            this.dataGridViewTextBoxColumn2.HeaderText = "Mẻ Số";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            this.dataGridViewTextBoxColumn2.Width = 40;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.dataGridViewTextBoxColumn3.DataPropertyName = "SO_LOT";
+            dataGridViewCellStyle103.BackColor = System.Drawing.SystemColors.Info;
+            this.dataGridViewTextBoxColumn3.DefaultCellStyle = dataGridViewCellStyle103;
+            this.dataGridViewTextBoxColumn3.HeaderText = "Số LOT";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            this.dataGridViewTextBoxColumn3.Width = 81;
+            // 
+            // dataGridViewTextBoxColumn8
+            // 
+            this.dataGridViewTextBoxColumn8.DataPropertyName = "MA_TB";
+            this.dataGridViewTextBoxColumn8.HeaderText = "MS Thiết Bị";
+            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
+            this.dataGridViewTextBoxColumn8.ReadOnly = true;
+            this.dataGridViewTextBoxColumn8.Width = 50;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.dataGridViewTextBoxColumn4.DataPropertyName = "TG_BD";
+            dataGridViewCellStyle104.BackColor = System.Drawing.SystemColors.Info;
+            this.dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle104;
+            this.dataGridViewTextBoxColumn4.HeaderText = "TG Bắt Đầu";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.ReadOnly = true;
+            this.dataGridViewTextBoxColumn4.Width = 107;
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            this.dataGridViewTextBoxColumn5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.dataGridViewTextBoxColumn5.DataPropertyName = "TG_KT";
+            this.dataGridViewTextBoxColumn5.HeaderText = "TG Kết thúc";
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            this.dataGridViewTextBoxColumn5.ReadOnly = true;
+            this.dataGridViewTextBoxColumn5.Width = 108;
+            // 
+            // Column22
+            // 
+            this.Column22.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Column22.DataPropertyName = "LOAI_SP";
+            dataGridViewCellStyle105.BackColor = System.Drawing.SystemColors.Info;
+            this.Column22.DefaultCellStyle = dataGridViewCellStyle105;
+            this.Column22.HeaderText = "Mã BTP";
+            this.Column22.Name = "Column22";
+            this.Column22.ReadOnly = true;
+            this.Column22.Width = 82;
+            // 
+            // Column23
+            // 
+            this.Column23.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Column23.DataPropertyName = "KL_NL";
+            this.Column23.HeaderText = "KL NL";
+            this.Column23.Name = "Column23";
+            this.Column23.ReadOnly = true;
+            this.Column23.Width = 71;
+            // 
+            // dataGridViewTextBoxColumn6
+            // 
+            this.dataGridViewTextBoxColumn6.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.dataGridViewTextBoxColumn6.DataPropertyName = "NV_VH";
+            dataGridViewCellStyle106.BackColor = System.Drawing.SystemColors.Info;
+            this.dataGridViewTextBoxColumn6.DefaultCellStyle = dataGridViewCellStyle106;
+            this.dataGridViewTextBoxColumn6.HeaderText = "NV Vận Hành";
+            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
+            this.dataGridViewTextBoxColumn6.ReadOnly = true;
+            this.dataGridViewTextBoxColumn6.Width = 118;
+            // 
+            // dataGridViewTextBoxColumn7
+            // 
+            this.dataGridViewTextBoxColumn7.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.dataGridViewTextBoxColumn7.DataPropertyName = "TRUONG_CA";
+            this.dataGridViewTextBoxColumn7.HeaderText = "Trưởng Ca";
+            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
+            this.dataGridViewTextBoxColumn7.ReadOnly = true;
+            this.dataGridViewTextBoxColumn7.Width = 99;
+            // 
             // tbngay_release
             // 
             this.tbngay_release.Location = new System.Drawing.Point(108, 270);
@@ -2409,6 +2506,7 @@ namespace NhatKySanXuat
             this.tbLOTN3.BackColor = System.Drawing.Color.CornflowerBlue;
             this.tbLOTN3.Location = new System.Drawing.Point(1232, 37);
             this.tbLOTN3.Name = "tbLOTN3";
+            this.tbLOTN3.ReadOnly = true;
             this.tbLOTN3.Size = new System.Drawing.Size(93, 23);
             this.tbLOTN3.TabIndex = 61;
             // 
@@ -2417,6 +2515,7 @@ namespace NhatKySanXuat
             this.tbLOTN2.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.tbLOTN2.Location = new System.Drawing.Point(853, 223);
             this.tbLOTN2.Name = "tbLOTN2";
+            this.tbLOTN2.ReadOnly = true;
             this.tbLOTN2.Size = new System.Drawing.Size(93, 23);
             this.tbLOTN2.TabIndex = 49;
             // 
@@ -2425,6 +2524,7 @@ namespace NhatKySanXuat
             this.tbLOTN1.BackColor = System.Drawing.Color.SkyBlue;
             this.tbLOTN1.Location = new System.Drawing.Point(853, 94);
             this.tbLOTN1.Name = "tbLOTN1";
+            this.tbLOTN1.ReadOnly = true;
             this.tbLOTN1.Size = new System.Drawing.Size(93, 23);
             this.tbLOTN1.TabIndex = 34;
             // 
@@ -2532,6 +2632,7 @@ namespace NhatKySanXuat
             this.tbbarcodeN3.BackColor = System.Drawing.Color.CornflowerBlue;
             this.tbbarcodeN3.Location = new System.Drawing.Point(1148, 37);
             this.tbbarcodeN3.Name = "tbbarcodeN3";
+            this.tbbarcodeN3.ReadOnly = true;
             this.tbbarcodeN3.Size = new System.Drawing.Size(78, 23);
             this.tbbarcodeN3.TabIndex = 60;
             // 
@@ -2540,6 +2641,7 @@ namespace NhatKySanXuat
             this.tbbarcodeN2.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.tbbarcodeN2.Location = new System.Drawing.Point(769, 223);
             this.tbbarcodeN2.Name = "tbbarcodeN2";
+            this.tbbarcodeN2.ReadOnly = true;
             this.tbbarcodeN2.Size = new System.Drawing.Size(78, 23);
             this.tbbarcodeN2.TabIndex = 48;
             // 
@@ -2548,6 +2650,7 @@ namespace NhatKySanXuat
             this.tbbarcodeN1.BackColor = System.Drawing.Color.SkyBlue;
             this.tbbarcodeN1.Location = new System.Drawing.Point(769, 94);
             this.tbbarcodeN1.Name = "tbbarcodeN1";
+            this.tbbarcodeN1.ReadOnly = true;
             this.tbbarcodeN1.Size = new System.Drawing.Size(78, 23);
             this.tbbarcodeN1.TabIndex = 33;
             // 
@@ -2689,6 +2792,7 @@ namespace NhatKySanXuat
             this.tbn3190.Location = new System.Drawing.Point(1066, 37);
             this.tbn3190.MaxLength = 10;
             this.tbn3190.Name = "tbn3190";
+            this.tbn3190.ReadOnly = true;
             this.tbn3190.Size = new System.Drawing.Size(77, 23);
             this.tbn3190.TabIndex = 59;
             // 
@@ -2728,6 +2832,7 @@ namespace NhatKySanXuat
             this.tbn221.Location = new System.Drawing.Point(686, 223);
             this.tbn221.MaxLength = 10;
             this.tbn221.Name = "tbn221";
+            this.tbn221.ReadOnly = true;
             this.tbn221.Size = new System.Drawing.Size(77, 23);
             this.tbn221.TabIndex = 47;
             // 
@@ -2827,9 +2932,9 @@ namespace NhatKySanXuat
             this.label17.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.label17.Location = new System.Drawing.Point(248, 188);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(121, 17);
+            this.label17.Size = new System.Drawing.Size(118, 17);
             this.label17.TabIndex = 16;
-            this.label17.Text = "Hiệu suất thu (kg)";
+            this.label17.Text = "Hiệu suất thu (%)";
             // 
             // label18
             // 
@@ -2877,6 +2982,7 @@ namespace NhatKySanXuat
             this.tbn1157.Location = new System.Drawing.Point(686, 94);
             this.tbn1157.MaxLength = 10;
             this.tbn1157.Name = "tbn1157";
+            this.tbn1157.ReadOnly = true;
             this.tbn1157.Size = new System.Drawing.Size(77, 23);
             this.tbn1157.TabIndex = 32;
             // 
@@ -2925,7 +3031,6 @@ namespace NhatKySanXuat
             this.tbkhoiluongdongkhoi.Name = "tbkhoiluongdongkhoi";
             this.tbkhoiluongdongkhoi.Size = new System.Drawing.Size(69, 23);
             this.tbkhoiluongdongkhoi.TabIndex = 15;
-            this.tbkhoiluongdongkhoi.Leave += new System.EventHandler(this.tbkhoiluongdongkhoi_Leave);
             // 
             // tbtongklspthuduoc
             // 
@@ -2943,6 +3048,7 @@ namespace NhatKySanXuat
             this.tbhieusuatrelease.Name = "tbhieusuatrelease";
             this.tbhieusuatrelease.Size = new System.Drawing.Size(69, 23);
             this.tbhieusuatrelease.TabIndex = 21;
+            this.tbhieusuatrelease.Click += new System.EventHandler(this.tbhieusuatrelease_Click);
             // 
             // tbthoigiancb
             // 
@@ -3242,8 +3348,8 @@ namespace NhatKySanXuat
             // 
             // Column2
             // 
-            dataGridViewCellStyle102.BackColor = System.Drawing.Color.LightCyan;
-            this.Column2.DefaultCellStyle = dataGridViewCellStyle102;
+            dataGridViewCellStyle107.BackColor = System.Drawing.Color.LightCyan;
+            this.Column2.DefaultCellStyle = dataGridViewCellStyle107;
             this.Column2.HeaderText = "Người Nhập";
             this.Column2.Name = "Column2";
             this.Column2.ReadOnly = true;
@@ -3251,8 +3357,8 @@ namespace NhatKySanXuat
             // 
             // Column3
             // 
-            dataGridViewCellStyle103.BackColor = System.Drawing.Color.White;
-            this.Column3.DefaultCellStyle = dataGridViewCellStyle103;
+            dataGridViewCellStyle108.BackColor = System.Drawing.Color.White;
+            this.Column3.DefaultCellStyle = dataGridViewCellStyle108;
             this.Column3.HeaderText = "Đợt SX";
             this.Column3.Name = "Column3";
             this.Column3.ReadOnly = true;
@@ -3260,8 +3366,8 @@ namespace NhatKySanXuat
             // 
             // Column4
             // 
-            dataGridViewCellStyle104.BackColor = System.Drawing.Color.LightCyan;
-            this.Column4.DefaultCellStyle = dataGridViewCellStyle104;
+            dataGridViewCellStyle109.BackColor = System.Drawing.Color.LightCyan;
+            this.Column4.DefaultCellStyle = dataGridViewCellStyle109;
             this.Column4.HeaderText = "Ngày SX";
             this.Column4.Name = "Column4";
             this.Column4.ReadOnly = true;
@@ -3269,8 +3375,8 @@ namespace NhatKySanXuat
             // Column5
             // 
             this.Column5.DataPropertyName = "thiet_bi";
-            dataGridViewCellStyle105.BackColor = System.Drawing.Color.White;
-            this.Column5.DefaultCellStyle = dataGridViewCellStyle105;
+            dataGridViewCellStyle110.BackColor = System.Drawing.Color.White;
+            this.Column5.DefaultCellStyle = dataGridViewCellStyle110;
             this.Column5.HeaderText = "Thiết bị";
             this.Column5.Name = "Column5";
             this.Column5.ReadOnly = true;
@@ -3279,8 +3385,8 @@ namespace NhatKySanXuat
             // Column6
             // 
             this.Column6.DataPropertyName = "ma_BTP";
-            dataGridViewCellStyle106.BackColor = System.Drawing.Color.LightCyan;
-            this.Column6.DefaultCellStyle = dataGridViewCellStyle106;
+            dataGridViewCellStyle111.BackColor = System.Drawing.Color.LightCyan;
+            this.Column6.DefaultCellStyle = dataGridViewCellStyle111;
             this.Column6.HeaderText = "Mã BTP";
             this.Column6.Name = "Column6";
             this.Column6.ReadOnly = true;
@@ -3289,8 +3395,8 @@ namespace NhatKySanXuat
             // Column7
             // 
             this.Column7.DataPropertyName = "ten_BTP";
-            dataGridViewCellStyle107.BackColor = System.Drawing.Color.White;
-            this.Column7.DefaultCellStyle = dataGridViewCellStyle107;
+            dataGridViewCellStyle112.BackColor = System.Drawing.Color.White;
+            this.Column7.DefaultCellStyle = dataGridViewCellStyle112;
             this.Column7.HeaderText = "Tên BTP";
             this.Column7.Name = "Column7";
             this.Column7.ReadOnly = true;
@@ -3299,8 +3405,8 @@ namespace NhatKySanXuat
             // Column8
             // 
             this.Column8.DataPropertyName = "me";
-            dataGridViewCellStyle108.BackColor = System.Drawing.Color.LightCyan;
-            this.Column8.DefaultCellStyle = dataGridViewCellStyle108;
+            dataGridViewCellStyle113.BackColor = System.Drawing.Color.LightCyan;
+            this.Column8.DefaultCellStyle = dataGridViewCellStyle113;
             this.Column8.HeaderText = "Số Mẻ";
             this.Column8.Name = "Column8";
             this.Column8.ReadOnly = true;
@@ -3309,8 +3415,8 @@ namespace NhatKySanXuat
             // Column9
             // 
             this.Column9.DataPropertyName = "LOT";
-            dataGridViewCellStyle109.BackColor = System.Drawing.Color.White;
-            this.Column9.DefaultCellStyle = dataGridViewCellStyle109;
+            dataGridViewCellStyle114.BackColor = System.Drawing.Color.White;
+            this.Column9.DefaultCellStyle = dataGridViewCellStyle114;
             this.Column9.HeaderText = "LOT";
             this.Column9.Name = "Column9";
             this.Column9.ReadOnly = true;
@@ -3319,8 +3425,8 @@ namespace NhatKySanXuat
             // Column10
             // 
             this.Column10.DataPropertyName = "tocdo_release";
-            dataGridViewCellStyle110.BackColor = System.Drawing.Color.LightCyan;
-            this.Column10.DefaultCellStyle = dataGridViewCellStyle110;
+            dataGridViewCellStyle115.BackColor = System.Drawing.Color.LightCyan;
+            this.Column10.DefaultCellStyle = dataGridViewCellStyle115;
             this.Column10.HeaderText = "Tốc độ release";
             this.Column10.Name = "Column10";
             this.Column10.ReadOnly = true;
@@ -3329,8 +3435,8 @@ namespace NhatKySanXuat
             // Column11
             // 
             this.Column11.DataPropertyName = "ngay_release";
-            dataGridViewCellStyle111.BackColor = System.Drawing.Color.White;
-            this.Column11.DefaultCellStyle = dataGridViewCellStyle111;
+            dataGridViewCellStyle116.BackColor = System.Drawing.Color.White;
+            this.Column11.DefaultCellStyle = dataGridViewCellStyle116;
             this.Column11.HeaderText = "Ngày release";
             this.Column11.Name = "Column11";
             this.Column11.ReadOnly = true;
@@ -3338,8 +3444,8 @@ namespace NhatKySanXuat
             // Column12
             // 
             this.Column12.DataPropertyName = "loai";
-            dataGridViewCellStyle112.BackColor = System.Drawing.Color.LightCyan;
-            this.Column12.DefaultCellStyle = dataGridViewCellStyle112;
+            dataGridViewCellStyle117.BackColor = System.Drawing.Color.LightCyan;
+            this.Column12.DefaultCellStyle = dataGridViewCellStyle117;
             this.Column12.HeaderText = "Loại";
             this.Column12.Name = "Column12";
             this.Column12.ReadOnly = true;
@@ -3347,8 +3453,8 @@ namespace NhatKySanXuat
             // 
             // Column14
             // 
-            dataGridViewCellStyle113.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.Column14.DefaultCellStyle = dataGridViewCellStyle113;
+            dataGridViewCellStyle118.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.Column14.DefaultCellStyle = dataGridViewCellStyle118;
             this.Column14.HeaderText = "KL SP thu được";
             this.Column14.Name = "Column14";
             this.Column14.ReadOnly = true;
@@ -3356,9 +3462,9 @@ namespace NhatKySanXuat
             // 
             // Column76
             // 
-            dataGridViewCellStyle114.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle114.BackColor = System.Drawing.Color.LightCyan;
-            this.Column76.DefaultCellStyle = dataGridViewCellStyle114;
+            dataGridViewCellStyle119.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle119.BackColor = System.Drawing.Color.LightCyan;
+            this.Column76.DefaultCellStyle = dataGridViewCellStyle119;
             this.Column76.HeaderText = "Vị trí";
             this.Column76.Name = "Column76";
             this.Column76.ReadOnly = true;
@@ -3366,8 +3472,8 @@ namespace NhatKySanXuat
             // 
             // Column15
             // 
-            dataGridViewCellStyle115.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.Column15.DefaultCellStyle = dataGridViewCellStyle115;
+            dataGridViewCellStyle120.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.Column15.DefaultCellStyle = dataGridViewCellStyle120;
             this.Column15.HeaderText = "KL SP đóng khói";
             this.Column15.Name = "Column15";
             this.Column15.ReadOnly = true;
@@ -3375,9 +3481,9 @@ namespace NhatKySanXuat
             // 
             // Column77
             // 
-            dataGridViewCellStyle116.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle116.BackColor = System.Drawing.Color.LightCyan;
-            this.Column77.DefaultCellStyle = dataGridViewCellStyle116;
+            dataGridViewCellStyle121.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle121.BackColor = System.Drawing.Color.LightCyan;
+            this.Column77.DefaultCellStyle = dataGridViewCellStyle121;
             this.Column77.HeaderText = "Vị trí";
             this.Column77.Name = "Column77";
             this.Column77.ReadOnly = true;
@@ -3385,8 +3491,8 @@ namespace NhatKySanXuat
             // 
             // Column16
             // 
-            dataGridViewCellStyle117.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.Column16.DefaultCellStyle = dataGridViewCellStyle117;
+            dataGridViewCellStyle122.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.Column16.DefaultCellStyle = dataGridViewCellStyle122;
             this.Column16.HeaderText = "KL SP không đóng khói";
             this.Column16.Name = "Column16";
             this.Column16.ReadOnly = true;
@@ -3394,9 +3500,9 @@ namespace NhatKySanXuat
             // 
             // Column78
             // 
-            dataGridViewCellStyle118.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle118.BackColor = System.Drawing.Color.LightCyan;
-            this.Column78.DefaultCellStyle = dataGridViewCellStyle118;
+            dataGridViewCellStyle123.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle123.BackColor = System.Drawing.Color.LightCyan;
+            this.Column78.DefaultCellStyle = dataGridViewCellStyle123;
             this.Column78.HeaderText = "Vị trí";
             this.Column78.Name = "Column78";
             this.Column78.ReadOnly = true;
@@ -3404,8 +3510,8 @@ namespace NhatKySanXuat
             // 
             // Column17
             // 
-            dataGridViewCellStyle119.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.Column17.DefaultCellStyle = dataGridViewCellStyle119;
+            dataGridViewCellStyle124.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.Column17.DefaultCellStyle = dataGridViewCellStyle124;
             this.Column17.HeaderText = "KL lý thuyết";
             this.Column17.Name = "Column17";
             this.Column17.ReadOnly = true;
@@ -3413,9 +3519,9 @@ namespace NhatKySanXuat
             // 
             // Column18
             // 
-            dataGridViewCellStyle120.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle120.BackColor = System.Drawing.Color.LightCyan;
-            this.Column18.DefaultCellStyle = dataGridViewCellStyle120;
+            dataGridViewCellStyle125.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle125.BackColor = System.Drawing.Color.LightCyan;
+            this.Column18.DefaultCellStyle = dataGridViewCellStyle125;
             this.Column18.HeaderText = "Hiệu suất thu";
             this.Column18.Name = "Column18";
             this.Column18.ReadOnly = true;
@@ -3423,8 +3529,8 @@ namespace NhatKySanXuat
             // 
             // Column19
             // 
-            dataGridViewCellStyle121.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.Column19.DefaultCellStyle = dataGridViewCellStyle121;
+            dataGridViewCellStyle126.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.Column19.DefaultCellStyle = dataGridViewCellStyle126;
             this.Column19.HeaderText = "Hiệu suất release";
             this.Column19.Name = "Column19";
             this.Column19.ReadOnly = true;
@@ -3432,8 +3538,8 @@ namespace NhatKySanXuat
             // 
             // Column20
             // 
-            dataGridViewCellStyle122.BackColor = System.Drawing.Color.LightCyan;
-            this.Column20.DefaultCellStyle = dataGridViewCellStyle122;
+            dataGridViewCellStyle127.BackColor = System.Drawing.Color.LightCyan;
+            this.Column20.DefaultCellStyle = dataGridViewCellStyle127;
             this.Column20.HeaderText = "Thời gian cb sx";
             this.Column20.Name = "Column20";
             this.Column20.ReadOnly = true;
@@ -3448,8 +3554,8 @@ namespace NhatKySanXuat
             // 
             // Column26
             // 
-            dataGridViewCellStyle123.BackColor = System.Drawing.Color.LightCyan;
-            this.Column26.DefaultCellStyle = dataGridViewCellStyle123;
+            dataGridViewCellStyle128.BackColor = System.Drawing.Color.LightCyan;
+            this.Column26.DefaultCellStyle = dataGridViewCellStyle128;
             this.Column26.HeaderText = "Phân bón NVL";
             this.Column26.Name = "Column26";
             this.Column26.ReadOnly = true;
@@ -3457,8 +3563,8 @@ namespace NhatKySanXuat
             // 
             // Column27
             // 
-            dataGridViewCellStyle124.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.Column27.DefaultCellStyle = dataGridViewCellStyle124;
+            dataGridViewCellStyle129.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.Column27.DefaultCellStyle = dataGridViewCellStyle129;
             this.Column27.HeaderText = "Khối lượng";
             this.Column27.Name = "Column27";
             this.Column27.ReadOnly = true;
@@ -3466,8 +3572,8 @@ namespace NhatKySanXuat
             // 
             // Column28
             // 
-            dataGridViewCellStyle125.BackColor = System.Drawing.Color.LightCyan;
-            this.Column28.DefaultCellStyle = dataGridViewCellStyle125;
+            dataGridViewCellStyle130.BackColor = System.Drawing.Color.LightCyan;
+            this.Column28.DefaultCellStyle = dataGridViewCellStyle130;
             this.Column28.HeaderText = "Barcode";
             this.Column28.Name = "Column28";
             this.Column28.ReadOnly = true;
@@ -3481,9 +3587,9 @@ namespace NhatKySanXuat
             // 
             // Column30
             // 
-            dataGridViewCellStyle126.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle126.BackColor = System.Drawing.Color.LightCyan;
-            this.Column30.DefaultCellStyle = dataGridViewCellStyle126;
+            dataGridViewCellStyle131.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle131.BackColor = System.Drawing.Color.LightCyan;
+            this.Column30.DefaultCellStyle = dataGridViewCellStyle131;
             this.Column30.HeaderText = "N1-157";
             this.Column30.Name = "Column30";
             this.Column30.ReadOnly = true;
@@ -3498,16 +3604,16 @@ namespace NhatKySanXuat
             // 
             // Column32
             // 
-            dataGridViewCellStyle127.BackColor = System.Drawing.Color.LightCyan;
-            this.Column32.DefaultCellStyle = dataGridViewCellStyle127;
+            dataGridViewCellStyle132.BackColor = System.Drawing.Color.LightCyan;
+            this.Column32.DefaultCellStyle = dataGridViewCellStyle132;
             this.Column32.HeaderText = "LOT";
             this.Column32.Name = "Column32";
             this.Column32.ReadOnly = true;
             // 
             // Column33
             // 
-            dataGridViewCellStyle128.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.Column33.DefaultCellStyle = dataGridViewCellStyle128;
+            dataGridViewCellStyle133.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.Column33.DefaultCellStyle = dataGridViewCellStyle133;
             this.Column33.HeaderText = "N2-21";
             this.Column33.Name = "Column33";
             this.Column33.ReadOnly = true;
@@ -3515,8 +3621,8 @@ namespace NhatKySanXuat
             // 
             // Column34
             // 
-            dataGridViewCellStyle129.BackColor = System.Drawing.Color.LightCyan;
-            this.Column34.DefaultCellStyle = dataGridViewCellStyle129;
+            dataGridViewCellStyle134.BackColor = System.Drawing.Color.LightCyan;
+            this.Column34.DefaultCellStyle = dataGridViewCellStyle134;
             this.Column34.HeaderText = "Barcode";
             this.Column34.Name = "Column34";
             this.Column34.ReadOnly = true;
@@ -3530,9 +3636,9 @@ namespace NhatKySanXuat
             // 
             // Column36
             // 
-            dataGridViewCellStyle130.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle130.BackColor = System.Drawing.Color.LightCyan;
-            this.Column36.DefaultCellStyle = dataGridViewCellStyle130;
+            dataGridViewCellStyle135.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle135.BackColor = System.Drawing.Color.LightCyan;
+            this.Column36.DefaultCellStyle = dataGridViewCellStyle135;
             this.Column36.HeaderText = "N3-190";
             this.Column36.Name = "Column36";
             this.Column36.ReadOnly = true;
@@ -3547,16 +3653,16 @@ namespace NhatKySanXuat
             // 
             // Column38
             // 
-            dataGridViewCellStyle131.BackColor = System.Drawing.Color.LightCyan;
-            this.Column38.DefaultCellStyle = dataGridViewCellStyle131;
+            dataGridViewCellStyle136.BackColor = System.Drawing.Color.LightCyan;
+            this.Column38.DefaultCellStyle = dataGridViewCellStyle136;
             this.Column38.HeaderText = "LOT";
             this.Column38.Name = "Column38";
             this.Column38.ReadOnly = true;
             // 
             // Column39
             // 
-            dataGridViewCellStyle132.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.Column39.DefaultCellStyle = dataGridViewCellStyle132;
+            dataGridViewCellStyle137.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.Column39.DefaultCellStyle = dataGridViewCellStyle137;
             this.Column39.HeaderText = "GA3";
             this.Column39.Name = "Column39";
             this.Column39.ReadOnly = true;
@@ -3564,8 +3670,8 @@ namespace NhatKySanXuat
             // 
             // Column40
             // 
-            dataGridViewCellStyle133.BackColor = System.Drawing.Color.LightCyan;
-            this.Column40.DefaultCellStyle = dataGridViewCellStyle133;
+            dataGridViewCellStyle138.BackColor = System.Drawing.Color.LightCyan;
+            this.Column40.DefaultCellStyle = dataGridViewCellStyle138;
             this.Column40.HeaderText = "Barcode";
             this.Column40.Name = "Column40";
             this.Column40.ReadOnly = true;
@@ -3573,8 +3679,8 @@ namespace NhatKySanXuat
             // 
             // Column41
             // 
-            dataGridViewCellStyle134.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.Column41.DefaultCellStyle = dataGridViewCellStyle134;
+            dataGridViewCellStyle139.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.Column41.DefaultCellStyle = dataGridViewCellStyle139;
             this.Column41.HeaderText = "Borax";
             this.Column41.Name = "Column41";
             this.Column41.ReadOnly = true;
@@ -3582,8 +3688,8 @@ namespace NhatKySanXuat
             // 
             // Column42
             // 
-            dataGridViewCellStyle135.BackColor = System.Drawing.Color.LightCyan;
-            this.Column42.DefaultCellStyle = dataGridViewCellStyle135;
+            dataGridViewCellStyle140.BackColor = System.Drawing.Color.LightCyan;
+            this.Column42.DefaultCellStyle = dataGridViewCellStyle140;
             this.Column42.HeaderText = "Barcode";
             this.Column42.Name = "Column42";
             this.Column42.ReadOnly = true;
@@ -3591,8 +3697,8 @@ namespace NhatKySanXuat
             // 
             // Column43
             // 
-            dataGridViewCellStyle136.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.Column43.DefaultCellStyle = dataGridViewCellStyle136;
+            dataGridViewCellStyle141.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.Column43.DefaultCellStyle = dataGridViewCellStyle141;
             this.Column43.HeaderText = "Naa";
             this.Column43.Name = "Column43";
             this.Column43.ReadOnly = true;
@@ -3600,8 +3706,8 @@ namespace NhatKySanXuat
             // 
             // Column44
             // 
-            dataGridViewCellStyle137.BackColor = System.Drawing.Color.LightCyan;
-            this.Column44.DefaultCellStyle = dataGridViewCellStyle137;
+            dataGridViewCellStyle142.BackColor = System.Drawing.Color.LightCyan;
+            this.Column44.DefaultCellStyle = dataGridViewCellStyle142;
             this.Column44.HeaderText = "Barcode";
             this.Column44.Name = "Column44";
             this.Column44.ReadOnly = true;
@@ -3609,8 +3715,8 @@ namespace NhatKySanXuat
             // 
             // Column45
             // 
-            dataGridViewCellStyle138.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.Column45.DefaultCellStyle = dataGridViewCellStyle138;
+            dataGridViewCellStyle143.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.Column45.DefaultCellStyle = dataGridViewCellStyle143;
             this.Column45.HeaderText = "Sodium";
             this.Column45.Name = "Column45";
             this.Column45.ReadOnly = true;
@@ -3618,8 +3724,8 @@ namespace NhatKySanXuat
             // 
             // Column46
             // 
-            dataGridViewCellStyle139.BackColor = System.Drawing.Color.LightCyan;
-            this.Column46.DefaultCellStyle = dataGridViewCellStyle139;
+            dataGridViewCellStyle144.BackColor = System.Drawing.Color.LightCyan;
+            this.Column46.DefaultCellStyle = dataGridViewCellStyle144;
             this.Column46.HeaderText = "Barcode";
             this.Column46.Name = "Column46";
             this.Column46.ReadOnly = true;
@@ -3627,8 +3733,8 @@ namespace NhatKySanXuat
             // 
             // Column47
             // 
-            dataGridViewCellStyle140.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.Column47.DefaultCellStyle = dataGridViewCellStyle140;
+            dataGridViewCellStyle145.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.Column47.DefaultCellStyle = dataGridViewCellStyle145;
             this.Column47.HeaderText = "Citric";
             this.Column47.Name = "Column47";
             this.Column47.ReadOnly = true;
@@ -3636,8 +3742,8 @@ namespace NhatKySanXuat
             // 
             // Column48
             // 
-            dataGridViewCellStyle141.BackColor = System.Drawing.Color.LightCyan;
-            this.Column48.DefaultCellStyle = dataGridViewCellStyle141;
+            dataGridViewCellStyle146.BackColor = System.Drawing.Color.LightCyan;
+            this.Column48.DefaultCellStyle = dataGridViewCellStyle146;
             this.Column48.HeaderText = "Barcode";
             this.Column48.Name = "Column48";
             this.Column48.ReadOnly = true;
@@ -3645,8 +3751,8 @@ namespace NhatKySanXuat
             // 
             // Column49
             // 
-            dataGridViewCellStyle142.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.Column49.DefaultCellStyle = dataGridViewCellStyle142;
+            dataGridViewCellStyle147.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.Column49.DefaultCellStyle = dataGridViewCellStyle147;
             this.Column49.HeaderText = "NaOH";
             this.Column49.Name = "Column49";
             this.Column49.ReadOnly = true;
@@ -3654,8 +3760,8 @@ namespace NhatKySanXuat
             // 
             // Column50
             // 
-            dataGridViewCellStyle143.BackColor = System.Drawing.Color.LightCyan;
-            this.Column50.DefaultCellStyle = dataGridViewCellStyle143;
+            dataGridViewCellStyle148.BackColor = System.Drawing.Color.LightCyan;
+            this.Column50.DefaultCellStyle = dataGridViewCellStyle148;
             this.Column50.HeaderText = "Barcode";
             this.Column50.Name = "Column50";
             this.Column50.ReadOnly = true;
@@ -3663,8 +3769,8 @@ namespace NhatKySanXuat
             // 
             // Column51
             // 
-            dataGridViewCellStyle144.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.Column51.DefaultCellStyle = dataGridViewCellStyle144;
+            dataGridViewCellStyle149.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.Column51.DefaultCellStyle = dataGridViewCellStyle149;
             this.Column51.HeaderText = "Solubo";
             this.Column51.Name = "Column51";
             this.Column51.ReadOnly = true;
@@ -3672,8 +3778,8 @@ namespace NhatKySanXuat
             // 
             // Column52
             // 
-            dataGridViewCellStyle145.BackColor = System.Drawing.Color.LightCyan;
-            this.Column52.DefaultCellStyle = dataGridViewCellStyle145;
+            dataGridViewCellStyle150.BackColor = System.Drawing.Color.LightCyan;
+            this.Column52.DefaultCellStyle = dataGridViewCellStyle150;
             this.Column52.HeaderText = "Barcode";
             this.Column52.Name = "Column52";
             this.Column52.ReadOnly = true;
@@ -3681,8 +3787,8 @@ namespace NhatKySanXuat
             // 
             // Column53
             // 
-            dataGridViewCellStyle146.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.Column53.DefaultCellStyle = dataGridViewCellStyle146;
+            dataGridViewCellStyle151.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.Column53.DefaultCellStyle = dataGridViewCellStyle151;
             this.Column53.HeaderText = "EDTA";
             this.Column53.Name = "Column53";
             this.Column53.ReadOnly = true;
@@ -3690,8 +3796,8 @@ namespace NhatKySanXuat
             // 
             // Column54
             // 
-            dataGridViewCellStyle147.BackColor = System.Drawing.Color.LightCyan;
-            this.Column54.DefaultCellStyle = dataGridViewCellStyle147;
+            dataGridViewCellStyle152.BackColor = System.Drawing.Color.LightCyan;
+            this.Column54.DefaultCellStyle = dataGridViewCellStyle152;
             this.Column54.HeaderText = "Barcode";
             this.Column54.Name = "Column54";
             this.Column54.ReadOnly = true;
@@ -3699,8 +3805,8 @@ namespace NhatKySanXuat
             // 
             // Column55
             // 
-            dataGridViewCellStyle148.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.Column55.DefaultCellStyle = dataGridViewCellStyle148;
+            dataGridViewCellStyle153.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.Column55.DefaultCellStyle = dataGridViewCellStyle153;
             this.Column55.HeaderText = "RED";
             this.Column55.Name = "Column55";
             this.Column55.ReadOnly = true;
@@ -3708,8 +3814,8 @@ namespace NhatKySanXuat
             // 
             // Column56
             // 
-            dataGridViewCellStyle149.BackColor = System.Drawing.Color.LightCyan;
-            this.Column56.DefaultCellStyle = dataGridViewCellStyle149;
+            dataGridViewCellStyle154.BackColor = System.Drawing.Color.LightCyan;
+            this.Column56.DefaultCellStyle = dataGridViewCellStyle154;
             this.Column56.HeaderText = "Barcode";
             this.Column56.Name = "Column56";
             this.Column56.ReadOnly = true;
@@ -3717,8 +3823,8 @@ namespace NhatKySanXuat
             // 
             // Column57
             // 
-            dataGridViewCellStyle150.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.Column57.DefaultCellStyle = dataGridViewCellStyle150;
+            dataGridViewCellStyle155.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.Column57.DefaultCellStyle = dataGridViewCellStyle155;
             this.Column57.HeaderText = "Violet";
             this.Column57.Name = "Column57";
             this.Column57.ReadOnly = true;
@@ -3726,8 +3832,8 @@ namespace NhatKySanXuat
             // 
             // Column58
             // 
-            dataGridViewCellStyle151.BackColor = System.Drawing.Color.LightCyan;
-            this.Column58.DefaultCellStyle = dataGridViewCellStyle151;
+            dataGridViewCellStyle156.BackColor = System.Drawing.Color.LightCyan;
+            this.Column58.DefaultCellStyle = dataGridViewCellStyle156;
             this.Column58.HeaderText = "Barcode";
             this.Column58.Name = "Column58";
             this.Column58.ReadOnly = true;
@@ -3735,8 +3841,8 @@ namespace NhatKySanXuat
             // 
             // Column59
             // 
-            dataGridViewCellStyle152.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.Column59.DefaultCellStyle = dataGridViewCellStyle152;
+            dataGridViewCellStyle157.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.Column59.DefaultCellStyle = dataGridViewCellStyle157;
             this.Column59.HeaderText = "Blue";
             this.Column59.Name = "Column59";
             this.Column59.ReadOnly = true;
@@ -3744,8 +3850,8 @@ namespace NhatKySanXuat
             // 
             // Column60
             // 
-            dataGridViewCellStyle153.BackColor = System.Drawing.Color.LightCyan;
-            this.Column60.DefaultCellStyle = dataGridViewCellStyle153;
+            dataGridViewCellStyle158.BackColor = System.Drawing.Color.LightCyan;
+            this.Column60.DefaultCellStyle = dataGridViewCellStyle158;
             this.Column60.HeaderText = "Barcode";
             this.Column60.Name = "Column60";
             this.Column60.ReadOnly = true;
@@ -3753,8 +3859,8 @@ namespace NhatKySanXuat
             // 
             // Column61
             // 
-            dataGridViewCellStyle154.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.Column61.DefaultCellStyle = dataGridViewCellStyle154;
+            dataGridViewCellStyle159.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.Column61.DefaultCellStyle = dataGridViewCellStyle159;
             this.Column61.HeaderText = "Yellow";
             this.Column61.Name = "Column61";
             this.Column61.ReadOnly = true;
@@ -3762,8 +3868,8 @@ namespace NhatKySanXuat
             // 
             // Column62
             // 
-            dataGridViewCellStyle155.BackColor = System.Drawing.Color.LightCyan;
-            this.Column62.DefaultCellStyle = dataGridViewCellStyle155;
+            dataGridViewCellStyle160.BackColor = System.Drawing.Color.LightCyan;
+            this.Column62.DefaultCellStyle = dataGridViewCellStyle160;
             this.Column62.HeaderText = "Barcode";
             this.Column62.Name = "Column62";
             this.Column62.ReadOnly = true;
@@ -3771,8 +3877,8 @@ namespace NhatKySanXuat
             // 
             // Column63
             // 
-            dataGridViewCellStyle156.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.Column63.DefaultCellStyle = dataGridViewCellStyle156;
+            dataGridViewCellStyle161.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.Column63.DefaultCellStyle = dataGridViewCellStyle161;
             this.Column63.HeaderText = "Black";
             this.Column63.Name = "Column63";
             this.Column63.ReadOnly = true;
@@ -3780,8 +3886,8 @@ namespace NhatKySanXuat
             // 
             // Column64
             // 
-            dataGridViewCellStyle157.BackColor = System.Drawing.Color.LightCyan;
-            this.Column64.DefaultCellStyle = dataGridViewCellStyle157;
+            dataGridViewCellStyle162.BackColor = System.Drawing.Color.LightCyan;
+            this.Column64.DefaultCellStyle = dataGridViewCellStyle162;
             this.Column64.HeaderText = "Barcode";
             this.Column64.Name = "Column64";
             this.Column64.ReadOnly = true;
@@ -3789,8 +3895,8 @@ namespace NhatKySanXuat
             // 
             // Column65
             // 
-            dataGridViewCellStyle158.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.Column65.DefaultCellStyle = dataGridViewCellStyle158;
+            dataGridViewCellStyle163.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.Column65.DefaultCellStyle = dataGridViewCellStyle163;
             this.Column65.HeaderText = "Prev";
             this.Column65.Name = "Column65";
             this.Column65.ReadOnly = true;
@@ -3798,8 +3904,8 @@ namespace NhatKySanXuat
             // 
             // Column66
             // 
-            dataGridViewCellStyle159.BackColor = System.Drawing.Color.LightCyan;
-            this.Column66.DefaultCellStyle = dataGridViewCellStyle159;
+            dataGridViewCellStyle164.BackColor = System.Drawing.Color.LightCyan;
+            this.Column66.DefaultCellStyle = dataGridViewCellStyle164;
             this.Column66.HeaderText = "Barcode";
             this.Column66.Name = "Column66";
             this.Column66.ReadOnly = true;
@@ -3807,8 +3913,8 @@ namespace NhatKySanXuat
             // 
             // Column67
             // 
-            dataGridViewCellStyle160.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.Column67.DefaultCellStyle = dataGridViewCellStyle160;
+            dataGridViewCellStyle165.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.Column67.DefaultCellStyle = dataGridViewCellStyle165;
             this.Column67.HeaderText = "Than cám";
             this.Column67.Name = "Column67";
             this.Column67.ReadOnly = true;
@@ -3816,9 +3922,9 @@ namespace NhatKySanXuat
             // 
             // Column68
             // 
-            dataGridViewCellStyle161.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle161.BackColor = System.Drawing.Color.LightCyan;
-            this.Column68.DefaultCellStyle = dataGridViewCellStyle161;
+            dataGridViewCellStyle166.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle166.BackColor = System.Drawing.Color.LightCyan;
+            this.Column68.DefaultCellStyle = dataGridViewCellStyle166;
             this.Column68.HeaderText = "Điện";
             this.Column68.Name = "Column68";
             this.Column68.ReadOnly = true;
@@ -3826,8 +3932,8 @@ namespace NhatKySanXuat
             // 
             // Column69
             // 
-            dataGridViewCellStyle162.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.Column69.DefaultCellStyle = dataGridViewCellStyle162;
+            dataGridViewCellStyle167.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.Column69.DefaultCellStyle = dataGridViewCellStyle167;
             this.Column69.HeaderText = "Nước RO";
             this.Column69.Name = "Column69";
             this.Column69.ReadOnly = true;
@@ -3835,9 +3941,9 @@ namespace NhatKySanXuat
             // 
             // Column70
             // 
-            dataGridViewCellStyle163.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle163.BackColor = System.Drawing.Color.LightCyan;
-            this.Column70.DefaultCellStyle = dataGridViewCellStyle163;
+            dataGridViewCellStyle168.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle168.BackColor = System.Drawing.Color.LightCyan;
+            this.Column70.DefaultCellStyle = dataGridViewCellStyle168;
             this.Column70.HeaderText = "Nước thủy cục";
             this.Column70.Name = "Column70";
             this.Column70.ReadOnly = true;
@@ -3852,8 +3958,8 @@ namespace NhatKySanXuat
             // 
             // Column72
             // 
-            dataGridViewCellStyle164.BackColor = System.Drawing.Color.LightCyan;
-            this.Column72.DefaultCellStyle = dataGridViewCellStyle164;
+            dataGridViewCellStyle169.BackColor = System.Drawing.Color.LightCyan;
+            this.Column72.DefaultCellStyle = dataGridViewCellStyle169;
             this.Column72.HeaderText = "Ghi chú";
             this.Column72.Name = "Column72";
             this.Column72.ReadOnly = true;
@@ -3861,9 +3967,9 @@ namespace NhatKySanXuat
             // 
             // Column24
             // 
-            dataGridViewCellStyle165.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle165.BackColor = System.Drawing.Color.White;
-            this.Column24.DefaultCellStyle = dataGridViewCellStyle165;
+            dataGridViewCellStyle170.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle170.BackColor = System.Drawing.Color.White;
+            this.Column24.DefaultCellStyle = dataGridViewCellStyle170;
             this.Column24.HeaderText = "Độ ẩm(%)";
             this.Column24.Name = "Column24";
             this.Column24.ReadOnly = true;
@@ -3871,8 +3977,8 @@ namespace NhatKySanXuat
             // 
             // Column25
             // 
-            dataGridViewCellStyle166.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.Column25.DefaultCellStyle = dataGridViewCellStyle166;
+            dataGridViewCellStyle171.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.Column25.DefaultCellStyle = dataGridViewCellStyle171;
             this.Column25.HeaderText = "Coating layer(%)";
             this.Column25.Name = "Column25";
             this.Column25.ReadOnly = true;
@@ -3880,9 +3986,9 @@ namespace NhatKySanXuat
             // 
             // Column80
             // 
-            dataGridViewCellStyle167.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle167.BackColor = System.Drawing.Color.LightCyan;
-            this.Column80.DefaultCellStyle = dataGridViewCellStyle167;
+            dataGridViewCellStyle172.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle172.BackColor = System.Drawing.Color.LightCyan;
+            this.Column80.DefaultCellStyle = dataGridViewCellStyle172;
             this.Column80.HeaderText = "Thời Gian ổn định";
             this.Column80.Name = "Column80";
             this.Column80.ReadOnly = true;
@@ -3890,8 +3996,8 @@ namespace NhatKySanXuat
             // 
             // Column98
             // 
-            dataGridViewCellStyle168.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.Column98.DefaultCellStyle = dataGridViewCellStyle168;
+            dataGridViewCellStyle173.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.Column98.DefaultCellStyle = dataGridViewCellStyle173;
             this.Column98.HeaderText = "0 Ngày";
             this.Column98.Name = "Column98";
             this.Column98.ReadOnly = true;
@@ -3899,9 +4005,9 @@ namespace NhatKySanXuat
             // 
             // Column99
             // 
-            dataGridViewCellStyle169.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle169.BackColor = System.Drawing.Color.LightCyan;
-            this.Column99.DefaultCellStyle = dataGridViewCellStyle169;
+            dataGridViewCellStyle174.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle174.BackColor = System.Drawing.Color.LightCyan;
+            this.Column99.DefaultCellStyle = dataGridViewCellStyle174;
             this.Column99.HeaderText = "7 Ngày";
             this.Column99.Name = "Column99";
             this.Column99.ReadOnly = true;
@@ -3909,8 +4015,8 @@ namespace NhatKySanXuat
             // 
             // Column100
             // 
-            dataGridViewCellStyle170.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.Column100.DefaultCellStyle = dataGridViewCellStyle170;
+            dataGridViewCellStyle175.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.Column100.DefaultCellStyle = dataGridViewCellStyle175;
             this.Column100.HeaderText = "14 ngày";
             this.Column100.Name = "Column100";
             this.Column100.ReadOnly = true;
@@ -3918,9 +4024,9 @@ namespace NhatKySanXuat
             // 
             // Column101
             // 
-            dataGridViewCellStyle171.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle171.BackColor = System.Drawing.Color.LightCyan;
-            this.Column101.DefaultCellStyle = dataGridViewCellStyle171;
+            dataGridViewCellStyle176.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle176.BackColor = System.Drawing.Color.LightCyan;
+            this.Column101.DefaultCellStyle = dataGridViewCellStyle176;
             this.Column101.HeaderText = "21 Ngày";
             this.Column101.Name = "Column101";
             this.Column101.ReadOnly = true;
@@ -3928,8 +4034,8 @@ namespace NhatKySanXuat
             // 
             // Column102
             // 
-            dataGridViewCellStyle172.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.Column102.DefaultCellStyle = dataGridViewCellStyle172;
+            dataGridViewCellStyle177.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.Column102.DefaultCellStyle = dataGridViewCellStyle177;
             this.Column102.HeaderText = "28 Ngày";
             this.Column102.Name = "Column102";
             this.Column102.ReadOnly = true;
@@ -3937,9 +4043,9 @@ namespace NhatKySanXuat
             // 
             // Column103
             // 
-            dataGridViewCellStyle173.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle173.BackColor = System.Drawing.Color.LightCyan;
-            this.Column103.DefaultCellStyle = dataGridViewCellStyle173;
+            dataGridViewCellStyle178.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle178.BackColor = System.Drawing.Color.LightCyan;
+            this.Column103.DefaultCellStyle = dataGridViewCellStyle178;
             this.Column103.HeaderText = "42 Ngày";
             this.Column103.Name = "Column103";
             this.Column103.ReadOnly = true;
@@ -3947,8 +4053,8 @@ namespace NhatKySanXuat
             // 
             // Column104
             // 
-            dataGridViewCellStyle174.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.Column104.DefaultCellStyle = dataGridViewCellStyle174;
+            dataGridViewCellStyle179.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.Column104.DefaultCellStyle = dataGridViewCellStyle179;
             this.Column104.HeaderText = "49 Ngày";
             this.Column104.Name = "Column104";
             this.Column104.ReadOnly = true;
@@ -3956,9 +4062,9 @@ namespace NhatKySanXuat
             // 
             // Column105
             // 
-            dataGridViewCellStyle175.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle175.BackColor = System.Drawing.Color.LightCyan;
-            this.Column105.DefaultCellStyle = dataGridViewCellStyle175;
+            dataGridViewCellStyle180.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle180.BackColor = System.Drawing.Color.LightCyan;
+            this.Column105.DefaultCellStyle = dataGridViewCellStyle180;
             this.Column105.HeaderText = "56 Ngày";
             this.Column105.Name = "Column105";
             this.Column105.ReadOnly = true;
@@ -3966,8 +4072,8 @@ namespace NhatKySanXuat
             // 
             // Column106
             // 
-            dataGridViewCellStyle176.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.Column106.DefaultCellStyle = dataGridViewCellStyle176;
+            dataGridViewCellStyle181.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.Column106.DefaultCellStyle = dataGridViewCellStyle181;
             this.Column106.HeaderText = "70 Ngày";
             this.Column106.Name = "Column106";
             this.Column106.ReadOnly = true;
@@ -3975,9 +4081,9 @@ namespace NhatKySanXuat
             // 
             // Column107
             // 
-            dataGridViewCellStyle177.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle177.BackColor = System.Drawing.Color.LightCyan;
-            this.Column107.DefaultCellStyle = dataGridViewCellStyle177;
+            dataGridViewCellStyle182.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle182.BackColor = System.Drawing.Color.LightCyan;
+            this.Column107.DefaultCellStyle = dataGridViewCellStyle182;
             this.Column107.HeaderText = "84 Ngày";
             this.Column107.Name = "Column107";
             this.Column107.ReadOnly = true;
@@ -3985,8 +4091,8 @@ namespace NhatKySanXuat
             // 
             // Column108
             // 
-            dataGridViewCellStyle178.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.Column108.DefaultCellStyle = dataGridViewCellStyle178;
+            dataGridViewCellStyle183.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.Column108.DefaultCellStyle = dataGridViewCellStyle183;
             this.Column108.HeaderText = "98 Ngày";
             this.Column108.Name = "Column108";
             this.Column108.ReadOnly = true;
@@ -3994,9 +4100,9 @@ namespace NhatKySanXuat
             // 
             // Column109
             // 
-            dataGridViewCellStyle179.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle179.BackColor = System.Drawing.Color.LightCyan;
-            this.Column109.DefaultCellStyle = dataGridViewCellStyle179;
+            dataGridViewCellStyle184.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle184.BackColor = System.Drawing.Color.LightCyan;
+            this.Column109.DefaultCellStyle = dataGridViewCellStyle184;
             this.Column109.HeaderText = "112 ngày";
             this.Column109.Name = "Column109";
             this.Column109.ReadOnly = true;
@@ -4004,8 +4110,8 @@ namespace NhatKySanXuat
             // 
             // Column110
             // 
-            dataGridViewCellStyle180.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.Column110.DefaultCellStyle = dataGridViewCellStyle180;
+            dataGridViewCellStyle185.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.Column110.DefaultCellStyle = dataGridViewCellStyle185;
             this.Column110.HeaderText = "126 Ngày";
             this.Column110.Name = "Column110";
             this.Column110.ReadOnly = true;
@@ -4013,13 +4119,770 @@ namespace NhatKySanXuat
             // 
             // Column111
             // 
-            dataGridViewCellStyle181.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle181.BackColor = System.Drawing.Color.LightCyan;
-            this.Column111.DefaultCellStyle = dataGridViewCellStyle181;
+            dataGridViewCellStyle186.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle186.BackColor = System.Drawing.Color.LightCyan;
+            this.Column111.DefaultCellStyle = dataGridViewCellStyle186;
             this.Column111.HeaderText = "140 Ngày";
             this.Column111.Name = "Column111";
             this.Column111.ReadOnly = true;
             this.Column111.Width = 80;
+            // 
+            // tabPageNhaprelease
+            // 
+            this.tabPageNhaprelease.BackColor = System.Drawing.Color.LightBlue;
+            this.tabPageNhaprelease.Controls.Add(this.cbb_tb_release);
+            this.tabPageNhaprelease.Controls.Add(this.label139);
+            this.tabPageNhaprelease.Controls.Add(this.button1);
+            this.tabPageNhaprelease.Controls.Add(this.label138);
+            this.tabPageNhaprelease.Controls.Add(this.tb_timkiem_dotsx_release);
+            this.tabPageNhaprelease.Controls.Add(this.label60);
+            this.tabPageNhaprelease.Controls.Add(this.panel6);
+            this.tabPageNhaprelease.Controls.Add(this.panel4);
+            this.tabPageNhaprelease.Controls.Add(this.pn_loading_release);
+            this.tabPageNhaprelease.Controls.Add(this.dataGridView3);
+            this.tabPageNhaprelease.Location = new System.Drawing.Point(4, 25);
+            this.tabPageNhaprelease.Name = "tabPageNhaprelease";
+            this.tabPageNhaprelease.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageNhaprelease.Size = new System.Drawing.Size(1901, 988);
+            this.tabPageNhaprelease.TabIndex = 3;
+            this.tabPageNhaprelease.Text = "Nhập release";
+            // 
+            // cbb_tb_release
+            // 
+            this.cbb_tb_release.FormattingEnabled = true;
+            this.cbb_tb_release.Items.AddRange(new object[] {
+            "S1",
+            "02"});
+            this.cbb_tb_release.Location = new System.Drawing.Point(71, 206);
+            this.cbb_tb_release.Name = "cbb_tb_release";
+            this.cbb_tb_release.Size = new System.Drawing.Size(69, 24);
+            this.cbb_tb_release.TabIndex = 18;
+            // 
+            // label139
+            // 
+            this.label139.AutoSize = true;
+            this.label139.Location = new System.Drawing.Point(10, 211);
+            this.label139.Name = "label139";
+            this.label139.Size = new System.Drawing.Size(55, 17);
+            this.label139.TabIndex = 171;
+            this.label139.Text = "Thiết bị";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(287, 206);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 26);
+            this.button1.TabIndex = 170;
+            this.button1.Text = "Tìm kiếm";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // label138
+            // 
+            this.label138.AutoSize = true;
+            this.label138.Location = new System.Drawing.Point(146, 210);
+            this.label138.Name = "label138";
+            this.label138.Size = new System.Drawing.Size(47, 17);
+            this.label138.TabIndex = 169;
+            this.label138.Text = "Đợt sx";
+            // 
+            // tb_timkiem_dotsx_release
+            // 
+            this.tb_timkiem_dotsx_release.Location = new System.Drawing.Point(199, 207);
+            this.tb_timkiem_dotsx_release.Name = "tb_timkiem_dotsx_release";
+            this.tb_timkiem_dotsx_release.Size = new System.Drawing.Size(82, 23);
+            this.tb_timkiem_dotsx_release.TabIndex = 19;
+            // 
+            // label60
+            // 
+            this.label60.AutoSize = true;
+            this.label60.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label60.Location = new System.Drawing.Point(642, 13);
+            this.label60.Name = "label60";
+            this.label60.Size = new System.Drawing.Size(625, 25);
+            this.label60.TabIndex = 14;
+            this.label60.Text = "BẢNG NHẬP THÔNG TIN RELEASE CỦA CÁC MẺ PHÂN BÓN";
+            // 
+            // panel6
+            // 
+            this.panel6.BackColor = System.Drawing.Color.Gainsboro;
+            this.panel6.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel6.Controls.Add(this.tb_thoigianondinh);
+            this.panel6.Controls.Add(this.tb_ngay140);
+            this.panel6.Controls.Add(this.tb_ngay126);
+            this.panel6.Controls.Add(this.tb_ngay112);
+            this.panel6.Controls.Add(this.tb_ngay98);
+            this.panel6.Controls.Add(this.tb_ngay84);
+            this.panel6.Controls.Add(this.tb_ngay70);
+            this.panel6.Controls.Add(this.tb_ngay56);
+            this.panel6.Controls.Add(this.tb_ngay49);
+            this.panel6.Controls.Add(this.tb_ngay42);
+            this.panel6.Controls.Add(this.tb_ngay28);
+            this.panel6.Controls.Add(this.tb_ngay21);
+            this.panel6.Controls.Add(this.tb_ngay14);
+            this.panel6.Controls.Add(this.tb_ngay7);
+            this.panel6.Controls.Add(this.tb_ngay0);
+            this.panel6.Controls.Add(this.tb_coating);
+            this.panel6.Controls.Add(this.tb_do_am);
+            this.panel6.Controls.Add(this.panel7);
+            this.panel6.Controls.Add(this.btt_updata_release);
+            this.panel6.Controls.Add(this.label49);
+            this.panel6.Location = new System.Drawing.Point(277, 45);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(1628, 158);
+            this.panel6.TabIndex = 13;
+            // 
+            // tb_thoigianondinh
+            // 
+            this.tb_thoigianondinh.Location = new System.Drawing.Point(30, 70);
+            this.tb_thoigianondinh.Name = "tb_thoigianondinh";
+            this.tb_thoigianondinh.Size = new System.Drawing.Size(71, 23);
+            this.tb_thoigianondinh.TabIndex = 1;
+            // 
+            // tb_ngay140
+            // 
+            this.tb_ngay140.Location = new System.Drawing.Point(1548, 70);
+            this.tb_ngay140.Name = "tb_ngay140";
+            this.tb_ngay140.Size = new System.Drawing.Size(71, 23);
+            this.tb_ngay140.TabIndex = 17;
+            // 
+            // tb_ngay126
+            // 
+            this.tb_ngay126.Location = new System.Drawing.Point(1462, 70);
+            this.tb_ngay126.Name = "tb_ngay126";
+            this.tb_ngay126.Size = new System.Drawing.Size(71, 23);
+            this.tb_ngay126.TabIndex = 16;
+            // 
+            // tb_ngay112
+            // 
+            this.tb_ngay112.Location = new System.Drawing.Point(1368, 70);
+            this.tb_ngay112.Name = "tb_ngay112";
+            this.tb_ngay112.Size = new System.Drawing.Size(71, 23);
+            this.tb_ngay112.TabIndex = 15;
+            // 
+            // tb_ngay98
+            // 
+            this.tb_ngay98.Location = new System.Drawing.Point(1279, 70);
+            this.tb_ngay98.Name = "tb_ngay98";
+            this.tb_ngay98.Size = new System.Drawing.Size(71, 23);
+            this.tb_ngay98.TabIndex = 14;
+            // 
+            // tb_ngay84
+            // 
+            this.tb_ngay84.Location = new System.Drawing.Point(1188, 70);
+            this.tb_ngay84.Name = "tb_ngay84";
+            this.tb_ngay84.Size = new System.Drawing.Size(71, 23);
+            this.tb_ngay84.TabIndex = 13;
+            // 
+            // tb_ngay70
+            // 
+            this.tb_ngay70.Location = new System.Drawing.Point(1096, 70);
+            this.tb_ngay70.Name = "tb_ngay70";
+            this.tb_ngay70.Size = new System.Drawing.Size(71, 23);
+            this.tb_ngay70.TabIndex = 12;
+            // 
+            // tb_ngay56
+            // 
+            this.tb_ngay56.Location = new System.Drawing.Point(1007, 70);
+            this.tb_ngay56.Name = "tb_ngay56";
+            this.tb_ngay56.Size = new System.Drawing.Size(71, 23);
+            this.tb_ngay56.TabIndex = 11;
+            // 
+            // tb_ngay49
+            // 
+            this.tb_ngay49.Location = new System.Drawing.Point(917, 70);
+            this.tb_ngay49.Name = "tb_ngay49";
+            this.tb_ngay49.Size = new System.Drawing.Size(71, 23);
+            this.tb_ngay49.TabIndex = 10;
+            // 
+            // tb_ngay42
+            // 
+            this.tb_ngay42.Location = new System.Drawing.Point(832, 70);
+            this.tb_ngay42.Name = "tb_ngay42";
+            this.tb_ngay42.Size = new System.Drawing.Size(71, 23);
+            this.tb_ngay42.TabIndex = 9;
+            // 
+            // tb_ngay28
+            // 
+            this.tb_ngay28.Location = new System.Drawing.Point(738, 70);
+            this.tb_ngay28.Name = "tb_ngay28";
+            this.tb_ngay28.Size = new System.Drawing.Size(71, 23);
+            this.tb_ngay28.TabIndex = 8;
+            // 
+            // tb_ngay21
+            // 
+            this.tb_ngay21.Location = new System.Drawing.Point(644, 70);
+            this.tb_ngay21.Name = "tb_ngay21";
+            this.tb_ngay21.Size = new System.Drawing.Size(71, 23);
+            this.tb_ngay21.TabIndex = 7;
+            // 
+            // tb_ngay14
+            // 
+            this.tb_ngay14.Location = new System.Drawing.Point(551, 70);
+            this.tb_ngay14.Name = "tb_ngay14";
+            this.tb_ngay14.Size = new System.Drawing.Size(71, 23);
+            this.tb_ngay14.TabIndex = 6;
+            // 
+            // tb_ngay7
+            // 
+            this.tb_ngay7.Location = new System.Drawing.Point(456, 70);
+            this.tb_ngay7.Name = "tb_ngay7";
+            this.tb_ngay7.Size = new System.Drawing.Size(71, 23);
+            this.tb_ngay7.TabIndex = 5;
+            // 
+            // tb_ngay0
+            // 
+            this.tb_ngay0.Location = new System.Drawing.Point(362, 70);
+            this.tb_ngay0.Name = "tb_ngay0";
+            this.tb_ngay0.Size = new System.Drawing.Size(71, 23);
+            this.tb_ngay0.TabIndex = 4;
+            // 
+            // tb_coating
+            // 
+            this.tb_coating.Location = new System.Drawing.Point(250, 70);
+            this.tb_coating.Name = "tb_coating";
+            this.tb_coating.Size = new System.Drawing.Size(71, 23);
+            this.tb_coating.TabIndex = 3;
+            // 
+            // tb_do_am
+            // 
+            this.tb_do_am.Location = new System.Drawing.Point(139, 70);
+            this.tb_do_am.Name = "tb_do_am";
+            this.tb_do_am.Size = new System.Drawing.Size(71, 23);
+            this.tb_do_am.TabIndex = 2;
+            // 
+            // panel7
+            // 
+            this.panel7.BackColor = System.Drawing.Color.Turquoise;
+            this.panel7.Controls.Add(this.label80);
+            this.panel7.Controls.Add(this.label93);
+            this.panel7.Controls.Add(this.label84);
+            this.panel7.Controls.Add(this.label65);
+            this.panel7.Controls.Add(this.label81);
+            this.panel7.Controls.Add(this.label82);
+            this.panel7.Controls.Add(this.label66);
+            this.panel7.Controls.Add(this.label83);
+            this.panel7.Controls.Add(this.label68);
+            this.panel7.Controls.Add(this.label78);
+            this.panel7.Controls.Add(this.label72);
+            this.panel7.Controls.Add(this.label79);
+            this.panel7.Controls.Add(this.label71);
+            this.panel7.Controls.Add(this.label70);
+            this.panel7.Controls.Add(this.label77);
+            this.panel7.Controls.Add(this.label73);
+            this.panel7.Controls.Add(this.label74);
+            this.panel7.Location = new System.Drawing.Point(4, 29);
+            this.panel7.Name = "panel7";
+            this.panel7.Size = new System.Drawing.Size(1615, 35);
+            this.panel7.TabIndex = 32;
+            // 
+            // label80
+            // 
+            this.label80.AutoSize = true;
+            this.label80.Location = new System.Drawing.Point(1004, 9);
+            this.label80.Name = "label80";
+            this.label80.Size = new System.Drawing.Size(61, 17);
+            this.label80.TabIndex = 25;
+            this.label80.Text = "56 Ngày";
+            // 
+            // label93
+            // 
+            this.label93.AutoSize = true;
+            this.label93.Location = new System.Drawing.Point(6, 10);
+            this.label93.Name = "label93";
+            this.label93.Size = new System.Drawing.Size(118, 17);
+            this.label93.TabIndex = 49;
+            this.label93.Text = "Thời gian ổn định";
+            // 
+            // label84
+            // 
+            this.label84.AutoSize = true;
+            this.label84.Location = new System.Drawing.Point(1541, 9);
+            this.label84.Name = "label84";
+            this.label84.Size = new System.Drawing.Size(69, 17);
+            this.label84.TabIndex = 31;
+            this.label84.Text = "140 Ngày";
+            // 
+            // label65
+            // 
+            this.label65.AutoSize = true;
+            this.label65.Location = new System.Drawing.Point(139, 9);
+            this.label65.Name = "label65";
+            this.label65.Size = new System.Drawing.Size(71, 17);
+            this.label65.TabIndex = 16;
+            this.label65.Text = "Độ ẩm(%)";
+            // 
+            // label81
+            // 
+            this.label81.AutoSize = true;
+            this.label81.Location = new System.Drawing.Point(1456, 9);
+            this.label81.Name = "label81";
+            this.label81.Size = new System.Drawing.Size(69, 17);
+            this.label81.TabIndex = 30;
+            this.label81.Text = "126 Ngày";
+            // 
+            // label82
+            // 
+            this.label82.AutoSize = true;
+            this.label82.Location = new System.Drawing.Point(1360, 9);
+            this.label82.Name = "label82";
+            this.label82.Size = new System.Drawing.Size(69, 17);
+            this.label82.TabIndex = 29;
+            this.label82.Text = "112 Ngày";
+            // 
+            // label66
+            // 
+            this.label66.AutoSize = true;
+            this.label66.Location = new System.Drawing.Point(229, 9);
+            this.label66.Name = "label66";
+            this.label66.Size = new System.Drawing.Size(113, 17);
+            this.label66.TabIndex = 17;
+            this.label66.Text = "Coating layer(%)";
+            // 
+            // label83
+            // 
+            this.label83.AutoSize = true;
+            this.label83.Location = new System.Drawing.Point(1277, 9);
+            this.label83.Name = "label83";
+            this.label83.Size = new System.Drawing.Size(61, 17);
+            this.label83.TabIndex = 28;
+            this.label83.Text = "98 Ngày";
+            // 
+            // label68
+            // 
+            this.label68.AutoSize = true;
+            this.label68.Location = new System.Drawing.Point(366, 9);
+            this.label68.Name = "label68";
+            this.label68.Size = new System.Drawing.Size(53, 17);
+            this.label68.TabIndex = 18;
+            this.label68.Text = "0 Ngày";
+            // 
+            // label78
+            // 
+            this.label78.AutoSize = true;
+            this.label78.Location = new System.Drawing.Point(1186, 9);
+            this.label78.Name = "label78";
+            this.label78.Size = new System.Drawing.Size(61, 17);
+            this.label78.TabIndex = 27;
+            this.label78.Text = "84 Ngày";
+            // 
+            // label72
+            // 
+            this.label72.AutoSize = true;
+            this.label72.Location = new System.Drawing.Point(461, 9);
+            this.label72.Name = "label72";
+            this.label72.Size = new System.Drawing.Size(53, 17);
+            this.label72.TabIndex = 19;
+            this.label72.Text = "7 Ngày";
+            // 
+            // label79
+            // 
+            this.label79.AutoSize = true;
+            this.label79.Location = new System.Drawing.Point(1094, 9);
+            this.label79.Name = "label79";
+            this.label79.Size = new System.Drawing.Size(59, 17);
+            this.label79.TabIndex = 26;
+            this.label79.Text = "70 ngày";
+            // 
+            // label71
+            // 
+            this.label71.AutoSize = true;
+            this.label71.Location = new System.Drawing.Point(550, 9);
+            this.label71.Name = "label71";
+            this.label71.Size = new System.Drawing.Size(61, 17);
+            this.label71.TabIndex = 20;
+            this.label71.Text = "14 Ngày";
+            // 
+            // label70
+            // 
+            this.label70.AutoSize = true;
+            this.label70.Location = new System.Drawing.Point(643, 9);
+            this.label70.Name = "label70";
+            this.label70.Size = new System.Drawing.Size(61, 17);
+            this.label70.TabIndex = 21;
+            this.label70.Text = "21 Ngày";
+            // 
+            // label77
+            // 
+            this.label77.AutoSize = true;
+            this.label77.Location = new System.Drawing.Point(736, 9);
+            this.label77.Name = "label77";
+            this.label77.Size = new System.Drawing.Size(61, 17);
+            this.label77.TabIndex = 22;
+            this.label77.Text = "28 Ngày";
+            // 
+            // label73
+            // 
+            this.label73.AutoSize = true;
+            this.label73.Location = new System.Drawing.Point(914, 9);
+            this.label73.Name = "label73";
+            this.label73.Size = new System.Drawing.Size(61, 17);
+            this.label73.TabIndex = 24;
+            this.label73.Text = "49 Ngày";
+            // 
+            // label74
+            // 
+            this.label74.AutoSize = true;
+            this.label74.Location = new System.Drawing.Point(832, 9);
+            this.label74.Name = "label74";
+            this.label74.Size = new System.Drawing.Size(61, 17);
+            this.label74.TabIndex = 23;
+            this.label74.Text = "42 Ngày";
+            // 
+            // btt_updata_release
+            // 
+            this.btt_updata_release.BackColor = System.Drawing.Color.DeepSkyBlue;
+            this.btt_updata_release.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btt_updata_release.Image = ((System.Drawing.Image)(resources.GetObject("btt_updata_release.Image")));
+            this.btt_updata_release.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btt_updata_release.Location = new System.Drawing.Point(5, 107);
+            this.btt_updata_release.Name = "btt_updata_release";
+            this.btt_updata_release.Size = new System.Drawing.Size(106, 46);
+            this.btt_updata_release.TabIndex = 30;
+            this.btt_updata_release.Text = "Cập nhật release";
+            this.btt_updata_release.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btt_updata_release.UseVisualStyleBackColor = false;
+            this.btt_updata_release.Click += new System.EventHandler(this.btt_updata_release_Click);
+            // 
+            // label49
+            // 
+            this.label49.AutoSize = true;
+            this.label49.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label49.Location = new System.Drawing.Point(640, 9);
+            this.label49.Name = "label49";
+            this.label49.Size = new System.Drawing.Size(169, 17);
+            this.label49.TabIndex = 10;
+            this.label49.Text = "THÔNG TIN RELEASE";
+            // 
+            // panel4
+            // 
+            this.panel4.BackColor = System.Drawing.Color.Gainsboro;
+            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel4.Controls.Add(this.label9);
+            this.panel4.Controls.Add(this.label33);
+            this.panel4.Controls.Add(this.label43);
+            this.panel4.Controls.Add(this.tb_lot_release);
+            this.panel4.Controls.Add(this.label47);
+            this.panel4.Controls.Add(this.tb_dotsx_release);
+            this.panel4.Controls.Add(this.tb_ngaysx_tabrelease);
+            this.panel4.Location = new System.Drawing.Point(8, 45);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(270, 158);
+            this.panel4.TabIndex = 12;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(115, 9);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(121, 17);
+            this.label9.TabIndex = 3;
+            this.label9.Text = "THÔNG TIN MẺ";
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(11, 81);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(66, 17);
+            this.label33.TabIndex = 4;
+            this.label33.Text = "Ngày sx :";
+            // 
+            // label43
+            // 
+            this.label43.AutoSize = true;
+            this.label43.Location = new System.Drawing.Point(11, 125);
+            this.label43.Name = "label43";
+            this.label43.Size = new System.Drawing.Size(59, 17);
+            this.label43.TabIndex = 5;
+            this.label43.Text = "Đợt sx : ";
+            // 
+            // tb_lot_release
+            // 
+            this.tb_lot_release.Location = new System.Drawing.Point(88, 35);
+            this.tb_lot_release.Name = "tb_lot_release";
+            this.tb_lot_release.Size = new System.Drawing.Size(173, 23);
+            this.tb_lot_release.TabIndex = 9;
+            // 
+            // label47
+            // 
+            this.label47.AutoSize = true;
+            this.label47.Location = new System.Drawing.Point(15, 41);
+            this.label47.Name = "label47";
+            this.label47.Size = new System.Drawing.Size(48, 17);
+            this.label47.TabIndex = 6;
+            this.label47.Text = "LOT : ";
+            // 
+            // tb_dotsx_release
+            // 
+            this.tb_dotsx_release.Location = new System.Drawing.Point(88, 122);
+            this.tb_dotsx_release.Name = "tb_dotsx_release";
+            this.tb_dotsx_release.Size = new System.Drawing.Size(100, 23);
+            this.tb_dotsx_release.TabIndex = 8;
+            // 
+            // tb_ngaysx_tabrelease
+            // 
+            this.tb_ngaysx_tabrelease.Location = new System.Drawing.Point(88, 81);
+            this.tb_ngaysx_tabrelease.Name = "tb_ngaysx_tabrelease";
+            this.tb_ngaysx_tabrelease.Size = new System.Drawing.Size(100, 23);
+            this.tb_ngaysx_tabrelease.TabIndex = 7;
+            // 
+            // pn_loading_release
+            // 
+            this.pn_loading_release.BackColor = System.Drawing.Color.White;
+            this.pn_loading_release.Controls.Add(this.label105);
+            this.pn_loading_release.Controls.Add(this.pictureBox2);
+            this.pn_loading_release.Location = new System.Drawing.Point(-4, 235);
+            this.pn_loading_release.Name = "pn_loading_release";
+            this.pn_loading_release.Size = new System.Drawing.Size(1905, 740);
+            this.pn_loading_release.TabIndex = 167;
+            this.pn_loading_release.Visible = false;
+            // 
+            // label105
+            // 
+            this.label105.AutoSize = true;
+            this.label105.Location = new System.Drawing.Point(819, 424);
+            this.label105.Name = "label105";
+            this.label105.Size = new System.Drawing.Size(71, 17);
+            this.label105.TabIndex = 167;
+            this.label105.Text = "Loading...";
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox2.Image = global::NhatKySanXuat.Properties.Resources.loading;
+            this.pictureBox2.Location = new System.Drawing.Point(778, 309);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(155, 154);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox2.TabIndex = 166;
+            this.pictureBox2.TabStop = false;
+            // 
+            // dataGridView3
+            // 
+            this.dataGridView3.AllowUserToAddRows = false;
+            this.dataGridView3.AllowUserToDeleteRows = false;
+            this.dataGridView3.BackgroundColor = System.Drawing.Color.Silver;
+            this.dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView3.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column1,
+            this.Column81,
+            this.Column79,
+            this.Column13,
+            this.Column83,
+            this.Column84,
+            this.Column112,
+            this.Column82,
+            this.Column85,
+            this.Column86,
+            this.Column88,
+            this.Column87,
+            this.Column89,
+            this.Column90,
+            this.Column91,
+            this.Column92,
+            this.Column93,
+            this.Column94,
+            this.Column95,
+            this.Column96,
+            this.Column97});
+            this.dataGridView3.Location = new System.Drawing.Point(-4, 235);
+            this.dataGridView3.Name = "dataGridView3";
+            this.dataGridView3.ReadOnly = true;
+            this.dataGridView3.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView3.Size = new System.Drawing.Size(1905, 740);
+            this.dataGridView3.TabIndex = 0;
+            this.dataGridView3.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView3_CellMouseDoubleClick);
+            // 
+            // Column1
+            // 
+            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Column1.DataPropertyName = "ngay_sx";
+            dataGridViewCellStyle187.BackColor = System.Drawing.SystemColors.Info;
+            this.Column1.DefaultCellStyle = dataGridViewCellStyle187;
+            this.Column1.HeaderText = "Ngày SX";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            this.Column1.Width = 81;
+            // 
+            // Column81
+            // 
+            this.Column81.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Column81.DataPropertyName = "dot_sx";
+            dataGridViewCellStyle188.BackColor = System.Drawing.Color.White;
+            this.Column81.DefaultCellStyle = dataGridViewCellStyle188;
+            this.Column81.HeaderText = "Đợt SX";
+            this.Column81.Name = "Column81";
+            this.Column81.ReadOnly = true;
+            this.Column81.Width = 55;
+            // 
+            // Column79
+            // 
+            this.Column79.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Column79.DataPropertyName = "LOT";
+            dataGridViewCellStyle189.BackColor = System.Drawing.SystemColors.Info;
+            this.Column79.DefaultCellStyle = dataGridViewCellStyle189;
+            this.Column79.HeaderText = "LOT";
+            this.Column79.Name = "Column79";
+            this.Column79.ReadOnly = true;
+            this.Column79.Width = 61;
+            // 
+            // Column13
+            // 
+            this.Column13.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Column13.DataPropertyName = "thiet_bi";
+            dataGridViewCellStyle190.BackColor = System.Drawing.Color.White;
+            this.Column13.DefaultCellStyle = dataGridViewCellStyle190;
+            this.Column13.HeaderText = "Thiết Bị";
+            this.Column13.Name = "Column13";
+            this.Column13.ReadOnly = true;
+            this.Column13.Width = 75;
+            // 
+            // Column83
+            // 
+            this.Column83.DataPropertyName = "do_am";
+            dataGridViewCellStyle191.BackColor = System.Drawing.SystemColors.Info;
+            this.Column83.DefaultCellStyle = dataGridViewCellStyle191;
+            this.Column83.HeaderText = "Độ ẩm (%)";
+            this.Column83.Name = "Column83";
+            this.Column83.ReadOnly = true;
+            // 
+            // Column84
+            // 
+            this.Column84.DataPropertyName = "coating_layer";
+            dataGridViewCellStyle192.BackColor = System.Drawing.Color.White;
+            this.Column84.DefaultCellStyle = dataGridViewCellStyle192;
+            this.Column84.HeaderText = "Coating layer (%)";
+            this.Column84.Name = "Column84";
+            this.Column84.ReadOnly = true;
+            // 
+            // Column112
+            // 
+            this.Column112.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Column112.DataPropertyName = "thoigian_ondinh";
+            dataGridViewCellStyle193.BackColor = System.Drawing.SystemColors.Info;
+            this.Column112.DefaultCellStyle = dataGridViewCellStyle193;
+            this.Column112.HeaderText = "Thời gian ổn định";
+            this.Column112.Name = "Column112";
+            this.Column112.ReadOnly = true;
+            this.Column112.Width = 106;
+            // 
+            // Column82
+            // 
+            this.Column82.DataPropertyName = "ngay_0";
+            dataGridViewCellStyle194.BackColor = System.Drawing.Color.White;
+            this.Column82.DefaultCellStyle = dataGridViewCellStyle194;
+            this.Column82.HeaderText = "0 Ngày";
+            this.Column82.Name = "Column82";
+            this.Column82.ReadOnly = true;
+            // 
+            // Column85
+            // 
+            this.Column85.DataPropertyName = "ngay_7";
+            dataGridViewCellStyle195.BackColor = System.Drawing.SystemColors.Info;
+            this.Column85.DefaultCellStyle = dataGridViewCellStyle195;
+            this.Column85.HeaderText = "7 Ngày";
+            this.Column85.Name = "Column85";
+            this.Column85.ReadOnly = true;
+            // 
+            // Column86
+            // 
+            this.Column86.DataPropertyName = "ngay_14";
+            dataGridViewCellStyle196.BackColor = System.Drawing.Color.White;
+            this.Column86.DefaultCellStyle = dataGridViewCellStyle196;
+            this.Column86.HeaderText = "14 Ngày";
+            this.Column86.Name = "Column86";
+            this.Column86.ReadOnly = true;
+            // 
+            // Column88
+            // 
+            this.Column88.DataPropertyName = "ngay_21";
+            dataGridViewCellStyle197.BackColor = System.Drawing.SystemColors.Info;
+            this.Column88.DefaultCellStyle = dataGridViewCellStyle197;
+            this.Column88.HeaderText = "21 Ngày";
+            this.Column88.Name = "Column88";
+            this.Column88.ReadOnly = true;
+            // 
+            // Column87
+            // 
+            this.Column87.DataPropertyName = "ngay_28";
+            this.Column87.HeaderText = "28 Ngày";
+            this.Column87.Name = "Column87";
+            this.Column87.ReadOnly = true;
+            // 
+            // Column89
+            // 
+            this.Column89.DataPropertyName = "ngay_42";
+            this.Column89.HeaderText = "42 Ngày";
+            this.Column89.Name = "Column89";
+            this.Column89.ReadOnly = true;
+            // 
+            // Column90
+            // 
+            this.Column90.DataPropertyName = "ngay_49";
+            dataGridViewCellStyle198.BackColor = System.Drawing.SystemColors.Info;
+            this.Column90.DefaultCellStyle = dataGridViewCellStyle198;
+            this.Column90.HeaderText = "49 Ngày";
+            this.Column90.Name = "Column90";
+            this.Column90.ReadOnly = true;
+            // 
+            // Column91
+            // 
+            this.Column91.DataPropertyName = "ngay_56";
+            this.Column91.HeaderText = "56 Ngày";
+            this.Column91.Name = "Column91";
+            this.Column91.ReadOnly = true;
+            // 
+            // Column92
+            // 
+            this.Column92.DataPropertyName = "ngay_70";
+            dataGridViewCellStyle199.BackColor = System.Drawing.SystemColors.Info;
+            this.Column92.DefaultCellStyle = dataGridViewCellStyle199;
+            this.Column92.HeaderText = "70 Ngày";
+            this.Column92.Name = "Column92";
+            this.Column92.ReadOnly = true;
+            // 
+            // Column93
+            // 
+            this.Column93.DataPropertyName = "ngay_84";
+            this.Column93.HeaderText = "84 Ngày";
+            this.Column93.Name = "Column93";
+            this.Column93.ReadOnly = true;
+            // 
+            // Column94
+            // 
+            this.Column94.DataPropertyName = "ngay_98";
+            dataGridViewCellStyle200.BackColor = System.Drawing.SystemColors.Info;
+            this.Column94.DefaultCellStyle = dataGridViewCellStyle200;
+            this.Column94.HeaderText = "98 Ngày";
+            this.Column94.Name = "Column94";
+            this.Column94.ReadOnly = true;
+            // 
+            // Column95
+            // 
+            this.Column95.DataPropertyName = "ngay_112";
+            dataGridViewCellStyle201.BackColor = System.Drawing.Color.White;
+            this.Column95.DefaultCellStyle = dataGridViewCellStyle201;
+            this.Column95.HeaderText = "112 Ngày";
+            this.Column95.Name = "Column95";
+            this.Column95.ReadOnly = true;
+            // 
+            // Column96
+            // 
+            this.Column96.DataPropertyName = "ngay_126";
+            dataGridViewCellStyle202.BackColor = System.Drawing.SystemColors.Info;
+            this.Column96.DefaultCellStyle = dataGridViewCellStyle202;
+            this.Column96.HeaderText = "126 Ngày";
+            this.Column96.Name = "Column96";
+            this.Column96.ReadOnly = true;
+            // 
+            // Column97
+            // 
+            this.Column97.DataPropertyName = "ngay_140";
+            this.Column97.HeaderText = "140 Ngày";
+            this.Column97.Name = "Column97";
+            this.Column97.ReadOnly = true;
             // 
             // tabPageImportexcel
             // 
@@ -4751,574 +5614,6 @@ namespace NhatKySanXuat
             this.btt_insert_tt_database.UseVisualStyleBackColor = true;
             this.btt_insert_tt_database.Click += new System.EventHandler(this.btt_insert_tt_database_Click);
             // 
-            // tabPageNhaprelease
-            // 
-            this.tabPageNhaprelease.BackColor = System.Drawing.Color.LightBlue;
-            this.tabPageNhaprelease.Controls.Add(this.cbb_tb_release);
-            this.tabPageNhaprelease.Controls.Add(this.label139);
-            this.tabPageNhaprelease.Controls.Add(this.button1);
-            this.tabPageNhaprelease.Controls.Add(this.label138);
-            this.tabPageNhaprelease.Controls.Add(this.tb_timkiem_dotsx_release);
-            this.tabPageNhaprelease.Controls.Add(this.label60);
-            this.tabPageNhaprelease.Controls.Add(this.panel6);
-            this.tabPageNhaprelease.Controls.Add(this.panel4);
-            this.tabPageNhaprelease.Controls.Add(this.pn_loading_release);
-            this.tabPageNhaprelease.Controls.Add(this.dataGridView3);
-            this.tabPageNhaprelease.Location = new System.Drawing.Point(4, 25);
-            this.tabPageNhaprelease.Name = "tabPageNhaprelease";
-            this.tabPageNhaprelease.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageNhaprelease.Size = new System.Drawing.Size(1901, 988);
-            this.tabPageNhaprelease.TabIndex = 3;
-            this.tabPageNhaprelease.Text = "Nhập release";
-            // 
-            // cbb_tb_release
-            // 
-            this.cbb_tb_release.FormattingEnabled = true;
-            this.cbb_tb_release.Items.AddRange(new object[] {
-            "S1",
-            "02"});
-            this.cbb_tb_release.Location = new System.Drawing.Point(71, 206);
-            this.cbb_tb_release.Name = "cbb_tb_release";
-            this.cbb_tb_release.Size = new System.Drawing.Size(69, 24);
-            this.cbb_tb_release.TabIndex = 18;
-            // 
-            // label139
-            // 
-            this.label139.AutoSize = true;
-            this.label139.Location = new System.Drawing.Point(10, 211);
-            this.label139.Name = "label139";
-            this.label139.Size = new System.Drawing.Size(55, 17);
-            this.label139.TabIndex = 171;
-            this.label139.Text = "Thiết bị";
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(287, 206);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 26);
-            this.button1.TabIndex = 170;
-            this.button1.Text = "Tìm kiếm";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // label138
-            // 
-            this.label138.AutoSize = true;
-            this.label138.Location = new System.Drawing.Point(146, 210);
-            this.label138.Name = "label138";
-            this.label138.Size = new System.Drawing.Size(47, 17);
-            this.label138.TabIndex = 169;
-            this.label138.Text = "Đợt sx";
-            // 
-            // tb_timkiem_dotsx_release
-            // 
-            this.tb_timkiem_dotsx_release.Location = new System.Drawing.Point(199, 207);
-            this.tb_timkiem_dotsx_release.Name = "tb_timkiem_dotsx_release";
-            this.tb_timkiem_dotsx_release.Size = new System.Drawing.Size(82, 23);
-            this.tb_timkiem_dotsx_release.TabIndex = 19;
-            // 
-            // label60
-            // 
-            this.label60.AutoSize = true;
-            this.label60.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label60.Location = new System.Drawing.Point(642, 13);
-            this.label60.Name = "label60";
-            this.label60.Size = new System.Drawing.Size(625, 25);
-            this.label60.TabIndex = 14;
-            this.label60.Text = "BẢNG NHẬP THÔNG TIN RELEASE CỦA CÁC MẺ PHÂN BÓN";
-            // 
-            // panel6
-            // 
-            this.panel6.BackColor = System.Drawing.Color.Gainsboro;
-            this.panel6.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel6.Controls.Add(this.tb_thoigianondinh);
-            this.panel6.Controls.Add(this.tb_ngay140);
-            this.panel6.Controls.Add(this.tb_ngay126);
-            this.panel6.Controls.Add(this.tb_ngay112);
-            this.panel6.Controls.Add(this.tb_ngay98);
-            this.panel6.Controls.Add(this.tb_ngay84);
-            this.panel6.Controls.Add(this.tb_ngay70);
-            this.panel6.Controls.Add(this.tb_ngay56);
-            this.panel6.Controls.Add(this.tb_ngay49);
-            this.panel6.Controls.Add(this.tb_ngay42);
-            this.panel6.Controls.Add(this.tb_ngay28);
-            this.panel6.Controls.Add(this.tb_ngay21);
-            this.panel6.Controls.Add(this.tb_ngay14);
-            this.panel6.Controls.Add(this.tb_ngay7);
-            this.panel6.Controls.Add(this.tb_ngay0);
-            this.panel6.Controls.Add(this.tb_coating);
-            this.panel6.Controls.Add(this.tb_do_am);
-            this.panel6.Controls.Add(this.panel7);
-            this.panel6.Controls.Add(this.btt_updata_release);
-            this.panel6.Controls.Add(this.label49);
-            this.panel6.Location = new System.Drawing.Point(277, 45);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(1628, 158);
-            this.panel6.TabIndex = 13;
-            // 
-            // tb_thoigianondinh
-            // 
-            this.tb_thoigianondinh.Location = new System.Drawing.Point(30, 70);
-            this.tb_thoigianondinh.Name = "tb_thoigianondinh";
-            this.tb_thoigianondinh.Size = new System.Drawing.Size(71, 23);
-            this.tb_thoigianondinh.TabIndex = 1;
-            // 
-            // tb_ngay140
-            // 
-            this.tb_ngay140.Location = new System.Drawing.Point(1548, 70);
-            this.tb_ngay140.Name = "tb_ngay140";
-            this.tb_ngay140.Size = new System.Drawing.Size(71, 23);
-            this.tb_ngay140.TabIndex = 17;
-            // 
-            // tb_ngay126
-            // 
-            this.tb_ngay126.Location = new System.Drawing.Point(1462, 70);
-            this.tb_ngay126.Name = "tb_ngay126";
-            this.tb_ngay126.Size = new System.Drawing.Size(71, 23);
-            this.tb_ngay126.TabIndex = 16;
-            // 
-            // tb_ngay112
-            // 
-            this.tb_ngay112.Location = new System.Drawing.Point(1368, 70);
-            this.tb_ngay112.Name = "tb_ngay112";
-            this.tb_ngay112.Size = new System.Drawing.Size(71, 23);
-            this.tb_ngay112.TabIndex = 15;
-            // 
-            // tb_ngay98
-            // 
-            this.tb_ngay98.Location = new System.Drawing.Point(1279, 70);
-            this.tb_ngay98.Name = "tb_ngay98";
-            this.tb_ngay98.Size = new System.Drawing.Size(71, 23);
-            this.tb_ngay98.TabIndex = 14;
-            // 
-            // tb_ngay84
-            // 
-            this.tb_ngay84.Location = new System.Drawing.Point(1188, 70);
-            this.tb_ngay84.Name = "tb_ngay84";
-            this.tb_ngay84.Size = new System.Drawing.Size(71, 23);
-            this.tb_ngay84.TabIndex = 13;
-            // 
-            // tb_ngay70
-            // 
-            this.tb_ngay70.Location = new System.Drawing.Point(1096, 70);
-            this.tb_ngay70.Name = "tb_ngay70";
-            this.tb_ngay70.Size = new System.Drawing.Size(71, 23);
-            this.tb_ngay70.TabIndex = 12;
-            // 
-            // tb_ngay56
-            // 
-            this.tb_ngay56.Location = new System.Drawing.Point(1007, 70);
-            this.tb_ngay56.Name = "tb_ngay56";
-            this.tb_ngay56.Size = new System.Drawing.Size(71, 23);
-            this.tb_ngay56.TabIndex = 11;
-            // 
-            // tb_ngay49
-            // 
-            this.tb_ngay49.Location = new System.Drawing.Point(917, 70);
-            this.tb_ngay49.Name = "tb_ngay49";
-            this.tb_ngay49.Size = new System.Drawing.Size(71, 23);
-            this.tb_ngay49.TabIndex = 10;
-            // 
-            // tb_ngay42
-            // 
-            this.tb_ngay42.Location = new System.Drawing.Point(832, 70);
-            this.tb_ngay42.Name = "tb_ngay42";
-            this.tb_ngay42.Size = new System.Drawing.Size(71, 23);
-            this.tb_ngay42.TabIndex = 9;
-            // 
-            // tb_ngay28
-            // 
-            this.tb_ngay28.Location = new System.Drawing.Point(738, 70);
-            this.tb_ngay28.Name = "tb_ngay28";
-            this.tb_ngay28.Size = new System.Drawing.Size(71, 23);
-            this.tb_ngay28.TabIndex = 8;
-            // 
-            // tb_ngay21
-            // 
-            this.tb_ngay21.Location = new System.Drawing.Point(644, 70);
-            this.tb_ngay21.Name = "tb_ngay21";
-            this.tb_ngay21.Size = new System.Drawing.Size(71, 23);
-            this.tb_ngay21.TabIndex = 7;
-            // 
-            // tb_ngay14
-            // 
-            this.tb_ngay14.Location = new System.Drawing.Point(551, 70);
-            this.tb_ngay14.Name = "tb_ngay14";
-            this.tb_ngay14.Size = new System.Drawing.Size(71, 23);
-            this.tb_ngay14.TabIndex = 6;
-            // 
-            // tb_ngay7
-            // 
-            this.tb_ngay7.Location = new System.Drawing.Point(456, 70);
-            this.tb_ngay7.Name = "tb_ngay7";
-            this.tb_ngay7.Size = new System.Drawing.Size(71, 23);
-            this.tb_ngay7.TabIndex = 5;
-            // 
-            // tb_ngay0
-            // 
-            this.tb_ngay0.Location = new System.Drawing.Point(362, 70);
-            this.tb_ngay0.Name = "tb_ngay0";
-            this.tb_ngay0.Size = new System.Drawing.Size(71, 23);
-            this.tb_ngay0.TabIndex = 4;
-            // 
-            // tb_coating
-            // 
-            this.tb_coating.Location = new System.Drawing.Point(250, 70);
-            this.tb_coating.Name = "tb_coating";
-            this.tb_coating.Size = new System.Drawing.Size(71, 23);
-            this.tb_coating.TabIndex = 3;
-            // 
-            // tb_do_am
-            // 
-            this.tb_do_am.Location = new System.Drawing.Point(139, 70);
-            this.tb_do_am.Name = "tb_do_am";
-            this.tb_do_am.Size = new System.Drawing.Size(71, 23);
-            this.tb_do_am.TabIndex = 2;
-            // 
-            // panel7
-            // 
-            this.panel7.BackColor = System.Drawing.Color.Turquoise;
-            this.panel7.Controls.Add(this.label80);
-            this.panel7.Controls.Add(this.label93);
-            this.panel7.Controls.Add(this.label84);
-            this.panel7.Controls.Add(this.label65);
-            this.panel7.Controls.Add(this.label81);
-            this.panel7.Controls.Add(this.label82);
-            this.panel7.Controls.Add(this.label66);
-            this.panel7.Controls.Add(this.label83);
-            this.panel7.Controls.Add(this.label68);
-            this.panel7.Controls.Add(this.label78);
-            this.panel7.Controls.Add(this.label72);
-            this.panel7.Controls.Add(this.label79);
-            this.panel7.Controls.Add(this.label71);
-            this.panel7.Controls.Add(this.label70);
-            this.panel7.Controls.Add(this.label77);
-            this.panel7.Controls.Add(this.label73);
-            this.panel7.Controls.Add(this.label74);
-            this.panel7.Location = new System.Drawing.Point(4, 29);
-            this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(1615, 35);
-            this.panel7.TabIndex = 32;
-            // 
-            // label80
-            // 
-            this.label80.AutoSize = true;
-            this.label80.Location = new System.Drawing.Point(1004, 9);
-            this.label80.Name = "label80";
-            this.label80.Size = new System.Drawing.Size(61, 17);
-            this.label80.TabIndex = 25;
-            this.label80.Text = "56 Ngày";
-            // 
-            // label93
-            // 
-            this.label93.AutoSize = true;
-            this.label93.Location = new System.Drawing.Point(6, 10);
-            this.label93.Name = "label93";
-            this.label93.Size = new System.Drawing.Size(118, 17);
-            this.label93.TabIndex = 49;
-            this.label93.Text = "Thời gian ổn định";
-            // 
-            // label84
-            // 
-            this.label84.AutoSize = true;
-            this.label84.Location = new System.Drawing.Point(1541, 9);
-            this.label84.Name = "label84";
-            this.label84.Size = new System.Drawing.Size(69, 17);
-            this.label84.TabIndex = 31;
-            this.label84.Text = "140 Ngày";
-            // 
-            // label65
-            // 
-            this.label65.AutoSize = true;
-            this.label65.Location = new System.Drawing.Point(139, 9);
-            this.label65.Name = "label65";
-            this.label65.Size = new System.Drawing.Size(71, 17);
-            this.label65.TabIndex = 16;
-            this.label65.Text = "Độ ẩm(%)";
-            // 
-            // label81
-            // 
-            this.label81.AutoSize = true;
-            this.label81.Location = new System.Drawing.Point(1456, 9);
-            this.label81.Name = "label81";
-            this.label81.Size = new System.Drawing.Size(69, 17);
-            this.label81.TabIndex = 30;
-            this.label81.Text = "126 Ngày";
-            // 
-            // label82
-            // 
-            this.label82.AutoSize = true;
-            this.label82.Location = new System.Drawing.Point(1360, 9);
-            this.label82.Name = "label82";
-            this.label82.Size = new System.Drawing.Size(69, 17);
-            this.label82.TabIndex = 29;
-            this.label82.Text = "112 Ngày";
-            // 
-            // label66
-            // 
-            this.label66.AutoSize = true;
-            this.label66.Location = new System.Drawing.Point(229, 9);
-            this.label66.Name = "label66";
-            this.label66.Size = new System.Drawing.Size(113, 17);
-            this.label66.TabIndex = 17;
-            this.label66.Text = "Coating layer(%)";
-            // 
-            // label83
-            // 
-            this.label83.AutoSize = true;
-            this.label83.Location = new System.Drawing.Point(1277, 9);
-            this.label83.Name = "label83";
-            this.label83.Size = new System.Drawing.Size(61, 17);
-            this.label83.TabIndex = 28;
-            this.label83.Text = "98 Ngày";
-            // 
-            // label68
-            // 
-            this.label68.AutoSize = true;
-            this.label68.Location = new System.Drawing.Point(366, 9);
-            this.label68.Name = "label68";
-            this.label68.Size = new System.Drawing.Size(53, 17);
-            this.label68.TabIndex = 18;
-            this.label68.Text = "0 Ngày";
-            // 
-            // label78
-            // 
-            this.label78.AutoSize = true;
-            this.label78.Location = new System.Drawing.Point(1186, 9);
-            this.label78.Name = "label78";
-            this.label78.Size = new System.Drawing.Size(61, 17);
-            this.label78.TabIndex = 27;
-            this.label78.Text = "84 Ngày";
-            // 
-            // label72
-            // 
-            this.label72.AutoSize = true;
-            this.label72.Location = new System.Drawing.Point(461, 9);
-            this.label72.Name = "label72";
-            this.label72.Size = new System.Drawing.Size(53, 17);
-            this.label72.TabIndex = 19;
-            this.label72.Text = "7 Ngày";
-            // 
-            // label79
-            // 
-            this.label79.AutoSize = true;
-            this.label79.Location = new System.Drawing.Point(1094, 9);
-            this.label79.Name = "label79";
-            this.label79.Size = new System.Drawing.Size(59, 17);
-            this.label79.TabIndex = 26;
-            this.label79.Text = "70 ngày";
-            // 
-            // label71
-            // 
-            this.label71.AutoSize = true;
-            this.label71.Location = new System.Drawing.Point(550, 9);
-            this.label71.Name = "label71";
-            this.label71.Size = new System.Drawing.Size(61, 17);
-            this.label71.TabIndex = 20;
-            this.label71.Text = "14 Ngày";
-            // 
-            // label70
-            // 
-            this.label70.AutoSize = true;
-            this.label70.Location = new System.Drawing.Point(643, 9);
-            this.label70.Name = "label70";
-            this.label70.Size = new System.Drawing.Size(61, 17);
-            this.label70.TabIndex = 21;
-            this.label70.Text = "21 Ngày";
-            // 
-            // label77
-            // 
-            this.label77.AutoSize = true;
-            this.label77.Location = new System.Drawing.Point(736, 9);
-            this.label77.Name = "label77";
-            this.label77.Size = new System.Drawing.Size(61, 17);
-            this.label77.TabIndex = 22;
-            this.label77.Text = "28 Ngày";
-            // 
-            // label73
-            // 
-            this.label73.AutoSize = true;
-            this.label73.Location = new System.Drawing.Point(914, 9);
-            this.label73.Name = "label73";
-            this.label73.Size = new System.Drawing.Size(61, 17);
-            this.label73.TabIndex = 24;
-            this.label73.Text = "49 Ngày";
-            // 
-            // label74
-            // 
-            this.label74.AutoSize = true;
-            this.label74.Location = new System.Drawing.Point(832, 9);
-            this.label74.Name = "label74";
-            this.label74.Size = new System.Drawing.Size(61, 17);
-            this.label74.TabIndex = 23;
-            this.label74.Text = "42 Ngày";
-            // 
-            // btt_updata_release
-            // 
-            this.btt_updata_release.BackColor = System.Drawing.Color.DeepSkyBlue;
-            this.btt_updata_release.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btt_updata_release.Image = ((System.Drawing.Image)(resources.GetObject("btt_updata_release.Image")));
-            this.btt_updata_release.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btt_updata_release.Location = new System.Drawing.Point(5, 107);
-            this.btt_updata_release.Name = "btt_updata_release";
-            this.btt_updata_release.Size = new System.Drawing.Size(106, 46);
-            this.btt_updata_release.TabIndex = 30;
-            this.btt_updata_release.Text = "Cập nhật release";
-            this.btt_updata_release.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btt_updata_release.UseVisualStyleBackColor = false;
-            this.btt_updata_release.Click += new System.EventHandler(this.btt_updata_release_Click);
-            // 
-            // label49
-            // 
-            this.label49.AutoSize = true;
-            this.label49.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label49.Location = new System.Drawing.Point(640, 9);
-            this.label49.Name = "label49";
-            this.label49.Size = new System.Drawing.Size(169, 17);
-            this.label49.TabIndex = 10;
-            this.label49.Text = "THÔNG TIN RELEASE";
-            // 
-            // panel4
-            // 
-            this.panel4.BackColor = System.Drawing.Color.Gainsboro;
-            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel4.Controls.Add(this.label9);
-            this.panel4.Controls.Add(this.label33);
-            this.panel4.Controls.Add(this.label43);
-            this.panel4.Controls.Add(this.tb_lot_release);
-            this.panel4.Controls.Add(this.label47);
-            this.panel4.Controls.Add(this.tb_dotsx_release);
-            this.panel4.Controls.Add(this.tb_ngaysx_tabrelease);
-            this.panel4.Location = new System.Drawing.Point(8, 45);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(270, 158);
-            this.panel4.TabIndex = 12;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(115, 9);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(121, 17);
-            this.label9.TabIndex = 3;
-            this.label9.Text = "THÔNG TIN MẺ";
-            // 
-            // label33
-            // 
-            this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(11, 81);
-            this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(66, 17);
-            this.label33.TabIndex = 4;
-            this.label33.Text = "Ngày sx :";
-            // 
-            // label43
-            // 
-            this.label43.AutoSize = true;
-            this.label43.Location = new System.Drawing.Point(11, 125);
-            this.label43.Name = "label43";
-            this.label43.Size = new System.Drawing.Size(59, 17);
-            this.label43.TabIndex = 5;
-            this.label43.Text = "Đợt sx : ";
-            // 
-            // tb_lot_release
-            // 
-            this.tb_lot_release.Location = new System.Drawing.Point(88, 35);
-            this.tb_lot_release.Name = "tb_lot_release";
-            this.tb_lot_release.Size = new System.Drawing.Size(173, 23);
-            this.tb_lot_release.TabIndex = 9;
-            // 
-            // label47
-            // 
-            this.label47.AutoSize = true;
-            this.label47.Location = new System.Drawing.Point(15, 41);
-            this.label47.Name = "label47";
-            this.label47.Size = new System.Drawing.Size(48, 17);
-            this.label47.TabIndex = 6;
-            this.label47.Text = "LOT : ";
-            // 
-            // tb_dotsx_release
-            // 
-            this.tb_dotsx_release.Location = new System.Drawing.Point(88, 122);
-            this.tb_dotsx_release.Name = "tb_dotsx_release";
-            this.tb_dotsx_release.Size = new System.Drawing.Size(100, 23);
-            this.tb_dotsx_release.TabIndex = 8;
-            // 
-            // tb_ngaysx_tabrelease
-            // 
-            this.tb_ngaysx_tabrelease.Location = new System.Drawing.Point(88, 81);
-            this.tb_ngaysx_tabrelease.Name = "tb_ngaysx_tabrelease";
-            this.tb_ngaysx_tabrelease.Size = new System.Drawing.Size(100, 23);
-            this.tb_ngaysx_tabrelease.TabIndex = 7;
-            // 
-            // pn_loading_release
-            // 
-            this.pn_loading_release.BackColor = System.Drawing.Color.White;
-            this.pn_loading_release.Controls.Add(this.label105);
-            this.pn_loading_release.Controls.Add(this.pictureBox2);
-            this.pn_loading_release.Location = new System.Drawing.Point(-4, 235);
-            this.pn_loading_release.Name = "pn_loading_release";
-            this.pn_loading_release.Size = new System.Drawing.Size(1905, 740);
-            this.pn_loading_release.TabIndex = 167;
-            this.pn_loading_release.Visible = false;
-            // 
-            // label105
-            // 
-            this.label105.AutoSize = true;
-            this.label105.Location = new System.Drawing.Point(819, 424);
-            this.label105.Name = "label105";
-            this.label105.Size = new System.Drawing.Size(71, 17);
-            this.label105.TabIndex = 167;
-            this.label105.Text = "Loading...";
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox2.Image = global::NhatKySanXuat.Properties.Resources.loading;
-            this.pictureBox2.Location = new System.Drawing.Point(778, 309);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(155, 154);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox2.TabIndex = 166;
-            this.pictureBox2.TabStop = false;
-            // 
-            // dataGridView3
-            // 
-            this.dataGridView3.AllowUserToAddRows = false;
-            this.dataGridView3.AllowUserToDeleteRows = false;
-            this.dataGridView3.BackgroundColor = System.Drawing.Color.Silver;
-            this.dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView3.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column1,
-            this.Column81,
-            this.Column79,
-            this.Column13,
-            this.Column83,
-            this.Column84,
-            this.Column112,
-            this.Column82,
-            this.Column85,
-            this.Column86,
-            this.Column88,
-            this.Column87,
-            this.Column89,
-            this.Column90,
-            this.Column91,
-            this.Column92,
-            this.Column93,
-            this.Column94,
-            this.Column95,
-            this.Column96,
-            this.Column97});
-            this.dataGridView3.Location = new System.Drawing.Point(-4, 235);
-            this.dataGridView3.Name = "dataGridView3";
-            this.dataGridView3.ReadOnly = true;
-            this.dataGridView3.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView3.Size = new System.Drawing.Size(1905, 740);
-            this.dataGridView3.TabIndex = 0;
-            this.dataGridView3.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView3_CellMouseDoubleClick);
-            // 
             // tabPagehistorylogin
             // 
             this.tabPagehistorylogin.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -5507,292 +5802,6 @@ namespace NhatKySanXuat
             this.lb_history.Text = "Lịch sử truy cặp";
             this.lb_history.Click += new System.EventHandler(this.pn_history_Click);
             // 
-            // Column1
-            // 
-            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Column1.DataPropertyName = "ngay_sx";
-            dataGridViewCellStyle182.BackColor = System.Drawing.SystemColors.Info;
-            this.Column1.DefaultCellStyle = dataGridViewCellStyle182;
-            this.Column1.HeaderText = "Ngày SX";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            this.Column1.Width = 88;
-            // 
-            // Column81
-            // 
-            this.Column81.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Column81.DataPropertyName = "dot_sx";
-            dataGridViewCellStyle183.BackColor = System.Drawing.Color.White;
-            this.Column81.DefaultCellStyle = dataGridViewCellStyle183;
-            this.Column81.HeaderText = "Đợt SX";
-            this.Column81.Name = "Column81";
-            this.Column81.ReadOnly = true;
-            this.Column81.Width = 77;
-            // 
-            // Column79
-            // 
-            this.Column79.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Column79.DataPropertyName = "LOT";
-            dataGridViewCellStyle184.BackColor = System.Drawing.SystemColors.Info;
-            this.Column79.DefaultCellStyle = dataGridViewCellStyle184;
-            this.Column79.HeaderText = "LOT";
-            this.Column79.Name = "Column79";
-            this.Column79.ReadOnly = true;
-            this.Column79.Width = 61;
-            // 
-            // Column13
-            // 
-            this.Column13.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Column13.DataPropertyName = "thiet_bi";
-            dataGridViewCellStyle185.BackColor = System.Drawing.Color.White;
-            this.Column13.DefaultCellStyle = dataGridViewCellStyle185;
-            this.Column13.HeaderText = "Thiết Bị";
-            this.Column13.Name = "Column13";
-            this.Column13.ReadOnly = true;
-            this.Column13.Width = 81;
-            // 
-            // Column83
-            // 
-            this.Column83.DataPropertyName = "do_am";
-            dataGridViewCellStyle186.BackColor = System.Drawing.SystemColors.Info;
-            this.Column83.DefaultCellStyle = dataGridViewCellStyle186;
-            this.Column83.HeaderText = "Độ ẩm (%)";
-            this.Column83.Name = "Column83";
-            this.Column83.ReadOnly = true;
-            // 
-            // Column84
-            // 
-            this.Column84.DataPropertyName = "coating_layer";
-            dataGridViewCellStyle187.BackColor = System.Drawing.Color.White;
-            this.Column84.DefaultCellStyle = dataGridViewCellStyle187;
-            this.Column84.HeaderText = "Coating layer (%)";
-            this.Column84.Name = "Column84";
-            this.Column84.ReadOnly = true;
-            // 
-            // Column112
-            // 
-            this.Column112.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Column112.DataPropertyName = "thoigian_ondinh";
-            dataGridViewCellStyle188.BackColor = System.Drawing.SystemColors.Info;
-            this.Column112.DefaultCellStyle = dataGridViewCellStyle188;
-            this.Column112.HeaderText = "Thời gian ổn định";
-            this.Column112.Name = "Column112";
-            this.Column112.ReadOnly = true;
-            this.Column112.Width = 106;
-            // 
-            // Column82
-            // 
-            this.Column82.DataPropertyName = "ngay_0";
-            dataGridViewCellStyle189.BackColor = System.Drawing.Color.White;
-            this.Column82.DefaultCellStyle = dataGridViewCellStyle189;
-            this.Column82.HeaderText = "0 Ngày";
-            this.Column82.Name = "Column82";
-            this.Column82.ReadOnly = true;
-            // 
-            // Column85
-            // 
-            this.Column85.DataPropertyName = "ngay_7";
-            dataGridViewCellStyle190.BackColor = System.Drawing.SystemColors.Info;
-            this.Column85.DefaultCellStyle = dataGridViewCellStyle190;
-            this.Column85.HeaderText = "7 Ngày";
-            this.Column85.Name = "Column85";
-            this.Column85.ReadOnly = true;
-            // 
-            // Column86
-            // 
-            this.Column86.DataPropertyName = "ngay_14";
-            dataGridViewCellStyle191.BackColor = System.Drawing.Color.White;
-            this.Column86.DefaultCellStyle = dataGridViewCellStyle191;
-            this.Column86.HeaderText = "14 Ngày";
-            this.Column86.Name = "Column86";
-            this.Column86.ReadOnly = true;
-            // 
-            // Column88
-            // 
-            this.Column88.DataPropertyName = "ngay_21";
-            dataGridViewCellStyle192.BackColor = System.Drawing.SystemColors.Info;
-            this.Column88.DefaultCellStyle = dataGridViewCellStyle192;
-            this.Column88.HeaderText = "21 Ngày";
-            this.Column88.Name = "Column88";
-            this.Column88.ReadOnly = true;
-            // 
-            // Column87
-            // 
-            this.Column87.DataPropertyName = "ngay_28";
-            this.Column87.HeaderText = "28 Ngày";
-            this.Column87.Name = "Column87";
-            this.Column87.ReadOnly = true;
-            // 
-            // Column89
-            // 
-            this.Column89.DataPropertyName = "ngay_42";
-            this.Column89.HeaderText = "42 Ngày";
-            this.Column89.Name = "Column89";
-            this.Column89.ReadOnly = true;
-            // 
-            // Column90
-            // 
-            this.Column90.DataPropertyName = "ngay_49";
-            dataGridViewCellStyle193.BackColor = System.Drawing.SystemColors.Info;
-            this.Column90.DefaultCellStyle = dataGridViewCellStyle193;
-            this.Column90.HeaderText = "49 Ngày";
-            this.Column90.Name = "Column90";
-            this.Column90.ReadOnly = true;
-            // 
-            // Column91
-            // 
-            this.Column91.DataPropertyName = "ngay_56";
-            this.Column91.HeaderText = "56 Ngày";
-            this.Column91.Name = "Column91";
-            this.Column91.ReadOnly = true;
-            // 
-            // Column92
-            // 
-            this.Column92.DataPropertyName = "ngay_70";
-            dataGridViewCellStyle194.BackColor = System.Drawing.SystemColors.Info;
-            this.Column92.DefaultCellStyle = dataGridViewCellStyle194;
-            this.Column92.HeaderText = "70 Ngày";
-            this.Column92.Name = "Column92";
-            this.Column92.ReadOnly = true;
-            // 
-            // Column93
-            // 
-            this.Column93.DataPropertyName = "ngay_84";
-            this.Column93.HeaderText = "84 Ngày";
-            this.Column93.Name = "Column93";
-            this.Column93.ReadOnly = true;
-            // 
-            // Column94
-            // 
-            this.Column94.DataPropertyName = "ngay_98";
-            dataGridViewCellStyle195.BackColor = System.Drawing.SystemColors.Info;
-            this.Column94.DefaultCellStyle = dataGridViewCellStyle195;
-            this.Column94.HeaderText = "98 Ngày";
-            this.Column94.Name = "Column94";
-            this.Column94.ReadOnly = true;
-            // 
-            // Column95
-            // 
-            this.Column95.DataPropertyName = "ngay_112";
-            dataGridViewCellStyle196.BackColor = System.Drawing.Color.White;
-            this.Column95.DefaultCellStyle = dataGridViewCellStyle196;
-            this.Column95.HeaderText = "112 Ngày";
-            this.Column95.Name = "Column95";
-            this.Column95.ReadOnly = true;
-            // 
-            // Column96
-            // 
-            this.Column96.DataPropertyName = "ngay_126";
-            dataGridViewCellStyle197.BackColor = System.Drawing.SystemColors.Info;
-            this.Column96.DefaultCellStyle = dataGridViewCellStyle197;
-            this.Column96.HeaderText = "126 Ngày";
-            this.Column96.Name = "Column96";
-            this.Column96.ReadOnly = true;
-            // 
-            // Column97
-            // 
-            this.Column97.DataPropertyName = "ngay_140";
-            this.Column97.HeaderText = "140 Ngày";
-            this.Column97.Name = "Column97";
-            this.Column97.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.DataPropertyName = "DOT_SX";
-            dataGridViewCellStyle198.BackColor = System.Drawing.SystemColors.Info;
-            this.dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle198;
-            this.dataGridViewTextBoxColumn1.HeaderText = "Đợt Sản Xuất";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ReadOnly = true;
-            this.dataGridViewTextBoxColumn1.Width = 40;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.DataPropertyName = "ME_THU";
-            this.dataGridViewTextBoxColumn2.HeaderText = "Mẻ Số";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.ReadOnly = true;
-            this.dataGridViewTextBoxColumn2.Width = 40;
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataGridViewTextBoxColumn3.DataPropertyName = "SO_LOT";
-            dataGridViewCellStyle199.BackColor = System.Drawing.SystemColors.Info;
-            this.dataGridViewTextBoxColumn3.DefaultCellStyle = dataGridViewCellStyle199;
-            this.dataGridViewTextBoxColumn3.HeaderText = "Số LOT";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.ReadOnly = true;
-            this.dataGridViewTextBoxColumn3.Width = 75;
-            // 
-            // dataGridViewTextBoxColumn8
-            // 
-            this.dataGridViewTextBoxColumn8.DataPropertyName = "MA_TB";
-            this.dataGridViewTextBoxColumn8.HeaderText = "MS Thiết Bị";
-            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
-            this.dataGridViewTextBoxColumn8.ReadOnly = true;
-            this.dataGridViewTextBoxColumn8.Width = 50;
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataGridViewTextBoxColumn4.DataPropertyName = "TG_BD";
-            dataGridViewCellStyle200.BackColor = System.Drawing.SystemColors.Info;
-            this.dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle200;
-            this.dataGridViewTextBoxColumn4.HeaderText = "TG Bắt Đầu";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.ReadOnly = true;
-            this.dataGridViewTextBoxColumn4.Width = 75;
-            // 
-            // dataGridViewTextBoxColumn5
-            // 
-            this.dataGridViewTextBoxColumn5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataGridViewTextBoxColumn5.DataPropertyName = "TG_KT";
-            this.dataGridViewTextBoxColumn5.HeaderText = "TG Kết thúc";
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            this.dataGridViewTextBoxColumn5.ReadOnly = true;
-            this.dataGridViewTextBoxColumn5.Width = 75;
-            // 
-            // Column22
-            // 
-            this.Column22.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Column22.DataPropertyName = "LOAI_SP";
-            dataGridViewCellStyle201.BackColor = System.Drawing.SystemColors.Info;
-            this.Column22.DefaultCellStyle = dataGridViewCellStyle201;
-            this.Column22.HeaderText = "Mã BTP";
-            this.Column22.Name = "Column22";
-            this.Column22.ReadOnly = true;
-            this.Column22.Width = 76;
-            // 
-            // Column23
-            // 
-            this.Column23.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Column23.DataPropertyName = "KL_NL";
-            this.Column23.HeaderText = "KL NL";
-            this.Column23.Name = "Column23";
-            this.Column23.ReadOnly = true;
-            this.Column23.Width = 50;
-            // 
-            // dataGridViewTextBoxColumn6
-            // 
-            this.dataGridViewTextBoxColumn6.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataGridViewTextBoxColumn6.DataPropertyName = "NV_VH";
-            dataGridViewCellStyle202.BackColor = System.Drawing.SystemColors.Info;
-            this.dataGridViewTextBoxColumn6.DefaultCellStyle = dataGridViewCellStyle202;
-            this.dataGridViewTextBoxColumn6.HeaderText = "NV Vận Hành";
-            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
-            this.dataGridViewTextBoxColumn6.ReadOnly = true;
-            this.dataGridViewTextBoxColumn6.Width = 77;
-            // 
-            // dataGridViewTextBoxColumn7
-            // 
-            this.dataGridViewTextBoxColumn7.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataGridViewTextBoxColumn7.DataPropertyName = "TRUONG_CA";
-            this.dataGridViewTextBoxColumn7.HeaderText = "Trưởng Ca";
-            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
-            this.dataGridViewTextBoxColumn7.ReadOnly = true;
-            this.dataGridViewTextBoxColumn7.Width = 91;
-            // 
             // Logsx
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -5830,11 +5839,6 @@ namespace NhatKySanXuat
             this.pnloading.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            this.tabPageImportexcel.ResumeLayout(false);
-            this.tabPageImportexcel.PerformLayout();
-            this.panel5.ResumeLayout(false);
-            this.panel5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.tabPageNhaprelease.ResumeLayout(false);
             this.tabPageNhaprelease.PerformLayout();
             this.panel6.ResumeLayout(false);
@@ -5847,6 +5851,11 @@ namespace NhatKySanXuat
             this.pn_loading_release.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
+            this.tabPageImportexcel.ResumeLayout(false);
+            this.tabPageImportexcel.PerformLayout();
+            this.panel5.ResumeLayout(false);
+            this.panel5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.tabPagehistorylogin.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewblogtruycap)).EndInit();
             this.panel2.ResumeLayout(false);
