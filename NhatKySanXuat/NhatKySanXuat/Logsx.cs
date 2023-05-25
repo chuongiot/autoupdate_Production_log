@@ -43,6 +43,8 @@ namespace NhatKySanXuat
             loadcbbma_BTP();
             loadcbbma_NVL();
             loadcbb_Loai();
+            this.reportViewer_xuatkho.RefreshReport();
+            this.reportViewer_xuatkho.LocalReport.Refresh();
         }
         private void btthem_Click(object sender, EventArgs e)
         {
@@ -1398,7 +1400,7 @@ namespace NhatKySanXuat
                 cbmaBTP.Text = dgv_coater_s1.SelectedRows[0].Cells[6].Value.ToString();
                 tbkhoiluongphanbonnvl.Text = dgv_coater_s1.SelectedRows[0].Cells[7].Value.ToString();
                 cbbnguoinhap.Text = dgv_coater_s1.SelectedRows[0].Cells[9].Value.ToString();
-                calu_polymer();
+                convert_polymer();
             }
             catch (Exception ex)
             {
@@ -1424,6 +1426,10 @@ namespace NhatKySanXuat
             pn_import.BorderStyle = BorderStyle.FixedSingle;
             lb_import.ForeColor = Color.Black;
             tabControl1.SelectedTab = tabPagehistorylogin;
+            
+            pnxuatkhonvl.BackColor = Color.Silver;
+            pnxuatkhonvl.BorderStyle = BorderStyle.FixedSingle;
+            lb_xuatkhonvl.ForeColor = Color.Black;
             load_log();
         }
         public void cleardata()
@@ -13473,6 +13479,10 @@ namespace NhatKySanXuat
             panel_nhap_release.BackColor = Color.Silver;
             panel_nhap_release.BorderStyle = BorderStyle.FixedSingle;
             lb_nhap_release.ForeColor = Color.Black;
+
+            pnxuatkhonvl.BackColor = Color.Silver;
+            pnxuatkhonvl.BorderStyle = BorderStyle.FixedSingle;
+            lb_xuatkhonvl.ForeColor = Color.Black;
         }
         private void button2_Click(object sender, EventArgs e)
         {
@@ -14063,6 +14073,9 @@ namespace NhatKySanXuat
             //thread1.Start();
             //thread1.IsBackground = true;
             load_data_release();
+            pnxuatkhonvl.BackColor = Color.Silver;
+            pnxuatkhonvl.BorderStyle = BorderStyle.FixedSingle;
+            lb_xuatkhonvl.ForeColor = Color.Black;
         }
         private void dataGridView3_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
@@ -14174,6 +14187,10 @@ namespace NhatKySanXuat
             panel_nhap_release.BackColor = Color.Silver;
             panel_nhap_release.BorderStyle = BorderStyle.FixedSingle;
             lb_nhap_release.ForeColor = Color.Black;
+
+            pnxuatkhonvl.BackColor = Color.Silver;
+            pnxuatkhonvl.BorderStyle = BorderStyle.FixedSingle;
+            lb_xuatkhonvl.ForeColor = Color.Black;
         }
         public void load_data_polymer_fill_textbox()
         {
@@ -14539,7 +14556,7 @@ namespace NhatKySanXuat
         {
             hieu_suat_release();
         }
-        public void calu_polymer()
+        public void convert_polymer()
         {
             double cl1 = 0;
             double cl2 = 0;
@@ -14556,6 +14573,30 @@ namespace NhatKySanXuat
             tbn1157.Text = n1.ToString();
             tbn221.Text = n2.ToString();
             tbn3190.Text = n3.ToString();
+        }
+
+        private void pnxuatkhonvl_Click(object sender, EventArgs e)
+        {
+            pn_nksx_button.BackColor = Color.Silver;
+            pn_nksx_button.BorderStyle = BorderStyle.FixedSingle;
+            lb_nksx.ForeColor = Color.Black;
+
+            pn_history.BackColor = Color.Silver;
+            pn_history.BorderStyle = BorderStyle.FixedSingle;
+            lb_history.ForeColor = Color.Black;
+
+            pn_import.BackColor = Color.Silver;
+            pn_import.BorderStyle = BorderStyle.FixedSingle;
+            lb_import.ForeColor = Color.Black;
+
+            panel_nhap_release.BackColor = Color.Silver;
+            panel_nhap_release.BorderStyle = BorderStyle.FixedSingle;
+            lb_nhap_release.ForeColor = Color.Black;
+
+            pnxuatkhonvl.BackColor = Color.Lime;
+            pnxuatkhonvl.BorderStyle = BorderStyle.Fixed3D;
+            lb_xuatkhonvl.ForeColor = Color.White;
+            tabControl1.SelectedTab = tabPage_xuatkho;
         }
     }
 }
