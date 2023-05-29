@@ -26,7 +26,7 @@
     <InstallUrl>https://raw.githubusercontent.com/chuongiot/autoupdate_Production_log/main/published/</InstallUrl>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>21</ApplicationRevision>
+    <ApplicationRevision>22</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -149,6 +149,11 @@
     <Compile Include="changepassword.Designer.cs">
       <DependentUpon>changepassword.cs</DependentUpon>
     </Compile>
+    <Compile Include="DataSet_xuatkho.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSet_xuatkho.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -178,6 +183,18 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Xuatkho.rdlc" />
+    <None Include="DataSet_xuatkho.xsc">
+      <DependentUpon>DataSet_xuatkho.xsd</DependentUpon>
+    </None>
+    <None Include="DataSet_xuatkho.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSet_xuatkho.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="DataSet_xuatkho.xss">
+      <DependentUpon>DataSet_xuatkho.xsd</DependentUpon>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
