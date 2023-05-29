@@ -149,14 +149,6 @@
     <Compile Include="changepassword.Designer.cs">
       <DependentUpon>changepassword.cs</DependentUpon>
     </Compile>
-    <Compile Include="DataSet_XuatKho.cs">
-      <DependentUpon>DataSet_XuatKho.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DataSet_XuatKho.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DataSet_XuatKho.xsd</DependentUpon>
-    </Compile>
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -186,19 +178,6 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Xuatkho.rdlc" />
-    <None Include="DataSet_XuatKho.xsc">
-      <DependentUpon>DataSet_XuatKho.xsd</DependentUpon>
-    </None>
-    <None Include="DataSet_XuatKho.xsd">
-      <SubType>Designer</SubType>
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>DataSet_XuatKho.Designer.cs</LastGenOutput>
-    </None>
-    <None Include="DataSet_XuatKho.xss">
-      <DependentUpon>DataSet_XuatKho.xsd</DependentUpon>
-    </None>
-    <None Include="NhatKySanXuat_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
