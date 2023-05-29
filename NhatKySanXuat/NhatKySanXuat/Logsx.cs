@@ -1426,7 +1426,7 @@ namespace NhatKySanXuat
             pn_import.BorderStyle = BorderStyle.FixedSingle;
             lb_import.ForeColor = Color.Black;
             tabControl1.SelectedTab = tabPagehistorylogin;
-            
+
             pnxuatkhonvl.BackColor = Color.Silver;
             pnxuatkhonvl.BorderStyle = BorderStyle.FixedSingle;
             lb_xuatkhonvl.ForeColor = Color.Black;
@@ -1660,9 +1660,9 @@ namespace NhatKySanXuat
                 lb_126.BackColor = Color.Silver;
                 lb_140.BackColor = Color.Silver;
                 load_data_polymer_fill_textbox();
-                KL_lythuyet();
-                hieu_suat_thu();
-                hieu_suat_release();
+                //KL_lythuyet();
+                //hieu_suat_thu();
+                //hieu_suat_release();
             }
             catch (Exception ex)
             {
@@ -14535,7 +14535,14 @@ namespace NhatKySanXuat
         {
             try
             {
-                tbhieusuatrelease.Text = Math.Round((Convert.ToDouble(tbspkhongbidongkhoi.Text) / Convert.ToDouble(tbtongklspthuduoc.Text)) * 100, 4).ToString();
+                if (tbloai.Text=="WA"|| tbloai.Text == "A")
+                {
+                    tbhieusuatrelease.Text = Math.Round((Convert.ToDouble(tbspkhongbidongkhoi.Text) / Convert.ToDouble(tbtongklspthuduoc.Text)) * 100, 4).ToString();
+                }
+                else
+                {
+                    tbhieusuatrelease.Text = "0";
+                }
             }
             catch (Exception ex)
             {
@@ -14564,9 +14571,9 @@ namespace NhatKySanXuat
             double n1 = 0;
             double n2 = 0;
             double n3 = 0;
-            cl1 = Convert.ToDouble(tblot.Text.Substring(3, 2))/10;
-            cl2 = Convert.ToDouble(tblot.Text.Substring(5, 2))/10;
-            cl3 = Convert.ToDouble(tblot.Text.Substring(7, 2))/10;
+            cl1 = Convert.ToDouble(tblot.Text.Substring(3, 2)) / 10;
+            cl2 = Convert.ToDouble(tblot.Text.Substring(5, 2)) / 10;
+            cl3 = Convert.ToDouble(tblot.Text.Substring(7, 2)) / 10;
             n1 = cl1 / 100 * (Convert.ToDouble(tbkhoiluongphanbonnvl.Text)) * 4;
             n2 = cl2 / 100 * (Convert.ToDouble(tbkhoiluongphanbonnvl.Text)) * 4;
             n3 = cl3 / 100 * (Convert.ToDouble(tbkhoiluongphanbonnvl.Text)) * 4;
@@ -14597,6 +14604,86 @@ namespace NhatKySanXuat
             pnxuatkhonvl.BorderStyle = BorderStyle.Fixed3D;
             lb_xuatkhonvl.ForeColor = Color.White;
             tabControl1.SelectedTab = tabPage_xuatkho;
+            load_data_xuatkho();
+        }
+        public void load_data_xuatkho()
+        {
+            try
+            {
+                SqlConnection sqlcon = new SqlConnection(@"Data Source = 192.168.21.244,1433; Initial Catalog= RSFLOGSANXUAT ;User ID = sa; Password =mylan@2016");
+                sqlcon.Open();
+                SqlCommand command = new SqlCommand();
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                DataTable tb_buff = new DataTable();
+                command = sqlcon.CreateCommand();
+                command.CommandText = "select dot_sx,thiet_bi,ngay_sx,LOT,N1,N1_1,N1_1_barcode,N1_1_lot,N1_2,N1_2_barcode,N1_2_lot,N1_3,N1_3_barcode,N1_3_lot,N2,N2_1," +
+                    "N2_1_barcode,N2_1_lot,N2_2,N2_2_barcode,N2_2_lot,N2_3,N2_3_barcode,N2_3_lot,N3,N3_1,N3_1_barcode,N3_1_lot,N3_2,N3_2_barcode,N3_2_lot," +
+                    "N3_3,N3_3_barcode,N3_3_lot from nhatkysanxuat ORDER BY dot_sx DESC ";
+                adapter.SelectCommand = command;
+                tb_buff.Clear();
+                adapter.Fill(tb_buff);
+                dgv_xuatkhonvl.DataSource = tb_buff;
+                sqlcon.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void button_search_xuatkho_Click(object sender, EventArgs e)
+        {
+            if (cbb_search_tb_xuatkho.Text == "" && tb_search_dotsx_xuatkho.Text == "")
+            {
+                SqlConnection sqlcon = new SqlConnection(@"Data Source = 192.168.21.244,1433; Initial Catalog= RSFLOGSANXUAT ;User ID = sa; Password =mylan@2016");
+                sqlcon.Open();
+                SqlCommand command = new SqlCommand();
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                DataTable tb_buff = new DataTable();
+                command = sqlcon.CreateCommand();
+                command.CommandText = "select dot_sx,thiet_bi,ngay_sx,LOT,N1,N1_1,N1_1_barcode,N1_1_lot,N1_2,N1_2_barcode,N1_2_lot,N1_3,N1_3_barcode,N1_3_lot,N2,N2_1," +
+                    "N2_1_barcode,N2_1_lot,N2_2,N2_2_barcode,N2_2_lot,N2_3,N2_3_barcode,N2_3_lot,N3,N3_1,N3_1_barcode,N3_1_lot,N3_2,N3_2_barcode,N3_2_lot," +
+                    "N3_3,N3_3_barcode,N3_3_lot from nhatkysanxuat ORDER BY dot_sx DESC ";
+                adapter.SelectCommand = command;
+                tb_buff.Clear();
+                adapter.Fill(tb_buff);
+                dgv_xuatkhonvl.DataSource = tb_buff;
+                sqlcon.Close();
+            }
+            else if (cbb_search_tb_xuatkho.Text != "" && tb_search_dotsx_xuatkho.Text == "")
+            {
+                SqlConnection sqlcon = new SqlConnection(@"Data Source = 192.168.21.244,1433; Initial Catalog= RSFLOGSANXUAT ;User ID = sa; Password =mylan@2016");
+                sqlcon.Open();
+                SqlCommand command = new SqlCommand();
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                DataTable tb_buff = new DataTable();
+                command = sqlcon.CreateCommand();
+                command.CommandText = "select dot_sx,thiet_bi,ngay_sx,LOT,N1,N1_1,N1_1_barcode,N1_1_lot,N1_2,N1_2_barcode,N1_2_lot,N1_3,N1_3_barcode,N1_3_lot,N2,N2_1," +
+                    "N2_1_barcode,N2_1_lot,N2_2,N2_2_barcode,N2_2_lot,N2_3,N2_3_barcode,N2_3_lot,N3,N3_1,N3_1_barcode,N3_1_lot,N3_2,N3_2_barcode,N3_2_lot," +
+                    "N3_3,N3_3_barcode,N3_3_lot from nhatkysanxuat where thiet_bi ='" + cbb_search_tb_xuatkho.Text + "' ORDER BY dot_sx DESC ";
+                adapter.SelectCommand = command;
+                tb_buff.Clear();
+                adapter.Fill(tb_buff);
+                dgv_xuatkhonvl.DataSource = tb_buff;
+                sqlcon.Close();
+            }
+            else
+            {
+                SqlConnection sqlcon = new SqlConnection(@"Data Source = 192.168.21.244,1433; Initial Catalog= RSFLOGSANXUAT ;User ID = sa; Password =mylan@2016");
+                sqlcon.Open();
+                SqlCommand command = new SqlCommand();
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                DataTable tb_buff = new DataTable();
+                command = sqlcon.CreateCommand();
+                command.CommandText = "select dot_sx,thiet_bi,ngay_sx,LOT,N1,N1_1,N1_1_barcode,N1_1_lot,N1_2,N1_2_barcode,N1_2_lot,N1_3,N1_3_barcode,N1_3_lot,N2,N2_1," +
+                    "N2_1_barcode,N2_1_lot,N2_2,N2_2_barcode,N2_2_lot,N2_3,N2_3_barcode,N2_3_lot,N3,N3_1,N3_1_barcode,N3_1_lot,N3_2,N3_2_barcode,N3_2_lot," +
+                    "N3_3,N3_3_barcode,N3_3_lot from nhatkysanxuat where dot_sx ='" + tb_search_dotsx_xuatkho.Text + "' ORDER BY dot_sx DESC ";
+                adapter.SelectCommand = command;
+                tb_buff.Clear();
+                adapter.Fill(tb_buff);
+                dgv_xuatkhonvl.DataSource = tb_buff;
+                sqlcon.Close();
+            }
         }
     }
 }
