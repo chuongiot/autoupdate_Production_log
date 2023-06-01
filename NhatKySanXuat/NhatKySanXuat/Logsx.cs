@@ -43,8 +43,12 @@ namespace NhatKySanXuat
             loadcbbma_BTP();
             loadcbbma_NVL();
             loadcbb_Loai();
-            this.reportViewer_xuatkho.RefreshReport();
-            this.reportViewer_xuatkho.LocalReport.Refresh();
+            //this.reportViewer_xuatkho.RefreshReport();
+            //this.reportViewer_xuatkho.LocalReport.Refresh();
+            dataGridView1.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridView1.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 10, FontStyle.Bold);
+            dataGridView1.ColumnHeadersDefaultCellStyle.BackColor = Color.White;
+            dataGridView1.ColumnHeadersDefaultCellStyle.ForeColor = Color.Red;
         }
         private void btthem_Click(object sender, EventArgs e)
         {
@@ -3498,7 +3502,7 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length, "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
                                 "", Math.Round(TONG_KL_LT, 4), Math.Round(Hieu_suat_thu_tb / dataGridView1.Rows.Count, 4), Math.Round(Hieu_suat_release_tb / dataGridView1.Rows.Count, 4),
                                 "", "", "", KHOI_LUONG_NVL, "", "", Math.Round(Tong_N1_KL, 4), "", "", Math.Round(Tong_N2_KL, 4), "", "", Math.Round(Tong_N3_KL, 4), "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
                                 "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
@@ -14632,5 +14636,45 @@ namespace NhatKySanXuat
             load_data_xuatkho();
         }
 
+        private void tb_n1_1_code_Leave(object sender, EventArgs e)
+        {
+            if (tb_n1_1_code.Text != "")
+            {
+                tbbarcodeN1.Text += tb_n1_1_code.Text + ", ";
+            }
+            else if (tb_n1_2_code.Text != "")
+            {
+                tbbarcodeN1.Text += tb_n1_2_code.Text + ", ";
+            }
+        }
+        List<int> old_index = new List<int>();
+        private void hideStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int index_column = dataGridView1.CurrentCell.OwningColumn.Index;
+                dataGridView1.Columns[index_column].Visible = false;
+                old_index.Add(index_column);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        private void showAllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                for (int i = 0; i < old_index.Count; i++)
+                {
+                    dataGridView1.Columns[old_index[i]].Visible = true;
+                }
+                old_index.Clear();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
     }
 }
