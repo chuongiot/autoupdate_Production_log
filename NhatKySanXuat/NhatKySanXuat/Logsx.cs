@@ -46,7 +46,7 @@ namespace NhatKySanXuat
             //this.reportViewer_xuatkho.RefreshReport();
             //this.reportViewer_xuatkho.LocalReport.Refresh();
             dataGridView1.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridView1.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 10, FontStyle.Bold);
+            dataGridView1.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
             dataGridView1.ColumnHeadersDefaultCellStyle.BackColor = Color.White;
             dataGridView1.ColumnHeadersDefaultCellStyle.ForeColor = Color.Red;
         }
@@ -2039,7 +2039,7 @@ namespace NhatKySanXuat
                                 Math.Round(tb_84ngay / count_84, 4), Math.Round(tb_98ngay / count_98, 4), Math.Round(tb_112ngay / count_112, 4),
                                 Math.Round(tb_126ngay / count_126, 4), Math.Round(tb_140ngay / count_140, 4));
                 dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 11, FontStyle.Bold);
+                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
             }
             catch (Exception ex)
             {
@@ -3513,7 +3513,7 @@ namespace NhatKySanXuat
                                 Math.Round(tb_84ngay / count_84, 4), Math.Round(tb_98ngay / count_98, 4), Math.Round(tb_112ngay / count_112, 4),
                                 Math.Round(tb_126ngay / count_126, 4), Math.Round(tb_140ngay / count_140, 4));
                 dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 11, FontStyle.Bold);
+                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
             }
             catch (Exception ex)
             {
@@ -3881,7 +3881,7 @@ namespace NhatKySanXuat
                                 Math.Round(tb_84ngay / count_84, 4), Math.Round(tb_98ngay / count_98, 4), Math.Round(tb_112ngay / count_112, 4),
                                 Math.Round(tb_126ngay / count_126, 4), Math.Round(tb_140ngay / count_140, 4));
                 dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 11, FontStyle.Bold);
+                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
             }
             catch (Exception ex)
             {
@@ -4250,7 +4250,7 @@ namespace NhatKySanXuat
                                 Math.Round(tb_84ngay / count_84, 4), Math.Round(tb_98ngay / count_98, 4), Math.Round(tb_112ngay / count_112, 4),
                                 Math.Round(tb_126ngay / count_126, 4), Math.Round(tb_140ngay / count_140, 4));
                 dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 11, FontStyle.Bold);
+                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
             }
             catch (Exception ex)
             {
@@ -4618,7 +4618,7 @@ namespace NhatKySanXuat
                                 Math.Round(tb_84ngay / count_84, 4), Math.Round(tb_98ngay / count_98, 4), Math.Round(tb_112ngay / count_112, 4),
                                 Math.Round(tb_126ngay / count_126, 4), Math.Round(tb_140ngay / count_140, 4));
                 dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 11, FontStyle.Bold);
+                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
             }
             catch (Exception ex)
             {
@@ -4987,7 +4987,7 @@ namespace NhatKySanXuat
                                 Math.Round(tb_84ngay / count_84, 4), Math.Round(tb_98ngay / count_98, 4), Math.Round(tb_112ngay / count_112, 4),
                                 Math.Round(tb_126ngay / count_126, 4), Math.Round(tb_140ngay / count_140, 4));
                 dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 11, FontStyle.Bold);
+                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
             }
             catch (Exception ex)
             {
@@ -5355,7 +5355,7 @@ namespace NhatKySanXuat
                                 Math.Round(tb_84ngay / count_84, 4), Math.Round(tb_98ngay / count_98, 4), Math.Round(tb_112ngay / count_112, 4),
                                 Math.Round(tb_126ngay / count_126, 4), Math.Round(tb_140ngay / count_140, 4));
                 dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 11, FontStyle.Bold);
+                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
             }
             catch (Exception ex)
             {
@@ -5724,7 +5724,7 @@ namespace NhatKySanXuat
                                 Math.Round(tb_84ngay / count_84, 4), Math.Round(tb_98ngay / count_98, 4), Math.Round(tb_112ngay / count_112, 4),
                                 Math.Round(tb_126ngay / count_126, 4), Math.Round(tb_140ngay / count_140, 4));
                 dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 11, FontStyle.Bold);
+                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
             }
             catch (Exception ex)
             {
@@ -6092,7 +6092,7 @@ namespace NhatKySanXuat
                                 Math.Round(tb_84ngay / count_84, 4), Math.Round(tb_98ngay / count_98, 4), Math.Round(tb_112ngay / count_112, 4),
                                 Math.Round(tb_126ngay / count_126, 4), Math.Round(tb_140ngay / count_140, 4));
                 dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 11, FontStyle.Bold);
+                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
             }
             catch (Exception ex)
             {
@@ -6461,7 +6461,7 @@ namespace NhatKySanXuat
                                 Math.Round(tb_84ngay / count_84, 4), Math.Round(tb_98ngay / count_98, 4), Math.Round(tb_112ngay / count_112, 4),
                                 Math.Round(tb_126ngay / count_126, 4), Math.Round(tb_140ngay / count_140, 4));
                 dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 11, FontStyle.Bold);
+                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
             }
             catch (Exception ex)
             {
@@ -6829,7 +6829,7 @@ namespace NhatKySanXuat
                                 Math.Round(tb_84ngay / count_84, 4), Math.Round(tb_98ngay / count_98, 4), Math.Round(tb_112ngay / count_112, 4),
                                 Math.Round(tb_126ngay / count_126, 4), Math.Round(tb_140ngay / count_140, 4));
                 dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 11, FontStyle.Bold);
+                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
             }
             catch (Exception ex)
             {
@@ -7198,7 +7198,7 @@ namespace NhatKySanXuat
                                 Math.Round(tb_84ngay / count_84, 4), Math.Round(tb_98ngay / count_98, 4), Math.Round(tb_112ngay / count_112, 4),
                                 Math.Round(tb_126ngay / count_126, 4), Math.Round(tb_140ngay / count_140, 4));
                 dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 11, FontStyle.Bold);
+                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
             }
             catch (Exception ex)
             {
@@ -7566,7 +7566,7 @@ namespace NhatKySanXuat
                                 Math.Round(tb_84ngay / count_84, 4), Math.Round(tb_98ngay / count_98, 4), Math.Round(tb_112ngay / count_112, 4),
                                 Math.Round(tb_126ngay / count_126, 4), Math.Round(tb_140ngay / count_140, 4));
                 dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 11, FontStyle.Bold);
+                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
             }
             catch (Exception ex)
             {
@@ -7935,7 +7935,7 @@ namespace NhatKySanXuat
                                 Math.Round(tb_84ngay / count_84, 4), Math.Round(tb_98ngay / count_98, 4), Math.Round(tb_112ngay / count_112, 4),
                                 Math.Round(tb_126ngay / count_126, 4), Math.Round(tb_140ngay / count_140, 4));
                 dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 11, FontStyle.Bold);
+                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
             }
             catch (Exception ex)
             {
@@ -8303,7 +8303,7 @@ namespace NhatKySanXuat
                                 Math.Round(tb_84ngay / count_84, 4), Math.Round(tb_98ngay / count_98, 4), Math.Round(tb_112ngay / count_112, 4),
                                 Math.Round(tb_126ngay / count_126, 4), Math.Round(tb_140ngay / count_140, 4));
                 dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 11, FontStyle.Bold);
+                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
             }
             catch (Exception ex)
             {
@@ -8672,7 +8672,7 @@ namespace NhatKySanXuat
                                 Math.Round(tb_84ngay / count_84, 4), Math.Round(tb_98ngay / count_98, 4), Math.Round(tb_112ngay / count_112, 4),
                                 Math.Round(tb_126ngay / count_126, 4), Math.Round(tb_140ngay / count_140, 4));
                 dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 11, FontStyle.Bold);
+                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
             }
             catch (Exception ex)
             {
@@ -9040,7 +9040,7 @@ namespace NhatKySanXuat
                                 Math.Round(tb_84ngay / count_84, 4), Math.Round(tb_98ngay / count_98, 4), Math.Round(tb_112ngay / count_112, 4),
                                 Math.Round(tb_126ngay / count_126, 4), Math.Round(tb_140ngay / count_140, 4));
                 dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 11, FontStyle.Bold);
+                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
             }
             catch (Exception ex)
             {
@@ -9409,7 +9409,7 @@ namespace NhatKySanXuat
                                 Math.Round(tb_84ngay / count_84, 4), Math.Round(tb_98ngay / count_98, 4), Math.Round(tb_112ngay / count_112, 4),
                                 Math.Round(tb_126ngay / count_126, 4), Math.Round(tb_140ngay / count_140, 4));
                 dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 11, FontStyle.Bold);
+                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
             }
             catch (Exception ex)
             {
@@ -9777,7 +9777,7 @@ namespace NhatKySanXuat
                                 Math.Round(tb_84ngay / count_84, 4), Math.Round(tb_98ngay / count_98, 4), Math.Round(tb_112ngay / count_112, 4),
                                 Math.Round(tb_126ngay / count_126, 4), Math.Round(tb_140ngay / count_140, 4));
                 dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 11, FontStyle.Bold);
+                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
             }
             catch (Exception ex)
             {
@@ -10146,7 +10146,7 @@ namespace NhatKySanXuat
                                 Math.Round(tb_84ngay / count_84, 4), Math.Round(tb_98ngay / count_98, 4), Math.Round(tb_112ngay / count_112, 4),
                                 Math.Round(tb_126ngay / count_126, 4), Math.Round(tb_140ngay / count_140, 4));
                 dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 11, FontStyle.Bold);
+                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
             }
             catch (Exception ex)
             {
@@ -10514,7 +10514,7 @@ namespace NhatKySanXuat
                                 Math.Round(tb_84ngay / count_84, 4), Math.Round(tb_98ngay / count_98, 4), Math.Round(tb_112ngay / count_112, 4),
                                 Math.Round(tb_126ngay / count_126, 4), Math.Round(tb_140ngay / count_140, 4));
                 dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 11, FontStyle.Bold);
+                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
             }
             catch (Exception ex)
             {
@@ -10883,7 +10883,7 @@ namespace NhatKySanXuat
                                 Math.Round(tb_84ngay / count_84, 4), Math.Round(tb_98ngay / count_98, 4), Math.Round(tb_112ngay / count_112, 4),
                                 Math.Round(tb_126ngay / count_126, 4), Math.Round(tb_140ngay / count_140, 4));
                 dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 11, FontStyle.Bold);
+                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
             }
             catch (Exception ex)
             {
@@ -11251,7 +11251,7 @@ namespace NhatKySanXuat
                                 Math.Round(tb_84ngay / count_84, 4), Math.Round(tb_98ngay / count_98, 4), Math.Round(tb_112ngay / count_112, 4),
                                 Math.Round(tb_126ngay / count_126, 4), Math.Round(tb_140ngay / count_140, 4));
                 dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 11, FontStyle.Bold);
+                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
             }
             catch (Exception ex)
             {
@@ -11620,7 +11620,7 @@ namespace NhatKySanXuat
                                 Math.Round(tb_84ngay / count_84, 4), Math.Round(tb_98ngay / count_98, 4), Math.Round(tb_112ngay / count_112, 4),
                                 Math.Round(tb_126ngay / count_126, 4), Math.Round(tb_140ngay / count_140, 4));
                 dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 11, FontStyle.Bold);
+                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
             }
             catch (Exception ex)
             {
@@ -11988,7 +11988,7 @@ namespace NhatKySanXuat
                                 Math.Round(tb_84ngay / count_84, 4), Math.Round(tb_98ngay / count_98, 4), Math.Round(tb_112ngay / count_112, 4),
                                 Math.Round(tb_126ngay / count_126, 4), Math.Round(tb_140ngay / count_140, 4));
                 dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 11, FontStyle.Bold);
+                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
             }
             catch (Exception ex)
             {
@@ -12357,7 +12357,7 @@ namespace NhatKySanXuat
                                 Math.Round(tb_84ngay / count_84, 4), Math.Round(tb_98ngay / count_98, 4), Math.Round(tb_112ngay / count_112, 4),
                                 Math.Round(tb_126ngay / count_126, 4), Math.Round(tb_140ngay / count_140, 4));
                 dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 11, FontStyle.Bold);
+                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
             }
             catch (Exception ex)
             {
@@ -12725,7 +12725,7 @@ namespace NhatKySanXuat
                                 Math.Round(tb_84ngay / count_84, 4), Math.Round(tb_98ngay / count_98, 4), Math.Round(tb_112ngay / count_112, 4),
                                 Math.Round(tb_126ngay / count_126, 4), Math.Round(tb_140ngay / count_140, 4));
                 dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 11, FontStyle.Bold);
+                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
             }
             catch (Exception ex)
             {
@@ -13094,7 +13094,7 @@ namespace NhatKySanXuat
                                 Math.Round(tb_84ngay / count_84, 4), Math.Round(tb_98ngay / count_98, 4), Math.Round(tb_112ngay / count_112, 4),
                                 Math.Round(tb_126ngay / count_126, 4), Math.Round(tb_140ngay / count_140, 4));
                 dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 11, FontStyle.Bold);
+                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
             }
             catch (Exception ex)
             {
@@ -13462,7 +13462,7 @@ namespace NhatKySanXuat
                                 Math.Round(tb_84ngay / count_84, 4), Math.Round(tb_98ngay / count_98, 4), Math.Round(tb_112ngay / count_112, 4),
                                 Math.Round(tb_126ngay / count_126, 4), Math.Round(tb_140ngay / count_140, 4));
                 dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 11, FontStyle.Bold);
+                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
             }
             catch (Exception ex)
             {
