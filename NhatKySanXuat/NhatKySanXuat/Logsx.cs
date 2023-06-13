@@ -52,23 +52,25 @@ namespace NhatKySanXuat
         }
         private void btthem_Click(object sender, EventArgs e)
         {
-            DialogResult dialogResult = MessageBox.Show("Bạn có muốn thêm LOT : " + tblot.Text + "", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+            /*DialogResult dialogResult = MessageBox.Show("Bạn có muốn thêm LOT : " + tblot.Text + "", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
             if (dialogResult == DialogResult.OK)
             {
                 insert_data();
-            }
+            }*/
+            Form3 form3 = new Form3("");
+            form3.ShowDialog();
         }
         private void btcapnhat_Click(object sender, EventArgs e)
         {
-            DialogResult dialogResult = MessageBox.Show("Bạn có muốn cập nhật", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
-            if (dialogResult == DialogResult.OK)
-            {
-                update();
-            }
+            //DialogResult dialogResult = MessageBox.Show("Bạn có muốn cập nhật", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+            //if (dialogResult == DialogResult.OK)
+           // {
+            //    update();
+           // }
         }
         private void btxoa_Click(object sender, EventArgs e)
         {
-            delete();
+            //delete();
         }
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -93,7 +95,7 @@ namespace NhatKySanXuat
         }
         public void insert_data()
         {
-            if (tblot.Text == "")
+            /*if (tblot.Text == "")
             {
                 MessageBox.Show("Chưa Nhập LOT", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
@@ -551,11 +553,11 @@ namespace NhatKySanXuat
                 {
                     MessageBox.Show(ex.Message);
                 }
-            }
+            }*/
         }
         public void delete()
         {
-            if (lbuser.Text == "admin")
+            /*if (lbuser.Text == "admin")
             {
                 if (tblot.Text == "")
                 {
@@ -884,11 +886,11 @@ namespace NhatKySanXuat
                 {
                     MessageBox.Show(ex.Message);
                 }
-            }
+            }*/
         }
         public void update()
         {
-            if (tblot.Text == "")
+            /*if (tblot.Text == "")
             {
                 MessageBox.Show("Chưa Nhập Thông Tin", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
@@ -1227,7 +1229,7 @@ namespace NhatKySanXuat
                 {
                     MessageBox.Show(ex.Message);
                 }
-            }
+            }*/
         }
         public void export()
         {
@@ -1421,7 +1423,7 @@ namespace NhatKySanXuat
         {
             try
             {
-                cleardata();
+                /*cleardata();
                 tbdotsx.Text = dgv_coater_s1.SelectedRows[0].Cells[0].Value.ToString();
                 tbme.Text = dgv_coater_s1.SelectedRows[0].Cells[1].Value.ToString();
                 tblot.Text = dgv_coater_s1.SelectedRows[0].Cells[2].Value.ToString();
@@ -1431,6 +1433,7 @@ namespace NhatKySanXuat
                 tbkhoiluongphanbonnvl.Text = dgv_coater_s1.SelectedRows[0].Cells[7].Value.ToString();
                 cbbnguoinhap.Text = dgv_coater_s1.SelectedRows[0].Cells[9].Value.ToString();
                 convert_polymer();
+                */
             }
             catch (Exception ex)
             {
@@ -1464,7 +1467,7 @@ namespace NhatKySanXuat
         }
         public void cleardata()
         {
-            cbbnguoinhap.Text = "";
+            /*cbbnguoinhap.Text = "";
             tbdotsx.Text = "";
             dateTimePickerngaysx.Text = "";
             cbbthietbi.Text = "";
@@ -1579,14 +1582,14 @@ namespace NhatKySanXuat
             tb_ngay98.Text = "";
             tb_ngay112.Text = "";
             tb_ngay126.Text = "";
-            tb_ngay140.Text = "";
+            tb_ngay140.Text = "";*/
         }
 
         private void dataGridView1_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
+        {  
             try
             {
-                cbbnguoinhap.Text = dataGridView1.SelectedRows[0].Cells[0].Value.ToString();
+                /*cbbnguoinhap.Text = dataGridView1.SelectedRows[0].Cells[0].Value.ToString();
                 tbdotsx.Text = dataGridView1.SelectedRows[0].Cells[1].Value.ToString();
                 dateTimePickerngaysx.Text = dataGridView1.SelectedRows[0].Cells[2].Value.ToString();
                 cbbthietbi.Text = dataGridView1.SelectedRows[0].Cells[3].Value.ToString();
@@ -1672,7 +1675,10 @@ namespace NhatKySanXuat
                 tb_ngay112.Text = dataGridView1.SelectedRows[0].Cells[83].Value.ToString();
                 tb_ngay126.Text = dataGridView1.SelectedRows[0].Cells[84].Value.ToString();
                 tb_ngay140.Text = dataGridView1.SelectedRows[0].Cells[85].Value.ToString();
-                load_data_polymer_fill_textbox();
+                */
+                //load_data_polymer_fill_textbox();
+                Form3 form3 = new Form3(dataGridView1.SelectedRows[0].Cells[7].Value.ToString());
+                form3.ShowDialog();
             }
             catch (Exception ex)
             {
@@ -2407,7 +2413,7 @@ namespace NhatKySanXuat
                                 Math.Round(tb_84ngay / count_84, 4), Math.Round(tb_98ngay / count_98, 4), Math.Round(tb_112ngay / count_112, 4),
                                 Math.Round(tb_126ngay / count_126, 4), Math.Round(tb_140ngay / count_140, 4));
                 dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 11, FontStyle.Bold);
+                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
             }
             catch (Exception ex)
             {
@@ -13573,7 +13579,7 @@ namespace NhatKySanXuat
                 string Borax_barcode = "";
                 string NAA = "";
                 string NAA_barcode = "";
-                string Sodium = tbsodium.Text;
+                string Sodium = "";
                 string Sodium_barcode = "";
                 string Citric = "";
                 string Barcode_Citric = "";
@@ -14091,7 +14097,7 @@ namespace NhatKySanXuat
         {
             try
             {
-                tb_ngaysx_tabrelease.Text = dataGridView3.SelectedRows[0].Cells[0].Value.ToString();
+                /*tb_ngaysx_tabrelease.Text = dataGridView3.SelectedRows[0].Cells[0].Value.ToString();
                 tb_dotsx_release.Text = dataGridView3.SelectedRows[0].Cells[1].Value.ToString();
                 tb_lot_release.Text = dataGridView3.SelectedRows[0].Cells[2].Value.ToString();
                 tb_do_am.Text = dataGridView3.SelectedRows[0].Cells[4].Value.ToString();
@@ -14111,6 +14117,7 @@ namespace NhatKySanXuat
                 tb_ngay112.Text = dataGridView3.SelectedRows[0].Cells[18].Value.ToString();
                 tb_ngay126.Text = dataGridView3.SelectedRows[0].Cells[19].Value.ToString();
                 tb_ngay140.Text = dataGridView3.SelectedRows[0].Cells[20].Value.ToString();
+                */
             }
             catch (Exception ex)
             {
@@ -14160,7 +14167,7 @@ namespace NhatKySanXuat
         {
             try
             {
-                SqlConnection sqlcon = new SqlConnection(@"Data Source = 192.168.21.244,1433; Initial Catalog= RSFLOGSANXUAT ;User ID = sa; Password =mylan@2016");
+                /*SqlConnection sqlcon = new SqlConnection(@"Data Source = 192.168.21.244,1433; Initial Catalog= RSFLOGSANXUAT ;User ID = sa; Password =mylan@2016");
                 sqlcon.Open();
                 SqlCommand command = new SqlCommand();
                 SqlDataAdapter adapter = new SqlDataAdapter();
@@ -14204,6 +14211,7 @@ namespace NhatKySanXuat
                 tb_n3_1_lot.Text = row[0]["N3_1_lot"].ToString();
                 tb_n3_2_lot.Text = row[0]["N3_2_lot"].ToString();
                 tb_n3_3_lot.Text = row[0]["N3_3_lot"].ToString();
+                */
             }
             catch (Exception ex)
             {
@@ -14347,7 +14355,7 @@ namespace NhatKySanXuat
         }
         private void tbkhoiluongdongkhoi_Leave(object sender, EventArgs e)
         {
-            double kl_dongkhoi = 0;
+            /*double kl_dongkhoi = 0;
             double kl_khongdongkhoi = 0;
             if (tbkhoiluongdongkhoi.Text == "")
             {
@@ -14369,11 +14377,12 @@ namespace NhatKySanXuat
             KL_lythuyet();
             hieu_suat_release();
             hieu_suat_thu();
+            */
         }
 
         private void tb_n1_1_kl_Leave(object sender, EventArgs e)
         {
-            double N1_1 = 0;
+            /*double N1_1 = 0;
             double N1_2 = 0;
             double N1_3 = 0;
             double N1_4 = 0;
@@ -14410,10 +14419,11 @@ namespace NhatKySanXuat
                 N1_4 = Convert.ToDouble(tb_n1_4_kl.Text);
             }
             tbn1157.Text = (N1_1 + N1_2 + N1_3 + N1_4).ToString();
+            */
         }
         private void tb_n2_1_kl_Leave(object sender, EventArgs e)
         {
-            double N2_1 = 0;
+            /*double N2_1 = 0;
             double N2_2 = 0;
             double N2_3 = 0;
             if (tb_n2_1_kl.Text == "")
@@ -14441,10 +14451,11 @@ namespace NhatKySanXuat
                 N2_3 = Convert.ToDouble(tb_n2_3_kl.Text);
             }
             tbn221.Text = (N2_1 + N2_2 + N2_3).ToString();
+            */
         }
         private void tb_n3_1_kl_Leave(object sender, EventArgs e)
         {
-            double N3_1 = 0;
+            /*double N3_1 = 0;
             double N3_2 = 0;
             double N3_3 = 0;
             if (tb_n3_1_kl.Text == "")
@@ -14472,10 +14483,11 @@ namespace NhatKySanXuat
                 N3_3 = Convert.ToDouble(tb_n3_3_kl.Text);
             }
             tbn3190.Text = (N3_1 + N3_2 + N3_3).ToString();
+            */
         }
         public void KL_lythuyet()
         {
-            try
+            /*try
             {
                 tbkhoiluonglythuyet.Text = (Convert.ToDouble(tbkhoiluongphanbonnvl.Text) + (Convert.ToDouble(tbn1157.Text) + Convert.ToDouble(tbn221.Text) + Convert.ToDouble(tbn3190.Text)) / 4).ToString();
             }
@@ -14483,10 +14495,11 @@ namespace NhatKySanXuat
             {
                 MessageBox.Show(ex.Message);
             }
+            */
         }
         public void hieu_suat_thu()
         {
-            try
+            /*try
             {
                 tbhieusuatthu.Text = Math.Round(((Convert.ToDouble(tbtongklspthuduoc.Text) / Convert.ToDouble(tbkhoiluonglythuyet.Text)) * 100), 4).ToString();
             }
@@ -14494,10 +14507,11 @@ namespace NhatKySanXuat
             {
                 MessageBox.Show(ex.Message);
             }
+            */
         }
         public void hieu_suat_release()
         {
-            try
+            /*try
             {
                 if (tbloai.Text == "WA" || tbloai.Text == "A")
                 {
@@ -14512,6 +14526,7 @@ namespace NhatKySanXuat
             {
                 MessageBox.Show(ex.Message);
             }
+            */
         }
         private void tbkhoiluonglythuyet_Click(object sender, EventArgs e)
         {
@@ -14529,7 +14544,7 @@ namespace NhatKySanXuat
         }
         public void convert_polymer()
         {
-            double cl1 = 0;
+            /*double cl1 = 0;
             double cl2 = 0;
             double cl3 = 0;
             double n1 = 0;
@@ -14544,6 +14559,7 @@ namespace NhatKySanXuat
             tbn1157.Text = n1.ToString();
             tbn221.Text = n2.ToString();
             tbn3190.Text = n3.ToString();
+            */
         }
 
         private void pnxuatkhonvl_Click(object sender, EventArgs e)
@@ -14638,7 +14654,7 @@ namespace NhatKySanXuat
 
         private void tb_n1_1_code_Leave(object sender, EventArgs e)
         {
-            if (tb_n1_1_code.Text != "")
+            /*if (tb_n1_1_code.Text != "")
             {
                 tbbarcodeN1.Text += tb_n1_1_code.Text + ", ";
             }
@@ -14646,6 +14662,7 @@ namespace NhatKySanXuat
             {
                 tbbarcodeN1.Text += tb_n1_2_code.Text + ", ";
             }
+            */
         }
         List<int> old_index = new List<int>();
         private void hideStripMenuItem1_Click(object sender, EventArgs e)
