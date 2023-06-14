@@ -82,12 +82,12 @@ namespace NhatKySanXuat
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 file_name = saveFileDialog1.FileName;
+                pnloading.Visible = true;
+                ThreadStart threadStart = new ThreadStart(export);
+                Thread thread = new Thread(threadStart);
+                thread.Start();
+                thread.IsBackground = true;
             }
-            pnloading.Visible = true;
-            ThreadStart threadStart = new ThreadStart(export);
-            Thread thread = new Thread(threadStart);
-            thread.Start();
-            thread.IsBackground = true;
         }
         private void Logsx_FormClosed(object sender, FormClosedEventArgs e)
         {
