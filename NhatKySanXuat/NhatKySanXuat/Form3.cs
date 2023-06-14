@@ -27,7 +27,7 @@ namespace NhatKySanXuat
         bool update_or_add;
         private void Form3_Load(object sender, EventArgs e)
         {
-            load_data_with_date(tblot.Text);
+            load_data(tblot.Text);
         }
         public void insert_data()
         {
@@ -194,6 +194,7 @@ namespace NhatKySanXuat
                         "'" + ngay_112 + "','" + ngay_126 + "','" + ngay_140 + "')";
                     command.ExecuteNonQuery();
                     MessageBox.Show("Thêm Thành Công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    insert_blogtruycap("Đã thêm LOT : " + tblot.Text);
                     sqlcon.Close();
                 }
                 catch (Exception ex)
@@ -248,7 +249,7 @@ namespace NhatKySanXuat
                     SqlCommand cmd = new SqlCommand(sqlupdate, sqlcon);
                     cmd.ExecuteNonQuery();
                     MessageBox.Show("Cập Nhật Thành Công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    //insert_blogtruycap("Đã cập nhật LOT : " + tblot.Text);
+                    insert_blogtruycap("Đã cập nhật LOT : " + tblot.Text);
                     sqlcon.Close();
                 }
                 catch (Exception ex)
@@ -257,7 +258,7 @@ namespace NhatKySanXuat
                 }
             }
         }
-        public void load_data_with_date(string LOT)
+        public void load_data(string LOT)
         {
             if (LOT != "")
             {
@@ -396,9 +397,27 @@ namespace NhatKySanXuat
                     tb_n3_2_lot.Text = row[0]["N3_2_lot"].ToString();
                     tb_n3_3_lot.Text = row[0]["N3_3_lot"].ToString();
                 }
-                catch (Exception ex)
+                catch
                 {
-                    MessageBox.Show(ex.Message);
+                    SqlConnection sqlcon = new SqlConnection(@"Data Source=192.168.23.219,1433;Initial Catalog=QL_SX;User ID=sa;Password=rynan2020");
+                    sqlcon.Open();
+                    SqlCommand cmd = new SqlCommand();
+                    SqlDataAdapter sqlDataAdapter = new SqlDataAdapter();
+                    cmd = sqlcon.CreateCommand();
+                    cmd.CommandText = "Select DOT_SX,ME_THU,MA_TB,TG_BD,LOAI_SP,KL_NL from DataSX_RSF WHERE SO_LOT = '" + tblot.Text + "'";
+                    sqlDataAdapter.SelectCommand = cmd;
+                    DataTable dt_a = new DataTable();
+                    dt_a.Clear();
+                    sqlDataAdapter.Fill(dt_a);
+                    sqlcon.Close();
+                    DataRow[] row = dt_a.Select();
+                    tbdotsx.Text = row[0]["DOT_SX"].ToString();
+                    tbme.Text = row[0]["ME_THU"].ToString();
+                    cbbthietbi.Text = row[0]["MA_TB"].ToString();
+                    dateTimePickerngaysx.Text = row[0]["TG_BD"].ToString();
+                    cbmaBTP.Text = row[0]["LOAI_SP"].ToString();
+                    tbkhoiluongphanbonnvl.Text = row[0]["KL_NL"].ToString();
+                    update_or_add = false;
                 }
             }
             else
@@ -406,12 +425,11 @@ namespace NhatKySanXuat
                 update_or_add = false;
             }
         }
-
         private void buttonsave_Click(object sender, EventArgs e)
         {
             if (update_or_add == true)
             {
-                DialogResult dialogResult = MessageBox.Show("Bạn có muốn cập nhật", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+                DialogResult dialogResult = MessageBox.Show("Bạn muốn cập nhật LOT : '" + tblot.Text + "'", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
                 if (dialogResult == DialogResult.OK)
                 {
                     update();
@@ -419,11 +437,268 @@ namespace NhatKySanXuat
             }
             else if (update_or_add == false)
             {
-                DialogResult dialogResult = MessageBox.Show("Bạn có muốn thêm LOT : " + tblot.Text + "", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+                DialogResult dialogResult = MessageBox.Show("Bạn muốn thêm LOT : " + tblot.Text + "", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
                 if (dialogResult == DialogResult.OK)
                 {
                     insert_data();
                 }
+            }
+        }
+        public void insert_blogtruycap(string hoat_dong)
+        {
+            SqlConnection sqlcon = new SqlConnection(@"Data Source = 192.168.21.244,1433; Initial Catalog= RSFLOGSANXUAT ;User ID = sa; Password =mylan@2016");
+            sqlcon.Open();
+            string Thoi_gian = DateTime.Now.ToString();
+            string user = "non";
+            SqlCommand cmd = sqlcon.CreateCommand();
+            cmd.CommandText = "insert into logtruycap (ten_user,thoi_gian,hoat_dong) values ('" + user + "','" + Thoi_gian + "',N'" + hoat_dong + "')";
+            cmd.ExecuteNonQuery();
+            sqlcon.Close();
+        }
+        public void Tinh_kllythuyet()
+        {
+            try
+            {
+                tbkhoiluonglythuyet.Text = (Convert.ToDouble(tbkhoiluongphanbonnvl.Text) + (Convert.ToDouble(tbn1157.Text) + Convert.ToDouble(tbn221.Text) + Convert.ToDouble(tbn3190.Text)) / 4).ToString();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        public void Tinh_hsthu()
+        {
+            try
+            {
+                tbhieusuatthu.Text = Math.Round(((Convert.ToDouble(tbtongklspthuduoc.Text) / Convert.ToDouble(tbkhoiluonglythuyet.Text)) * 100), 4).ToString();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        public void Tinh_hsrelease()
+        {
+            try
+            {
+                if (tbloai.Text == "WA" || tbloai.Text == "A")
+                {
+                    tbhieusuatrelease.Text = Math.Round((Convert.ToDouble(tbspkhongbidongkhoi.Text) / Convert.ToDouble(tbtongklspthuduoc.Text)) * 100, 4).ToString();
+                }
+                else
+                {
+                    tbhieusuatrelease.Text = "0";
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        private void tb_n1_1_kl_Leave(object sender, EventArgs e)
+        {
+            double N1_1 = 0;
+            double N1_2 = 0;
+            double N1_3 = 0;
+            double N1_4 = 0;
+            if (tb_n1_1_kl.Text == "")
+            {
+                N1_1 = 0;
+            }
+            else
+            {
+                N1_1 = Convert.ToDouble(tb_n1_1_kl.Text);
+            }
+            if (tb_n1_2_kl.Text == "")
+            {
+                N1_2 = 0;
+            }
+            else
+            {
+                N1_2 = Convert.ToDouble(tb_n1_2_kl.Text);
+            }
+            if (tb_n1_3_kl.Text == "")
+            {
+                N1_3 = 0;
+            }
+            else
+            {
+                N1_3 = Convert.ToDouble(tb_n1_3_kl.Text);
+            }
+            if (tb_n1_4_kl.Text == "")
+            {
+                N1_4 = 0;
+            }
+            else
+            {
+                N1_4 = Convert.ToDouble(tb_n1_4_kl.Text);
+            }
+            tbn1157.Text = (N1_1 + N1_2 + N1_3 + N1_4).ToString();
+        }
+        private void tb_n2_1_kl_Leave(object sender, EventArgs e)
+        {
+            double N2_1 = 0;
+            double N2_2 = 0;
+            double N2_3 = 0;
+            if (tb_n2_1_kl.Text == "")
+            {
+                N2_1 = 0;
+            }
+            else
+            {
+                N2_1 = Convert.ToDouble(tb_n2_1_kl.Text);
+            }
+            if (tb_n2_2_kl.Text == "")
+            {
+                N2_2 = 0;
+            }
+            else
+            {
+                N2_2 = Convert.ToDouble(tb_n2_2_kl.Text);
+            }
+            if (tb_n2_3_kl.Text == "")
+            {
+                N2_3 = 0;
+            }
+            else
+            {
+                N2_3 = Convert.ToDouble(tb_n2_3_kl.Text);
+            }
+            tbn221.Text = (N2_1 + N2_2 + N2_3).ToString();
+        }
+        private void tb_n3_1_kl_Leave(object sender, EventArgs e)
+        {
+            double N3_1 = 0;
+            double N3_2 = 0;
+            double N3_3 = 0;
+            if (tb_n3_1_kl.Text == "")
+            {
+                N3_1 = 0;
+            }
+            else
+            {
+                N3_1 = Convert.ToDouble(tb_n3_1_kl.Text);
+            }
+            if (tb_n3_2_kl.Text == "")
+            {
+                N3_2 = 0;
+            }
+            else
+            {
+                N3_2 = Convert.ToDouble(tb_n3_2_kl.Text);
+            }
+            if (tb_n3_3_kl.Text == "")
+            {
+                N3_3 = 0;
+            }
+            else
+            {
+                N3_3 = Convert.ToDouble(tb_n3_3_kl.Text);
+            }
+            tbn3190.Text = (N3_1 + N3_2 + N3_3).ToString();
+        }
+        private void tbspkhongbidongkhoi_Leave(object sender, EventArgs e)
+        {
+            double kl_dongkhoi = 0;
+            double kl_khongdongkhoi = 0;
+            if (tbkhoiluongdongkhoi.Text == "")
+            {
+                kl_dongkhoi = 0;
+            }
+            else
+            {
+                kl_dongkhoi = Convert.ToDouble(tbkhoiluongdongkhoi.Text);
+            }
+            if (tbspkhongbidongkhoi.Text == "")
+            {
+                kl_khongdongkhoi = 0;
+            }
+            else
+            {
+                kl_khongdongkhoi = Convert.ToDouble(tbspkhongbidongkhoi.Text);
+            }
+            tbtongklspthuduoc.Text = (kl_dongkhoi + kl_khongdongkhoi).ToString();
+        }
+        private void tbkhoiluonglythuyet_Click(object sender, EventArgs e)
+        {
+            Tinh_kllythuyet();
+        }
+        private void tbhieusuatthu_Click(object sender, EventArgs e)
+        {
+            Tinh_hsthu();
+        }
+        private void tbhieusuatrelease_Click(object sender, EventArgs e)
+        {
+            Tinh_hsrelease();
+        }
+        private void tb_n1_1_code_Leave(object sender, EventArgs e)
+        {
+            if (tb_n1_1_code.Text != "")
+            {
+                tbbarcodeN1.Text += tb_n1_1_code.Text + ", ";
+            }
+        }
+        private void tb_n1_2_code_Leave(object sender, EventArgs e)
+        {
+            if (tb_n1_2_code.Text != "")
+            {
+                tbbarcodeN1.Text += tb_n1_2_code.Text + ", ";
+            }
+        }
+        private void tb_n1_3_code_Leave(object sender, EventArgs e)
+        {
+            if (tb_n1_3_code.Text != "")
+            {
+                tbbarcodeN1.Text += tb_n1_3_code.Text + ", ";
+            }
+        }
+        private void tb_n1_4_code_Leave(object sender, EventArgs e)
+        {
+            if (tb_n1_4_code.Text != "")
+            {
+                tbbarcodeN1.Text += tb_n1_4_code.Text;
+            }
+        }
+        private void tb_n2_1_code_Leave(object sender, EventArgs e)
+        {
+            if (tb_n2_1_code.Text != "")
+            {
+                tbbarcodeN2.Text += tb_n2_1_code.Text + ", ";
+            }
+        }
+        private void tb_n2_2_code_Leave(object sender, EventArgs e)
+        {
+            if (tb_n2_2_code.Text != "")
+            {
+                tbbarcodeN2.Text += tb_n2_2_code.Text + ", ";
+            }
+        }
+        private void tb_n2_3_code_Leave(object sender, EventArgs e)
+        {
+            if (tb_n2_3_code.Text != "")
+            {
+                tbbarcodeN2.Text += tb_n2_3_code.Text;
+            }
+        }
+        private void tb_n3_1_code_Leave(object sender, EventArgs e)
+        {
+            if (tb_n3_1_code.Text != "")
+            {
+                tbbarcodeN3.Text += tb_n3_1_code.Text + ", ";
+            }
+        }
+        private void tb_n3_2_code_Leave(object sender, EventArgs e)
+        {
+            if (tb_n3_2_code.Text != "")
+            {
+                tbbarcodeN3.Text += tb_n3_2_code.Text + ", ";
+            }
+        }
+        private void tb_n3_3_code_Leave(object sender, EventArgs e)
+        {
+            if (tb_n3_3_code.Text != "")
+            {
+                tbbarcodeN3.Text += tb_n3_3_code.Text + ", ";
             }
         }
     }
