@@ -34,7 +34,6 @@ namespace NhatKySanXuat
             this.cbbnguoinhap = new System.Windows.Forms.ComboBox();
             this.cbmaBTP = new System.Windows.Forms.ComboBox();
             this.tbtocdorelease = new System.Windows.Forms.TextBox();
-            this.tblot = new System.Windows.Forms.TextBox();
             this.tbme = new System.Windows.Forms.TextBox();
             this.tbtenbtp = new System.Windows.Forms.TextBox();
             this.cbbthietbi = new System.Windows.Forms.ComboBox();
@@ -226,6 +225,7 @@ namespace NhatKySanXuat
             this.label114 = new System.Windows.Forms.Label();
             this.label113 = new System.Windows.Forms.Label();
             this.buttonsave = new System.Windows.Forms.Button();
+            this.tblot = new System.Windows.Forms.ComboBox();
             this.panel8.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -307,16 +307,6 @@ namespace NhatKySanXuat
             this.tbtocdorelease.Name = "tbtocdorelease";
             this.tbtocdorelease.Size = new System.Drawing.Size(117, 20);
             this.tbtocdorelease.TabIndex = 161;
-            // 
-            // tblot
-            // 
-            this.tblot.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.tblot.Location = new System.Drawing.Point(55, 30);
-            this.tblot.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tblot.MaxLength = 25;
-            this.tblot.Name = "tblot";
-            this.tblot.Size = new System.Drawing.Size(152, 20);
-            this.tblot.TabIndex = 149;
             // 
             // tbme
             // 
@@ -765,6 +755,7 @@ namespace NhatKySanXuat
             this.tb_n2_3_lot.Name = "tb_n2_3_lot";
             this.tb_n2_3_lot.Size = new System.Drawing.Size(93, 20);
             this.tb_n2_3_lot.TabIndex = 388;
+            this.tb_n2_3_lot.Leave += new System.EventHandler(this.tb_n2_3_lot_Leave);
             // 
             // tb_n2_3_code
             // 
@@ -805,6 +796,7 @@ namespace NhatKySanXuat
             this.tb_n1_4_lot.Name = "tb_n1_4_lot";
             this.tb_n1_4_lot.Size = new System.Drawing.Size(93, 20);
             this.tb_n1_4_lot.TabIndex = 376;
+            this.tb_n1_4_lot.Leave += new System.EventHandler(this.tb_n1_4_lot_Leave);
             // 
             // tb_n1_4_code
             // 
@@ -885,6 +877,7 @@ namespace NhatKySanXuat
             this.tb_n1_3_lot.Name = "tb_n1_3_lot";
             this.tb_n1_3_lot.Size = new System.Drawing.Size(93, 20);
             this.tb_n1_3_lot.TabIndex = 372;
+            this.tb_n1_3_lot.Leave += new System.EventHandler(this.tb_n1_3_lot_Leave);
             // 
             // tb_n1_3_code
             // 
@@ -915,6 +908,7 @@ namespace NhatKySanXuat
             this.tb_n2_2_lot.Name = "tb_n2_2_lot";
             this.tb_n2_2_lot.Size = new System.Drawing.Size(93, 20);
             this.tb_n2_2_lot.TabIndex = 385;
+            this.tb_n2_2_lot.Leave += new System.EventHandler(this.tb_n2_2_lot_Leave);
             // 
             // tb_n2_2_code
             // 
@@ -945,6 +939,7 @@ namespace NhatKySanXuat
             this.tb_n2_1_lot.Name = "tb_n2_1_lot";
             this.tb_n2_1_lot.Size = new System.Drawing.Size(93, 20);
             this.tb_n2_1_lot.TabIndex = 381;
+            this.tb_n2_1_lot.Leave += new System.EventHandler(this.tb_n2_1_lot_Leave);
             // 
             // tb_n2_1_code
             // 
@@ -975,6 +970,7 @@ namespace NhatKySanXuat
             this.tb_n1_2_lot.Name = "tb_n1_2_lot";
             this.tb_n1_2_lot.Size = new System.Drawing.Size(93, 20);
             this.tb_n1_2_lot.TabIndex = 367;
+            this.tb_n1_2_lot.Leave += new System.EventHandler(this.tb_n1_2_lot_Leave);
             // 
             // tb_n1_2_code
             // 
@@ -1005,6 +1001,7 @@ namespace NhatKySanXuat
             this.tb_n1_1_lot.Name = "tb_n1_1_lot";
             this.tb_n1_1_lot.Size = new System.Drawing.Size(93, 20);
             this.tb_n1_1_lot.TabIndex = 364;
+            this.tb_n1_1_lot.Leave += new System.EventHandler(this.tb_n1_1_lot_Leave);
             // 
             // tb_n1_1_code
             // 
@@ -1056,7 +1053,7 @@ namespace NhatKySanXuat
             this.cbbphanbonnvl.Location = new System.Drawing.Point(595, 51);
             this.cbbphanbonnvl.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cbbphanbonnvl.Name = "cbbphanbonnvl";
-            this.cbbphanbonnvl.Size = new System.Drawing.Size(157, 21);
+            this.cbbphanbonnvl.Size = new System.Drawing.Size(159, 21);
             this.cbbphanbonnvl.TabIndex = 355;
             // 
             // label41
@@ -1222,6 +1219,7 @@ namespace NhatKySanXuat
             this.tb_n3_3_lot.Name = "tb_n3_3_lot";
             this.tb_n3_3_lot.Size = new System.Drawing.Size(93, 20);
             this.tb_n3_3_lot.TabIndex = 418;
+            this.tb_n3_3_lot.Leave += new System.EventHandler(this.tb_n3_3_lot_Leave);
             // 
             // tb_n3_3_code
             // 
@@ -1262,6 +1260,7 @@ namespace NhatKySanXuat
             this.tb_n3_2_lot.Name = "tb_n3_2_lot";
             this.tb_n3_2_lot.Size = new System.Drawing.Size(93, 20);
             this.tb_n3_2_lot.TabIndex = 415;
+            this.tb_n3_2_lot.Leave += new System.EventHandler(this.tb_n3_2_lot_Leave);
             // 
             // tb_n3_2_code
             // 
@@ -1383,6 +1382,7 @@ namespace NhatKySanXuat
             this.tb_n3_1_lot.Name = "tb_n3_1_lot";
             this.tb_n3_1_lot.Size = new System.Drawing.Size(93, 20);
             this.tb_n3_1_lot.TabIndex = 412;
+            this.tb_n3_1_lot.Leave += new System.EventHandler(this.tb_n3_1_lot_Leave);
             // 
             // tb_n3_1_code
             // 
@@ -2196,12 +2196,26 @@ namespace NhatKySanXuat
             this.buttonsave.UseVisualStyleBackColor = false;
             this.buttonsave.Click += new System.EventHandler(this.buttonsave_Click);
             // 
+            // tblot
+            // 
+            this.tblot.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.tblot.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.tblot.BackColor = System.Drawing.SystemColors.Info;
+            this.tblot.FormattingEnabled = true;
+            this.tblot.Location = new System.Drawing.Point(43, 29);
+            this.tblot.Name = "tblot";
+            this.tblot.Size = new System.Drawing.Size(164, 21);
+            this.tblot.TabIndex = 472;
+            this.tblot.SelectedValueChanged += new System.EventHandler(this.tblot_SelectedValueChanged);
+            // 
             // Form3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.ClientSize = new System.Drawing.Size(1114, 423);
+            this.AutoSize = true;
+            this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.ClientSize = new System.Drawing.Size(1114, 425);
+            this.Controls.Add(this.tblot);
             this.Controls.Add(this.buttonsave);
             this.Controls.Add(this.panel8);
             this.Controls.Add(this.tbyellow);
@@ -2345,7 +2359,6 @@ namespace NhatKySanXuat
             this.Controls.Add(this.cbbnguoinhap);
             this.Controls.Add(this.cbmaBTP);
             this.Controls.Add(this.tbtocdorelease);
-            this.Controls.Add(this.tblot);
             this.Controls.Add(this.tbme);
             this.Controls.Add(this.tbtenbtp);
             this.Controls.Add(this.cbbthietbi);
@@ -2364,6 +2377,9 @@ namespace NhatKySanXuat
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label5);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "Form3";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Nhập Dữ Liệu";
@@ -2381,7 +2397,6 @@ namespace NhatKySanXuat
         private System.Windows.Forms.ComboBox cbbnguoinhap;
         private System.Windows.Forms.ComboBox cbmaBTP;
         private System.Windows.Forms.TextBox tbtocdorelease;
-        private System.Windows.Forms.TextBox tblot;
         private System.Windows.Forms.TextBox tbme;
         private System.Windows.Forms.TextBox tbtenbtp;
         private System.Windows.Forms.ComboBox cbbthietbi;
@@ -2573,5 +2588,6 @@ namespace NhatKySanXuat
         private System.Windows.Forms.Label label114;
         private System.Windows.Forms.Label label113;
         private System.Windows.Forms.Button buttonsave;
+        private System.Windows.Forms.ComboBox tblot;
     }
 }

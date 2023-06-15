@@ -48,7 +48,34 @@ namespace NhatKySanXuat
             dataGridView1.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridView1.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
             dataGridView1.ColumnHeadersDefaultCellStyle.BackColor = Color.White;
-            dataGridView1.ColumnHeadersDefaultCellStyle.ForeColor = Color.Red;
+            dataGridView1.ColumnHeadersDefaultCellStyle.ForeColor = Color.Black;
+            dataGridView1.Columns["Column30"].HeaderCell.Style.BackColor = Color.LightBlue;
+            dataGridView1.Columns["Column31"].HeaderCell.Style.BackColor = Color.LightBlue;
+            dataGridView1.Columns["Column32"].HeaderCell.Style.BackColor = Color.LightBlue;
+            dataGridView1.Columns["Column33"].HeaderCell.Style.BackColor = Color.LightBlue;
+            dataGridView1.Columns["Column34"].HeaderCell.Style.BackColor = Color.LightBlue;
+            dataGridView1.Columns["Column35"].HeaderCell.Style.BackColor = Color.LightBlue;
+            dataGridView1.Columns["Column36"].HeaderCell.Style.BackColor = Color.LightBlue;
+            dataGridView1.Columns["Column37"].HeaderCell.Style.BackColor = Color.LightBlue;
+            dataGridView1.Columns["Column38"].HeaderCell.Style.BackColor = Color.LightBlue;
+
+            dataGridView1.Columns["Column24"].HeaderCell.Style.BackColor = Color.LightBlue;
+            dataGridView1.Columns["Column25"].HeaderCell.Style.BackColor = Color.LightBlue;
+            dataGridView1.Columns["Column80"].HeaderCell.Style.BackColor = Color.LightBlue;
+            dataGridView1.Columns["Column98"].HeaderCell.Style.BackColor = Color.LightBlue;
+            dataGridView1.Columns["Column99"].HeaderCell.Style.BackColor = Color.LightBlue;
+            dataGridView1.Columns["Column100"].HeaderCell.Style.BackColor = Color.LightBlue;
+            dataGridView1.Columns["Column101"].HeaderCell.Style.BackColor = Color.LightBlue;
+            dataGridView1.Columns["Column102"].HeaderCell.Style.BackColor = Color.LightBlue;
+            dataGridView1.Columns["Column103"].HeaderCell.Style.BackColor = Color.LightBlue;
+            dataGridView1.Columns["Column104"].HeaderCell.Style.BackColor = Color.LightBlue;
+            dataGridView1.Columns["Column105"].HeaderCell.Style.BackColor = Color.LightBlue;
+            dataGridView1.Columns["Column106"].HeaderCell.Style.BackColor = Color.LightBlue;
+            dataGridView1.Columns["Column107"].HeaderCell.Style.BackColor = Color.LightBlue;
+            dataGridView1.Columns["Column108"].HeaderCell.Style.BackColor = Color.LightBlue;
+            dataGridView1.Columns["Column109"].HeaderCell.Style.BackColor = Color.LightBlue;
+            dataGridView1.Columns["Column110"].HeaderCell.Style.BackColor = Color.LightBlue;
+            dataGridView1.Columns["Column111"].HeaderCell.Style.BackColor = Color.LightBlue;
         }
         private void btthem_Click(object sender, EventArgs e)
         {
@@ -67,10 +94,6 @@ namespace NhatKySanXuat
            // {
             //    update();
            // }
-        }
-        private void btxoa_Click(object sender, EventArgs e)
-        {
-            //delete();
         }
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -2152,7 +2175,7 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP.ToString(), "", TONG_KL_DONGKHOI.ToString(), "", TONG_KHOILUONG_KHONG_DONG_KHOI.ToString(),
                                 "", Math.Round(TONG_KL_LT, 4), Math.Round(Hieu_suat_thu_tb / dataGridView1.Rows.Count, 4), Math.Round(Hieu_suat_release_tb / dataGridView1.Rows.Count, 4),
                                 "", "", "", KHOI_LUONG_NVL, "", "", Math.Round(Tong_N1_KL, 4), "", "", Math.Round(Tong_N2_KL, 4), "", "", Math.Round(Tong_N3_KL, 4), "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
                                 "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
@@ -2164,6 +2187,7 @@ namespace NhatKySanXuat
                                 Math.Round(tb_126ngay / count_126, 4), Math.Round(tb_140ngay / count_140, 4));
                 dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Orange;
                 dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dataGridView1.Rows[dataGridView1.Rows.Count - 1].ReadOnly = true;
             }
             catch (Exception ex)
             {

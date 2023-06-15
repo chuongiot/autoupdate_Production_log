@@ -28,6 +28,7 @@ namespace NhatKySanXuat
         private void Form3_Load(object sender, EventArgs e)
         {
             load_data(tblot.Text);
+            loadcbb_LOT();
         }
         public void insert_data()
         {
@@ -260,6 +261,7 @@ namespace NhatKySanXuat
         }
         public void load_data(string LOT)
         {
+            cleardata();
             if (LOT != "")
             {
                 try
@@ -396,6 +398,8 @@ namespace NhatKySanXuat
                     tb_n3_1_lot.Text = row[0]["N3_1_lot"].ToString();
                     tb_n3_2_lot.Text = row[0]["N3_2_lot"].ToString();
                     tb_n3_3_lot.Text = row[0]["N3_3_lot"].ToString();
+                    total_tring_barcode_n1_n2_n3();
+                    total_tring_lot_n1_n2_n3();
                 }
                 catch
                 {
@@ -634,72 +638,292 @@ namespace NhatKySanXuat
         private void tb_n1_1_code_Leave(object sender, EventArgs e)
         {
             if (tb_n1_1_code.Text != "")
-            {
-                tbbarcodeN1.Text += tb_n1_1_code.Text + ", ";
-            }
+                tbbarcodeN1.Text += tb_n1_1_code.Text;
         }
         private void tb_n1_2_code_Leave(object sender, EventArgs e)
         {
             if (tb_n1_2_code.Text != "")
-            {
-                tbbarcodeN1.Text += tb_n1_2_code.Text + ", ";
-            }
+                tbbarcodeN1.Text += ", " + tb_n1_2_code.Text;
         }
         private void tb_n1_3_code_Leave(object sender, EventArgs e)
         {
             if (tb_n1_3_code.Text != "")
-            {
-                tbbarcodeN1.Text += tb_n1_3_code.Text + ", ";
-            }
+                tbbarcodeN1.Text += ", " + tb_n1_3_code.Text;
         }
         private void tb_n1_4_code_Leave(object sender, EventArgs e)
         {
             if (tb_n1_4_code.Text != "")
-            {
                 tbbarcodeN1.Text += tb_n1_4_code.Text;
-            }
         }
         private void tb_n2_1_code_Leave(object sender, EventArgs e)
         {
             if (tb_n2_1_code.Text != "")
-            {
-                tbbarcodeN2.Text += tb_n2_1_code.Text + ", ";
-            }
+                tbbarcodeN2.Text += tb_n2_1_code.Text;
         }
         private void tb_n2_2_code_Leave(object sender, EventArgs e)
         {
             if (tb_n2_2_code.Text != "")
-            {
-                tbbarcodeN2.Text += tb_n2_2_code.Text + ", ";
-            }
+                tbbarcodeN2.Text += ", " + tb_n2_2_code.Text;
         }
         private void tb_n2_3_code_Leave(object sender, EventArgs e)
         {
             if (tb_n2_3_code.Text != "")
-            {
                 tbbarcodeN2.Text += tb_n2_3_code.Text;
-            }
         }
         private void tb_n3_1_code_Leave(object sender, EventArgs e)
         {
             if (tb_n3_1_code.Text != "")
-            {
-                tbbarcodeN3.Text += tb_n3_1_code.Text + ", ";
-            }
+                tbbarcodeN3.Text += tb_n3_1_code.Text;
         }
         private void tb_n3_2_code_Leave(object sender, EventArgs e)
         {
             if (tb_n3_2_code.Text != "")
-            {
-                tbbarcodeN3.Text += tb_n3_2_code.Text + ", ";
-            }
+                tbbarcodeN3.Text += ", " + tb_n3_2_code.Text;
         }
         private void tb_n3_3_code_Leave(object sender, EventArgs e)
         {
             if (tb_n3_3_code.Text != "")
+                tbbarcodeN3.Text += tb_n3_3_code.Text;
+        }
+        public void total_tring_barcode_n1_n2_n3()
+        {
+            if (tbbarcodeN1.Text == "" && tbbarcodeN2.Text == "" && tbbarcodeN3.Text == "")
             {
-                tbbarcodeN3.Text += tb_n3_3_code.Text + ", ";
+                if (tb_n1_1_code.Text != "")
+                    tbbarcodeN1.Text += tb_n1_1_code.Text;
+                if (tb_n1_2_code.Text != "")
+                    tbbarcodeN1.Text += ", " + tb_n1_2_code.Text;
+                if (tb_n1_3_code.Text != "")
+                    tbbarcodeN1.Text += ", " + tb_n1_3_code.Text;
+                if (tb_n1_4_code.Text != "")
+                    tbbarcodeN1.Text += ", " + tb_n1_4_code.Text;
+
+                if (tb_n2_1_code.Text != "")
+                    tbbarcodeN2.Text += tb_n2_1_code.Text;
+                if (tb_n2_2_code.Text != "")
+                    tbbarcodeN2.Text += ", " + tb_n2_2_code.Text;
+                if (tb_n2_3_code.Text != "")
+                    tbbarcodeN2.Text += ", " + tb_n2_3_code.Text;
+
+                if (tb_n3_1_code.Text != "")
+                    tbbarcodeN3.Text += tb_n3_1_code.Text;
+                if (tb_n3_2_code.Text != "")
+                    tbbarcodeN3.Text += ", " + tb_n3_2_code.Text;
+                if (tb_n3_3_code.Text != "")
+                    tbbarcodeN3.Text += ", " + tb_n3_3_code.Text;
             }
+        }
+        public void total_tring_lot_n1_n2_n3()
+        {
+            if (tbLOTN1.Text == "" && tbLOTN2.Text == "" && tbLOTN3.Text == "")
+            {
+                if (tb_n1_1_lot.Text != "")
+                    tbLOTN1.Text += tb_n1_1_lot.Text;
+                if (tb_n1_2_lot.Text != "")
+                    tbLOTN1.Text += ", " + tb_n1_2_lot.Text;
+                if (tb_n1_3_lot.Text != "")
+                    tbLOTN1.Text += ", " + tb_n1_3_lot.Text;
+                if (tb_n1_4_lot.Text != "")
+                    tbLOTN1.Text += ", " + tb_n1_4_lot.Text;
+
+                if (tb_n2_1_lot.Text != "")
+                    tbLOTN2.Text += tb_n2_1_lot.Text;
+                if (tb_n2_2_lot.Text != "")
+                    tbLOTN2.Text += ", " + tb_n2_2_lot.Text;
+                if (tb_n2_3_lot.Text != "")
+                    tbLOTN2.Text += ", " + tb_n2_3_lot.Text;
+
+                if (tb_n3_1_lot.Text != "")
+                    tbLOTN3.Text += tb_n3_1_lot.Text;
+                if (tb_n3_2_lot.Text != "")
+                    tbLOTN3.Text += ", " + tb_n3_2_lot.Text;
+                if (tb_n3_3_lot.Text != "")
+                    tbLOTN3.Text += ", " + tb_n3_3_lot.Text;
+            }
+        }
+        private void tb_n1_1_lot_Leave(object sender, EventArgs e)
+        {
+            if (tb_n1_1_lot.Text != "")
+                tbLOTN1.Text += tb_n1_1_lot.Text;
+        }
+        private void tb_n1_2_lot_Leave(object sender, EventArgs e)
+        {
+            if (tb_n1_2_lot.Text != "")
+                tbLOTN1.Text += ", " + tb_n1_2_lot.Text;
+        }
+        private void tb_n1_3_lot_Leave(object sender, EventArgs e)
+        {
+            if (tb_n1_3_lot.Text != "")
+                tbLOTN1.Text += ", " + tb_n1_3_lot.Text;
+        }
+        private void tb_n1_4_lot_Leave(object sender, EventArgs e)
+        {
+            if (tb_n1_4_lot.Text != "")
+                tbLOTN1.Text += tb_n1_4_lot.Text;
+        }
+        private void tb_n2_1_lot_Leave(object sender, EventArgs e)
+        {
+            if (tb_n2_1_lot.Text != "")
+                tbLOTN2.Text += tb_n2_1_lot.Text;
+        }
+        private void tb_n2_2_lot_Leave(object sender, EventArgs e)
+        {
+            if (tb_n2_2_lot.Text != "")
+                tbLOTN2.Text += ", " + tb_n2_2_lot.Text;
+        }
+        private void tb_n2_3_lot_Leave(object sender, EventArgs e)
+        {
+            if (tb_n2_3_lot.Text != "")
+                tbLOTN2.Text += ", " + tb_n2_3_lot.Text;
+        }
+        private void tb_n3_1_lot_Leave(object sender, EventArgs e)
+        {
+            if (tb_n3_1_lot.Text != "")
+                tbLOTN3.Text += tb_n3_1_lot.Text;
+        }
+        private void tb_n3_2_lot_Leave(object sender, EventArgs e)
+        {
+            if (tb_n3_2_lot.Text != "")
+                tbLOTN3.Text += ", " + tb_n3_2_lot.Text;
+        }
+        private void tb_n3_3_lot_Leave(object sender, EventArgs e)
+        {
+            if (tb_n3_3_lot.Text != "")
+                tbLOTN3.Text += ", " + tb_n3_3_lot.Text;
+        }
+        public void loadcbb_LOT()
+        {
+            SqlConnection sqlcon = new SqlConnection(@"Data Source=192.168.23.219,1433;Initial Catalog=QL_SX;User ID=sa;Password=rynan2020");
+            sqlcon.Open();
+            SqlCommand command = new SqlCommand();
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            DataTable dt = new DataTable();
+            command = sqlcon.CreateCommand();
+            command.CommandText = "SELECT SO_LOT,TG_BD from DataSX_RSF ORDER BY TG_BD DESC";
+            adapter.SelectCommand = command;
+            dt.Clear();
+            adapter.Fill(dt);
+            sqlcon.Close();
+            foreach (DataRow dataRow in dt.Rows)
+            {
+                if (dataRow["SO_LOT"].ToString() != "")
+                {
+                    tblot.Items.Add(dataRow["SO_LOT"].ToString());
+                }
+            }
+        }
+        public void cleardata()
+        {
+            cbbnguoinhap.Text = "";
+            tbdotsx.Text = "";
+            dateTimePickerngaysx.Text = "";
+            cbbthietbi.Text = "";
+            cbmaBTP.Text = "";
+            tbtenbtp.Text = "";
+            tbme.Text = "";
+            //tblot.Text = "";
+            tbtocdorelease.Text = "";
+            tbngay_release.Text = "";
+            tbloai.Text = "";
+            tbtongklspthuduoc.Text = "";
+            tbvitri_tongklsp_thuduoc.Text = "";
+            tbkhoiluongdongkhoi.Text = "";
+            tbvitri_spdongkhoi.Text = "";
+            tbspkhongbidongkhoi.Text = "";
+            tbkhoiluonglythuyet.Text = "";
+            tbvitri_spkhongdongkhoi.Text = "";
+            tbhieusuatthu.Text = "";
+            tbhieusuatrelease.Text = "";
+            tbthoigiancb.Text = "";
+            tbthoigiansx.Text = "";
+            cbbphanbonnvl.Text = "";
+            tbkhoiluongphanbonnvl.Text = "";
+            tbbarcodephanbonvl.Text = "";
+            tbLOTphanbonnvl.Text = "";
+            tbn1157.Text = "";
+            tbbarcodeN1.Text = "";
+            tbLOTN1.Text = "";
+            tbn221.Text = "";
+            tbbarcodeN2.Text = "";
+            tbLOTN2.Text = "";
+            tbn3190.Text = "";
+            tbbarcodeN3.Text = "";
+            tbLOTN3.Text = "";
+            tbga3.Text = "";
+            tbbarcodeGA3.Text = "";
+            tbborax.Text = "";
+            tbbarcodeBorax.Text = "";
+            tbnaa.Text = "";
+            tbbarcodeNAA.Text = "";
+            tbsodium.Text = "";
+            tbbarcodeSodium.Text = "";
+            tbcitric.Text = "";
+            tbbarcode_citric.Text = "";
+            tbnaoh.Text = "";
+            tbbarcode_naoh.Text = "";
+            tbsolubo.Text = "";
+            tbbarcode_solubo.Text = "";
+            tbEDTA.Text = "";
+            tbbarcode_edta.Text = "";
+            tbred.Text = "";
+            tbbarcode_red.Text = "";
+            tbviolet.Text = "";
+            tbbarcode_violet.Text = "";
+            tbblue.Text = "";
+            tbbarcode_blue.Text = "";
+            tbyellow.Text = "";
+            tbbarcode_yellow.Text = "";
+            tbblack.Text = "";
+            tbbarcode_black.Text = "";
+            tbPREV.Text = "";
+            tbbarcode_prev.Text = "";
+            tbsoluongthancam.Text = "";
+            tbkwdien.Text = "";
+            tbm3nuocRO.Text = "";
+            tbm3nuocthuycuc.Text = "";
+            tbbaoholaodong.Text = "";
+            tbghi_chu.Text = "";
+            tb_n1_1_code.Text = "";
+            tb_n1_2_code.Text = "";
+            tb_n1_3_code.Text = "";
+            tb_n1_4_code.Text = "";
+            tb_n1_1_lot.Text = "";
+            tb_n1_2_lot.Text = "";
+            tb_n1_3_lot.Text = "";
+            tb_n1_4_lot.Text = "";
+            tb_n2_1_code.Text = "";
+            tb_n2_2_code.Text = "";
+            tb_n2_3_code.Text = "";
+            tb_n2_1_lot.Text = "";
+            tb_n2_2_lot.Text = "";
+            tb_n2_3_lot.Text = "";
+            tb_n3_1_code.Text = "";
+            tb_n3_2_code.Text = "";
+            tb_n3_3_code.Text = "";
+            tb_n3_1_lot.Text = "";
+            tb_n3_2_lot.Text = "";
+            tb_n3_3_lot.Text = "";
+            tb_do_am.Text = "";
+            tb_coating.Text = "";
+            tb_thoigianondinh.Text = "";
+            tb_ngay0.Text = "";
+            tb_ngay7.Text = "";
+            tb_ngay14.Text = "";
+            tb_ngay21.Text = "";
+            tb_ngay28.Text = "";
+            tb_ngay42.Text = "";
+            tb_ngay49.Text = "";
+            tb_ngay56.Text = "";
+            tb_ngay70.Text = "";
+            tb_ngay84.Text = "";
+            tb_ngay98.Text = "";
+            tb_ngay112.Text = "";
+            tb_ngay126.Text = "";
+            tb_ngay140.Text = "";
+        }
+        private void tblot_SelectedValueChanged(object sender, EventArgs e)
+        {
+            load_data(tblot.Text);
         }
     }
 }
