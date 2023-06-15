@@ -47,9 +47,9 @@ namespace NhatKySanXuat
             //this.reportViewer_xuatkho.LocalReport.Refresh();
             dataGridView1.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridView1.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
-            dataGridView1.ColumnHeadersDefaultCellStyle.BackColor = Color.White;
+            dataGridView1.ColumnHeadersDefaultCellStyle.BackColor = Color.LightGray;
             dataGridView1.ColumnHeadersDefaultCellStyle.ForeColor = Color.Black;
-            dataGridView1.Columns["Column30"].HeaderCell.Style.BackColor = Color.LightBlue;
+            /*dataGridView1.Columns["Column30"].HeaderCell.Style.BackColor = Color.LightBlue;
             dataGridView1.Columns["Column31"].HeaderCell.Style.BackColor = Color.LightBlue;
             dataGridView1.Columns["Column32"].HeaderCell.Style.BackColor = Color.LightBlue;
             dataGridView1.Columns["Column33"].HeaderCell.Style.BackColor = Color.LightBlue;
@@ -75,7 +75,7 @@ namespace NhatKySanXuat
             dataGridView1.Columns["Column108"].HeaderCell.Style.BackColor = Color.LightBlue;
             dataGridView1.Columns["Column109"].HeaderCell.Style.BackColor = Color.LightBlue;
             dataGridView1.Columns["Column110"].HeaderCell.Style.BackColor = Color.LightBlue;
-            dataGridView1.Columns["Column111"].HeaderCell.Style.BackColor = Color.LightBlue;
+            dataGridView1.Columns["Column111"].HeaderCell.Style.BackColor = Color.LightBlue;*/
         }
         private void btthem_Click(object sender, EventArgs e)
         {
