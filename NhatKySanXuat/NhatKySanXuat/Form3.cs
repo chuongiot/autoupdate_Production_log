@@ -29,6 +29,7 @@ namespace NhatKySanXuat
         {
             load_data(tblot.Text);
             loadcbb_LOT();
+            Load_data_polymer_pro();
         }
         public void insert_data()
         {
@@ -793,23 +794,30 @@ namespace NhatKySanXuat
         }
         public void loadcbb_LOT()
         {
-            SqlConnection sqlcon = new SqlConnection(@"Data Source=192.168.23.219,1433;Initial Catalog=QL_SX;User ID=sa;Password=rynan2020");
-            sqlcon.Open();
-            SqlCommand command = new SqlCommand();
-            SqlDataAdapter adapter = new SqlDataAdapter();
-            DataTable dt = new DataTable();
-            command = sqlcon.CreateCommand();
-            command.CommandText = "SELECT SO_LOT,TG_BD from DataSX_RSF ORDER BY TG_BD DESC";
-            adapter.SelectCommand = command;
-            dt.Clear();
-            adapter.Fill(dt);
-            sqlcon.Close();
-            foreach (DataRow dataRow in dt.Rows)
+            try
             {
-                if (dataRow["SO_LOT"].ToString() != "")
+                SqlConnection sqlcon = new SqlConnection(@"Data Source=192.168.23.219,1433;Initial Catalog=QL_SX;User ID=sa;Password=rynan2020");
+                sqlcon.Open();
+                SqlCommand command = new SqlCommand();
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                DataTable dt = new DataTable();
+                command = sqlcon.CreateCommand();
+                command.CommandText = "SELECT SO_LOT,TG_BD from DataSX_RSF ORDER BY TG_BD DESC";
+                adapter.SelectCommand = command;
+                dt.Clear();
+                adapter.Fill(dt);
+                sqlcon.Close();
+                foreach (DataRow dataRow in dt.Rows)
                 {
-                    tblot.Items.Add(dataRow["SO_LOT"].ToString());
+                    if (dataRow["SO_LOT"].ToString() != "")
+                    {
+                        tblot.Items.Add(dataRow["SO_LOT"].ToString());
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
         public void cleardata()
@@ -924,6 +932,97 @@ namespace NhatKySanXuat
         private void tblot_SelectedValueChanged(object sender, EventArgs e)
         {
             load_data(tblot.Text);
+            Load_data_polymer_pro();
+        }
+        public void Load_data_polymer_pro()
+        {
+            if (tblot.Text != "")
+            {
+                try
+                {
+                    SqlConnection sqlcon = new SqlConnection(@"Data Source=192.168.23.219,1433;Initial Catalog=QL_SX;User ID=sa;Password=rynan2020");
+                    sqlcon.Open();
+                    SqlCommand command = new SqlCommand();
+                    SqlDataAdapter adapter = new SqlDataAdapter();
+                    DataTable dt = new DataTable();
+                    command = sqlcon.CreateCommand();
+                    command.CommandText = "SELECT TG_BD,TG_KT from DataSX_RSF where SO_LOT = '" + tblot.Text + "'";
+                    adapter.SelectCommand = command;
+                    dt.Clear();
+                    adapter.Fill(dt);
+                    sqlcon.Close();
+                    DateTime TG_KT = Convert.ToDateTime(dt.Rows[0]["TG_KT"].ToString());
+                    DateTime TG_KT_30 = TG_KT.AddMinutes(-30);
+                    DateTime TG_BD = Convert.ToDateTime(dt.Rows[0]["TG_BD"].ToString());
+                    if (tblot.Text.Substring(0, 2) == "02")
+                    {
+                        string sql = "select top 1 id ,Siemens_System_COAT2_DB101_COATING_RATE_KL_Kg_Pro_01_VALUE,"
+                                    + "Siemens_System_COAT2_DB101_COATING_RATE_KL_Kg_Pro_02_VALUE,"
+                                    + "Siemens_System_COAT2_DB101_COATING_RATE_KL_Kg_Pro_03_VALUE "
+                                    + "FROM Coater02_Resport "
+                                    + "with (index(PK__Coater02__3213E83FF4576378)) "
+                                    + "WHERE Siemens_System_COAT2_DB101_COATING_RATE_COATING_RATE_01_TIMESTAMP >= '" + TG_BD + "' AND Siemens_System_COAT2_DB101_COATING_RATE_COATING_RATE_01_TIMESTAMP <= '" + TG_KT_30 + "'"
+                                    + " ORDER by Siemens_System_COAT2_DB101_COATING_RATE_COATING_RATE_01_TIMESTAMP DESC ";
+                        SqlConnection connect = new SqlConnection(@"Data Source=192.168.23.219,1433;Initial Catalog=COATER02_ResportDi_2023;Persist Security Info=True;User ID=sa;Password=rynan2020");
+                        SqlCommand cmd = new SqlCommand(sql, connect);
+                        cmd.CommandTimeout = 120;
+                        cmd.CommandType = CommandType.Text;
+                        SqlDataAdapter da = new SqlDataAdapter(cmd);
+                        DataTable dt_1 = new DataTable();
+                        da.Fill(dt_1);
+                        connect.Close();
+                        tbN1_pro.Text = Math.Round(float.Parse(dt_1.Rows[0]["Siemens_System_COAT2_DB101_COATING_RATE_KL_Kg_Pro_01_VALUE"].ToString()), 1).ToString();
+                        tbN2_pro.Text = Math.Round(float.Parse(dt_1.Rows[0]["Siemens_System_COAT2_DB101_COATING_RATE_KL_Kg_Pro_02_VALUE"].ToString()), 1).ToString();
+                        tbN3_pro.Text = Math.Round(float.Parse(dt_1.Rows[0]["Siemens_System_COAT2_DB101_COATING_RATE_KL_Kg_Pro_03_VALUE"].ToString()), 1).ToString();
+                    }
+                    else if (tblot.Text.Substring(0, 2) == "S1")
+                    {
+                        string sql = " Select top 1 id ,Siemens_System_COAT_100_V1_DB222_COATING_RATE_AUTO_VAVLE_KL_Kg_Pro_01_VALUE,"
+                                        + "Siemens_System_COAT_100_V1_DB222_COATING_RATE_AUTO_VAVLE_KL_Kg_Pro_02_VALUE,"
+                                        + "Siemens_System_COAT_100_V1_DB222_COATING_RATE_AUTO_VAVLE_KL_Kg_Pro_03_VALUE "
+                                        + "FROM Coater03Resport "
+                                        + "with (index(PK__Coater03__3213E83F5524E5D0)) "
+                                        + "WHERE Siemens_System_COAT_100_V1_ACTIVE_PID_SAY_1_TIMESTAMP >= '" + TG_BD + "' AND Siemens_System_COAT_100_V1_ACTIVE_PID_SAY_1_TIMESTAMP <= '" + TG_KT_30 + "'"
+                                        + "ORDER by Siemens_System_COAT_100_V1_ACTIVE_PID_SAY_1_TIMESTAMP ASC ";
+                        SqlConnection connect = new SqlConnection(@"Data Source=192.168.23.219,1433;Initial Catalog=COATERS1_ResportDi_2023;User ID=sa;Password=rynan2020");
+                        SqlCommand cmd = new SqlCommand(sql, connect);
+                        cmd.CommandTimeout = 120;
+                        cmd.CommandType = CommandType.Text;
+                        SqlDataAdapter da = new SqlDataAdapter(cmd);
+                        DataTable dt_2 = new DataTable();
+                        da.Fill(dt_2);
+                        connect.Close();
+                        if (dt_2.Rows[0]["Siemens_System_COAT_100_V1_DB222_COATING_RATE_AUTO_VAVLE_KL_Kg_Pro_01_VALUE"].ToString() == "")
+                        {
+                            tbN1_pro.Text = "0";
+                        }
+                        else
+                        {
+                            tbN1_pro.Text = Math.Round(float.Parse(dt_2.Rows[0]["Siemens_System_COAT_100_V1_DB222_COATING_RATE_AUTO_VAVLE_KL_Kg_Pro_01_VALUE"].ToString()), 1).ToString();
+                        }
+                        if (dt_2.Rows[0]["Siemens_System_COAT_100_V1_DB222_COATING_RATE_AUTO_VAVLE_KL_Kg_Pro_02_VALUE"].ToString() == "")
+                        {
+                            tbN2_pro.Text = "0";
+                        }
+                        else
+                        {
+                            tbN2_pro.Text = Math.Round(float.Parse(dt_2.Rows[0]["Siemens_System_COAT_100_V1_DB222_COATING_RATE_AUTO_VAVLE_KL_Kg_Pro_02_VALUE"].ToString()), 1).ToString();
+                        }
+                        if (dt_2.Rows[0]["Siemens_System_COAT_100_V1_DB222_COATING_RATE_AUTO_VAVLE_KL_Kg_Pro_03_VALUE"].ToString() == "")
+                        {
+                            tbN3_pro.Text = "0";
+                        }
+                        else
+                        {
+                            tbN3_pro.Text = Math.Round(float.Parse(dt_2.Rows[0]["Siemens_System_COAT_100_V1_DB222_COATING_RATE_AUTO_VAVLE_KL_Kg_Pro_03_VALUE"].ToString()), 1).ToString();
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
         }
     }
 }
