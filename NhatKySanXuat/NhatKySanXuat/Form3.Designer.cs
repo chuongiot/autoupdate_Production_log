@@ -244,12 +244,16 @@ namespace NhatKySanXuat
             this.tbN1_pro = new System.Windows.Forms.TextBox();
             this.buttonsave = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.dateTimePicker_TG_BD = new System.Windows.Forms.DateTimePicker();
+            this.label53 = new System.Windows.Forms.Label();
+            this.dateTimePicker_TG_KT = new System.Windows.Forms.DateTimePicker();
+            this.label57 = new System.Windows.Forms.Label();
             this.panel8.SuspendLayout();
             this.SuspendLayout();
             // 
             // tbngay_release
             // 
-            this.tbngay_release.Location = new System.Drawing.Point(90, 200);
+            this.tbngay_release.Location = new System.Drawing.Point(90, 242);
             this.tbngay_release.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbngay_release.MaxLength = 20;
             this.tbngay_release.Name = "tbngay_release";
@@ -313,7 +317,7 @@ namespace NhatKySanXuat
             "N4601R5B04",
             "M4802R6B04",
             "K6107R5B04"});
-            this.cbmaBTP.Location = new System.Drawing.Point(90, 115);
+            this.cbmaBTP.Location = new System.Drawing.Point(90, 157);
             this.cbmaBTP.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cbmaBTP.Name = "cbmaBTP";
             this.cbmaBTP.Size = new System.Drawing.Size(117, 21);
@@ -321,7 +325,7 @@ namespace NhatKySanXuat
             // 
             // tbtocdorelease
             // 
-            this.tbtocdorelease.Location = new System.Drawing.Point(90, 179);
+            this.tbtocdorelease.Location = new System.Drawing.Point(90, 221);
             this.tbtocdorelease.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbtocdorelease.MaxLength = 20;
             this.tbtocdorelease.Name = "tbtocdorelease";
@@ -331,7 +335,7 @@ namespace NhatKySanXuat
             // tbme
             // 
             this.tbme.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.tbme.Location = new System.Drawing.Point(90, 158);
+            this.tbme.Location = new System.Drawing.Point(90, 200);
             this.tbme.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbme.Name = "tbme";
             this.tbme.Size = new System.Drawing.Size(117, 20);
@@ -340,7 +344,7 @@ namespace NhatKySanXuat
             // tbtenbtp
             // 
             this.tbtenbtp.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.tbtenbtp.Location = new System.Drawing.Point(90, 137);
+            this.tbtenbtp.Location = new System.Drawing.Point(90, 179);
             this.tbtenbtp.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbtenbtp.Name = "tbtenbtp";
             this.tbtenbtp.Size = new System.Drawing.Size(117, 20);
@@ -353,7 +357,7 @@ namespace NhatKySanXuat
             this.cbbthietbi.Items.AddRange(new object[] {
             "S1",
             "02"});
-            this.cbbthietbi.Location = new System.Drawing.Point(90, 93);
+            this.cbbthietbi.Location = new System.Drawing.Point(90, 135);
             this.cbbthietbi.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cbbthietbi.Name = "cbbthietbi";
             this.cbbthietbi.Size = new System.Drawing.Size(117, 21);
@@ -385,7 +389,7 @@ namespace NhatKySanXuat
             // 
             this.label55.AutoSize = true;
             this.label55.BackColor = System.Drawing.Color.Transparent;
-            this.label55.Location = new System.Drawing.Point(10, 225);
+            this.label55.Location = new System.Drawing.Point(218, 264);
             this.label55.Name = "label55";
             this.label55.Size = new System.Drawing.Size(36, 13);
             this.label55.TabIndex = 165;
@@ -393,12 +397,12 @@ namespace NhatKySanXuat
             // 
             // tbbaoholaodong
             // 
-            this.tbbaoholaodong.Location = new System.Drawing.Point(90, 221);
+            this.tbbaoholaodong.Location = new System.Drawing.Point(260, 260);
             this.tbbaoholaodong.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbbaoholaodong.MaxLength = 10;
             this.tbbaoholaodong.Multiline = true;
             this.tbbaoholaodong.Name = "tbbaoholaodong";
-            this.tbbaoholaodong.Size = new System.Drawing.Size(117, 38);
+            this.tbbaoholaodong.Size = new System.Drawing.Size(166, 38);
             this.tbbaoholaodong.TabIndex = 166;
             // 
             // label46
@@ -415,7 +419,7 @@ namespace NhatKySanXuat
             // 
             this.label10.AutoSize = true;
             this.label10.BackColor = System.Drawing.Color.Transparent;
-            this.label10.Location = new System.Drawing.Point(9, 182);
+            this.label10.Location = new System.Drawing.Point(9, 224);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(79, 13);
             this.label10.TabIndex = 162;
@@ -425,7 +429,7 @@ namespace NhatKySanXuat
             // 
             this.label11.AutoSize = true;
             this.label11.BackColor = System.Drawing.Color.Transparent;
-            this.label11.Location = new System.Drawing.Point(9, 203);
+            this.label11.Location = new System.Drawing.Point(9, 245);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(69, 13);
             this.label11.TabIndex = 164;
@@ -435,7 +439,7 @@ namespace NhatKySanXuat
             // 
             this.label7.AutoSize = true;
             this.label7.BackColor = System.Drawing.Color.Transparent;
-            this.label7.Location = new System.Drawing.Point(9, 97);
+            this.label7.Location = new System.Drawing.Point(9, 139);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(63, 13);
             this.label7.TabIndex = 156;
@@ -445,7 +449,7 @@ namespace NhatKySanXuat
             // 
             this.label6.AutoSize = true;
             this.label6.BackColor = System.Drawing.Color.Transparent;
-            this.label6.Location = new System.Drawing.Point(9, 120);
+            this.label6.Location = new System.Drawing.Point(9, 162);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(46, 13);
             this.label6.TabIndex = 155;
@@ -465,7 +469,7 @@ namespace NhatKySanXuat
             // 
             this.label4.AutoSize = true;
             this.label4.BackColor = System.Drawing.Color.Transparent;
-            this.label4.Location = new System.Drawing.Point(10, 161);
+            this.label4.Location = new System.Drawing.Point(10, 203);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(22, 13);
             this.label4.TabIndex = 151;
@@ -495,7 +499,7 @@ namespace NhatKySanXuat
             // 
             this.label5.AutoSize = true;
             this.label5.BackColor = System.Drawing.Color.Transparent;
-            this.label5.Location = new System.Drawing.Point(9, 143);
+            this.label5.Location = new System.Drawing.Point(9, 185);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(50, 13);
             this.label5.TabIndex = 153;
@@ -1897,15 +1901,15 @@ namespace NhatKySanXuat
             this.panel8.Controls.Add(this.label115);
             this.panel8.Controls.Add(this.label114);
             this.panel8.Controls.Add(this.label113);
-            this.panel8.Location = new System.Drawing.Point(90, 264);
+            this.panel8.Location = new System.Drawing.Point(90, 312);
             this.panel8.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(336, 197);
+            this.panel8.Size = new System.Drawing.Size(336, 149);
             this.panel8.TabIndex = 470;
             // 
             // tb_ngay140
             // 
-            this.tb_ngay140.Location = new System.Drawing.Point(282, 69);
+            this.tb_ngay140.Location = new System.Drawing.Point(282, 45);
             this.tb_ngay140.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_ngay140.Name = "tb_ngay140";
             this.tb_ngay140.Size = new System.Drawing.Size(43, 20);
@@ -1913,7 +1917,7 @@ namespace NhatKySanXuat
             // 
             // tb_thoigianondinh
             // 
-            this.tb_thoigianondinh.Location = new System.Drawing.Point(34, 95);
+            this.tb_thoigianondinh.Location = new System.Drawing.Point(34, 71);
             this.tb_thoigianondinh.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_thoigianondinh.Name = "tb_thoigianondinh";
             this.tb_thoigianondinh.Size = new System.Drawing.Size(41, 20);
@@ -1921,7 +1925,7 @@ namespace NhatKySanXuat
             // 
             // tb_ngay126
             // 
-            this.tb_ngay126.Location = new System.Drawing.Point(282, 45);
+            this.tb_ngay126.Location = new System.Drawing.Point(282, 21);
             this.tb_ngay126.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_ngay126.Name = "tb_ngay126";
             this.tb_ngay126.Size = new System.Drawing.Size(43, 20);
@@ -1939,7 +1943,7 @@ namespace NhatKySanXuat
             // 
             // tb_ngay112
             // 
-            this.tb_ngay112.Location = new System.Drawing.Point(196, 146);
+            this.tb_ngay112.Location = new System.Drawing.Point(196, 122);
             this.tb_ngay112.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_ngay112.Name = "tb_ngay112";
             this.tb_ngay112.Size = new System.Drawing.Size(44, 20);
@@ -1948,7 +1952,7 @@ namespace NhatKySanXuat
             // label130
             // 
             this.label130.AutoSize = true;
-            this.label130.Location = new System.Drawing.Point(77, 151);
+            this.label130.Location = new System.Drawing.Point(77, 127);
             this.label130.Name = "label130";
             this.label130.Size = new System.Drawing.Size(31, 13);
             this.label130.TabIndex = 31;
@@ -1956,7 +1960,7 @@ namespace NhatKySanXuat
             // 
             // tb_ngay98
             // 
-            this.tb_ngay98.Location = new System.Drawing.Point(196, 122);
+            this.tb_ngay98.Location = new System.Drawing.Point(196, 98);
             this.tb_ngay98.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_ngay98.Name = "tb_ngay98";
             this.tb_ngay98.Size = new System.Drawing.Size(44, 20);
@@ -1964,7 +1968,7 @@ namespace NhatKySanXuat
             // 
             // tb_ngay84
             // 
-            this.tb_ngay84.Location = new System.Drawing.Point(196, 97);
+            this.tb_ngay84.Location = new System.Drawing.Point(196, 73);
             this.tb_ngay84.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_ngay84.Name = "tb_ngay84";
             this.tb_ngay84.Size = new System.Drawing.Size(44, 20);
@@ -1972,7 +1976,7 @@ namespace NhatKySanXuat
             // 
             // tb_ngay21
             // 
-            this.tb_ngay21.Location = new System.Drawing.Point(109, 72);
+            this.tb_ngay21.Location = new System.Drawing.Point(109, 48);
             this.tb_ngay21.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_ngay21.Name = "tb_ngay21";
             this.tb_ngay21.Size = new System.Drawing.Size(41, 20);
@@ -1981,7 +1985,7 @@ namespace NhatKySanXuat
             // label128
             // 
             this.label128.AutoSize = true;
-            this.label128.Location = new System.Drawing.Point(246, 75);
+            this.label128.Location = new System.Drawing.Point(246, 51);
             this.label128.Name = "label128";
             this.label128.Size = new System.Drawing.Size(37, 13);
             this.label128.TabIndex = 14;
@@ -1989,7 +1993,7 @@ namespace NhatKySanXuat
             // 
             // tb_ngay70
             // 
-            this.tb_ngay70.Location = new System.Drawing.Point(196, 72);
+            this.tb_ngay70.Location = new System.Drawing.Point(196, 48);
             this.tb_ngay70.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_ngay70.Name = "tb_ngay70";
             this.tb_ngay70.Size = new System.Drawing.Size(44, 20);
@@ -1998,7 +2002,7 @@ namespace NhatKySanXuat
             // label127
             // 
             this.label127.AutoSize = true;
-            this.label127.Location = new System.Drawing.Point(155, 150);
+            this.label127.Location = new System.Drawing.Point(155, 126);
             this.label127.Name = "label127";
             this.label127.Size = new System.Drawing.Size(37, 13);
             this.label127.TabIndex = 13;
@@ -2006,7 +2010,7 @@ namespace NhatKySanXuat
             // 
             // tb_ngay56
             // 
-            this.tb_ngay56.Location = new System.Drawing.Point(196, 46);
+            this.tb_ngay56.Location = new System.Drawing.Point(196, 22);
             this.tb_ngay56.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_ngay56.Name = "tb_ngay56";
             this.tb_ngay56.Size = new System.Drawing.Size(44, 20);
@@ -2015,7 +2019,7 @@ namespace NhatKySanXuat
             // label126
             // 
             this.label126.AutoSize = true;
-            this.label126.Location = new System.Drawing.Point(156, 127);
+            this.label126.Location = new System.Drawing.Point(156, 103);
             this.label126.Name = "label126";
             this.label126.Size = new System.Drawing.Size(31, 13);
             this.label126.TabIndex = 12;
@@ -2023,7 +2027,7 @@ namespace NhatKySanXuat
             // 
             // tb_ngay49
             // 
-            this.tb_ngay49.Location = new System.Drawing.Point(109, 147);
+            this.tb_ngay49.Location = new System.Drawing.Point(109, 123);
             this.tb_ngay49.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_ngay49.Name = "tb_ngay49";
             this.tb_ngay49.Size = new System.Drawing.Size(41, 20);
@@ -2032,7 +2036,7 @@ namespace NhatKySanXuat
             // label125
             // 
             this.label125.AutoSize = true;
-            this.label125.Location = new System.Drawing.Point(156, 100);
+            this.label125.Location = new System.Drawing.Point(156, 76);
             this.label125.Name = "label125";
             this.label125.Size = new System.Drawing.Size(31, 13);
             this.label125.TabIndex = 11;
@@ -2040,7 +2044,7 @@ namespace NhatKySanXuat
             // 
             // tb_ngay42
             // 
-            this.tb_ngay42.Location = new System.Drawing.Point(109, 123);
+            this.tb_ngay42.Location = new System.Drawing.Point(109, 99);
             this.tb_ngay42.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_ngay42.Name = "tb_ngay42";
             this.tb_ngay42.Size = new System.Drawing.Size(41, 20);
@@ -2049,7 +2053,7 @@ namespace NhatKySanXuat
             // label124
             // 
             this.label124.AutoSize = true;
-            this.label124.Location = new System.Drawing.Point(244, 47);
+            this.label124.Location = new System.Drawing.Point(244, 23);
             this.label124.Name = "label124";
             this.label124.Size = new System.Drawing.Size(37, 13);
             this.label124.TabIndex = 11;
@@ -2057,7 +2061,7 @@ namespace NhatKySanXuat
             // 
             // tb_ngay28
             // 
-            this.tb_ngay28.Location = new System.Drawing.Point(109, 98);
+            this.tb_ngay28.Location = new System.Drawing.Point(109, 74);
             this.tb_ngay28.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_ngay28.Name = "tb_ngay28";
             this.tb_ngay28.Size = new System.Drawing.Size(41, 20);
@@ -2066,7 +2070,7 @@ namespace NhatKySanXuat
             // label123
             // 
             this.label123.AutoSize = true;
-            this.label123.Location = new System.Drawing.Point(156, 72);
+            this.label123.Location = new System.Drawing.Point(156, 48);
             this.label123.Name = "label123";
             this.label123.Size = new System.Drawing.Size(31, 13);
             this.label123.TabIndex = 10;
@@ -2075,7 +2079,7 @@ namespace NhatKySanXuat
             // label122
             // 
             this.label122.AutoSize = true;
-            this.label122.Location = new System.Drawing.Point(156, 49);
+            this.label122.Location = new System.Drawing.Point(156, 25);
             this.label122.Name = "label122";
             this.label122.Size = new System.Drawing.Size(31, 13);
             this.label122.TabIndex = 9;
@@ -2084,7 +2088,7 @@ namespace NhatKySanXuat
             // label121
             // 
             this.label121.AutoSize = true;
-            this.label121.Location = new System.Drawing.Point(77, 127);
+            this.label121.Location = new System.Drawing.Point(77, 103);
             this.label121.Name = "label121";
             this.label121.Size = new System.Drawing.Size(31, 13);
             this.label121.TabIndex = 8;
@@ -2092,7 +2096,7 @@ namespace NhatKySanXuat
             // 
             // tb_ngay14
             // 
-            this.tb_ngay14.Location = new System.Drawing.Point(109, 45);
+            this.tb_ngay14.Location = new System.Drawing.Point(109, 21);
             this.tb_ngay14.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_ngay14.Name = "tb_ngay14";
             this.tb_ngay14.Size = new System.Drawing.Size(41, 20);
@@ -2101,7 +2105,7 @@ namespace NhatKySanXuat
             // label120
             // 
             this.label120.AutoSize = true;
-            this.label120.Location = new System.Drawing.Point(77, 101);
+            this.label120.Location = new System.Drawing.Point(77, 77);
             this.label120.Name = "label120";
             this.label120.Size = new System.Drawing.Size(31, 13);
             this.label120.TabIndex = 7;
@@ -2109,7 +2113,7 @@ namespace NhatKySanXuat
             // 
             // tb_ngay7
             // 
-            this.tb_ngay7.Location = new System.Drawing.Point(34, 147);
+            this.tb_ngay7.Location = new System.Drawing.Point(34, 123);
             this.tb_ngay7.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_ngay7.Name = "tb_ngay7";
             this.tb_ngay7.Size = new System.Drawing.Size(41, 20);
@@ -2118,7 +2122,7 @@ namespace NhatKySanXuat
             // label119
             // 
             this.label119.AutoSize = true;
-            this.label119.Location = new System.Drawing.Point(77, 75);
+            this.label119.Location = new System.Drawing.Point(77, 51);
             this.label119.Name = "label119";
             this.label119.Size = new System.Drawing.Size(31, 13);
             this.label119.TabIndex = 6;
@@ -2126,7 +2130,7 @@ namespace NhatKySanXuat
             // 
             // tb_ngay0
             // 
-            this.tb_ngay0.Location = new System.Drawing.Point(34, 122);
+            this.tb_ngay0.Location = new System.Drawing.Point(34, 98);
             this.tb_ngay0.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_ngay0.Name = "tb_ngay0";
             this.tb_ngay0.Size = new System.Drawing.Size(41, 20);
@@ -2135,7 +2139,7 @@ namespace NhatKySanXuat
             // label118
             // 
             this.label118.AutoSize = true;
-            this.label118.Location = new System.Drawing.Point(79, 51);
+            this.label118.Location = new System.Drawing.Point(79, 27);
             this.label118.Name = "label118";
             this.label118.Size = new System.Drawing.Size(31, 13);
             this.label118.TabIndex = 5;
@@ -2143,7 +2147,7 @@ namespace NhatKySanXuat
             // 
             // tb_coating
             // 
-            this.tb_coating.Location = new System.Drawing.Point(34, 70);
+            this.tb_coating.Location = new System.Drawing.Point(34, 46);
             this.tb_coating.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_coating.Name = "tb_coating";
             this.tb_coating.Size = new System.Drawing.Size(41, 20);
@@ -2152,7 +2156,7 @@ namespace NhatKySanXuat
             // label117
             // 
             this.label117.AutoSize = true;
-            this.label117.Location = new System.Drawing.Point(4, 151);
+            this.label117.Location = new System.Drawing.Point(4, 127);
             this.label117.Name = "label117";
             this.label117.Size = new System.Drawing.Size(25, 13);
             this.label117.TabIndex = 4;
@@ -2160,7 +2164,7 @@ namespace NhatKySanXuat
             // 
             // tb_do_am
             // 
-            this.tb_do_am.Location = new System.Drawing.Point(34, 43);
+            this.tb_do_am.Location = new System.Drawing.Point(34, 19);
             this.tb_do_am.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_do_am.Name = "tb_do_am";
             this.tb_do_am.Size = new System.Drawing.Size(41, 20);
@@ -2169,7 +2173,7 @@ namespace NhatKySanXuat
             // label116
             // 
             this.label116.AutoSize = true;
-            this.label116.Location = new System.Drawing.Point(4, 128);
+            this.label116.Location = new System.Drawing.Point(4, 104);
             this.label116.Name = "label116";
             this.label116.Size = new System.Drawing.Size(25, 13);
             this.label116.TabIndex = 3;
@@ -2178,7 +2182,7 @@ namespace NhatKySanXuat
             // label115
             // 
             this.label115.AutoSize = true;
-            this.label115.Location = new System.Drawing.Point(4, 102);
+            this.label115.Location = new System.Drawing.Point(4, 78);
             this.label115.Name = "label115";
             this.label115.Size = new System.Drawing.Size(25, 13);
             this.label115.TabIndex = 2;
@@ -2187,7 +2191,7 @@ namespace NhatKySanXuat
             // label114
             // 
             this.label114.AutoSize = true;
-            this.label114.Location = new System.Drawing.Point(4, 76);
+            this.label114.Location = new System.Drawing.Point(4, 52);
             this.label114.Name = "label114";
             this.label114.Size = new System.Drawing.Size(23, 13);
             this.label114.TabIndex = 1;
@@ -2196,7 +2200,7 @@ namespace NhatKySanXuat
             // label113
             // 
             this.label113.AutoSize = true;
-            this.label113.Location = new System.Drawing.Point(4, 48);
+            this.label113.Location = new System.Drawing.Point(4, 24);
             this.label113.Name = "label113";
             this.label113.Size = new System.Drawing.Size(25, 13);
             this.label113.TabIndex = 0;
@@ -2451,6 +2455,52 @@ namespace NhatKySanXuat
             this.label1.TabIndex = 492;
             this.label1.Text = "3";
             // 
+            // dateTimePicker_TG_BD
+            // 
+            this.dateTimePicker_TG_BD.CalendarForeColor = System.Drawing.Color.Black;
+            this.dateTimePicker_TG_BD.CalendarMonthBackground = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.dateTimePicker_TG_BD.Cursor = System.Windows.Forms.Cursors.Default;
+            this.dateTimePicker_TG_BD.CustomFormat = "yyyy/MM/dd HH:mm";
+            this.dateTimePicker_TG_BD.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePicker_TG_BD.Location = new System.Drawing.Point(78, 93);
+            this.dateTimePicker_TG_BD.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.dateTimePicker_TG_BD.Name = "dateTimePicker_TG_BD";
+            this.dateTimePicker_TG_BD.Size = new System.Drawing.Size(129, 20);
+            this.dateTimePicker_TG_BD.TabIndex = 493;
+            // 
+            // label53
+            // 
+            this.label53.AutoSize = true;
+            this.label53.BackColor = System.Drawing.Color.Transparent;
+            this.label53.Location = new System.Drawing.Point(8, 99);
+            this.label53.Name = "label53";
+            this.label53.Size = new System.Drawing.Size(69, 13);
+            this.label53.TabIndex = 494;
+            this.label53.Text = "Thời gian BD";
+            // 
+            // dateTimePicker_TG_KT
+            // 
+            this.dateTimePicker_TG_KT.CalendarForeColor = System.Drawing.Color.Black;
+            this.dateTimePicker_TG_KT.CalendarMonthBackground = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.dateTimePicker_TG_KT.Cursor = System.Windows.Forms.Cursors.Default;
+            this.dateTimePicker_TG_KT.CustomFormat = "yyyy/MM/dd HH:mm";
+            this.dateTimePicker_TG_KT.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePicker_TG_KT.Location = new System.Drawing.Point(78, 114);
+            this.dateTimePicker_TG_KT.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.dateTimePicker_TG_KT.Name = "dateTimePicker_TG_KT";
+            this.dateTimePicker_TG_KT.Size = new System.Drawing.Size(129, 20);
+            this.dateTimePicker_TG_KT.TabIndex = 495;
+            // 
+            // label57
+            // 
+            this.label57.AutoSize = true;
+            this.label57.BackColor = System.Drawing.Color.Transparent;
+            this.label57.Location = new System.Drawing.Point(8, 120);
+            this.label57.Name = "label57";
+            this.label57.Size = new System.Drawing.Size(68, 13);
+            this.label57.TabIndex = 496;
+            this.label57.Text = "Thời gian KT";
+            // 
             // Form3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2458,6 +2508,10 @@ namespace NhatKySanXuat
             this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.ClientSize = new System.Drawing.Size(1225, 464);
+            this.Controls.Add(this.dateTimePicker_TG_KT);
+            this.Controls.Add(this.label57);
+            this.Controls.Add(this.dateTimePicker_TG_BD);
+            this.Controls.Add(this.label53);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label43);
             this.Controls.Add(this.label47);
@@ -2868,5 +2922,9 @@ namespace NhatKySanXuat
         private System.Windows.Forms.TextBox tbN3_pro;
         private System.Windows.Forms.TextBox tbN1_pro;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.DateTimePicker dateTimePicker_TG_BD;
+        private System.Windows.Forms.Label label53;
+        private System.Windows.Forms.DateTimePicker dateTimePicker_TG_KT;
+        private System.Windows.Forms.Label label57;
     }
 }

@@ -119,6 +119,7 @@ namespace NhatKySanXuat
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle297 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle298 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle299 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Logsx));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle300 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle301 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle302 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -137,11 +138,13 @@ namespace NhatKySanXuat
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle315 = new System.Windows.Forms.DataGridViewCellStyle();
             Microsoft.Reporting.WinForms.ReportDataSource reportDataSource5 = new Microsoft.Reporting.WinForms.ReportDataSource();
             Microsoft.Reporting.WinForms.ReportDataSource reportDataSource6 = new Microsoft.Reporting.WinForms.ReportDataSource();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Logsx));
+            this.dATABindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.iNFORBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageblogsx = new System.Windows.Forms.TabPage();
             this.pnloading = new System.Windows.Forms.Panel();
             this.label86 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.pn_nhatkysx = new System.Windows.Forms.Panel();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
@@ -232,6 +235,8 @@ namespace NhatKySanXuat
             this.Column110 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column111 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.cbb_search_lot = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.cbb_ma_BTP_search = new System.Windows.Forms.ComboBox();
             this.label91 = new System.Windows.Forms.Label();
             this.cbb_phanbonnvl_search = new System.Windows.Forms.ComboBox();
@@ -239,6 +244,7 @@ namespace NhatKySanXuat
             this.label87 = new System.Windows.Forms.Label();
             this.cbb_thietbi_search = new System.Windows.Forms.ComboBox();
             this.cbb_search_loai = new System.Windows.Forms.ComboBox();
+            this.button_search = new System.Windows.Forms.Button();
             this.label58 = new System.Windows.Forms.Label();
             this.tb_dotsx_search = new System.Windows.Forms.TextBox();
             this.label20 = new System.Windows.Forms.Label();
@@ -258,6 +264,8 @@ namespace NhatKySanXuat
             this.Column23 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btthem = new System.Windows.Forms.Button();
+            this.btxuat = new System.Windows.Forms.Button();
             this.tabPageNhaprelease = new System.Windows.Forms.TabPage();
             this.cbb_tb_release = new System.Windows.Forms.ComboBox();
             this.label139 = new System.Windows.Forms.Label();
@@ -284,6 +292,7 @@ namespace NhatKySanXuat
             this.label77 = new System.Windows.Forms.Label();
             this.label73 = new System.Windows.Forms.Label();
             this.label74 = new System.Windows.Forms.Label();
+            this.btt_updata_release = new System.Windows.Forms.Button();
             this.label49 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
             this.label9 = new System.Windows.Forms.Label();
@@ -295,6 +304,7 @@ namespace NhatKySanXuat
             this.tb_ngaysx_tabrelease = new System.Windows.Forms.TextBox();
             this.pn_loading_release = new System.Windows.Forms.Panel();
             this.label105 = new System.Windows.Forms.Label();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column81 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -388,6 +398,7 @@ namespace NhatKySanXuat
             this.textBox_path = new System.Windows.Forms.TextBox();
             this.btt_insert_tt_database = new System.Windows.Forms.Button();
             this.tabPagehistorylogin = new System.Windows.Forms.TabPage();
+            this.btnxoals = new System.Windows.Forms.Button();
             this.dataGridViewblogtruycap = new System.Windows.Forms.DataGridView();
             this.Column74 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column73 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -435,9 +446,15 @@ namespace NhatKySanXuat
             this.Column145 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column146 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.reportViewer_xuatkho = new Microsoft.Reporting.WinForms.ReportViewer();
+            this.tabPage_kehoachsx = new System.Windows.Forms.TabPage();
+            this.tabControl2 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.lbuser = new System.Windows.Forms.Label();
             this.label53 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.pnkehoachsx = new System.Windows.Forms.Panel();
+            this.lbkehoachsx = new System.Windows.Forms.Label();
             this.pn_history = new System.Windows.Forms.Panel();
             this.lb_history = new System.Windows.Forms.Label();
             this.pnxuatkhonvl = new System.Windows.Forms.Panel();
@@ -454,26 +471,12 @@ namespace NhatKySanXuat
             this.showAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tabPage_kehoachsx = new System.Windows.Forms.TabPage();
-            this.tabControl2 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.pnkehoachsx = new System.Windows.Forms.Panel();
-            this.lbkehoachsx = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.button_search = new System.Windows.Forms.Button();
-            this.btthem = new System.Windows.Forms.Button();
-            this.btxuat = new System.Windows.Forms.Button();
-            this.btt_updata_release = new System.Windows.Forms.Button();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.btnxoals = new System.Windows.Forms.Button();
-            this.dATABindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.iNFORBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.label2 = new System.Windows.Forms.Label();
-            this.cbb_search_lot = new System.Windows.Forms.ComboBox();
+            ((System.ComponentModel.ISupportInitialize)(this.dATABindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.iNFORBindingSource)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPageblogsx.SuspendLayout();
             this.pnloading.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
             this.pn_nhatkysx.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -485,6 +488,7 @@ namespace NhatKySanXuat
             this.panel7.SuspendLayout();
             this.panel4.SuspendLayout();
             this.pn_loading_release.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
             this.tabPageImportexcel.SuspendLayout();
             this.panel5.SuspendLayout();
@@ -494,20 +498,16 @@ namespace NhatKySanXuat
             this.tabPage_xuatkho.SuspendLayout();
             this.panel9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_xuatkhonvl)).BeginInit();
+            this.tabPage_kehoachsx.SuspendLayout();
+            this.tabControl2.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.pnkehoachsx.SuspendLayout();
             this.pn_history.SuspendLayout();
             this.pnxuatkhonvl.SuspendLayout();
             this.pn_nksx_button.SuspendLayout();
             this.panel_nhap_release.SuspendLayout();
             this.pn_import.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
-            this.tabPage_kehoachsx.SuspendLayout();
-            this.tabControl2.SuspendLayout();
-            this.pnkehoachsx.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dATABindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.iNFORBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -564,6 +564,18 @@ namespace NhatKySanXuat
             this.label86.Size = new System.Drawing.Size(80, 22);
             this.label86.TabIndex = 167;
             this.label86.Text = "Loading...";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox1.Image = global::NhatKySanXuat.Properties.Resources.loading;
+            this.pictureBox1.Location = new System.Drawing.Point(923, 369);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(137, 123);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 166;
+            this.pictureBox1.TabStop = false;
             // 
             // panel1
             // 
@@ -1546,6 +1558,27 @@ namespace NhatKySanXuat
             this.panel3.Size = new System.Drawing.Size(1278, 31);
             this.panel3.TabIndex = 257;
             // 
+            // cbb_search_lot
+            // 
+            this.cbb_search_lot.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cbb_search_lot.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cbb_search_lot.BackColor = System.Drawing.Color.White;
+            this.cbb_search_lot.FormattingEnabled = true;
+            this.cbb_search_lot.Location = new System.Drawing.Point(1017, 6);
+            this.cbb_search_lot.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.cbb_search_lot.Name = "cbb_search_lot";
+            this.cbb_search_lot.Size = new System.Drawing.Size(156, 21);
+            this.cbb_search_lot.TabIndex = 267;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(985, 12);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(28, 13);
+            this.label2.TabIndex = 266;
+            this.label2.Text = "LOT";
+            // 
             // cbb_ma_BTP_search
             // 
             this.cbb_ma_BTP_search.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
@@ -1618,6 +1651,20 @@ namespace NhatKySanXuat
             this.cbb_search_loai.Name = "cbb_search_loai";
             this.cbb_search_loai.Size = new System.Drawing.Size(53, 21);
             this.cbb_search_loai.TabIndex = 159;
+            // 
+            // button_search
+            // 
+            this.button_search.Image = global::NhatKySanXuat.Properties.Resources.icons8_search_24;
+            this.button_search.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button_search.Location = new System.Drawing.Point(1181, 0);
+            this.button_search.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button_search.Name = "button_search";
+            this.button_search.Size = new System.Drawing.Size(95, 31);
+            this.button_search.TabIndex = 162;
+            this.button_search.Text = "Tìm kiếm";
+            this.button_search.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button_search.UseVisualStyleBackColor = true;
+            this.button_search.Click += new System.EventHandler(this.button_search_loại_Click);
             // 
             // label58
             // 
@@ -1827,6 +1874,36 @@ namespace NhatKySanXuat
             this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
             this.dataGridViewTextBoxColumn7.ReadOnly = true;
             this.dataGridViewTextBoxColumn7.Width = 81;
+            // 
+            // btthem
+            // 
+            this.btthem.BackColor = System.Drawing.Color.Lavender;
+            this.btthem.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btthem.Image = ((System.Drawing.Image)(resources.GetObject("btthem.Image")));
+            this.btthem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btthem.Location = new System.Drawing.Point(3, 1);
+            this.btthem.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btthem.Name = "btthem";
+            this.btthem.Size = new System.Drawing.Size(86, 32);
+            this.btthem.TabIndex = 133;
+            this.btthem.Text = "Thêm";
+            this.btthem.UseVisualStyleBackColor = false;
+            this.btthem.Click += new System.EventHandler(this.btthem_Click);
+            // 
+            // btxuat
+            // 
+            this.btxuat.BackColor = System.Drawing.Color.Lavender;
+            this.btxuat.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btxuat.Image = ((System.Drawing.Image)(resources.GetObject("btxuat.Image")));
+            this.btxuat.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btxuat.Location = new System.Drawing.Point(88, 0);
+            this.btxuat.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btxuat.Name = "btxuat";
+            this.btxuat.Size = new System.Drawing.Size(86, 33);
+            this.btxuat.TabIndex = 137;
+            this.btxuat.Text = "Xuất";
+            this.btxuat.UseVisualStyleBackColor = false;
+            this.btxuat.Click += new System.EventHandler(this.btxuat_Click);
             // 
             // tabPageNhaprelease
             // 
@@ -2100,6 +2177,22 @@ namespace NhatKySanXuat
             this.label74.TabIndex = 23;
             this.label74.Text = "42 Ngày";
             // 
+            // btt_updata_release
+            // 
+            this.btt_updata_release.BackColor = System.Drawing.Color.DeepSkyBlue;
+            this.btt_updata_release.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btt_updata_release.Image = ((System.Drawing.Image)(resources.GetObject("btt_updata_release.Image")));
+            this.btt_updata_release.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btt_updata_release.Location = new System.Drawing.Point(5, 107);
+            this.btt_updata_release.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btt_updata_release.Name = "btt_updata_release";
+            this.btt_updata_release.Size = new System.Drawing.Size(107, 46);
+            this.btt_updata_release.TabIndex = 30;
+            this.btt_updata_release.Text = "Cập nhật release";
+            this.btt_updata_release.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btt_updata_release.UseVisualStyleBackColor = false;
+            this.btt_updata_release.Click += new System.EventHandler(this.btt_updata_release_Click);
+            // 
             // label49
             // 
             this.label49.AutoSize = true;
@@ -2208,6 +2301,18 @@ namespace NhatKySanXuat
             this.label105.Size = new System.Drawing.Size(71, 17);
             this.label105.TabIndex = 167;
             this.label105.Text = "Loading...";
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox2.Image = global::NhatKySanXuat.Properties.Resources.loading;
+            this.pictureBox2.Location = new System.Drawing.Point(779, 309);
+            this.pictureBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(155, 154);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox2.TabIndex = 166;
+            this.pictureBox2.TabStop = false;
             // 
             // dataGridView3
             // 
@@ -3222,6 +3327,22 @@ namespace NhatKySanXuat
             this.tabPagehistorylogin.Text = "Lịch sử truy cập";
             this.tabPagehistorylogin.UseVisualStyleBackColor = true;
             // 
+            // btnxoals
+            // 
+            this.btnxoals.BackColor = System.Drawing.Color.Lavender;
+            this.btnxoals.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnxoals.Image = ((System.Drawing.Image)(resources.GetObject("btnxoals.Image")));
+            this.btnxoals.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnxoals.Location = new System.Drawing.Point(869, 6);
+            this.btnxoals.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnxoals.Name = "btnxoals";
+            this.btnxoals.Size = new System.Drawing.Size(119, 33);
+            this.btnxoals.TabIndex = 1;
+            this.btnxoals.Text = "Xóa lịch sử";
+            this.btnxoals.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnxoals.UseVisualStyleBackColor = false;
+            this.btnxoals.Click += new System.EventHandler(this.btnxoals_Click);
+            // 
             // dataGridViewblogtruycap
             // 
             this.dataGridViewblogtruycap.AllowUserToAddRows = false;
@@ -3583,6 +3704,47 @@ namespace NhatKySanXuat
             this.reportViewer_xuatkho.TabIndex = 0;
             this.reportViewer_xuatkho.ZoomMode = Microsoft.Reporting.WinForms.ZoomMode.PageWidth;
             // 
+            // tabPage_kehoachsx
+            // 
+            this.tabPage_kehoachsx.Controls.Add(this.tabControl2);
+            this.tabPage_kehoachsx.Location = new System.Drawing.Point(4, 25);
+            this.tabPage_kehoachsx.Name = "tabPage_kehoachsx";
+            this.tabPage_kehoachsx.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage_kehoachsx.Size = new System.Drawing.Size(1901, 988);
+            this.tabPage_kehoachsx.TabIndex = 5;
+            this.tabPage_kehoachsx.Text = "Kế hoạch SX";
+            this.tabPage_kehoachsx.UseVisualStyleBackColor = true;
+            // 
+            // tabControl2
+            // 
+            this.tabControl2.Controls.Add(this.tabPage1);
+            this.tabControl2.Controls.Add(this.tabPage2);
+            this.tabControl2.Location = new System.Drawing.Point(-4, 3);
+            this.tabControl2.Name = "tabControl2";
+            this.tabControl2.SelectedIndex = 0;
+            this.tabControl2.Size = new System.Drawing.Size(1909, 989);
+            this.tabControl2.TabIndex = 0;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Location = new System.Drawing.Point(4, 25);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(1901, 960);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "tabPage1";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Location = new System.Drawing.Point(4, 25);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(1901, 960);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "tabPage2";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
             // lbuser
             // 
             this.lbuser.AutoSize = true;
@@ -3617,6 +3779,29 @@ namespace NhatKySanXuat
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1909, 34);
             this.panel2.TabIndex = 256;
+            // 
+            // pnkehoachsx
+            // 
+            this.pnkehoachsx.BackColor = System.Drawing.Color.Silver;
+            this.pnkehoachsx.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnkehoachsx.Controls.Add(this.lbkehoachsx);
+            this.pnkehoachsx.Location = new System.Drawing.Point(397, 2);
+            this.pnkehoachsx.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.pnkehoachsx.Name = "pnkehoachsx";
+            this.pnkehoachsx.Size = new System.Drawing.Size(97, 32);
+            this.pnkehoachsx.TabIndex = 260;
+            this.pnkehoachsx.Click += new System.EventHandler(this.pnkehoachsx_Click);
+            // 
+            // lbkehoachsx
+            // 
+            this.lbkehoachsx.AutoSize = true;
+            this.lbkehoachsx.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbkehoachsx.Location = new System.Drawing.Point(0, 7);
+            this.lbkehoachsx.Name = "lbkehoachsx";
+            this.lbkehoachsx.Size = new System.Drawing.Size(96, 13);
+            this.lbkehoachsx.TabIndex = 0;
+            this.lbkehoachsx.Text = "Kế hoạch sản xuất";
+            this.lbkehoachsx.Click += new System.EventHandler(this.pnkehoachsx_Click);
             // 
             // pn_history
             // 
@@ -3775,191 +3960,6 @@ namespace NhatKySanXuat
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
-            // tabPage_kehoachsx
-            // 
-            this.tabPage_kehoachsx.Controls.Add(this.tabControl2);
-            this.tabPage_kehoachsx.Location = new System.Drawing.Point(4, 25);
-            this.tabPage_kehoachsx.Name = "tabPage_kehoachsx";
-            this.tabPage_kehoachsx.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_kehoachsx.Size = new System.Drawing.Size(1901, 988);
-            this.tabPage_kehoachsx.TabIndex = 5;
-            this.tabPage_kehoachsx.Text = "Kế hoạch SX";
-            this.tabPage_kehoachsx.UseVisualStyleBackColor = true;
-            // 
-            // tabControl2
-            // 
-            this.tabControl2.Controls.Add(this.tabPage1);
-            this.tabControl2.Controls.Add(this.tabPage2);
-            this.tabControl2.Location = new System.Drawing.Point(-4, 3);
-            this.tabControl2.Name = "tabControl2";
-            this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(1909, 989);
-            this.tabControl2.TabIndex = 0;
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Location = new System.Drawing.Point(4, 25);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1901, 960);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "tabPage1";
-            this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Location = new System.Drawing.Point(4, 25);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1901, 960);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // pnkehoachsx
-            // 
-            this.pnkehoachsx.BackColor = System.Drawing.Color.Silver;
-            this.pnkehoachsx.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnkehoachsx.Controls.Add(this.lbkehoachsx);
-            this.pnkehoachsx.Location = new System.Drawing.Point(397, 2);
-            this.pnkehoachsx.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.pnkehoachsx.Name = "pnkehoachsx";
-            this.pnkehoachsx.Size = new System.Drawing.Size(97, 32);
-            this.pnkehoachsx.TabIndex = 260;
-            this.pnkehoachsx.Click += new System.EventHandler(this.pnkehoachsx_Click);
-            // 
-            // lbkehoachsx
-            // 
-            this.lbkehoachsx.AutoSize = true;
-            this.lbkehoachsx.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbkehoachsx.Location = new System.Drawing.Point(0, 7);
-            this.lbkehoachsx.Name = "lbkehoachsx";
-            this.lbkehoachsx.Size = new System.Drawing.Size(96, 13);
-            this.lbkehoachsx.TabIndex = 0;
-            this.lbkehoachsx.Text = "Kế hoạch sản xuất";
-            this.lbkehoachsx.Click += new System.EventHandler(this.pnkehoachsx_Click);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox1.Image = global::NhatKySanXuat.Properties.Resources.loading;
-            this.pictureBox1.Location = new System.Drawing.Point(923, 369);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(137, 123);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 166;
-            this.pictureBox1.TabStop = false;
-            // 
-            // button_search
-            // 
-            this.button_search.Image = global::NhatKySanXuat.Properties.Resources.icons8_search_24;
-            this.button_search.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button_search.Location = new System.Drawing.Point(1181, 0);
-            this.button_search.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button_search.Name = "button_search";
-            this.button_search.Size = new System.Drawing.Size(95, 31);
-            this.button_search.TabIndex = 162;
-            this.button_search.Text = "Tìm kiếm";
-            this.button_search.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button_search.UseVisualStyleBackColor = true;
-            this.button_search.Click += new System.EventHandler(this.button_search_loại_Click);
-            // 
-            // btthem
-            // 
-            this.btthem.BackColor = System.Drawing.Color.Lavender;
-            this.btthem.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btthem.Image = ((System.Drawing.Image)(resources.GetObject("btthem.Image")));
-            this.btthem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btthem.Location = new System.Drawing.Point(3, 1);
-            this.btthem.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btthem.Name = "btthem";
-            this.btthem.Size = new System.Drawing.Size(86, 32);
-            this.btthem.TabIndex = 133;
-            this.btthem.Text = "Thêm";
-            this.btthem.UseVisualStyleBackColor = false;
-            this.btthem.Click += new System.EventHandler(this.btthem_Click);
-            // 
-            // btxuat
-            // 
-            this.btxuat.BackColor = System.Drawing.Color.Lavender;
-            this.btxuat.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btxuat.Image = ((System.Drawing.Image)(resources.GetObject("btxuat.Image")));
-            this.btxuat.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btxuat.Location = new System.Drawing.Point(88, 0);
-            this.btxuat.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btxuat.Name = "btxuat";
-            this.btxuat.Size = new System.Drawing.Size(86, 33);
-            this.btxuat.TabIndex = 137;
-            this.btxuat.Text = "Xuất";
-            this.btxuat.UseVisualStyleBackColor = false;
-            this.btxuat.Click += new System.EventHandler(this.btxuat_Click);
-            // 
-            // btt_updata_release
-            // 
-            this.btt_updata_release.BackColor = System.Drawing.Color.DeepSkyBlue;
-            this.btt_updata_release.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btt_updata_release.Image = ((System.Drawing.Image)(resources.GetObject("btt_updata_release.Image")));
-            this.btt_updata_release.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btt_updata_release.Location = new System.Drawing.Point(5, 107);
-            this.btt_updata_release.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btt_updata_release.Name = "btt_updata_release";
-            this.btt_updata_release.Size = new System.Drawing.Size(107, 46);
-            this.btt_updata_release.TabIndex = 30;
-            this.btt_updata_release.Text = "Cập nhật release";
-            this.btt_updata_release.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btt_updata_release.UseVisualStyleBackColor = false;
-            this.btt_updata_release.Click += new System.EventHandler(this.btt_updata_release_Click);
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox2.Image = global::NhatKySanXuat.Properties.Resources.loading;
-            this.pictureBox2.Location = new System.Drawing.Point(779, 309);
-            this.pictureBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(155, 154);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox2.TabIndex = 166;
-            this.pictureBox2.TabStop = false;
-            // 
-            // btnxoals
-            // 
-            this.btnxoals.BackColor = System.Drawing.Color.Lavender;
-            this.btnxoals.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnxoals.Image = ((System.Drawing.Image)(resources.GetObject("btnxoals.Image")));
-            this.btnxoals.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnxoals.Location = new System.Drawing.Point(869, 6);
-            this.btnxoals.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btnxoals.Name = "btnxoals";
-            this.btnxoals.Size = new System.Drawing.Size(119, 33);
-            this.btnxoals.TabIndex = 1;
-            this.btnxoals.Text = "Xóa lịch sử";
-            this.btnxoals.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnxoals.UseVisualStyleBackColor = false;
-            this.btnxoals.Click += new System.EventHandler(this.btnxoals_Click);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(985, 12);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(28, 13);
-            this.label2.TabIndex = 266;
-            this.label2.Text = "LOT";
-            // 
-            // cbb_search_lot
-            // 
-            this.cbb_search_lot.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.cbb_search_lot.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.cbb_search_lot.BackColor = System.Drawing.Color.White;
-            this.cbb_search_lot.FormattingEnabled = true;
-            this.cbb_search_lot.Location = new System.Drawing.Point(1017, 6);
-            this.cbb_search_lot.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.cbb_search_lot.Name = "cbb_search_lot";
-            this.cbb_search_lot.Size = new System.Drawing.Size(156, 21);
-            this.cbb_search_lot.TabIndex = 267;
-            // 
             // Logsx
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -3979,10 +3979,13 @@ namespace NhatKySanXuat
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Logsx_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dATABindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.iNFORBindingSource)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabPageblogsx.ResumeLayout(false);
             this.pnloading.ResumeLayout(false);
             this.pnloading.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.pn_nhatkysx.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
@@ -4000,6 +4003,7 @@ namespace NhatKySanXuat
             this.panel4.PerformLayout();
             this.pn_loading_release.ResumeLayout(false);
             this.pn_loading_release.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
             this.tabPageImportexcel.ResumeLayout(false);
             this.tabPageImportexcel.PerformLayout();
@@ -4012,8 +4016,12 @@ namespace NhatKySanXuat
             this.panel9.ResumeLayout(false);
             this.panel9.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_xuatkhonvl)).EndInit();
+            this.tabPage_kehoachsx.ResumeLayout(false);
+            this.tabControl2.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            this.pnkehoachsx.ResumeLayout(false);
+            this.pnkehoachsx.PerformLayout();
             this.pn_history.ResumeLayout(false);
             this.pn_history.PerformLayout();
             this.pnxuatkhonvl.ResumeLayout(false);
@@ -4025,14 +4033,6 @@ namespace NhatKySanXuat
             this.pn_import.ResumeLayout(false);
             this.pn_import.PerformLayout();
             this.contextMenuStrip1.ResumeLayout(false);
-            this.tabPage_kehoachsx.ResumeLayout(false);
-            this.tabControl2.ResumeLayout(false);
-            this.pnkehoachsx.ResumeLayout(false);
-            this.pnkehoachsx.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dATABindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.iNFORBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }

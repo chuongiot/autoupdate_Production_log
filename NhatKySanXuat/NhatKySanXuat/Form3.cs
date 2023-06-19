@@ -245,7 +245,8 @@ namespace NhatKySanXuat
                         "N2_1_lot='" + tb_n2_1_lot.Text + "',N2_2_lot='" + tb_n2_2_lot.Text + "',N3_1='" + tb_n3_1_kl.Text + "',N3_1_barcode='" + tb_n3_1_code.Text + "',N3_1_lot='" + tb_n3_1_lot.Text + "'," +
                         "N1_4='" + tb_n1_4_kl.Text + "',N1_4_barcode='" + tb_n1_4_code.Text + "',N1_4_lot='" + tb_n1_4_lot.Text + "',N2_3='" + tb_n2_3_kl.Text + "'," +
                         "N2_3_barcode='" + tb_n2_3_code.Text + "',N2_3_lot='" + tb_n2_3_lot.Text + "',N3_2='" + tb_n3_2_kl.Text + "',N3_2_barcode='" + tb_n3_2_code.Text + "'," +
-                        "N3_2_lot='" + tb_n3_2_lot.Text + "',N3_3='" + tb_n3_3_kl.Text + "',N3_3_barcode='" + tb_n3_3_code.Text + "',N3_3_lot='" + tb_n3_3_lot.Text + "' where LOT ='" + tblot.Text + "'";
+                        "N3_2_lot='" + tb_n3_2_lot.Text + "',N3_3='" + tb_n3_3_kl.Text + "',N3_3_barcode='" + tb_n3_3_code.Text + "',N3_3_lot='" + tb_n3_3_lot.Text + "'," +
+                        "TG_BD='" + dateTimePicker_TG_BD.Text + "',TG_KT='" + dateTimePicker_TG_KT.Text + "' where LOT ='" + tblot.Text + "'";
                     SqlConnection sqlcon = new SqlConnection(@"Data Source = 192.168.21.244,1433; Initial Catalog= RSFLOGSANXUAT ;User ID = sa; Password =mylan@2016");
                     sqlcon.Open();
                     SqlCommand cmd = new SqlCommand(sqlupdate, sqlcon);
@@ -283,6 +284,8 @@ namespace NhatKySanXuat
                     cbbnguoinhap.Text = row[0]["name"].ToString();
                     tbdotsx.Text = row[0]["dot_sx"].ToString();
                     dateTimePickerngaysx.Text = row[0]["ngay_sx"].ToString();
+                    dateTimePicker_TG_BD.Text = row[0]["TG_BD"].ToString();
+                    dateTimePicker_TG_KT.Text = row[0]["TG_KT"].ToString();
                     cbbthietbi.Text = row[0]["thiet_bi"].ToString();
                     cbmaBTP.Text = row[0]["ma_BTP"].ToString();
                     tbtenbtp.Text = row[0]["ten_BTP"].ToString();
@@ -399,30 +402,43 @@ namespace NhatKySanXuat
                     tb_n3_1_lot.Text = row[0]["N3_1_lot"].ToString();
                     tb_n3_2_lot.Text = row[0]["N3_2_lot"].ToString();
                     tb_n3_3_lot.Text = row[0]["N3_3_lot"].ToString();
+
+                    dateTimePicker_TG_BD.Text = row[0]["TG_BD"].ToString();
+                    dateTimePicker_TG_KT.Text = row[0]["TG_KT"].ToString();
+
                     total_tring_barcode_n1_n2_n3();
                     total_tring_lot_n1_n2_n3();
                 }
                 catch
                 {
-                    SqlConnection sqlcon = new SqlConnection(@"Data Source=192.168.23.219,1433;Initial Catalog=QL_SX;User ID=sa;Password=rynan2020");
-                    sqlcon.Open();
-                    SqlCommand cmd = new SqlCommand();
-                    SqlDataAdapter sqlDataAdapter = new SqlDataAdapter();
-                    cmd = sqlcon.CreateCommand();
-                    cmd.CommandText = "Select DOT_SX,ME_THU,MA_TB,TG_BD,LOAI_SP,KL_NL from DataSX_RSF WHERE SO_LOT = '" + tblot.Text + "'";
-                    sqlDataAdapter.SelectCommand = cmd;
-                    DataTable dt_a = new DataTable();
-                    dt_a.Clear();
-                    sqlDataAdapter.Fill(dt_a);
-                    sqlcon.Close();
-                    DataRow[] row = dt_a.Select();
-                    tbdotsx.Text = row[0]["DOT_SX"].ToString();
-                    tbme.Text = row[0]["ME_THU"].ToString();
-                    cbbthietbi.Text = row[0]["MA_TB"].ToString();
-                    dateTimePickerngaysx.Text = row[0]["TG_BD"].ToString();
-                    cbmaBTP.Text = row[0]["LOAI_SP"].ToString();
-                    tbkhoiluongphanbonnvl.Text = row[0]["KL_NL"].ToString();
-                    update_or_add = false;
+                    try
+                    {
+                        SqlConnection sqlcon = new SqlConnection(@"Data Source=192.168.23.219,1433;Initial Catalog=QL_SX;User ID=sa;Password=rynan2020");
+                        sqlcon.Open();
+                        SqlCommand cmd = new SqlCommand();
+                        SqlDataAdapter sqlDataAdapter = new SqlDataAdapter();
+                        cmd = sqlcon.CreateCommand();
+                        cmd.CommandText = "Select DOT_SX,ME_THU,MA_TB,TG_BD,TG_KT,LOAI_SP,KL_NL from DataSX_RSF WHERE SO_LOT = '" + tblot.Text + "'";
+                        sqlDataAdapter.SelectCommand = cmd;
+                        DataTable dt_a = new DataTable();
+                        dt_a.Clear();
+                        sqlDataAdapter.Fill(dt_a);
+                        sqlcon.Close();
+                        DataRow[] row = dt_a.Select();
+                        tbdotsx.Text = row[0]["DOT_SX"].ToString();
+                        tbme.Text = row[0]["ME_THU"].ToString();
+                        cbbthietbi.Text = row[0]["MA_TB"].ToString();
+                        dateTimePickerngaysx.Text = row[0]["TG_BD"].ToString();
+                        dateTimePicker_TG_BD.Text = row[0]["TG_BD"].ToString();
+                        dateTimePicker_TG_KT.Text = row[0]["TG_KT"].ToString();
+                        cbmaBTP.Text = row[0]["LOAI_SP"].ToString();
+                        tbkhoiluongphanbonnvl.Text = row[0]["KL_NL"].ToString();
+                        update_or_add = false;
+                    }
+                    catch(Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
                 }
             }
             else
@@ -928,6 +944,9 @@ namespace NhatKySanXuat
             tb_ngay112.Text = "";
             tb_ngay126.Text = "";
             tb_ngay140.Text = "";
+            tbN1_pro.Text = "";
+            tbN2_pro.Text = "";
+            tbN3_pro.Text = "";
         }
         private void tblot_SelectedValueChanged(object sender, EventArgs e)
         {
@@ -940,19 +959,19 @@ namespace NhatKySanXuat
             {
                 try
                 {
-                    SqlConnection sqlcon = new SqlConnection(@"Data Source=192.168.23.219,1433;Initial Catalog=QL_SX;User ID=sa;Password=rynan2020");
+                    SqlConnection sqlcon = new SqlConnection(@"Data Source = 192.168.21.244,1433; Initial Catalog= RSFLOGSANXUAT ;User ID = sa; Password =mylan@2016");
                     sqlcon.Open();
                     SqlCommand command = new SqlCommand();
                     SqlDataAdapter adapter = new SqlDataAdapter();
                     DataTable dt = new DataTable();
                     command = sqlcon.CreateCommand();
-                    command.CommandText = "SELECT TG_BD,TG_KT from DataSX_RSF where SO_LOT = '" + tblot.Text + "'";
+                    command.CommandText = "SELECT TG_BD,TG_KT from nhatkysanxuat where LOT = '" + tblot.Text + "'";
                     adapter.SelectCommand = command;
                     dt.Clear();
                     adapter.Fill(dt);
                     sqlcon.Close();
                     DateTime TG_KT = Convert.ToDateTime(dt.Rows[0]["TG_KT"].ToString());
-                    DateTime TG_KT_30 = TG_KT.AddMinutes(-30);
+                    DateTime TG_KT_30 = TG_KT.AddMinutes(-35);
                     DateTime TG_BD = Convert.ToDateTime(dt.Rows[0]["TG_BD"].ToString());
                     if (tblot.Text.Substring(0, 2) == "02")
                     {
@@ -1020,7 +1039,7 @@ namespace NhatKySanXuat
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show("Không có dữ liệu polymer");
                 }
             }
         }
