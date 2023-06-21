@@ -986,7 +986,7 @@ namespace NhatKySanXuat
         private void tblot_SelectedValueChanged(object sender, EventArgs e)
         {
             load_data(tblot.Text);
-            //Load_data_polymer_pro();
+            Load_data_polymer_pro();
             load_data_polymer_sd();
         }
         public void Load_data_polymer_pro()
@@ -1073,9 +1073,9 @@ namespace NhatKySanXuat
                         }
                     }
                 }
-                catch (Exception ex)
+                catch
                 {
-                    MessageBox.Show(ex.Message);
+                    //MessageBox.Show(ex.Message);
                 }
             }
         }
@@ -1096,6 +1096,7 @@ namespace NhatKySanXuat
                     dt.Clear();
                     adapter.Fill(dt);
                     sqlcon.Close();
+                    dataGridView1.Rows.Clear();
                     dataGridView1.Rows.Add("N1", dt.Rows[0]["N1_BD"], dt.Rows[0]["N1_KT"], Convert.ToDouble(dt.Rows[0]["N1_BD"]) - Convert.ToDouble(dt.Rows[0]["N1_KT"]));
                     dataGridView1.Rows.Add("N2", dt.Rows[0]["N2_BD"], dt.Rows[0]["N2_KT"], Convert.ToDouble(dt.Rows[0]["N2_BD"]) - Convert.ToDouble(dt.Rows[0]["N2_KT"]));
                     dataGridView1.Rows.Add("N3", dt.Rows[0]["N3_BD"], dt.Rows[0]["N3_KT"], Convert.ToDouble(dt.Rows[0]["N3_BD"]) - Convert.ToDouble(dt.Rows[0]["N3_KT"]));
