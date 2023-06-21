@@ -23,25 +23,28 @@ namespace NhatKySanXuat
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            if (tbnewpass.Text == tballowpass.Text)
+            if (tbnewpass.Text != "" && tballowpass.Text != "")
             {
-                try
+                if (tbnewpass.Text == tballowpass.Text)
                 {
-                    string sqltring = "Data Source = 192.168.23.48,1433; Initial Catalog= RSFLOGSANXUAT ;User ID = sa; Password =mylan@2016";
-                    SqlConnection sqlcon = new SqlConnection(sqltring);
-                    SqlCommand cmd = new SqlCommand();
-                    sqlcon.Open();
-                    if (sqlcon.State == ConnectionState.Open)
+                    try
                     {
-                        cmd = sqlcon.CreateCommand();
-                        cmd.CommandText = "update dangnhap set password ='" + tbnewpass.Text + "' where user1 = '" + tbuser.Text + "'";
-                        cmd.ExecuteNonQuery();
-                        MessageBox.Show("Đổi mật khẩu thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        string sqltring = "Data Source = 192.168.23.48,1433; Initial Catalog= RSFLOGSANXUAT ;User ID = sa; Password =mylan@2016";
+                        SqlConnection sqlcon = new SqlConnection(sqltring);
+                        SqlCommand cmd = new SqlCommand();
+                        sqlcon.Open();
+                        if (sqlcon.State == ConnectionState.Open)
+                        {
+                            cmd = sqlcon.CreateCommand();
+                            cmd.CommandText = "update dangnhap set password ='" + tbnewpass.Text + "' where user1 = '" + tbuser.Text + "'";
+                            cmd.ExecuteNonQuery();
+                            MessageBox.Show("Đổi mật khẩu thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
                     }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
                 }
             }
         }
@@ -60,6 +63,11 @@ namespace NhatKySanXuat
                 tbnewpass.PasswordChar = '*';
                 tballowpass.PasswordChar = '*';
             }
+        }
+
+        private void changepassword_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -682,7 +682,7 @@ namespace NhatKySanXuat
         private void tb_n1_1_code_Leave(object sender, EventArgs e)
         {
             if (tb_n1_1_code.Text != "")
-                tbbarcodeN1.Text += tb_n1_1_code.Text;
+                tbbarcodeN1.Text = tb_n1_1_code.Text;
         }
         private void tb_n1_2_code_Leave(object sender, EventArgs e)
         {
@@ -702,7 +702,7 @@ namespace NhatKySanXuat
         private void tb_n2_1_code_Leave(object sender, EventArgs e)
         {
             if (tb_n2_1_code.Text != "")
-                tbbarcodeN2.Text += tb_n2_1_code.Text;
+                tbbarcodeN2.Text = tb_n2_1_code.Text;
         }
         private void tb_n2_2_code_Leave(object sender, EventArgs e)
         {
@@ -717,7 +717,7 @@ namespace NhatKySanXuat
         private void tb_n3_1_code_Leave(object sender, EventArgs e)
         {
             if (tb_n3_1_code.Text != "")
-                tbbarcodeN3.Text += tb_n3_1_code.Text;
+                tbbarcodeN3.Text = tb_n3_1_code.Text;
         }
         private void tb_n3_2_code_Leave(object sender, EventArgs e)
         {
@@ -788,7 +788,7 @@ namespace NhatKySanXuat
         private void tb_n1_1_lot_Leave(object sender, EventArgs e)
         {
             if (tb_n1_1_lot.Text != "")
-                tbLOTN1.Text += tb_n1_1_lot.Text;
+                tbLOTN1.Text = tb_n1_1_lot.Text;
         }
         private void tb_n1_2_lot_Leave(object sender, EventArgs e)
         {
@@ -808,7 +808,7 @@ namespace NhatKySanXuat
         private void tb_n2_1_lot_Leave(object sender, EventArgs e)
         {
             if (tb_n2_1_lot.Text != "")
-                tbLOTN2.Text += tb_n2_1_lot.Text;
+                tbLOTN2.Text = tb_n2_1_lot.Text;
         }
         private void tb_n2_2_lot_Leave(object sender, EventArgs e)
         {
@@ -823,7 +823,7 @@ namespace NhatKySanXuat
         private void tb_n3_1_lot_Leave(object sender, EventArgs e)
         {
             if (tb_n3_1_lot.Text != "")
-                tbLOTN3.Text += tb_n3_1_lot.Text;
+                tbLOTN3.Text = tb_n3_1_lot.Text;
         }
         private void tb_n3_2_lot_Leave(object sender, EventArgs e)
         {
@@ -974,6 +974,14 @@ namespace NhatKySanXuat
             tbN1_pro.Text = "";
             tbN2_pro.Text = "";
             tbN3_pro.Text = "";
+            comboBox_nvl_1.Text = "";
+            textBox_kl_nvl_1.Text = "";
+            textBox_barcode_nvl_1.Text = "";
+            textBox_lot_nvl_1.Text = "";
+            comboBox_nvl_2.Text = "";
+            textBox_kl_nvl_2.Text = "";
+            textBox_barcode_nvl_2.Text = "";
+            textBox_lot_nvl_2.Text = "";
         }
         private void tblot_SelectedValueChanged(object sender, EventArgs e)
         {

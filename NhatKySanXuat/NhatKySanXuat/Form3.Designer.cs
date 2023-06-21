@@ -30,7 +30,7 @@ namespace NhatKySanXuat
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form3));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tbngay_release = new System.Windows.Forms.TextBox();
             this.cbbnguoinhap = new System.Windows.Forms.ComboBox();
             this.cbmaBTP = new System.Windows.Forms.ComboBox();
@@ -2376,6 +2376,7 @@ namespace NhatKySanXuat
             this.label43.Size = new System.Drawing.Size(69, 13);
             this.label43.TabIndex = 488;
             this.label43.Text = "N1-157M(kg)";
+            this.label43.Visible = false;
             // 
             // label47
             // 
@@ -2386,6 +2387,7 @@ namespace NhatKySanXuat
             this.label47.Size = new System.Drawing.Size(63, 13);
             this.label47.TabIndex = 487;
             this.label47.Text = "N2-21M(kg)";
+            this.label47.Visible = false;
             // 
             // label49
             // 
@@ -2396,6 +2398,7 @@ namespace NhatKySanXuat
             this.label49.Size = new System.Drawing.Size(69, 13);
             this.label49.TabIndex = 486;
             this.label49.Text = "N3-190M(kg)";
+            this.label49.Visible = false;
             // 
             // tbN2_pro
             // 
@@ -2405,6 +2408,7 @@ namespace NhatKySanXuat
             this.tbN2_pro.Name = "tbN2_pro";
             this.tbN2_pro.Size = new System.Drawing.Size(73, 20);
             this.tbN2_pro.TabIndex = 490;
+            this.tbN2_pro.Visible = false;
             // 
             // tbN3_pro
             // 
@@ -2414,6 +2418,7 @@ namespace NhatKySanXuat
             this.tbN3_pro.Name = "tbN3_pro";
             this.tbN3_pro.Size = new System.Drawing.Size(73, 20);
             this.tbN3_pro.TabIndex = 491;
+            this.tbN3_pro.Visible = false;
             // 
             // tbN1_pro
             // 
@@ -2423,6 +2428,7 @@ namespace NhatKySanXuat
             this.tbN1_pro.Name = "tbN1_pro";
             this.tbN1_pro.Size = new System.Drawing.Size(73, 20);
             this.tbN1_pro.TabIndex = 489;
+            this.tbN1_pro.Visible = false;
             // 
             // buttonsave
             // 
@@ -2513,14 +2519,14 @@ namespace NhatKySanXuat
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.ButtonFace;
-            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ButtonFace;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView1.Size = new System.Drawing.Size(324, 126);
             this.dataGridView1.TabIndex = 497;
             // 
