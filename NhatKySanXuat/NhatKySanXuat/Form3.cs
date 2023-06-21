@@ -29,7 +29,12 @@ namespace NhatKySanXuat
         {
             load_data(tblot.Text);
             loadcbb_LOT();
-            Load_data_polymer_pro();
+            //Load_data_polymer_pro();
+            load_data_polymer_sd();
+            dataGridView1.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridView1.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+            dataGridView1.ColumnHeadersDefaultCellStyle.BackColor = Color.LightGray;
+            dataGridView1.ColumnHeadersDefaultCellStyle.ForeColor = Color.Black;
         }
         public void insert_data()
         {
@@ -39,8 +44,6 @@ namespace NhatKySanXuat
             }
             else
             {
-                SqlConnection sqlcon = new SqlConnection(@"Data Source = 192.168.21.244,1433; Initial Catalog= RSFLOGSANXUAT ;User ID = sa; Password =mylan@2016");
-                SqlCommand command = new SqlCommand();
                 string Nguoi_nhap = cbbnguoinhap.Text;
                 string LOT = tblot.Text;
                 string Dotsx = tbdotsx.Text;
@@ -73,6 +76,16 @@ namespace NhatKySanXuat
                 string n3_khoiluong = tbn3190.Text;
                 string N3_barcode = tbbarcodeN3.Text;
                 string N3_LOT = tbLOTN3.Text;
+
+                string phan_nvl1 = comboBox_nvl_1.Text;
+                string kl_nvl_1 = textBox_kl_nvl_1.Text;
+                string barcode_nvl1 = textBox_barcode_nvl_1.Text;
+                string lot_nvl1 = textBox_lot_nvl_1.Text;
+                string phan_nvl2 = comboBox_nvl_2.Text;
+                string kl_nvl_2 = textBox_kl_nvl_2.Text;
+                string barcode_nvl2 = textBox_barcode_nvl_2.Text;
+                string lot_nvl2 = textBox_lot_nvl_2.Text;
+
 
 
                 string N1_1_kl = tb_n1_1_kl.Text;
@@ -167,6 +180,8 @@ namespace NhatKySanXuat
                 string ngay_140 = tb_ngay140.Text;
                 try
                 {
+                    SqlConnection sqlcon = new SqlConnection(@"Data Source = 192.168.21.244,1433; Initial Catalog= RSFLOGSANXUAT ;User ID = sa; Password =mylan@2016");
+                    SqlCommand command = new SqlCommand();
                     sqlcon.Open();
                     command = sqlcon.CreateCommand();
                     command.CommandText = "insert into nhatkysanxuat (name,dot_sx,ngay_sx,thiet_bi,ma_BTP,ten_BTP,me,LOT ,tocdo_release," +
@@ -178,7 +193,8 @@ namespace NhatKySanXuat
                         "vitri_spthuduoc,vitri_spdongkhoi,vitri_spkhongdongkhoi,N1_1,N1_2,N1_3,N1_1_barcode,N1_2_barcode,N1_3_barcode,N1_1_lot," +
                         "N1_2_lot,N1_3_lot,N2_1,N2_2,N2_1_barcode,N2_2_barcode,N2_1_lot,N2_2_lot,N3_1,N3_1_barcode,N3_1_lot,N1_4,N1_4_barcode," +
                         "N1_4_lot,N2_3,N2_3_barcode,N2_3_lot,N3_2,N3_2_barcode,N3_2_lot,N3_3,N3_3_barcode,N3_3_lot,thoigian_ondinh,do_am,coating_layer," +
-                        "ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140)" +
+                        "ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140,NVL_1," +
+                        "barcode_NVL_1,lot_NVL_1,NVL_2,barcode_NVL_2,lot_NVL_2,KL_NVL_1,KL_NVL_2)" +
                         "values (N'" + Nguoi_nhap + "','" + Dotsx + "','" + Ngaysx + "','" + Thietbi + "','" + Mabtp + "','" + Tenbtp + "','" + Me + "','" + LOT + "','" + Tocdo_release + "'," +
                         "'" + Ngayrelease + "','" + Loai + "','" + Tongklsp_thuduoc + "','" + Kldongkhoi + "','" + Khongdongkhoi + "','" + Kl_lythuyet + "','" + Hieusuatthu + "'," +
                         "'" + Hieusuatrelease + "','" + Thoigiancb + "','" + Thoigiansx + "','" + Phanbon_nvl + "','" + KL_phan_nvl + "','" + Barcode_nvl + "','" + LOT_nvl + "'," +
@@ -193,7 +209,8 @@ namespace NhatKySanXuat
                         "'" + N1_4_kl + "','" + N1_4_code + "','" + N1_4_lot + "','" + N2_3_kl + "','" + N2_3_code + "','" + N2_3_lot + "','" + N3_2_kl + "','" + N3_2_code + "','" + N3_2_lot + "'," +
                         "'" + N3_3_kl + "','" + N3_3_code + "','" + N3_3_lot + "','" + thoi_gian + "','" + do_am + "','" + coating + "','" + ngay_0 + "','" + ngay_7 + "','" + ngay_14 + "'," +
                         "'" + ngay_21 + "','" + ngay_28 + "','" + ngay_42 + "','" + ngay_49 + "','" + ngay_56 + "','" + ngay_70 + "','" + ngay_84 + "','" + ngay_98 + "'," +
-                        "'" + ngay_112 + "','" + ngay_126 + "','" + ngay_140 + "')";
+                        "'" + ngay_112 + "','" + ngay_126 + "','" + ngay_140 + "','" + phan_nvl1 + "','" + barcode_nvl1 + "','" + lot_nvl1 + "','" + phan_nvl2 + "','" + barcode_nvl2 + "','" + lot_nvl2 + "'," +
+                        "'" + kl_nvl_1 + "','" + kl_nvl_2 + "')";
                     command.ExecuteNonQuery();
                     MessageBox.Show("Thêm Thành Công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     insert_blogtruycap("Đã thêm LOT : " + tblot.Text);
@@ -246,7 +263,9 @@ namespace NhatKySanXuat
                         "N1_4='" + tb_n1_4_kl.Text + "',N1_4_barcode='" + tb_n1_4_code.Text + "',N1_4_lot='" + tb_n1_4_lot.Text + "',N2_3='" + tb_n2_3_kl.Text + "'," +
                         "N2_3_barcode='" + tb_n2_3_code.Text + "',N2_3_lot='" + tb_n2_3_lot.Text + "',N3_2='" + tb_n3_2_kl.Text + "',N3_2_barcode='" + tb_n3_2_code.Text + "'," +
                         "N3_2_lot='" + tb_n3_2_lot.Text + "',N3_3='" + tb_n3_3_kl.Text + "',N3_3_barcode='" + tb_n3_3_code.Text + "',N3_3_lot='" + tb_n3_3_lot.Text + "'," +
-                        "TG_BD='" + dateTimePicker_TG_BD.Text + "',TG_KT='" + dateTimePicker_TG_KT.Text + "' where LOT ='" + tblot.Text + "'";
+                        "TG_BD='" + dateTimePicker_TG_BD.Text + "',TG_KT='" + dateTimePicker_TG_KT.Text + "',NVL_1='" + comboBox_nvl_1.Text + "',barcode_NVL_1='" + textBox_barcode_nvl_1.Text + "'," +
+                        "lot_NVL_1='" + textBox_lot_nvl_1.Text + "',NVL_2='" + comboBox_nvl_2.Text + "',barcode_NVL_2='" + textBox_barcode_nvl_2.Text + "',lot_NVL_2='" + textBox_lot_nvl_2.Text + "'," +
+                        "KL_NVL_1='" + textBox_kl_nvl_1.Text + "',KL_NVL_2='" + textBox_kl_nvl_2.Text + "' where LOT ='" + tblot.Text + "'";
                     SqlConnection sqlcon = new SqlConnection(@"Data Source = 192.168.21.244,1433; Initial Catalog= RSFLOGSANXUAT ;User ID = sa; Password =mylan@2016");
                     sqlcon.Open();
                     SqlCommand cmd = new SqlCommand(sqlupdate, sqlcon);
@@ -405,6 +424,14 @@ namespace NhatKySanXuat
 
                     dateTimePicker_TG_BD.Text = row[0]["TG_BD"].ToString();
                     dateTimePicker_TG_KT.Text = row[0]["TG_KT"].ToString();
+                    comboBox_nvl_1.Text = row[0]["NVL_1"].ToString();
+                    textBox_kl_nvl_1.Text = row[0]["KL_NVL_1"].ToString();
+                    textBox_barcode_nvl_1.Text = row[0]["barcode_NVL_1"].ToString();
+                    textBox_lot_nvl_1.Text = row[0]["lot_NVL_1"].ToString();
+                    comboBox_nvl_2.Text = row[0]["NVL_2"].ToString();
+                    textBox_kl_nvl_2.Text = row[0]["KL_NVL_2"].ToString();
+                    textBox_barcode_nvl_2.Text = row[0]["barcode_NVL_2"].ToString();
+                    textBox_lot_nvl_2.Text = row[0]["lot_NVL_2"].ToString();
 
                     total_tring_barcode_n1_n2_n3();
                     total_tring_lot_n1_n2_n3();
@@ -435,7 +462,7 @@ namespace NhatKySanXuat
                         tbkhoiluongphanbonnvl.Text = row[0]["KL_NL"].ToString();
                         update_or_add = false;
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         MessageBox.Show(ex.Message);
                     }
@@ -951,7 +978,8 @@ namespace NhatKySanXuat
         private void tblot_SelectedValueChanged(object sender, EventArgs e)
         {
             load_data(tblot.Text);
-            Load_data_polymer_pro();
+            //Load_data_polymer_pro();
+            load_data_polymer_sd();
         }
         public void Load_data_polymer_pro()
         {
@@ -1039,8 +1067,91 @@ namespace NhatKySanXuat
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Không có dữ liệu polymer");
+                    MessageBox.Show(ex.Message);
                 }
+            }
+        }
+        public void load_data_polymer_sd()
+        {
+            if (tblot.Text != "")
+            {
+                try
+                {
+                    SqlConnection sqlcon = new SqlConnection(@"Data Source = 192.168.21.244,1433; Initial Catalog= RSFLOGSANXUAT ;User ID = sa; Password =mylan@2016");
+                    sqlcon.Open();
+                    SqlCommand command = new SqlCommand();
+                    SqlDataAdapter adapter = new SqlDataAdapter();
+                    DataTable dt = new DataTable();
+                    command = sqlcon.CreateCommand();
+                    command.CommandText = "SELECT * from DATA_polymer where SOLOT = '" + tblot.Text + "'";
+                    adapter.SelectCommand = command;
+                    dt.Clear();
+                    adapter.Fill(dt);
+                    sqlcon.Close();
+                    dataGridView1.Rows.Add("N1", dt.Rows[0]["N1_BD"], dt.Rows[0]["N1_KT"], Convert.ToDouble(dt.Rows[0]["N1_BD"]) - Convert.ToDouble(dt.Rows[0]["N1_KT"]));
+                    dataGridView1.Rows.Add("N2", dt.Rows[0]["N2_BD"], dt.Rows[0]["N2_KT"], Convert.ToDouble(dt.Rows[0]["N2_BD"]) - Convert.ToDouble(dt.Rows[0]["N2_KT"]));
+                    dataGridView1.Rows.Add("N3", dt.Rows[0]["N3_BD"], dt.Rows[0]["N3_KT"], Convert.ToDouble(dt.Rows[0]["N3_BD"]) - Convert.ToDouble(dt.Rows[0]["N3_KT"]));
+                }
+                catch
+                {
+                    //MessageBox.Show(ex.Message);
+                }
+            }
+        }
+        private void textBox_kl_nvl_1_Leave(object sender, EventArgs e)
+        {
+            if (textBox_kl_nvl_1.Text != "")
+            {
+                tbkhoiluongphanbonnvl.Text = Convert.ToDouble(textBox_kl_nvl_1.Text).ToString();
+            }
+        }
+        private void textBox_barcode_nvl_1_Leave(object sender, EventArgs e)
+        {
+            if (textBox_barcode_nvl_1.Text != "")
+            {
+                tbbarcodephanbonvl.Text = textBox_barcode_nvl_1.Text;
+            }
+        }
+        private void textBox_kl_nvl_2_Leave(object sender, EventArgs e)
+        {
+            if (textBox_kl_nvl_2.Text != "")
+            {
+                tbkhoiluongphanbonnvl.Text = (Convert.ToDouble(tbkhoiluongphanbonnvl.Text) + Convert.ToDouble(textBox_kl_nvl_2.Text)).ToString();
+            }
+        }
+        private void textBox_barcode_nvl_2_Leave(object sender, EventArgs e)
+        {
+            if (textBox_barcode_nvl_2.Text != "")
+            {
+                tbbarcodephanbonvl.Text += "," + textBox_barcode_nvl_2.Text;
+            }
+        }
+        private void textBox_lot_nvl_1_Leave(object sender, EventArgs e)
+        {
+            if (textBox_lot_nvl_1.Text != "")
+            {
+                tbLOTphanbonnvl.Text = textBox_lot_nvl_1.Text;
+            }
+        }
+        private void textBox_lot_nvl_2_Leave(object sender, EventArgs e)
+        {
+            if (textBox_lot_nvl_2.Text != "")
+            {
+                tbLOTphanbonnvl.Text += "," + textBox_lot_nvl_2.Text;
+            }
+        }
+        private void comboBox_nvl_1_Leave(object sender, EventArgs e)
+        {
+            if (comboBox_nvl_1.Text != "")
+            {
+                cbbphanbonnvl.Text = comboBox_nvl_1.Text;
+            }
+        }
+        private void comboBox_nvl_2_Leave(object sender, EventArgs e)
+        {
+            if (comboBox_nvl_2.Text != "")
+            {
+                cbbphanbonnvl.Text += "," + comboBox_nvl_2.Text;
             }
         }
     }

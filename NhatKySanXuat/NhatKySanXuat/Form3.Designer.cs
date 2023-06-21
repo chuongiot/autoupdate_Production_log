@@ -30,6 +30,7 @@ namespace NhatKySanXuat
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form3));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tbngay_release = new System.Windows.Forms.TextBox();
             this.cbbnguoinhap = new System.Windows.Forms.ComboBox();
             this.cbmaBTP = new System.Windows.Forms.ComboBox();
@@ -225,14 +226,14 @@ namespace NhatKySanXuat
             this.label114 = new System.Windows.Forms.Label();
             this.label113 = new System.Windows.Forms.Label();
             this.tblot = new System.Windows.Forms.ComboBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.textBox_lot_nvl_1 = new System.Windows.Forms.TextBox();
+            this.textBox_barcode_nvl_1 = new System.Windows.Forms.TextBox();
+            this.textBox_kl_nvl_1 = new System.Windows.Forms.TextBox();
+            this.textBox_lot_nvl_2 = new System.Windows.Forms.TextBox();
+            this.textBox_barcode_nvl_2 = new System.Windows.Forms.TextBox();
+            this.textBox_kl_nvl_2 = new System.Windows.Forms.TextBox();
+            this.comboBox_nvl_1 = new System.Windows.Forms.ComboBox();
+            this.comboBox_nvl_2 = new System.Windows.Forms.ComboBox();
             this.label9 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
             this.label33 = new System.Windows.Forms.Label();
@@ -248,7 +249,13 @@ namespace NhatKySanXuat
             this.label53 = new System.Windows.Forms.Label();
             this.dateTimePicker_TG_KT = new System.Windows.Forms.DateTimePicker();
             this.label57 = new System.Windows.Forms.Label();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // tbngay_release
@@ -258,11 +265,11 @@ namespace NhatKySanXuat
             this.tbngay_release.MaxLength = 20;
             this.tbngay_release.Name = "tbngay_release";
             this.tbngay_release.Size = new System.Drawing.Size(117, 20);
-            this.tbngay_release.TabIndex = 163;
+            this.tbngay_release.TabIndex = 12;
             // 
             // cbbnguoinhap
             // 
-            this.cbbnguoinhap.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.cbbnguoinhap.BackColor = System.Drawing.SystemColors.Info;
             this.cbbnguoinhap.FormattingEnabled = true;
             this.cbbnguoinhap.Items.AddRange(new object[] {
             "Võ Ngọc Minh",
@@ -272,13 +279,13 @@ namespace NhatKySanXuat
             this.cbbnguoinhap.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cbbnguoinhap.Name = "cbbnguoinhap";
             this.cbbnguoinhap.Size = new System.Drawing.Size(117, 21);
-            this.cbbnguoinhap.TabIndex = 146;
+            this.cbbnguoinhap.TabIndex = 1;
             // 
             // cbmaBTP
             // 
             this.cbmaBTP.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.cbmaBTP.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.cbmaBTP.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.cbmaBTP.BackColor = System.Drawing.SystemColors.Info;
             this.cbmaBTP.FormattingEnabled = true;
             this.cbmaBTP.Items.AddRange(new object[] {
             "N4601R5D00",
@@ -321,7 +328,7 @@ namespace NhatKySanXuat
             this.cbmaBTP.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cbmaBTP.Name = "cbmaBTP";
             this.cbmaBTP.Size = new System.Drawing.Size(117, 21);
-            this.cbmaBTP.TabIndex = 157;
+            this.cbmaBTP.TabIndex = 8;
             // 
             // tbtocdorelease
             // 
@@ -330,29 +337,29 @@ namespace NhatKySanXuat
             this.tbtocdorelease.MaxLength = 20;
             this.tbtocdorelease.Name = "tbtocdorelease";
             this.tbtocdorelease.Size = new System.Drawing.Size(117, 20);
-            this.tbtocdorelease.TabIndex = 161;
+            this.tbtocdorelease.TabIndex = 11;
             // 
             // tbme
             // 
-            this.tbme.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.tbme.BackColor = System.Drawing.SystemColors.Info;
             this.tbme.Location = new System.Drawing.Point(90, 200);
             this.tbme.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbme.Name = "tbme";
             this.tbme.Size = new System.Drawing.Size(117, 20);
-            this.tbme.TabIndex = 160;
+            this.tbme.TabIndex = 10;
             // 
             // tbtenbtp
             // 
-            this.tbtenbtp.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.tbtenbtp.BackColor = System.Drawing.SystemColors.Info;
             this.tbtenbtp.Location = new System.Drawing.Point(90, 179);
             this.tbtenbtp.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbtenbtp.Name = "tbtenbtp";
             this.tbtenbtp.Size = new System.Drawing.Size(117, 20);
-            this.tbtenbtp.TabIndex = 158;
+            this.tbtenbtp.TabIndex = 9;
             // 
             // cbbthietbi
             // 
-            this.cbbthietbi.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.cbbthietbi.BackColor = System.Drawing.SystemColors.Info;
             this.cbbthietbi.FormattingEnabled = true;
             this.cbbthietbi.Items.AddRange(new object[] {
             "S1",
@@ -361,29 +368,29 @@ namespace NhatKySanXuat
             this.cbbthietbi.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cbbthietbi.Name = "cbbthietbi";
             this.cbbthietbi.Size = new System.Drawing.Size(117, 21);
-            this.cbbthietbi.TabIndex = 154;
+            this.cbbthietbi.TabIndex = 7;
             // 
             // tbdotsx
             // 
-            this.tbdotsx.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.tbdotsx.BackColor = System.Drawing.SystemColors.Info;
             this.tbdotsx.Location = new System.Drawing.Point(90, 51);
             this.tbdotsx.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbdotsx.MaxLength = 3;
             this.tbdotsx.Name = "tbdotsx";
             this.tbdotsx.Size = new System.Drawing.Size(117, 20);
-            this.tbdotsx.TabIndex = 150;
+            this.tbdotsx.TabIndex = 3;
             // 
             // dateTimePickerngaysx
             // 
             this.dateTimePickerngaysx.CalendarForeColor = System.Drawing.Color.Black;
-            this.dateTimePickerngaysx.CalendarMonthBackground = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.dateTimePickerngaysx.CalendarMonthBackground = System.Drawing.SystemColors.Info;
             this.dateTimePickerngaysx.Cursor = System.Windows.Forms.Cursors.Default;
             this.dateTimePickerngaysx.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dateTimePickerngaysx.Location = new System.Drawing.Point(90, 72);
             this.dateTimePickerngaysx.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dateTimePickerngaysx.Name = "dateTimePickerngaysx";
             this.dateTimePickerngaysx.Size = new System.Drawing.Size(117, 20);
-            this.dateTimePickerngaysx.TabIndex = 152;
+            this.dateTimePickerngaysx.TabIndex = 4;
             // 
             // label55
             // 
@@ -397,13 +404,13 @@ namespace NhatKySanXuat
             // 
             // tbbaoholaodong
             // 
-            this.tbbaoholaodong.Location = new System.Drawing.Point(260, 260);
+            this.tbbaoholaodong.Location = new System.Drawing.Point(261, 260);
             this.tbbaoholaodong.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tbbaoholaodong.MaxLength = 10;
+            this.tbbaoholaodong.MaxLength = 9999;
             this.tbbaoholaodong.Multiline = true;
             this.tbbaoholaodong.Name = "tbbaoholaodong";
-            this.tbbaoholaodong.Size = new System.Drawing.Size(166, 38);
-            this.tbbaoholaodong.TabIndex = 166;
+            this.tbbaoholaodong.Size = new System.Drawing.Size(165, 38);
+            this.tbbaoholaodong.TabIndex = 26;
             // 
             // label46
             // 
@@ -507,13 +514,13 @@ namespace NhatKySanXuat
             // 
             // tbspkhongbidongkhoi
             // 
-            this.tbspkhongbidongkhoi.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.tbspkhongbidongkhoi.BackColor = System.Drawing.SystemColors.Info;
             this.tbspkhongbidongkhoi.Location = new System.Drawing.Point(357, 94);
             this.tbspkhongbidongkhoi.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbspkhongbidongkhoi.MaxLength = 10;
             this.tbspkhongbidongkhoi.Name = "tbspkhongbidongkhoi";
             this.tbspkhongbidongkhoi.Size = new System.Drawing.Size(69, 20);
-            this.tbspkhongbidongkhoi.TabIndex = 297;
+            this.tbspkhongbidongkhoi.TabIndex = 18;
             this.tbspkhongbidongkhoi.Leave += new System.EventHandler(this.tbspkhongbidongkhoi_Leave);
             // 
             // label140
@@ -528,7 +535,7 @@ namespace NhatKySanXuat
             // 
             // tbloai
             // 
-            this.tbloai.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.tbloai.BackColor = System.Drawing.SystemColors.Info;
             this.tbloai.FormattingEnabled = true;
             this.tbloai.Items.AddRange(new object[] {
             "WA",
@@ -539,37 +546,37 @@ namespace NhatKySanXuat
             this.tbloai.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbloai.Name = "tbloai";
             this.tbloai.Size = new System.Drawing.Size(69, 21);
-            this.tbloai.TabIndex = 286;
+            this.tbloai.TabIndex = 13;
             // 
             // tbvitri_spkhongdongkhoi
             // 
-            this.tbvitri_spkhongdongkhoi.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.tbvitri_spkhongdongkhoi.BackColor = System.Drawing.SystemColors.Info;
             this.tbvitri_spkhongdongkhoi.Location = new System.Drawing.Point(433, 94);
             this.tbvitri_spkhongdongkhoi.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbvitri_spkhongdongkhoi.MaxLength = 10;
             this.tbvitri_spkhongdongkhoi.Name = "tbvitri_spkhongdongkhoi";
             this.tbvitri_spkhongdongkhoi.Size = new System.Drawing.Size(61, 20);
-            this.tbvitri_spkhongdongkhoi.TabIndex = 298;
+            this.tbvitri_spkhongdongkhoi.TabIndex = 19;
             // 
             // tbvitri_spdongkhoi
             // 
-            this.tbvitri_spdongkhoi.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.tbvitri_spdongkhoi.BackColor = System.Drawing.SystemColors.Info;
             this.tbvitri_spdongkhoi.Location = new System.Drawing.Point(433, 73);
             this.tbvitri_spdongkhoi.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbvitri_spdongkhoi.MaxLength = 10;
             this.tbvitri_spdongkhoi.Name = "tbvitri_spdongkhoi";
             this.tbvitri_spdongkhoi.Size = new System.Drawing.Size(61, 20);
-            this.tbvitri_spdongkhoi.TabIndex = 295;
+            this.tbvitri_spdongkhoi.TabIndex = 17;
             // 
             // tbvitri_tongklsp_thuduoc
             // 
-            this.tbvitri_tongklsp_thuduoc.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.tbvitri_tongklsp_thuduoc.BackColor = System.Drawing.SystemColors.Info;
             this.tbvitri_tongklsp_thuduoc.Location = new System.Drawing.Point(433, 52);
             this.tbvitri_tongklsp_thuduoc.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbvitri_tongklsp_thuduoc.MaxLength = 10;
             this.tbvitri_tongklsp_thuduoc.Name = "tbvitri_tongklsp_thuduoc";
             this.tbvitri_tongklsp_thuduoc.Size = new System.Drawing.Size(61, 20);
-            this.tbvitri_tongklsp_thuduoc.TabIndex = 291;
+            this.tbvitri_tongklsp_thuduoc.TabIndex = 15;
             // 
             // label50
             // 
@@ -589,7 +596,7 @@ namespace NhatKySanXuat
             this.tbthoigiansx.MaxLength = 10;
             this.tbthoigiansx.Name = "tbthoigiansx";
             this.tbthoigiansx.Size = new System.Drawing.Size(69, 20);
-            this.tbthoigiansx.TabIndex = 305;
+            this.tbthoigiansx.TabIndex = 24;
             // 
             // tbhieusuatthu
             // 
@@ -598,7 +605,7 @@ namespace NhatKySanXuat
             this.tbhieusuatthu.MaxLength = 10;
             this.tbhieusuatthu.Name = "tbhieusuatthu";
             this.tbhieusuatthu.Size = new System.Drawing.Size(69, 20);
-            this.tbhieusuatthu.TabIndex = 302;
+            this.tbhieusuatthu.TabIndex = 21;
             this.tbhieusuatthu.Click += new System.EventHandler(this.tbhieusuatthu_Click);
             // 
             // tbkhoiluonglythuyet
@@ -608,28 +615,28 @@ namespace NhatKySanXuat
             this.tbkhoiluonglythuyet.MaxLength = 10;
             this.tbkhoiluonglythuyet.Name = "tbkhoiluonglythuyet";
             this.tbkhoiluonglythuyet.Size = new System.Drawing.Size(69, 20);
-            this.tbkhoiluonglythuyet.TabIndex = 301;
+            this.tbkhoiluonglythuyet.TabIndex = 20;
             this.tbkhoiluonglythuyet.Click += new System.EventHandler(this.tbkhoiluonglythuyet_Click);
             // 
             // tbkhoiluongdongkhoi
             // 
-            this.tbkhoiluongdongkhoi.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.tbkhoiluongdongkhoi.BackColor = System.Drawing.SystemColors.Info;
             this.tbkhoiluongdongkhoi.Location = new System.Drawing.Point(357, 73);
             this.tbkhoiluongdongkhoi.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbkhoiluongdongkhoi.MaxLength = 10;
             this.tbkhoiluongdongkhoi.Name = "tbkhoiluongdongkhoi";
             this.tbkhoiluongdongkhoi.Size = new System.Drawing.Size(69, 20);
-            this.tbkhoiluongdongkhoi.TabIndex = 293;
+            this.tbkhoiluongdongkhoi.TabIndex = 16;
             // 
             // tbtongklspthuduoc
             // 
-            this.tbtongklspthuduoc.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.tbtongklspthuduoc.BackColor = System.Drawing.SystemColors.Info;
             this.tbtongklspthuduoc.Location = new System.Drawing.Point(357, 52);
             this.tbtongklspthuduoc.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbtongklspthuduoc.MaxLength = 10;
             this.tbtongklspthuduoc.Name = "tbtongklspthuduoc";
             this.tbtongklspthuduoc.Size = new System.Drawing.Size(69, 20);
-            this.tbtongklspthuduoc.TabIndex = 289;
+            this.tbtongklspthuduoc.TabIndex = 14;
             // 
             // tbhieusuatrelease
             // 
@@ -638,7 +645,7 @@ namespace NhatKySanXuat
             this.tbhieusuatrelease.MaxLength = 10;
             this.tbhieusuatrelease.Name = "tbhieusuatrelease";
             this.tbhieusuatrelease.Size = new System.Drawing.Size(69, 20);
-            this.tbhieusuatrelease.TabIndex = 303;
+            this.tbhieusuatrelease.TabIndex = 22;
             this.tbhieusuatrelease.Click += new System.EventHandler(this.tbhieusuatrelease_Click);
             // 
             // tbthoigiancb
@@ -649,7 +656,7 @@ namespace NhatKySanXuat
             this.tbthoigiancb.MaxLength = 10;
             this.tbthoigiancb.Name = "tbthoigiancb";
             this.tbthoigiancb.Size = new System.Drawing.Size(69, 20);
-            this.tbthoigiancb.TabIndex = 304;
+            this.tbthoigiancb.TabIndex = 23;
             // 
             // tbghi_chu
             // 
@@ -659,7 +666,7 @@ namespace NhatKySanXuat
             this.tbghi_chu.Multiline = true;
             this.tbghi_chu.Name = "tbghi_chu";
             this.tbghi_chu.Size = new System.Drawing.Size(165, 39);
-            this.tbghi_chu.TabIndex = 306;
+            this.tbghi_chu.TabIndex = 25;
             // 
             // label59
             // 
@@ -778,17 +785,17 @@ namespace NhatKySanXuat
             this.tb_n2_3_lot.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_n2_3_lot.Name = "tb_n2_3_lot";
             this.tb_n2_3_lot.Size = new System.Drawing.Size(93, 20);
-            this.tb_n2_3_lot.TabIndex = 388;
+            this.tb_n2_3_lot.TabIndex = 65;
             this.tb_n2_3_lot.Leave += new System.EventHandler(this.tb_n2_3_lot_Leave);
             // 
             // tb_n2_3_code
             // 
             this.tb_n2_3_code.BackColor = System.Drawing.SystemColors.Control;
-            this.tb_n2_3_code.Location = new System.Drawing.Point(784, 267);
+            this.tb_n2_3_code.Location = new System.Drawing.Point(784, 266);
             this.tb_n2_3_code.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_n2_3_code.Name = "tb_n2_3_code";
             this.tb_n2_3_code.Size = new System.Drawing.Size(79, 20);
-            this.tb_n2_3_code.TabIndex = 387;
+            this.tb_n2_3_code.TabIndex = 64;
             this.tb_n2_3_code.Leave += new System.EventHandler(this.tb_n2_3_code_Leave);
             // 
             // tb_n2_3_kl
@@ -799,7 +806,7 @@ namespace NhatKySanXuat
             this.tb_n2_3_kl.MaxLength = 10;
             this.tb_n2_3_kl.Name = "tb_n2_3_kl";
             this.tb_n2_3_kl.Size = new System.Drawing.Size(73, 20);
-            this.tb_n2_3_kl.TabIndex = 386;
+            this.tb_n2_3_kl.TabIndex = 63;
             this.tb_n2_3_kl.Leave += new System.EventHandler(this.tb_n2_1_kl_Leave);
             // 
             // label42
@@ -815,11 +822,11 @@ namespace NhatKySanXuat
             // tb_n1_4_lot
             // 
             this.tb_n1_4_lot.BackColor = System.Drawing.SystemColors.Control;
-            this.tb_n1_4_lot.Location = new System.Drawing.Point(868, 181);
+            this.tb_n1_4_lot.Location = new System.Drawing.Point(868, 182);
             this.tb_n1_4_lot.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_n1_4_lot.Name = "tb_n1_4_lot";
             this.tb_n1_4_lot.Size = new System.Drawing.Size(93, 20);
-            this.tb_n1_4_lot.TabIndex = 376;
+            this.tb_n1_4_lot.TabIndex = 53;
             this.tb_n1_4_lot.Leave += new System.EventHandler(this.tb_n1_4_lot_Leave);
             // 
             // tb_n1_4_code
@@ -829,7 +836,7 @@ namespace NhatKySanXuat
             this.tb_n1_4_code.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_n1_4_code.Name = "tb_n1_4_code";
             this.tb_n1_4_code.Size = new System.Drawing.Size(79, 20);
-            this.tb_n1_4_code.TabIndex = 375;
+            this.tb_n1_4_code.TabIndex = 52;
             this.tb_n1_4_code.Leave += new System.EventHandler(this.tb_n1_4_code_Leave);
             // 
             // tb_n1_4_kl
@@ -840,7 +847,7 @@ namespace NhatKySanXuat
             this.tb_n1_4_kl.MaxLength = 10;
             this.tb_n1_4_kl.Name = "tb_n1_4_kl";
             this.tb_n1_4_kl.Size = new System.Drawing.Size(73, 20);
-            this.tb_n1_4_kl.TabIndex = 374;
+            this.tb_n1_4_kl.TabIndex = 51;
             this.tb_n1_4_kl.Leave += new System.EventHandler(this.tb_n1_1_kl_Leave);
             // 
             // label134
@@ -900,7 +907,7 @@ namespace NhatKySanXuat
             this.tb_n1_3_lot.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_n1_3_lot.Name = "tb_n1_3_lot";
             this.tb_n1_3_lot.Size = new System.Drawing.Size(93, 20);
-            this.tb_n1_3_lot.TabIndex = 372;
+            this.tb_n1_3_lot.TabIndex = 50;
             this.tb_n1_3_lot.Leave += new System.EventHandler(this.tb_n1_3_lot_Leave);
             // 
             // tb_n1_3_code
@@ -910,7 +917,7 @@ namespace NhatKySanXuat
             this.tb_n1_3_code.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_n1_3_code.Name = "tb_n1_3_code";
             this.tb_n1_3_code.Size = new System.Drawing.Size(79, 20);
-            this.tb_n1_3_code.TabIndex = 371;
+            this.tb_n1_3_code.TabIndex = 49;
             this.tb_n1_3_code.Leave += new System.EventHandler(this.tb_n1_3_code_Leave);
             // 
             // tb_n1_3_kl
@@ -921,7 +928,7 @@ namespace NhatKySanXuat
             this.tb_n1_3_kl.MaxLength = 10;
             this.tb_n1_3_kl.Name = "tb_n1_3_kl";
             this.tb_n1_3_kl.Size = new System.Drawing.Size(73, 20);
-            this.tb_n1_3_kl.TabIndex = 369;
+            this.tb_n1_3_kl.TabIndex = 48;
             this.tb_n1_3_kl.Leave += new System.EventHandler(this.tb_n1_1_kl_Leave);
             // 
             // tb_n2_2_lot
@@ -931,7 +938,7 @@ namespace NhatKySanXuat
             this.tb_n2_2_lot.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_n2_2_lot.Name = "tb_n2_2_lot";
             this.tb_n2_2_lot.Size = new System.Drawing.Size(93, 20);
-            this.tb_n2_2_lot.TabIndex = 385;
+            this.tb_n2_2_lot.TabIndex = 62;
             this.tb_n2_2_lot.Leave += new System.EventHandler(this.tb_n2_2_lot_Leave);
             // 
             // tb_n2_2_code
@@ -941,7 +948,7 @@ namespace NhatKySanXuat
             this.tb_n2_2_code.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_n2_2_code.Name = "tb_n2_2_code";
             this.tb_n2_2_code.Size = new System.Drawing.Size(79, 20);
-            this.tb_n2_2_code.TabIndex = 384;
+            this.tb_n2_2_code.TabIndex = 61;
             this.tb_n2_2_code.Leave += new System.EventHandler(this.tb_n2_2_code_Leave);
             // 
             // tb_n2_2_kl
@@ -952,17 +959,17 @@ namespace NhatKySanXuat
             this.tb_n2_2_kl.MaxLength = 10;
             this.tb_n2_2_kl.Name = "tb_n2_2_kl";
             this.tb_n2_2_kl.Size = new System.Drawing.Size(73, 20);
-            this.tb_n2_2_kl.TabIndex = 383;
+            this.tb_n2_2_kl.TabIndex = 60;
             this.tb_n2_2_kl.Leave += new System.EventHandler(this.tb_n2_1_kl_Leave);
             // 
             // tb_n2_1_lot
             // 
             this.tb_n2_1_lot.BackColor = System.Drawing.SystemColors.Control;
-            this.tb_n2_1_lot.Location = new System.Drawing.Point(868, 223);
+            this.tb_n2_1_lot.Location = new System.Drawing.Point(868, 224);
             this.tb_n2_1_lot.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_n2_1_lot.Name = "tb_n2_1_lot";
             this.tb_n2_1_lot.Size = new System.Drawing.Size(93, 20);
-            this.tb_n2_1_lot.TabIndex = 381;
+            this.tb_n2_1_lot.TabIndex = 59;
             this.tb_n2_1_lot.Leave += new System.EventHandler(this.tb_n2_1_lot_Leave);
             // 
             // tb_n2_1_code
@@ -972,7 +979,7 @@ namespace NhatKySanXuat
             this.tb_n2_1_code.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_n2_1_code.Name = "tb_n2_1_code";
             this.tb_n2_1_code.Size = new System.Drawing.Size(79, 20);
-            this.tb_n2_1_code.TabIndex = 382;
+            this.tb_n2_1_code.TabIndex = 58;
             this.tb_n2_1_code.Leave += new System.EventHandler(this.tb_n2_1_code_Leave);
             // 
             // tb_n2_1_kl
@@ -983,7 +990,7 @@ namespace NhatKySanXuat
             this.tb_n2_1_kl.MaxLength = 10;
             this.tb_n2_1_kl.Name = "tb_n2_1_kl";
             this.tb_n2_1_kl.Size = new System.Drawing.Size(73, 20);
-            this.tb_n2_1_kl.TabIndex = 380;
+            this.tb_n2_1_kl.TabIndex = 57;
             this.tb_n2_1_kl.Leave += new System.EventHandler(this.tb_n2_1_kl_Leave);
             // 
             // tb_n1_2_lot
@@ -993,7 +1000,7 @@ namespace NhatKySanXuat
             this.tb_n1_2_lot.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_n1_2_lot.Name = "tb_n1_2_lot";
             this.tb_n1_2_lot.Size = new System.Drawing.Size(93, 20);
-            this.tb_n1_2_lot.TabIndex = 367;
+            this.tb_n1_2_lot.TabIndex = 47;
             this.tb_n1_2_lot.Leave += new System.EventHandler(this.tb_n1_2_lot_Leave);
             // 
             // tb_n1_2_code
@@ -1003,7 +1010,7 @@ namespace NhatKySanXuat
             this.tb_n1_2_code.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_n1_2_code.Name = "tb_n1_2_code";
             this.tb_n1_2_code.Size = new System.Drawing.Size(79, 20);
-            this.tb_n1_2_code.TabIndex = 366;
+            this.tb_n1_2_code.TabIndex = 46;
             this.tb_n1_2_code.Leave += new System.EventHandler(this.tb_n1_2_code_Leave);
             // 
             // tb_n1_2_kl
@@ -1014,7 +1021,7 @@ namespace NhatKySanXuat
             this.tb_n1_2_kl.MaxLength = 10;
             this.tb_n1_2_kl.Name = "tb_n1_2_kl";
             this.tb_n1_2_kl.Size = new System.Drawing.Size(73, 20);
-            this.tb_n1_2_kl.TabIndex = 365;
+            this.tb_n1_2_kl.TabIndex = 45;
             this.tb_n1_2_kl.Leave += new System.EventHandler(this.tb_n1_1_kl_Leave);
             // 
             // tb_n1_1_lot
@@ -1024,7 +1031,7 @@ namespace NhatKySanXuat
             this.tb_n1_1_lot.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_n1_1_lot.Name = "tb_n1_1_lot";
             this.tb_n1_1_lot.Size = new System.Drawing.Size(93, 20);
-            this.tb_n1_1_lot.TabIndex = 364;
+            this.tb_n1_1_lot.TabIndex = 44;
             this.tb_n1_1_lot.Leave += new System.EventHandler(this.tb_n1_1_lot_Leave);
             // 
             // tb_n1_1_code
@@ -1034,7 +1041,7 @@ namespace NhatKySanXuat
             this.tb_n1_1_code.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_n1_1_code.Name = "tb_n1_1_code";
             this.tb_n1_1_code.Size = new System.Drawing.Size(79, 20);
-            this.tb_n1_1_code.TabIndex = 363;
+            this.tb_n1_1_code.TabIndex = 43;
             this.tb_n1_1_code.Leave += new System.EventHandler(this.tb_n1_1_code_Leave);
             // 
             // tb_n1_1_kl
@@ -1045,42 +1052,20 @@ namespace NhatKySanXuat
             this.tb_n1_1_kl.MaxLength = 10;
             this.tb_n1_1_kl.Name = "tb_n1_1_kl";
             this.tb_n1_1_kl.Size = new System.Drawing.Size(73, 20);
-            this.tb_n1_1_kl.TabIndex = 362;
+            this.tb_n1_1_kl.TabIndex = 42;
             this.tb_n1_1_kl.Leave += new System.EventHandler(this.tb_n1_1_kl_Leave);
             // 
             // cbbphanbonnvl
             // 
             this.cbbphanbonnvl.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.cbbphanbonnvl.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.cbbphanbonnvl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.cbbphanbonnvl.BackColor = System.Drawing.SystemColors.Info;
             this.cbbphanbonnvl.FormattingEnabled = true;
-            this.cbbphanbonnvl.Items.AddRange(new object[] {
-            "920-DAPDV",
-            "920-HUMA29",
-            "920-HUMATEL",
-            "920-HUMATEML",
-            "920-HUMATES",
-            "920-KALCM2-3V",
-            "920-KALCM3V",
-            "920-KALCMML",
-            "920-KALCMMM",
-            "920-URECM3-4V",
-            "920-URECML",
-            "920-URECMM",
-            "NPK16BĐ12-3V",
-            "NPK16BĐ13V",
-            "NPK16BĐ1ML",
-            "NPK16NGAML",
-            "PHANNPK18LO",
-            "PHANNPK18ML",
-            "PHANNPK18XM",
-            "PHANNPK18XM",
-            "PHANNPK18XO"});
             this.cbbphanbonnvl.Location = new System.Drawing.Point(539, 29);
             this.cbbphanbonnvl.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cbbphanbonnvl.Name = "cbbphanbonnvl";
             this.cbbphanbonnvl.Size = new System.Drawing.Size(159, 21);
-            this.cbbphanbonnvl.TabIndex = 355;
+            this.cbbphanbonnvl.TabIndex = 27;
             // 
             // label41
             // 
@@ -1095,11 +1080,11 @@ namespace NhatKySanXuat
             // tbLOTN2
             // 
             this.tbLOTN2.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.tbLOTN2.Location = new System.Drawing.Point(868, 202);
+            this.tbLOTN2.Location = new System.Drawing.Point(868, 203);
             this.tbLOTN2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbLOTN2.Name = "tbLOTN2";
             this.tbLOTN2.Size = new System.Drawing.Size(93, 20);
-            this.tbLOTN2.TabIndex = 379;
+            this.tbLOTN2.TabIndex = 56;
             // 
             // tbLOTN1
             // 
@@ -1108,16 +1093,16 @@ namespace NhatKySanXuat
             this.tbLOTN1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbLOTN1.Name = "tbLOTN1";
             this.tbLOTN1.Size = new System.Drawing.Size(93, 20);
-            this.tbLOTN1.TabIndex = 361;
+            this.tbLOTN1.TabIndex = 41;
             // 
             // tbLOTphanbonnvl
             // 
-            this.tbLOTphanbonnvl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.tbLOTphanbonnvl.BackColor = System.Drawing.SystemColors.Info;
             this.tbLOTphanbonnvl.Location = new System.Drawing.Point(868, 30);
             this.tbLOTphanbonnvl.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbLOTphanbonnvl.Name = "tbLOTphanbonnvl";
             this.tbLOTphanbonnvl.Size = new System.Drawing.Size(93, 20);
-            this.tbLOTphanbonnvl.TabIndex = 358;
+            this.tbLOTphanbonnvl.TabIndex = 30;
             // 
             // label40
             // 
@@ -1146,7 +1131,7 @@ namespace NhatKySanXuat
             this.tbbarcodeN2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbbarcodeN2.Name = "tbbarcodeN2";
             this.tbbarcodeN2.Size = new System.Drawing.Size(79, 20);
-            this.tbbarcodeN2.TabIndex = 378;
+            this.tbbarcodeN2.TabIndex = 55;
             // 
             // tbbarcodeN1
             // 
@@ -1155,16 +1140,16 @@ namespace NhatKySanXuat
             this.tbbarcodeN1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbbarcodeN1.Name = "tbbarcodeN1";
             this.tbbarcodeN1.Size = new System.Drawing.Size(79, 20);
-            this.tbbarcodeN1.TabIndex = 360;
+            this.tbbarcodeN1.TabIndex = 40;
             // 
             // tbbarcodephanbonvl
             // 
-            this.tbbarcodephanbonvl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.tbbarcodephanbonvl.BackColor = System.Drawing.SystemColors.Info;
             this.tbbarcodephanbonvl.Location = new System.Drawing.Point(784, 30);
             this.tbbarcodephanbonvl.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbbarcodephanbonvl.Name = "tbbarcodephanbonvl";
             this.tbbarcodephanbonvl.Size = new System.Drawing.Size(79, 20);
-            this.tbbarcodephanbonvl.TabIndex = 357;
+            this.tbbarcodephanbonvl.TabIndex = 29;
             // 
             // tbn221
             // 
@@ -1174,7 +1159,7 @@ namespace NhatKySanXuat
             this.tbn221.MaxLength = 10;
             this.tbn221.Name = "tbn221";
             this.tbn221.Size = new System.Drawing.Size(73, 20);
-            this.tbn221.TabIndex = 377;
+            this.tbn221.TabIndex = 54;
             // 
             // label34
             // 
@@ -1214,17 +1199,17 @@ namespace NhatKySanXuat
             this.tbn1157.MaxLength = 10;
             this.tbn1157.Name = "tbn1157";
             this.tbn1157.Size = new System.Drawing.Size(73, 20);
-            this.tbn1157.TabIndex = 359;
+            this.tbn1157.TabIndex = 39;
             // 
             // tbkhoiluongphanbonnvl
             // 
-            this.tbkhoiluongphanbonnvl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.tbkhoiluongphanbonnvl.BackColor = System.Drawing.SystemColors.Info;
             this.tbkhoiluongphanbonnvl.Location = new System.Drawing.Point(704, 30);
             this.tbkhoiluongphanbonnvl.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbkhoiluongphanbonnvl.MaxLength = 10;
             this.tbkhoiluongphanbonnvl.Name = "tbkhoiluongphanbonnvl";
             this.tbkhoiluongphanbonnvl.Size = new System.Drawing.Size(73, 20);
-            this.tbkhoiluongphanbonnvl.TabIndex = 356;
+            this.tbkhoiluongphanbonnvl.TabIndex = 28;
             // 
             // label146
             // 
@@ -1244,7 +1229,7 @@ namespace NhatKySanXuat
             this.tb_n3_3_lot.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_n3_3_lot.Name = "tb_n3_3_lot";
             this.tb_n3_3_lot.Size = new System.Drawing.Size(93, 20);
-            this.tb_n3_3_lot.TabIndex = 418;
+            this.tb_n3_3_lot.TabIndex = 77;
             this.tb_n3_3_lot.Leave += new System.EventHandler(this.tb_n3_3_lot_Leave);
             // 
             // tb_n3_3_code
@@ -1254,7 +1239,7 @@ namespace NhatKySanXuat
             this.tb_n3_3_code.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_n3_3_code.Name = "tb_n3_3_code";
             this.tb_n3_3_code.Size = new System.Drawing.Size(79, 20);
-            this.tb_n3_3_code.TabIndex = 417;
+            this.tb_n3_3_code.TabIndex = 76;
             this.tb_n3_3_code.Leave += new System.EventHandler(this.tb_n3_3_code_Leave);
             // 
             // tb_n3_3_kl
@@ -1265,7 +1250,7 @@ namespace NhatKySanXuat
             this.tb_n3_3_kl.MaxLength = 10;
             this.tb_n3_3_kl.Name = "tb_n3_3_kl";
             this.tb_n3_3_kl.Size = new System.Drawing.Size(73, 20);
-            this.tb_n3_3_kl.TabIndex = 416;
+            this.tb_n3_3_kl.TabIndex = 75;
             // 
             // label145
             // 
@@ -1285,7 +1270,7 @@ namespace NhatKySanXuat
             this.tb_n3_2_lot.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_n3_2_lot.Name = "tb_n3_2_lot";
             this.tb_n3_2_lot.Size = new System.Drawing.Size(93, 20);
-            this.tb_n3_2_lot.TabIndex = 415;
+            this.tb_n3_2_lot.TabIndex = 74;
             this.tb_n3_2_lot.Leave += new System.EventHandler(this.tb_n3_2_lot_Leave);
             // 
             // tb_n3_2_code
@@ -1295,7 +1280,7 @@ namespace NhatKySanXuat
             this.tb_n3_2_code.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_n3_2_code.Name = "tb_n3_2_code";
             this.tb_n3_2_code.Size = new System.Drawing.Size(79, 20);
-            this.tb_n3_2_code.TabIndex = 414;
+            this.tb_n3_2_code.TabIndex = 73;
             this.tb_n3_2_code.Leave += new System.EventHandler(this.tb_n3_2_code_Leave);
             // 
             // tb_n3_2_kl
@@ -1306,7 +1291,7 @@ namespace NhatKySanXuat
             this.tb_n3_2_kl.MaxLength = 10;
             this.tb_n3_2_kl.Name = "tb_n3_2_kl";
             this.tb_n3_2_kl.Size = new System.Drawing.Size(73, 20);
-            this.tb_n3_2_kl.TabIndex = 413;
+            this.tb_n3_2_kl.TabIndex = 72;
             // 
             // label135
             // 
@@ -1321,12 +1306,12 @@ namespace NhatKySanXuat
             // 
             // tbPREV
             // 
-            this.tbPREV.Location = new System.Drawing.Point(1082, 201);
+            this.tbPREV.Location = new System.Drawing.Point(1082, 305);
             this.tbPREV.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbPREV.MaxLength = 10;
             this.tbPREV.Name = "tbPREV";
             this.tbPREV.Size = new System.Drawing.Size(55, 20);
-            this.tbPREV.TabIndex = 427;
+            this.tbPREV.TabIndex = 104;
             // 
             // label35
             // 
@@ -1350,51 +1335,51 @@ namespace NhatKySanXuat
             // 
             // tbborax
             // 
-            this.tbborax.Location = new System.Drawing.Point(1082, 222);
+            this.tbborax.Location = new System.Drawing.Point(1082, 221);
             this.tbborax.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbborax.MaxLength = 10;
             this.tbborax.Name = "tbborax";
             this.tbborax.Size = new System.Drawing.Size(55, 20);
-            this.tbborax.TabIndex = 429;
+            this.tbborax.TabIndex = 96;
             // 
             // tbnaa
             // 
-            this.tbnaa.Location = new System.Drawing.Point(1082, 243);
+            this.tbnaa.Location = new System.Drawing.Point(1082, 242);
             this.tbnaa.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbnaa.MaxLength = 10;
             this.tbnaa.Name = "tbnaa";
             this.tbnaa.Size = new System.Drawing.Size(55, 20);
-            this.tbnaa.TabIndex = 431;
+            this.tbnaa.TabIndex = 98;
             // 
             // tbbarcodeBorax
             // 
-            this.tbbarcodeBorax.Location = new System.Drawing.Point(1142, 223);
+            this.tbbarcodeBorax.Location = new System.Drawing.Point(1142, 222);
             this.tbbarcodeBorax.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbbarcodeBorax.Name = "tbbarcodeBorax";
             this.tbbarcodeBorax.Size = new System.Drawing.Size(71, 20);
-            this.tbbarcodeBorax.TabIndex = 430;
+            this.tbbarcodeBorax.TabIndex = 97;
             // 
             // tbbarcodeNAA
             // 
-            this.tbbarcodeNAA.Location = new System.Drawing.Point(1142, 244);
+            this.tbbarcodeNAA.Location = new System.Drawing.Point(1142, 243);
             this.tbbarcodeNAA.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbbarcodeNAA.Name = "tbbarcodeNAA";
             this.tbbarcodeNAA.Size = new System.Drawing.Size(71, 20);
-            this.tbbarcodeNAA.TabIndex = 432;
+            this.tbbarcodeNAA.TabIndex = 99;
             // 
             // tbbarcode_prev
             // 
-            this.tbbarcode_prev.Location = new System.Drawing.Point(1142, 202);
+            this.tbbarcode_prev.Location = new System.Drawing.Point(1142, 306);
             this.tbbarcode_prev.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbbarcode_prev.Name = "tbbarcode_prev";
             this.tbbarcode_prev.Size = new System.Drawing.Size(71, 20);
-            this.tbbarcode_prev.TabIndex = 428;
+            this.tbbarcode_prev.TabIndex = 105;
             // 
             // label51
             // 
             this.label51.AutoSize = true;
             this.label51.BackColor = System.Drawing.Color.Transparent;
-            this.label51.Location = new System.Drawing.Point(969, 204);
+            this.label51.Location = new System.Drawing.Point(969, 309);
             this.label51.Name = "label51";
             this.label51.Size = new System.Drawing.Size(36, 13);
             this.label51.TabIndex = 406;
@@ -1407,7 +1392,7 @@ namespace NhatKySanXuat
             this.tb_n3_1_lot.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_n3_1_lot.Name = "tb_n3_1_lot";
             this.tb_n3_1_lot.Size = new System.Drawing.Size(93, 20);
-            this.tb_n3_1_lot.TabIndex = 412;
+            this.tb_n3_1_lot.TabIndex = 71;
             this.tb_n3_1_lot.Leave += new System.EventHandler(this.tb_n3_1_lot_Leave);
             // 
             // tb_n3_1_code
@@ -1417,7 +1402,7 @@ namespace NhatKySanXuat
             this.tb_n3_1_code.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_n3_1_code.Name = "tb_n3_1_code";
             this.tb_n3_1_code.Size = new System.Drawing.Size(79, 20);
-            this.tb_n3_1_code.TabIndex = 411;
+            this.tb_n3_1_code.TabIndex = 70;
             this.tb_n3_1_code.Leave += new System.EventHandler(this.tb_n3_1_code_Leave);
             // 
             // tb_n3_1_kl
@@ -1428,7 +1413,7 @@ namespace NhatKySanXuat
             this.tb_n3_1_kl.MaxLength = 10;
             this.tb_n3_1_kl.Name = "tb_n3_1_kl";
             this.tb_n3_1_kl.Size = new System.Drawing.Size(73, 20);
-            this.tb_n3_1_kl.TabIndex = 410;
+            this.tb_n3_1_kl.TabIndex = 69;
             this.tb_n3_1_kl.Leave += new System.EventHandler(this.tb_n3_1_kl_Leave);
             // 
             // tbLOTN3
@@ -1438,39 +1423,39 @@ namespace NhatKySanXuat
             this.tbLOTN3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbLOTN3.Name = "tbLOTN3";
             this.tbLOTN3.Size = new System.Drawing.Size(93, 20);
-            this.tbLOTN3.TabIndex = 409;
+            this.tbLOTN3.TabIndex = 68;
             // 
             // tbbarcode_edta
             // 
-            this.tbbarcode_edta.Location = new System.Drawing.Point(1142, 181);
+            this.tbbarcode_edta.Location = new System.Drawing.Point(1142, 179);
             this.tbbarcode_edta.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbbarcode_edta.Name = "tbbarcode_edta";
             this.tbbarcode_edta.Size = new System.Drawing.Size(71, 20);
-            this.tbbarcode_edta.TabIndex = 426;
+            this.tbbarcode_edta.TabIndex = 93;
             // 
             // tbbarcode_solubo
             // 
-            this.tbbarcode_solubo.Location = new System.Drawing.Point(1143, 307);
+            this.tbbarcode_solubo.Location = new System.Drawing.Point(1142, 200);
             this.tbbarcode_solubo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbbarcode_solubo.Name = "tbbarcode_solubo";
-            this.tbbarcode_solubo.Size = new System.Drawing.Size(70, 20);
-            this.tbbarcode_solubo.TabIndex = 424;
+            this.tbbarcode_solubo.Size = new System.Drawing.Size(71, 20);
+            this.tbbarcode_solubo.TabIndex = 95;
             // 
             // tbbarcode_naoh
             // 
-            this.tbbarcode_naoh.Location = new System.Drawing.Point(1143, 286);
+            this.tbbarcode_naoh.Location = new System.Drawing.Point(1142, 285);
             this.tbbarcode_naoh.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbbarcode_naoh.Name = "tbbarcode_naoh";
-            this.tbbarcode_naoh.Size = new System.Drawing.Size(70, 20);
-            this.tbbarcode_naoh.TabIndex = 422;
+            this.tbbarcode_naoh.Size = new System.Drawing.Size(71, 20);
+            this.tbbarcode_naoh.TabIndex = 103;
             // 
             // tbbarcode_citric
             // 
-            this.tbbarcode_citric.Location = new System.Drawing.Point(1143, 265);
+            this.tbbarcode_citric.Location = new System.Drawing.Point(1142, 264);
             this.tbbarcode_citric.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbbarcode_citric.Name = "tbbarcode_citric";
-            this.tbbarcode_citric.Size = new System.Drawing.Size(70, 20);
-            this.tbbarcode_citric.TabIndex = 420;
+            this.tbbarcode_citric.Size = new System.Drawing.Size(71, 20);
+            this.tbbarcode_citric.TabIndex = 101;
             // 
             // tbbarcodeN3
             // 
@@ -1479,25 +1464,25 @@ namespace NhatKySanXuat
             this.tbbarcodeN3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbbarcodeN3.Name = "tbbarcodeN3";
             this.tbbarcodeN3.Size = new System.Drawing.Size(79, 20);
-            this.tbbarcodeN3.TabIndex = 408;
+            this.tbbarcodeN3.TabIndex = 67;
             // 
             // tbEDTA
             // 
-            this.tbEDTA.Location = new System.Drawing.Point(1082, 180);
+            this.tbEDTA.Location = new System.Drawing.Point(1082, 179);
             this.tbEDTA.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbEDTA.MaxLength = 10;
             this.tbEDTA.Name = "tbEDTA";
             this.tbEDTA.Size = new System.Drawing.Size(55, 20);
-            this.tbEDTA.TabIndex = 425;
+            this.tbEDTA.TabIndex = 92;
             // 
             // tbsolubo
             // 
-            this.tbsolubo.Location = new System.Drawing.Point(1082, 306);
+            this.tbsolubo.Location = new System.Drawing.Point(1082, 200);
             this.tbsolubo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbsolubo.MaxLength = 10;
             this.tbsolubo.Name = "tbsolubo";
-            this.tbsolubo.Size = new System.Drawing.Size(54, 20);
-            this.tbsolubo.TabIndex = 423;
+            this.tbsolubo.Size = new System.Drawing.Size(55, 20);
+            this.tbsolubo.TabIndex = 94;
             // 
             // label26
             // 
@@ -1511,21 +1496,21 @@ namespace NhatKySanXuat
             // 
             // tbnaoh
             // 
-            this.tbnaoh.Location = new System.Drawing.Point(1082, 285);
+            this.tbnaoh.Location = new System.Drawing.Point(1082, 284);
             this.tbnaoh.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbnaoh.MaxLength = 10;
             this.tbnaoh.Name = "tbnaoh";
             this.tbnaoh.Size = new System.Drawing.Size(54, 20);
-            this.tbnaoh.TabIndex = 421;
+            this.tbnaoh.TabIndex = 102;
             // 
             // tbcitric
             // 
-            this.tbcitric.Location = new System.Drawing.Point(1082, 264);
+            this.tbcitric.Location = new System.Drawing.Point(1082, 263);
             this.tbcitric.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbcitric.MaxLength = 10;
             this.tbcitric.Name = "tbcitric";
             this.tbcitric.Size = new System.Drawing.Size(54, 20);
-            this.tbcitric.TabIndex = 419;
+            this.tbcitric.TabIndex = 100;
             // 
             // tbn3190
             // 
@@ -1535,13 +1520,13 @@ namespace NhatKySanXuat
             this.tbn3190.MaxLength = 10;
             this.tbn3190.Name = "tbn3190";
             this.tbn3190.Size = new System.Drawing.Size(73, 20);
-            this.tbn3190.TabIndex = 407;
+            this.tbn3190.TabIndex = 66;
             // 
             // label27
             // 
             this.label27.AutoSize = true;
             this.label27.BackColor = System.Drawing.Color.Transparent;
-            this.label27.Location = new System.Drawing.Point(972, 308);
+            this.label27.Location = new System.Drawing.Point(969, 203);
             this.label27.Name = "label27";
             this.label27.Size = new System.Drawing.Size(63, 13);
             this.label27.TabIndex = 404;
@@ -1551,7 +1536,7 @@ namespace NhatKySanXuat
             // 
             this.label28.AutoSize = true;
             this.label28.BackColor = System.Drawing.Color.Transparent;
-            this.label28.Location = new System.Drawing.Point(972, 288);
+            this.label28.Location = new System.Drawing.Point(969, 288);
             this.label28.Name = "label28";
             this.label28.Size = new System.Drawing.Size(38, 13);
             this.label28.TabIndex = 403;
@@ -1561,7 +1546,7 @@ namespace NhatKySanXuat
             // 
             this.label29.AutoSize = true;
             this.label29.BackColor = System.Drawing.Color.Transparent;
-            this.label29.Location = new System.Drawing.Point(972, 267);
+            this.label29.Location = new System.Drawing.Point(969, 266);
             this.label29.Name = "label29";
             this.label29.Size = new System.Drawing.Size(53, 13);
             this.label29.TabIndex = 402;
@@ -1584,7 +1569,7 @@ namespace NhatKySanXuat
             this.tbyellow.MaxLength = 10;
             this.tbyellow.Name = "tbyellow";
             this.tbyellow.Size = new System.Drawing.Size(55, 20);
-            this.tbyellow.TabIndex = 456;
+            this.tbyellow.TabIndex = 88;
             // 
             // label31
             // 
@@ -1603,7 +1588,7 @@ namespace NhatKySanXuat
             this.tbsodium.MaxLength = 10;
             this.tbsodium.Name = "tbsodium";
             this.tbsodium.Size = new System.Drawing.Size(55, 20);
-            this.tbsodium.TabIndex = 460;
+            this.tbsodium.TabIndex = 78;
             // 
             // tbbarcodeSodium
             // 
@@ -1611,7 +1596,7 @@ namespace NhatKySanXuat
             this.tbbarcodeSodium.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbbarcodeSodium.Name = "tbbarcodeSodium";
             this.tbbarcodeSodium.Size = new System.Drawing.Size(71, 20);
-            this.tbbarcodeSodium.TabIndex = 461;
+            this.tbbarcodeSodium.TabIndex = 79;
             // 
             // label52
             // 
@@ -1655,39 +1640,39 @@ namespace NhatKySanXuat
             // 
             // tbkwdien
             // 
-            this.tbkwdien.Location = new System.Drawing.Point(1082, 349);
+            this.tbkwdien.Location = new System.Drawing.Point(1082, 347);
             this.tbkwdien.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbkwdien.MaxLength = 10;
             this.tbkwdien.Name = "tbkwdien";
             this.tbkwdien.Size = new System.Drawing.Size(55, 20);
-            this.tbkwdien.TabIndex = 465;
+            this.tbkwdien.TabIndex = 107;
             // 
             // tbm3nuocRO
             // 
-            this.tbm3nuocRO.Location = new System.Drawing.Point(1082, 370);
+            this.tbm3nuocRO.Location = new System.Drawing.Point(1082, 368);
             this.tbm3nuocRO.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbm3nuocRO.MaxLength = 10;
             this.tbm3nuocRO.Name = "tbm3nuocRO";
             this.tbm3nuocRO.Size = new System.Drawing.Size(55, 20);
-            this.tbm3nuocRO.TabIndex = 466;
+            this.tbm3nuocRO.TabIndex = 108;
             // 
             // tbm3nuocthuycuc
             // 
-            this.tbm3nuocthuycuc.Location = new System.Drawing.Point(1082, 391);
+            this.tbm3nuocthuycuc.Location = new System.Drawing.Point(1082, 389);
             this.tbm3nuocthuycuc.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbm3nuocthuycuc.MaxLength = 10;
             this.tbm3nuocthuycuc.Name = "tbm3nuocthuycuc";
             this.tbm3nuocthuycuc.Size = new System.Drawing.Size(55, 20);
-            this.tbm3nuocthuycuc.TabIndex = 467;
+            this.tbm3nuocthuycuc.TabIndex = 109;
             // 
             // tbsoluongthancam
             // 
-            this.tbsoluongthancam.Location = new System.Drawing.Point(1082, 327);
+            this.tbsoluongthancam.Location = new System.Drawing.Point(1082, 326);
             this.tbsoluongthancam.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbsoluongthancam.MaxLength = 10;
             this.tbsoluongthancam.Name = "tbsoluongthancam";
             this.tbsoluongthancam.Size = new System.Drawing.Size(55, 20);
-            this.tbsoluongthancam.TabIndex = 464;
+            this.tbsoluongthancam.TabIndex = 106;
             // 
             // tbbarcodeGA3
             // 
@@ -1695,7 +1680,7 @@ namespace NhatKySanXuat
             this.tbbarcodeGA3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbbarcodeGA3.Name = "tbbarcodeGA3";
             this.tbbarcodeGA3.Size = new System.Drawing.Size(71, 20);
-            this.tbbarcodeGA3.TabIndex = 463;
+            this.tbbarcodeGA3.TabIndex = 81;
             // 
             // label37
             // 
@@ -1714,7 +1699,7 @@ namespace NhatKySanXuat
             this.tbga3.MaxLength = 10;
             this.tbga3.Name = "tbga3";
             this.tbga3.Size = new System.Drawing.Size(55, 20);
-            this.tbga3.TabIndex = 462;
+            this.tbga3.TabIndex = 80;
             // 
             // label45
             // 
@@ -1742,7 +1727,7 @@ namespace NhatKySanXuat
             this.tbbarcode_violet.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbbarcode_violet.Name = "tbbarcode_violet";
             this.tbbarcode_violet.Size = new System.Drawing.Size(71, 20);
-            this.tbbarcode_violet.TabIndex = 453;
+            this.tbbarcode_violet.TabIndex = 85;
             // 
             // tbviolet
             // 
@@ -1751,7 +1736,7 @@ namespace NhatKySanXuat
             this.tbviolet.MaxLength = 10;
             this.tbviolet.Name = "tbviolet";
             this.tbviolet.Size = new System.Drawing.Size(55, 20);
-            this.tbviolet.TabIndex = 452;
+            this.tbviolet.TabIndex = 84;
             // 
             // tbbarcode_red
             // 
@@ -1759,7 +1744,7 @@ namespace NhatKySanXuat
             this.tbbarcode_red.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbbarcode_red.Name = "tbbarcode_red";
             this.tbbarcode_red.Size = new System.Drawing.Size(71, 20);
-            this.tbbarcode_red.TabIndex = 451;
+            this.tbbarcode_red.TabIndex = 83;
             // 
             // tbbarcode_black
             // 
@@ -1767,7 +1752,7 @@ namespace NhatKySanXuat
             this.tbbarcode_black.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbbarcode_black.Name = "tbbarcode_black";
             this.tbbarcode_black.Size = new System.Drawing.Size(71, 20);
-            this.tbbarcode_black.TabIndex = 459;
+            this.tbbarcode_black.TabIndex = 91;
             // 
             // tbbarcode_yellow
             // 
@@ -1775,7 +1760,7 @@ namespace NhatKySanXuat
             this.tbbarcode_yellow.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbbarcode_yellow.Name = "tbbarcode_yellow";
             this.tbbarcode_yellow.Size = new System.Drawing.Size(71, 20);
-            this.tbbarcode_yellow.TabIndex = 457;
+            this.tbbarcode_yellow.TabIndex = 89;
             // 
             // tbbarcode_blue
             // 
@@ -1783,7 +1768,7 @@ namespace NhatKySanXuat
             this.tbbarcode_blue.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbbarcode_blue.Name = "tbbarcode_blue";
             this.tbbarcode_blue.Size = new System.Drawing.Size(71, 20);
-            this.tbbarcode_blue.TabIndex = 455;
+            this.tbbarcode_blue.TabIndex = 87;
             // 
             // tbred
             // 
@@ -1792,7 +1777,7 @@ namespace NhatKySanXuat
             this.tbred.MaxLength = 10;
             this.tbred.Name = "tbred";
             this.tbred.Size = new System.Drawing.Size(55, 20);
-            this.tbred.TabIndex = 450;
+            this.tbred.TabIndex = 82;
             // 
             // label22
             // 
@@ -1841,7 +1826,7 @@ namespace NhatKySanXuat
             this.tbblack.MaxLength = 10;
             this.tbblack.Name = "tbblack";
             this.tbblack.Size = new System.Drawing.Size(55, 20);
-            this.tbblack.TabIndex = 458;
+            this.tbblack.TabIndex = 90;
             // 
             // tbblue
             // 
@@ -1850,7 +1835,7 @@ namespace NhatKySanXuat
             this.tbblue.MaxLength = 10;
             this.tbblue.Name = "tbblue";
             this.tbblue.Size = new System.Drawing.Size(55, 20);
-            this.tbblue.TabIndex = 454;
+            this.tbblue.TabIndex = 86;
             // 
             // label21
             // 
@@ -1866,6 +1851,7 @@ namespace NhatKySanXuat
             // 
             this.panel8.BackColor = System.Drawing.Color.Azure;
             this.panel8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel8.Controls.Add(this.dataGridView1);
             this.panel8.Controls.Add(this.tb_ngay140);
             this.panel8.Controls.Add(this.tb_thoigianondinh);
             this.panel8.Controls.Add(this.tb_ngay126);
@@ -1876,6 +1862,7 @@ namespace NhatKySanXuat
             this.panel8.Controls.Add(this.tb_ngay84);
             this.panel8.Controls.Add(this.tb_ngay21);
             this.panel8.Controls.Add(this.label128);
+            this.panel8.Controls.Add(this.label33);
             this.panel8.Controls.Add(this.tb_ngay70);
             this.panel8.Controls.Add(this.label127);
             this.panel8.Controls.Add(this.tb_ngay56);
@@ -1901,10 +1888,10 @@ namespace NhatKySanXuat
             this.panel8.Controls.Add(this.label115);
             this.panel8.Controls.Add(this.label114);
             this.panel8.Controls.Add(this.label113);
-            this.panel8.Location = new System.Drawing.Point(90, 312);
+            this.panel8.Location = new System.Drawing.Point(3, 311);
             this.panel8.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(336, 149);
+            this.panel8.Size = new System.Drawing.Size(672, 149);
             this.panel8.TabIndex = 470;
             // 
             // tb_ngay140
@@ -1934,7 +1921,7 @@ namespace NhatKySanXuat
             // label95
             // 
             this.label95.AutoSize = true;
-            this.label95.BackColor = System.Drawing.Color.DeepSkyBlue;
+            this.label95.BackColor = System.Drawing.Color.SkyBlue;
             this.label95.Location = new System.Drawing.Point(113, 1);
             this.label95.Name = "label95";
             this.label95.Size = new System.Drawing.Size(119, 13);
@@ -2215,72 +2202,78 @@ namespace NhatKySanXuat
             this.tblot.Location = new System.Drawing.Point(43, 29);
             this.tblot.Name = "tblot";
             this.tblot.Size = new System.Drawing.Size(164, 21);
-            this.tblot.TabIndex = 472;
+            this.tblot.TabIndex = 2;
             this.tblot.SelectedValueChanged += new System.EventHandler(this.tblot_SelectedValueChanged);
             // 
-            // textBox1
+            // textBox_lot_nvl_1
             // 
-            this.textBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.textBox1.Location = new System.Drawing.Point(868, 52);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(93, 20);
-            this.textBox1.TabIndex = 475;
+            this.textBox_lot_nvl_1.BackColor = System.Drawing.SystemColors.Info;
+            this.textBox_lot_nvl_1.Location = new System.Drawing.Point(868, 52);
+            this.textBox_lot_nvl_1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBox_lot_nvl_1.Name = "textBox_lot_nvl_1";
+            this.textBox_lot_nvl_1.Size = new System.Drawing.Size(93, 20);
+            this.textBox_lot_nvl_1.TabIndex = 34;
+            this.textBox_lot_nvl_1.Leave += new System.EventHandler(this.textBox_lot_nvl_1_Leave);
             // 
-            // textBox2
+            // textBox_barcode_nvl_1
             // 
-            this.textBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.textBox2.Location = new System.Drawing.Point(784, 52);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(79, 20);
-            this.textBox2.TabIndex = 474;
+            this.textBox_barcode_nvl_1.BackColor = System.Drawing.SystemColors.Info;
+            this.textBox_barcode_nvl_1.Location = new System.Drawing.Point(784, 52);
+            this.textBox_barcode_nvl_1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBox_barcode_nvl_1.Name = "textBox_barcode_nvl_1";
+            this.textBox_barcode_nvl_1.Size = new System.Drawing.Size(79, 20);
+            this.textBox_barcode_nvl_1.TabIndex = 33;
+            this.textBox_barcode_nvl_1.Leave += new System.EventHandler(this.textBox_barcode_nvl_1_Leave);
             // 
-            // textBox3
+            // textBox_kl_nvl_1
             // 
-            this.textBox3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.textBox3.Location = new System.Drawing.Point(704, 52);
-            this.textBox3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBox3.MaxLength = 10;
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(73, 20);
-            this.textBox3.TabIndex = 473;
+            this.textBox_kl_nvl_1.BackColor = System.Drawing.SystemColors.Info;
+            this.textBox_kl_nvl_1.Location = new System.Drawing.Point(704, 52);
+            this.textBox_kl_nvl_1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBox_kl_nvl_1.MaxLength = 10;
+            this.textBox_kl_nvl_1.Name = "textBox_kl_nvl_1";
+            this.textBox_kl_nvl_1.Size = new System.Drawing.Size(73, 20);
+            this.textBox_kl_nvl_1.TabIndex = 32;
+            this.textBox_kl_nvl_1.Leave += new System.EventHandler(this.textBox_kl_nvl_1_Leave);
             // 
-            // textBox4
+            // textBox_lot_nvl_2
             // 
-            this.textBox4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.textBox4.Location = new System.Drawing.Point(868, 74);
-            this.textBox4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(93, 20);
-            this.textBox4.TabIndex = 478;
+            this.textBox_lot_nvl_2.BackColor = System.Drawing.SystemColors.Info;
+            this.textBox_lot_nvl_2.Location = new System.Drawing.Point(868, 74);
+            this.textBox_lot_nvl_2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBox_lot_nvl_2.Name = "textBox_lot_nvl_2";
+            this.textBox_lot_nvl_2.Size = new System.Drawing.Size(93, 20);
+            this.textBox_lot_nvl_2.TabIndex = 38;
+            this.textBox_lot_nvl_2.Leave += new System.EventHandler(this.textBox_lot_nvl_2_Leave);
             // 
-            // textBox5
+            // textBox_barcode_nvl_2
             // 
-            this.textBox5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.textBox5.Location = new System.Drawing.Point(784, 74);
-            this.textBox5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(79, 20);
-            this.textBox5.TabIndex = 477;
+            this.textBox_barcode_nvl_2.BackColor = System.Drawing.SystemColors.Info;
+            this.textBox_barcode_nvl_2.Location = new System.Drawing.Point(784, 74);
+            this.textBox_barcode_nvl_2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBox_barcode_nvl_2.Name = "textBox_barcode_nvl_2";
+            this.textBox_barcode_nvl_2.Size = new System.Drawing.Size(79, 20);
+            this.textBox_barcode_nvl_2.TabIndex = 37;
+            this.textBox_barcode_nvl_2.Leave += new System.EventHandler(this.textBox_barcode_nvl_2_Leave);
             // 
-            // textBox6
+            // textBox_kl_nvl_2
             // 
-            this.textBox6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.textBox6.Location = new System.Drawing.Point(704, 74);
-            this.textBox6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBox6.MaxLength = 10;
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(73, 20);
-            this.textBox6.TabIndex = 476;
+            this.textBox_kl_nvl_2.BackColor = System.Drawing.SystemColors.Info;
+            this.textBox_kl_nvl_2.Location = new System.Drawing.Point(704, 74);
+            this.textBox_kl_nvl_2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBox_kl_nvl_2.MaxLength = 10;
+            this.textBox_kl_nvl_2.Name = "textBox_kl_nvl_2";
+            this.textBox_kl_nvl_2.Size = new System.Drawing.Size(73, 20);
+            this.textBox_kl_nvl_2.TabIndex = 36;
+            this.textBox_kl_nvl_2.Leave += new System.EventHandler(this.textBox_kl_nvl_2_Leave);
             // 
-            // comboBox1
+            // comboBox_nvl_1
             // 
-            this.comboBox1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.comboBox1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.comboBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
+            this.comboBox_nvl_1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.comboBox_nvl_1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.comboBox_nvl_1.BackColor = System.Drawing.SystemColors.Info;
+            this.comboBox_nvl_1.FormattingEnabled = true;
+            this.comboBox_nvl_1.Items.AddRange(new object[] {
             "920-DAPDV",
             "920-HUMA29",
             "920-HUMATEL",
@@ -2302,19 +2295,20 @@ namespace NhatKySanXuat
             "PHANNPK18XM",
             "PHANNPK18XM",
             "PHANNPK18XO"});
-            this.comboBox1.Location = new System.Drawing.Point(539, 52);
-            this.comboBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(159, 21);
-            this.comboBox1.TabIndex = 479;
+            this.comboBox_nvl_1.Location = new System.Drawing.Point(539, 52);
+            this.comboBox_nvl_1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.comboBox_nvl_1.Name = "comboBox_nvl_1";
+            this.comboBox_nvl_1.Size = new System.Drawing.Size(159, 21);
+            this.comboBox_nvl_1.TabIndex = 31;
+            this.comboBox_nvl_1.Leave += new System.EventHandler(this.comboBox_nvl_1_Leave);
             // 
-            // comboBox2
+            // comboBox_nvl_2
             // 
-            this.comboBox2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.comboBox2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.comboBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Items.AddRange(new object[] {
+            this.comboBox_nvl_2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.comboBox_nvl_2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.comboBox_nvl_2.BackColor = System.Drawing.SystemColors.Info;
+            this.comboBox_nvl_2.FormattingEnabled = true;
+            this.comboBox_nvl_2.Items.AddRange(new object[] {
             "920-DAPDV",
             "920-HUMA29",
             "920-HUMATEL",
@@ -2336,21 +2330,22 @@ namespace NhatKySanXuat
             "PHANNPK18XM",
             "PHANNPK18XM",
             "PHANNPK18XO"});
-            this.comboBox2.Location = new System.Drawing.Point(539, 75);
-            this.comboBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(159, 21);
-            this.comboBox2.TabIndex = 480;
+            this.comboBox_nvl_2.Location = new System.Drawing.Point(539, 75);
+            this.comboBox_nvl_2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.comboBox_nvl_2.Name = "comboBox_nvl_2";
+            this.comboBox_nvl_2.Size = new System.Drawing.Size(159, 21);
+            this.comboBox_nvl_2.TabIndex = 35;
+            this.comboBox_nvl_2.Leave += new System.EventHandler(this.comboBox_nvl_2_Leave);
             // 
             // label9
             // 
             this.label9.AutoSize = true;
             this.label9.BackColor = System.Drawing.Color.SkyBlue;
-            this.label9.Location = new System.Drawing.Point(520, 37);
+            this.label9.Location = new System.Drawing.Point(501, 34);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(13, 13);
+            this.label9.Size = new System.Drawing.Size(32, 13);
             this.label9.TabIndex = 482;
-            this.label9.Text = "1";
+            this.label9.Text = "Tổng";
             // 
             // label20
             // 
@@ -2360,13 +2355,13 @@ namespace NhatKySanXuat
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(13, 13);
             this.label20.TabIndex = 483;
-            this.label20.Text = "2";
+            this.label20.Text = "1";
             // 
             // label33
             // 
             this.label33.AutoSize = true;
             this.label33.BackColor = System.Drawing.Color.SkyBlue;
-            this.label33.Location = new System.Drawing.Point(701, 377);
+            this.label33.Location = new System.Drawing.Point(444, 3);
             this.label33.Name = "label33";
             this.label33.Size = new System.Drawing.Size(145, 13);
             this.label33.TabIndex = 484;
@@ -2376,7 +2371,7 @@ namespace NhatKySanXuat
             // 
             this.label43.AutoSize = true;
             this.label43.BackColor = System.Drawing.Color.Transparent;
-            this.label43.Location = new System.Drawing.Point(613, 402);
+            this.label43.Location = new System.Drawing.Point(709, 398);
             this.label43.Name = "label43";
             this.label43.Size = new System.Drawing.Size(69, 13);
             this.label43.TabIndex = 488;
@@ -2386,7 +2381,7 @@ namespace NhatKySanXuat
             // 
             this.label47.AutoSize = true;
             this.label47.BackColor = System.Drawing.Color.Transparent;
-            this.label47.Location = new System.Drawing.Point(613, 423);
+            this.label47.Location = new System.Drawing.Point(709, 419);
             this.label47.Name = "label47";
             this.label47.Size = new System.Drawing.Size(63, 13);
             this.label47.TabIndex = 487;
@@ -2396,7 +2391,7 @@ namespace NhatKySanXuat
             // 
             this.label49.AutoSize = true;
             this.label49.BackColor = System.Drawing.Color.Transparent;
-            this.label49.Location = new System.Drawing.Point(613, 446);
+            this.label49.Location = new System.Drawing.Point(709, 442);
             this.label49.Name = "label49";
             this.label49.Size = new System.Drawing.Size(69, 13);
             this.label49.TabIndex = 486;
@@ -2404,7 +2399,7 @@ namespace NhatKySanXuat
             // 
             // tbN2_pro
             // 
-            this.tbN2_pro.Location = new System.Drawing.Point(704, 420);
+            this.tbN2_pro.Location = new System.Drawing.Point(800, 416);
             this.tbN2_pro.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbN2_pro.MaxLength = 10;
             this.tbN2_pro.Name = "tbN2_pro";
@@ -2413,7 +2408,7 @@ namespace NhatKySanXuat
             // 
             // tbN3_pro
             // 
-            this.tbN3_pro.Location = new System.Drawing.Point(704, 441);
+            this.tbN3_pro.Location = new System.Drawing.Point(800, 437);
             this.tbN3_pro.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbN3_pro.MaxLength = 10;
             this.tbN3_pro.Name = "tbN3_pro";
@@ -2422,7 +2417,7 @@ namespace NhatKySanXuat
             // 
             // tbN1_pro
             // 
-            this.tbN1_pro.Location = new System.Drawing.Point(704, 399);
+            this.tbN1_pro.Location = new System.Drawing.Point(800, 395);
             this.tbN1_pro.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbN1_pro.MaxLength = 10;
             this.tbN1_pro.Name = "tbN1_pro";
@@ -2435,11 +2430,11 @@ namespace NhatKySanXuat
             this.buttonsave.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonsave.Image = ((System.Drawing.Image)(resources.GetObject("buttonsave.Image")));
             this.buttonsave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonsave.Location = new System.Drawing.Point(1142, 420);
+            this.buttonsave.Location = new System.Drawing.Point(1133, 416);
             this.buttonsave.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonsave.Name = "buttonsave";
-            this.buttonsave.Size = new System.Drawing.Size(81, 44);
-            this.buttonsave.TabIndex = 471;
+            this.buttonsave.Size = new System.Drawing.Size(91, 49);
+            this.buttonsave.TabIndex = 110;
             this.buttonsave.Text = "Lưu";
             this.buttonsave.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.buttonsave.UseVisualStyleBackColor = false;
@@ -2453,12 +2448,12 @@ namespace NhatKySanXuat
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(13, 13);
             this.label1.TabIndex = 492;
-            this.label1.Text = "3";
+            this.label1.Text = "2";
             // 
             // dateTimePicker_TG_BD
             // 
             this.dateTimePicker_TG_BD.CalendarForeColor = System.Drawing.Color.Black;
-            this.dateTimePicker_TG_BD.CalendarMonthBackground = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.dateTimePicker_TG_BD.CalendarMonthBackground = System.Drawing.SystemColors.Info;
             this.dateTimePicker_TG_BD.Cursor = System.Windows.Forms.Cursors.Default;
             this.dateTimePicker_TG_BD.CustomFormat = "yyyy/MM/dd HH:mm";
             this.dateTimePicker_TG_BD.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
@@ -2466,7 +2461,7 @@ namespace NhatKySanXuat
             this.dateTimePicker_TG_BD.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dateTimePicker_TG_BD.Name = "dateTimePicker_TG_BD";
             this.dateTimePicker_TG_BD.Size = new System.Drawing.Size(129, 20);
-            this.dateTimePicker_TG_BD.TabIndex = 493;
+            this.dateTimePicker_TG_BD.TabIndex = 5;
             // 
             // label53
             // 
@@ -2481,7 +2476,7 @@ namespace NhatKySanXuat
             // dateTimePicker_TG_KT
             // 
             this.dateTimePicker_TG_KT.CalendarForeColor = System.Drawing.Color.Black;
-            this.dateTimePicker_TG_KT.CalendarMonthBackground = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.dateTimePicker_TG_KT.CalendarMonthBackground = System.Drawing.SystemColors.Info;
             this.dateTimePicker_TG_KT.Cursor = System.Windows.Forms.Cursors.Default;
             this.dateTimePicker_TG_KT.CustomFormat = "yyyy/MM/dd HH:mm";
             this.dateTimePicker_TG_KT.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
@@ -2489,7 +2484,7 @@ namespace NhatKySanXuat
             this.dateTimePicker_TG_KT.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dateTimePicker_TG_KT.Name = "dateTimePicker_TG_KT";
             this.dateTimePicker_TG_KT.Size = new System.Drawing.Size(129, 20);
-            this.dateTimePicker_TG_KT.TabIndex = 495;
+            this.dateTimePicker_TG_KT.TabIndex = 6;
             // 
             // label57
             // 
@@ -2501,13 +2496,69 @@ namespace NhatKySanXuat
             this.label57.TabIndex = 496;
             this.label57.Text = "Thời gian KT";
             // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.dataGridView1.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column1,
+            this.Column2,
+            this.Column3,
+            this.Column4});
+            this.dataGridView1.EnableHeadersVisualStyles = false;
+            this.dataGridView1.Location = new System.Drawing.Point(343, 19);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.ButtonFace;
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle11;
+            this.dataGridView1.Size = new System.Drawing.Size(324, 126);
+            this.dataGridView1.TabIndex = 497;
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "Lớp";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            this.Column1.Width = 70;
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "KL ban đầu";
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            this.Column2.Width = 70;
+            // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "KL kết thúc";
+            this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
+            this.Column3.Width = 70;
+            // 
+            // Column4
+            // 
+            this.Column4.HeaderText = "KL sử dụng";
+            this.Column4.Name = "Column4";
+            this.Column4.ReadOnly = true;
+            this.Column4.Width = 70;
+            // 
             // Form3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.ClientSize = new System.Drawing.Size(1225, 464);
+            this.ClientSize = new System.Drawing.Size(1225, 463);
             this.Controls.Add(this.dateTimePicker_TG_KT);
             this.Controls.Add(this.label57);
             this.Controls.Add(this.dateTimePicker_TG_BD);
@@ -2519,17 +2570,16 @@ namespace NhatKySanXuat
             this.Controls.Add(this.tbN2_pro);
             this.Controls.Add(this.tbN3_pro);
             this.Controls.Add(this.tbN1_pro);
-            this.Controls.Add(this.label33);
             this.Controls.Add(this.label20);
             this.Controls.Add(this.label9);
-            this.Controls.Add(this.comboBox2);
-            this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.textBox5);
-            this.Controls.Add(this.textBox6);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.comboBox_nvl_2);
+            this.Controls.Add(this.comboBox_nvl_1);
+            this.Controls.Add(this.textBox_lot_nvl_2);
+            this.Controls.Add(this.textBox_barcode_nvl_2);
+            this.Controls.Add(this.textBox_kl_nvl_2);
+            this.Controls.Add(this.textBox_lot_nvl_1);
+            this.Controls.Add(this.textBox_barcode_nvl_1);
+            this.Controls.Add(this.textBox_kl_nvl_1);
             this.Controls.Add(this.tblot);
             this.Controls.Add(this.buttonsave);
             this.Controls.Add(this.panel8);
@@ -2701,6 +2751,7 @@ namespace NhatKySanXuat
             this.Load += new System.EventHandler(this.Form3_Load);
             this.panel8.ResumeLayout(false);
             this.panel8.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2904,14 +2955,14 @@ namespace NhatKySanXuat
         private System.Windows.Forms.Label label113;
         private System.Windows.Forms.Button buttonsave;
         private System.Windows.Forms.ComboBox tblot;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.TextBox textBox6;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.TextBox textBox_lot_nvl_1;
+        private System.Windows.Forms.TextBox textBox_barcode_nvl_1;
+        private System.Windows.Forms.TextBox textBox_kl_nvl_1;
+        private System.Windows.Forms.TextBox textBox_lot_nvl_2;
+        private System.Windows.Forms.TextBox textBox_barcode_nvl_2;
+        private System.Windows.Forms.TextBox textBox_kl_nvl_2;
+        private System.Windows.Forms.ComboBox comboBox_nvl_1;
+        private System.Windows.Forms.ComboBox comboBox_nvl_2;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Label label33;
@@ -2926,5 +2977,10 @@ namespace NhatKySanXuat
         private System.Windows.Forms.Label label53;
         private System.Windows.Forms.DateTimePicker dateTimePicker_TG_KT;
         private System.Windows.Forms.Label label57;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
     }
 }
