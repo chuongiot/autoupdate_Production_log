@@ -1172,94 +1172,113 @@ namespace NhatKySanXuat
         Boolean bit_tank1_02, bit_tank2_02, bit_tank3_02, bit_tank4_02;
         public void load_data_polymer_use()
         {
-            DateTime StartTime = Convert.ToDateTime(dateTimePicker_TG_BD.Text);
-            DateTime EndTime = Convert.ToDateTime(dateTimePicker_TG_KT.Text);
-            if (tblot.Text.Substring(0, 2) == "S1")
+            if (tblot.Text != "")
             {
-                try
+                DateTime StartTime = Convert.ToDateTime(dateTimePicker_TG_BD.Text);
+                DateTime EndTime = Convert.ToDateTime(dateTimePicker_TG_KT.Text);
+                if (tblot.Text.Substring(0, 2) == "S1")
                 {
-                    string sql = " Select Siemens_System_COAT_100_V1_FB_VALVE_DD_1_VALUE,"
-                        + "Siemens_System_COAT_100_V1_ACTIVE_PID_SAY_1_TIMESTAMP,"
-                        + "Siemens_System_COAT_100_V1_FB_VALVE_DD_2_VALUE,"
-                        + "Siemens_System_COAT_100_V1_FB_VALVE_DD_3_VALUE,"
-                        + "Siemens_System_COAT_100_V1_FB_VALVE_DD_NUOC_VALUE,"
-                        + "Siemens_System_COAT_100_V1_FB_VALVE_SUNG_VALUE,"
-                        + "Siemens_System_COAT_100_V1_FB_BOM_POLYMER_VALUE,"
-                        + "Siemens_System_COAT_100_V1_FB_FAN_VALUE,"
-                        + "Siemens_System_COAT_100_V1_NET_TANK_1_VALUE,"
-                        + "Siemens_System_COAT_100_V1_NET_TANK_2_VALUE,"
-                        + "Siemens_System_COAT_100_V1_NET_TANK_3_VALUE "
-                        + "FROM Coater03Resport "
-                        + "with (index(PK__Coater03__3213E83F5524E5D0)) "
-                        + "WHERE Siemens_System_COAT_100_V1_ACTIVE_PID_SAY_1_TIMESTAMP >= '" + StartTime + "' AND Siemens_System_COAT_100_V1_ACTIVE_PID_SAY_1_TIMESTAMP <= '" + EndTime + "'"
-                        + "ORDER by Siemens_System_COAT_100_V1_ACTIVE_PID_SAY_1_TIMESTAMP ASC ";
-                    SqlConnection connect = new SqlConnection(@"Data Source=192.168.23.219,1433;Initial Catalog=COATERS1_ResportDi_2023;User ID=sa;Password=rynan2020");
-                    SqlCommand cmd = new SqlCommand(sql, connect);
-                    cmd.CommandTimeout = 120;
-                    cmd.CommandType = CommandType.Text;
-                    SqlDataAdapter da = new SqlDataAdapter(cmd);
-                    DataTable dt = new DataTable();
-                    da.Fill(dt);
-                    int totalRows_1 = dt.Rows.Count;
-                    connect.Close();
-                    Boolean DD1, DD2, DD3, DD4, FAN, BOM, SUNG;
-                    for (int f = 0; f <= totalRows_1 - 1; f = f + 2)
+                    try
                     {
-                        try
+                        string sql = " Select Siemens_System_COAT_100_V1_FB_VALVE_DD_1_VALUE,"
+                            + "Siemens_System_COAT_100_V1_ACTIVE_PID_SAY_1_TIMESTAMP,"
+                            + "Siemens_System_COAT_100_V1_FB_VALVE_DD_2_VALUE,"
+                            + "Siemens_System_COAT_100_V1_FB_VALVE_DD_3_VALUE,"
+                            + "Siemens_System_COAT_100_V1_FB_VALVE_DD_NUOC_VALUE,"
+                            + "Siemens_System_COAT_100_V1_FB_VALVE_SUNG_VALUE,"
+                            + "Siemens_System_COAT_100_V1_FB_BOM_POLYMER_VALUE,"
+                            + "Siemens_System_COAT_100_V1_FB_FAN_VALUE,"
+                            + "Siemens_System_COAT_100_V1_NET_TANK_1_VALUE,"
+                            + "Siemens_System_COAT_100_V1_NET_TANK_2_VALUE,"
+                            + "Siemens_System_COAT_100_V1_NET_TANK_3_VALUE "
+                            + "FROM Coater03Resport "
+                            + "with (index(PK__Coater03__3213E83F5524E5D0)) "
+                            + "WHERE Siemens_System_COAT_100_V1_ACTIVE_PID_SAY_1_TIMESTAMP >= '" + StartTime + "' AND Siemens_System_COAT_100_V1_ACTIVE_PID_SAY_1_TIMESTAMP <= '" + EndTime + "'"
+                            + "ORDER by Siemens_System_COAT_100_V1_ACTIVE_PID_SAY_1_TIMESTAMP ASC ";
+                        SqlConnection connect = new SqlConnection(@"Data Source=192.168.23.219,1433;Initial Catalog=COATERS1_ResportDi_2023;User ID=sa;Password=rynan2020");
+                        SqlCommand cmd = new SqlCommand(sql, connect);
+                        cmd.CommandTimeout = 120;
+                        cmd.CommandType = CommandType.Text;
+                        SqlDataAdapter da = new SqlDataAdapter(cmd);
+                        DataTable dt = new DataTable();
+                        da.Fill(dt);
+                        int totalRows_1 = dt.Rows.Count;
+                        connect.Close();
+                        Boolean DD1, DD2, DD3, DD4, FAN, BOM, SUNG;
+                        for (int f = 0; f <= totalRows_1 - 1; f = f + 2)
                         {
-                            DD1 = Convert.ToBoolean(dt.Rows[f]["Siemens_System_COAT_100_V1_FB_VALVE_DD_1_VALUE"]);
-                            DD2 = Convert.ToBoolean(dt.Rows[f]["Siemens_System_COAT_100_V1_FB_VALVE_DD_2_VALUE"]);
-                            DD3 = Convert.ToBoolean(dt.Rows[f]["Siemens_System_COAT_100_V1_FB_VALVE_DD_3_VALUE"]);
-                            DD4 = Convert.ToBoolean(dt.Rows[f]["Siemens_System_COAT_100_V1_FB_VALVE_DD_NUOC_VALUE"]);
-                            FAN = Convert.ToBoolean(dt.Rows[f]["Siemens_System_COAT_100_V1_FB_FAN_VALUE"]);
-                            BOM = Convert.ToBoolean(dt.Rows[f]["Siemens_System_COAT_100_V1_FB_BOM_POLYMER_VALUE"]);
-                            SUNG = Convert.ToBoolean(dt.Rows[f]["Siemens_System_COAT_100_V1_FB_VALVE_SUNG_VALUE"]);
-                            if (FAN == true && BOM == true & SUNG == true && DD1 == false & DD2 == true && DD3 == true && DD4 == true && bit_tank1 == false)
+                            try
                             {
-                                TANK1_BD = Math.Round(Convert.ToDouble(dt.Rows[f]["Siemens_System_COAT_100_V1_NET_TANK_1_VALUE"]), 1);
-                                bit_tank1 = true;
+                                DD1 = Convert.ToBoolean(dt.Rows[f]["Siemens_System_COAT_100_V1_FB_VALVE_DD_1_VALUE"]);
+                                DD2 = Convert.ToBoolean(dt.Rows[f]["Siemens_System_COAT_100_V1_FB_VALVE_DD_2_VALUE"]);
+                                DD3 = Convert.ToBoolean(dt.Rows[f]["Siemens_System_COAT_100_V1_FB_VALVE_DD_3_VALUE"]);
+                                DD4 = Convert.ToBoolean(dt.Rows[f]["Siemens_System_COAT_100_V1_FB_VALVE_DD_NUOC_VALUE"]);
+                                FAN = Convert.ToBoolean(dt.Rows[f]["Siemens_System_COAT_100_V1_FB_FAN_VALUE"]);
+                                BOM = Convert.ToBoolean(dt.Rows[f]["Siemens_System_COAT_100_V1_FB_BOM_POLYMER_VALUE"]);
+                                SUNG = Convert.ToBoolean(dt.Rows[f]["Siemens_System_COAT_100_V1_FB_VALVE_SUNG_VALUE"]);
+                                if (FAN == true && BOM == true & SUNG == true && DD1 == false & DD2 == true && DD3 == true && DD4 == true && bit_tank1 == false)
+                                {
+                                    TANK1_BD = Math.Round(Convert.ToDouble(dt.Rows[f]["Siemens_System_COAT_100_V1_NET_TANK_1_VALUE"]), 1);
+                                    bit_tank1 = true;
+                                }
+                                if (FAN == true && BOM == true & SUNG == true && DD1 == true & DD2 == false && DD3 == true && DD4 == true && bit_tank2 == false)
+                                {
+                                    TANK1_KT = Math.Round(Convert.ToDouble(dt.Rows[f]["Siemens_System_COAT_100_V1_NET_TANK_1_VALUE"]), 1);
+                                    TANK2_BD = Math.Round(Convert.ToDouble(dt.Rows[f]["Siemens_System_COAT_100_V1_NET_TANK_2_VALUE"]), 1);
+                                    bit_tank2 = true;
+                                }
+                                if (FAN == true && BOM == true & SUNG == true && DD1 == true & DD2 == true && DD3 == false && DD4 == true && bit_tank3 == false)
+                                {
+                                    TANK2_KT = Math.Round(Convert.ToDouble(dt.Rows[f]["Siemens_System_COAT_100_V1_NET_TANK_2_VALUE"]), 1);
+                                    TANK3_BD = Math.Round(Convert.ToDouble(dt.Rows[f]["Siemens_System_COAT_100_V1_NET_TANK_3_VALUE"]), 1);
+                                    bit_tank3 = true;
+                                }
+                                if (FAN == true && BOM == true & SUNG == true && DD1 == true & DD2 == true && DD3 == true && DD4 == false && bit_tank4 == false)
+                                {
+                                    TANK3_KT = Math.Round(Convert.ToDouble(dt.Rows[f]["Siemens_System_COAT_100_V1_NET_TANK_3_VALUE"]), 1);
+                                    bit_tank4 = true;
+                                }
                             }
-                            if (FAN == true && BOM == true & SUNG == true && DD1 == true & DD2 == false && DD3 == true && DD4 == true && bit_tank2 == false)
+                            catch (Exception ex)
                             {
-                                TANK1_KT = Math.Round(Convert.ToDouble(dt.Rows[f]["Siemens_System_COAT_100_V1_NET_TANK_1_VALUE"]), 1);
-                                TANK2_BD = Math.Round(Convert.ToDouble(dt.Rows[f]["Siemens_System_COAT_100_V1_NET_TANK_2_VALUE"]), 1);
-                                bit_tank2 = true;
-                            }
-                            if (FAN == true && BOM == true & SUNG == true && DD1 == true & DD2 == true && DD3 == false && DD4 == true && bit_tank3 == false)
-                            {
-                                TANK2_KT = Math.Round(Convert.ToDouble(dt.Rows[f]["Siemens_System_COAT_100_V1_NET_TANK_2_VALUE"]), 1);
-                                TANK3_BD = Math.Round(Convert.ToDouble(dt.Rows[f]["Siemens_System_COAT_100_V1_NET_TANK_3_VALUE"]), 1);
-                                bit_tank3 = true;
-                            }
-                            if (FAN == true && BOM == true & SUNG == true && DD1 == true & DD2 == true && DD3 == true && DD4 == false && bit_tank4 == false)
-                            {
-                                TANK3_KT = Math.Round(Convert.ToDouble(dt.Rows[f]["Siemens_System_COAT_100_V1_NET_TANK_3_VALUE"]), 1);
-                                bit_tank4 = true;
+                                MessageBox.Show(ex.Message);
                             }
                         }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show(ex.Message);
-                        }
-
+                        dataGridView1.Rows.Add("N1", TANK1_BD, TANK1_KT, TANK1_BD - TANK1_KT);
+                        dataGridView1.Rows.Add("N2", TANK2_BD, TANK2_KT, TANK2_BD - TANK2_KT);
+                        dataGridView1.Rows.Add("N3", TANK3_BD, TANK3_KT, TANK3_BD - TANK3_KT);
+                        bit_tank1 = false;
+                        bit_tank2 = false;
+                        bit_tank3 = false;
+                        bit_tank4 = false;
                     }
-                    dataGridView1.Rows.Add("N1", TANK1_BD, TANK1_KT, TANK1_BD - TANK1_KT);
-                    dataGridView1.Rows.Add("N2", TANK2_BD, TANK2_KT, TANK2_BD - TANK2_KT);
-                    dataGridView1.Rows.Add("N3", TANK3_BD, TANK3_KT, TANK3_BD - TANK3_KT);
-                    bit_tank1 = false;
-                    bit_tank2 = false;
-                    bit_tank3 = false;
-                    bit_tank4 = false;
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
                 }
-                catch(Exception ex)
+                if (tblot.Text.Substring(0, 2) == "02")
                 {
-                    MessageBox.Show(ex.Message);
+
                 }
             }
-            if (tblot.Text.Substring(0, 2) == "02")
-            {
-
-            }
+        }
+        public void load_time()
+        {
+            SqlConnection sqlcon = new SqlConnection(@"Data Source=192.168.23.219,1433;Initial Catalog=QL_SX;User ID=sa;Password=rynan2020");
+            sqlcon.Open();
+            SqlCommand cmd = new SqlCommand();
+            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter();
+            cmd = sqlcon.CreateCommand();
+            cmd.CommandText = "Select TG_BD,TG_KT from DataSX_RSF WHERE SO_LOT = '" + tblot.Text + "'";
+            sqlDataAdapter.SelectCommand = cmd;
+            DataTable dt_a = new DataTable();
+            dt_a.Clear();
+            sqlDataAdapter.Fill(dt_a);
+            sqlcon.Close();
+            DataRow[] row = dt_a.Select();
+            dateTimePicker_TG_BD.Text = row[0]["TG_BD"].ToString();
+            dateTimePicker_TG_KT.Text = row[0]["TG_KT"].ToString();
         }
     }
 }
