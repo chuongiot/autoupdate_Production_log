@@ -1851,7 +1851,6 @@ namespace NhatKySanXuat
             // 
             this.panel8.BackColor = System.Drawing.Color.Azure;
             this.panel8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel8.Controls.Add(this.dataGridView1);
             this.panel8.Controls.Add(this.tb_ngay140);
             this.panel8.Controls.Add(this.tb_thoigianondinh);
             this.panel8.Controls.Add(this.tb_ngay126);
@@ -1888,6 +1887,7 @@ namespace NhatKySanXuat
             this.panel8.Controls.Add(this.label115);
             this.panel8.Controls.Add(this.label114);
             this.panel8.Controls.Add(this.label113);
+            this.panel8.Controls.Add(this.dataGridView1);
             this.panel8.Location = new System.Drawing.Point(3, 311);
             this.panel8.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel8.Name = "panel8";
@@ -2371,58 +2371,64 @@ namespace NhatKySanXuat
             // 
             this.label43.AutoSize = true;
             this.label43.BackColor = System.Drawing.Color.Transparent;
-            this.label43.Location = new System.Drawing.Point(709, 398);
+            this.label43.Location = new System.Drawing.Point(797, 377);
             this.label43.Name = "label43";
             this.label43.Size = new System.Drawing.Size(69, 13);
             this.label43.TabIndex = 488;
             this.label43.Text = "N1-157M(kg)";
+            this.label43.Visible = false;
             // 
             // label47
             // 
             this.label47.AutoSize = true;
             this.label47.BackColor = System.Drawing.Color.Transparent;
-            this.label47.Location = new System.Drawing.Point(709, 419);
+            this.label47.Location = new System.Drawing.Point(797, 398);
             this.label47.Name = "label47";
             this.label47.Size = new System.Drawing.Size(63, 13);
             this.label47.TabIndex = 487;
             this.label47.Text = "N2-21M(kg)";
+            this.label47.Visible = false;
             // 
             // label49
             // 
             this.label49.AutoSize = true;
             this.label49.BackColor = System.Drawing.Color.Transparent;
-            this.label49.Location = new System.Drawing.Point(709, 442);
+            this.label49.Location = new System.Drawing.Point(797, 421);
             this.label49.Name = "label49";
             this.label49.Size = new System.Drawing.Size(69, 13);
             this.label49.TabIndex = 486;
             this.label49.Text = "N3-190M(kg)";
+            this.label49.Visible = false;
             // 
             // tbN2_pro
             // 
-            this.tbN2_pro.Location = new System.Drawing.Point(800, 416);
+            this.tbN2_pro.Location = new System.Drawing.Point(888, 395);
             this.tbN2_pro.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbN2_pro.MaxLength = 10;
             this.tbN2_pro.Name = "tbN2_pro";
             this.tbN2_pro.Size = new System.Drawing.Size(73, 20);
             this.tbN2_pro.TabIndex = 490;
+            this.tbN2_pro.Visible = false;
             // 
             // tbN3_pro
             // 
-            this.tbN3_pro.Location = new System.Drawing.Point(800, 437);
+            this.tbN3_pro.Location = new System.Drawing.Point(888, 416);
             this.tbN3_pro.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbN3_pro.MaxLength = 10;
             this.tbN3_pro.Name = "tbN3_pro";
             this.tbN3_pro.Size = new System.Drawing.Size(73, 20);
             this.tbN3_pro.TabIndex = 491;
+            this.tbN3_pro.Visible = false;
             // 
             // tbN1_pro
             // 
-            this.tbN1_pro.Location = new System.Drawing.Point(800, 395);
+            this.tbN1_pro.Location = new System.Drawing.Point(888, 374);
             this.tbN1_pro.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbN1_pro.MaxLength = 10;
             this.tbN1_pro.Name = "tbN1_pro";
             this.tbN1_pro.Size = new System.Drawing.Size(73, 20);
             this.tbN1_pro.TabIndex = 489;
+            this.tbN1_pro.Visible = false;
             // 
             // buttonsave
             // 
@@ -2509,7 +2515,7 @@ namespace NhatKySanXuat
             this.Column3,
             this.Column4});
             this.dataGridView1.EnableHeadersVisualStyles = false;
-            this.dataGridView1.Location = new System.Drawing.Point(343, 19);
+            this.dataGridView1.Location = new System.Drawing.Point(343, 21);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
@@ -2521,7 +2527,7 @@ namespace NhatKySanXuat
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.dataGridView1.Size = new System.Drawing.Size(324, 126);
+            this.dataGridView1.Size = new System.Drawing.Size(324, 123);
             this.dataGridView1.TabIndex = 497;
             // 
             // Column1
@@ -2558,24 +2564,24 @@ namespace NhatKySanXuat
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.ClientSize = new System.Drawing.Size(1225, 463);
+            this.ClientSize = new System.Drawing.Size(1226, 462);
             this.Controls.Add(this.dateTimePicker_TG_KT);
             this.Controls.Add(this.label57);
             this.Controls.Add(this.dateTimePicker_TG_BD);
+            this.Controls.Add(this.label43);
             this.Controls.Add(this.label53);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.label43);
             this.Controls.Add(this.label47);
-            this.Controls.Add(this.label49);
-            this.Controls.Add(this.tbN2_pro);
-            this.Controls.Add(this.tbN3_pro);
-            this.Controls.Add(this.tbN1_pro);
             this.Controls.Add(this.label20);
             this.Controls.Add(this.label9);
+            this.Controls.Add(this.label49);
             this.Controls.Add(this.comboBox_nvl_2);
             this.Controls.Add(this.comboBox_nvl_1);
+            this.Controls.Add(this.tbN2_pro);
+            this.Controls.Add(this.tbN3_pro);
             this.Controls.Add(this.textBox_lot_nvl_2);
             this.Controls.Add(this.textBox_barcode_nvl_2);
+            this.Controls.Add(this.tbN1_pro);
             this.Controls.Add(this.textBox_kl_nvl_2);
             this.Controls.Add(this.textBox_lot_nvl_1);
             this.Controls.Add(this.textBox_barcode_nvl_1);
