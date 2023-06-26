@@ -29,18 +29,16 @@ namespace NhatKySanXuat
         {
             load_data(tblot.Text);
             loadcbb_LOT();
-            Load_data_polymer_pro();
-            //load_data_polymer_sd();
             //load_data_polymer_use();
             dataGridView1.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridView1.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
             dataGridView1.ColumnHeadersDefaultCellStyle.BackColor = Color.LightGray;
             dataGridView1.ColumnHeadersDefaultCellStyle.ForeColor = Color.Black;
-            ThreadStart threadStart = new ThreadStart(load_data_polymer_use);
-            Thread thread = new Thread(threadStart);
-            thread.Start();
-            thread.IsBackground = true;
-            pnloading.Visible = true;
+            //ThreadStart threadStart = new ThreadStart(load_data_polymer_use);
+            //Thread thread = new Thread(threadStart);
+            //thread.Start();
+            //thread.IsBackground = true;
+            //pnloading.Visible = true;
         }
         public void insert_data()
         {
@@ -994,8 +992,6 @@ namespace NhatKySanXuat
         private void tblot_SelectedValueChanged(object sender, EventArgs e)
         {
             load_data(tblot.Text);
-            //Load_data_polymer_pro();
-            //load_data_polymer_sd();
             ThreadStart threadStart = new ThreadStart(load_data_polymer_use);
             Thread thread = new Thread(threadStart);
             thread.Start();
@@ -1178,6 +1174,17 @@ namespace NhatKySanXuat
         }
         Double TANK1_BD, TANK1_KT, TANK2_BD, TANK2_KT, TANK3_BD, TANK3_KT;
         Boolean bit_tank1, bit_tank2, bit_tank3, bit_tank4;
+
+        private void load_polymer_Click(object sender, EventArgs e)
+        {
+            button_load_polymer.Enabled = false;
+            ThreadStart threadStart = new ThreadStart(load_data_polymer_use);
+            Thread thread = new Thread(threadStart);
+            thread.Start();
+            thread.IsBackground = true;
+            pnloading.Visible = true;
+        }
+
         Double TANK1_BD_02, TANK1_KT_02, TANK2_BD_02, TANK2_KT_02, TANK3_BD_02, TANK3_KT_02;
         Boolean bit_tank1_02, bit_tank2_02, bit_tank3_02, bit_tank4_02;
         string sqlcon, sql;
@@ -1300,9 +1307,9 @@ namespace NhatKySanXuat
                                 MessageBox.Show(ex.Message);
                             }
                         }
-                        dataGridView1.Rows.Add("N1", TANK1_BD, TANK1_KT, TANK1_BD - TANK1_KT);
-                        dataGridView1.Rows.Add("N2", TANK2_BD, TANK2_KT, TANK2_BD - TANK2_KT);
-                        dataGridView1.Rows.Add("N3", TANK3_BD, TANK3_KT, TANK3_BD - TANK3_KT);
+                        dataGridView1.Rows.Add("N1-157", TANK1_BD, TANK1_KT, TANK1_BD - TANK1_KT);
+                        dataGridView1.Rows.Add("N2-21", TANK2_BD, TANK2_KT, TANK2_BD - TANK2_KT);
+                        dataGridView1.Rows.Add("N3-190", TANK3_BD, TANK3_KT, TANK3_BD - TANK3_KT);
                         bit_tank1 = false;
                         bit_tank2 = false;
                         bit_tank3 = false;
@@ -1402,9 +1409,9 @@ namespace NhatKySanXuat
                                 MessageBox.Show(ex.Message);
                             }
                         }
-                        dataGridView1.Rows.Add("N1", TANK1_BD_02, TANK1_KT_02, TANK1_BD_02 - TANK1_KT_02);
-                        dataGridView1.Rows.Add("N2", TANK2_BD_02, TANK2_KT_02, TANK2_BD_02 - TANK2_KT_02);
-                        dataGridView1.Rows.Add("N3", TANK3_BD_02, TANK3_KT_02, TANK3_BD_02 - TANK3_KT_02);
+                        dataGridView1.Rows.Add("N1-157", TANK1_BD_02, TANK1_KT_02, TANK1_BD_02 - TANK1_KT_02);
+                        dataGridView1.Rows.Add("N2-21", TANK2_BD_02, TANK2_KT_02, TANK2_BD_02 - TANK2_KT_02);
+                        dataGridView1.Rows.Add("N3-190", TANK3_BD_02, TANK3_KT_02, TANK3_BD_02 - TANK3_KT_02);
                         bit_tank1_02 = false;
                         bit_tank2_02 = false;
                         bit_tank3_02 = false;
@@ -1417,6 +1424,7 @@ namespace NhatKySanXuat
                 }
             }
             pnloading.Visible = false;
+            button_load_polymer.Enabled = true;
         }
         public void load_time()
         {

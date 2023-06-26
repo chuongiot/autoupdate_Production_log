@@ -29,8 +29,8 @@ namespace NhatKySanXuat
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form3));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tbngay_release = new System.Windows.Forms.TextBox();
             this.cbbnguoinhap = new System.Windows.Forms.ComboBox();
             this.cbmaBTP = new System.Windows.Forms.ComboBox();
@@ -243,7 +243,6 @@ namespace NhatKySanXuat
             this.tbN2_pro = new System.Windows.Forms.TextBox();
             this.tbN3_pro = new System.Windows.Forms.TextBox();
             this.tbN1_pro = new System.Windows.Forms.TextBox();
-            this.buttonsave = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.dateTimePicker_TG_BD = new System.Windows.Forms.DateTimePicker();
             this.label53 = new System.Windows.Forms.Label();
@@ -256,13 +255,15 @@ namespace NhatKySanXuat
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pnloading = new System.Windows.Forms.Panel();
             this.label86 = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.buttonsave = new System.Windows.Forms.Button();
+            this.button_load_polymer = new System.Windows.Forms.Button();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.pnloading.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // tbngay_release
@@ -1858,6 +1859,7 @@ namespace NhatKySanXuat
             // 
             this.panel8.BackColor = System.Drawing.Color.Azure;
             this.panel8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel8.Controls.Add(this.button_load_polymer);
             this.panel8.Controls.Add(this.pnloading);
             this.panel8.Controls.Add(this.tb_ngay140);
             this.panel8.Controls.Add(this.tb_thoigianondinh);
@@ -1930,7 +1932,7 @@ namespace NhatKySanXuat
             // 
             this.label95.AutoSize = true;
             this.label95.BackColor = System.Drawing.Color.SkyBlue;
-            this.label95.Location = new System.Drawing.Point(113, 1);
+            this.label95.Location = new System.Drawing.Point(109, 1);
             this.label95.Name = "label95";
             this.label95.Size = new System.Drawing.Size(119, 13);
             this.label95.TabIndex = 262;
@@ -2369,7 +2371,7 @@ namespace NhatKySanXuat
             // 
             this.label33.AutoSize = true;
             this.label33.BackColor = System.Drawing.Color.SkyBlue;
-            this.label33.Location = new System.Drawing.Point(428, 3);
+            this.label33.Location = new System.Drawing.Point(428, 1);
             this.label33.Name = "label33";
             this.label33.Size = new System.Drawing.Size(145, 13);
             this.label33.TabIndex = 484;
@@ -2437,22 +2439,6 @@ namespace NhatKySanXuat
             this.tbN1_pro.Size = new System.Drawing.Size(73, 20);
             this.tbN1_pro.TabIndex = 489;
             this.tbN1_pro.Visible = false;
-            // 
-            // buttonsave
-            // 
-            this.buttonsave.BackColor = System.Drawing.Color.SkyBlue;
-            this.buttonsave.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonsave.Image = ((System.Drawing.Image)(resources.GetObject("buttonsave.Image")));
-            this.buttonsave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonsave.Location = new System.Drawing.Point(1133, 416);
-            this.buttonsave.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.buttonsave.Name = "buttonsave";
-            this.buttonsave.Size = new System.Drawing.Size(91, 49);
-            this.buttonsave.TabIndex = 110;
-            this.buttonsave.Text = "Lưu";
-            this.buttonsave.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.buttonsave.UseVisualStyleBackColor = false;
-            this.buttonsave.Click += new System.EventHandler(this.buttonsave_Click);
             // 
             // label1
             // 
@@ -2523,19 +2509,19 @@ namespace NhatKySanXuat
             this.Column3,
             this.Column4});
             this.dataGridView1.EnableHeadersVisualStyles = false;
-            this.dataGridView1.Location = new System.Drawing.Point(340, 29);
+            this.dataGridView1.Location = new System.Drawing.Point(340, 34);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.ButtonFace;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            this.dataGridView1.Size = new System.Drawing.Size(324, 101);
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.ButtonFace;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.dataGridView1.Size = new System.Drawing.Size(324, 98);
             this.dataGridView1.TabIndex = 497;
             // 
             // Column1
@@ -2572,10 +2558,10 @@ namespace NhatKySanXuat
             this.pnloading.Controls.Add(this.pictureBox2);
             this.pnloading.Controls.Add(this.label86);
             this.pnloading.Controls.Add(this.pictureBox1);
-            this.pnloading.Location = new System.Drawing.Point(340, 61);
+            this.pnloading.Location = new System.Drawing.Point(340, 66);
             this.pnloading.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pnloading.Name = "pnloading";
-            this.pnloading.Size = new System.Drawing.Size(324, 69);
+            this.pnloading.Size = new System.Drawing.Size(324, 66);
             this.pnloading.TabIndex = 497;
             this.pnloading.Visible = false;
             // 
@@ -2591,6 +2577,44 @@ namespace NhatKySanXuat
             this.label86.TabIndex = 167;
             this.label86.Text = "Loading...";
             // 
+            // buttonsave
+            // 
+            this.buttonsave.BackColor = System.Drawing.Color.SkyBlue;
+            this.buttonsave.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonsave.Image = ((System.Drawing.Image)(resources.GetObject("buttonsave.Image")));
+            this.buttonsave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonsave.Location = new System.Drawing.Point(1133, 416);
+            this.buttonsave.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.buttonsave.Name = "buttonsave";
+            this.buttonsave.Size = new System.Drawing.Size(91, 49);
+            this.buttonsave.TabIndex = 110;
+            this.buttonsave.Text = "Lưu";
+            this.buttonsave.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.buttonsave.UseVisualStyleBackColor = false;
+            this.buttonsave.Click += new System.EventHandler(this.buttonsave_Click);
+            // 
+            // button_load_polymer
+            // 
+            this.button_load_polymer.Image = global::NhatKySanXuat.Properties.Resources.icons8_cycle_16;
+            this.button_load_polymer.Location = new System.Drawing.Point(347, 39);
+            this.button_load_polymer.Name = "button_load_polymer";
+            this.button_load_polymer.Size = new System.Drawing.Size(28, 23);
+            this.button_load_polymer.TabIndex = 498;
+            this.button_load_polymer.UseVisualStyleBackColor = true;
+            this.button_load_polymer.Click += new System.EventHandler(this.load_polymer_Click);
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox2.Image = global::NhatKySanXuat.Properties.Resources.loading;
+            this.pictureBox2.Location = new System.Drawing.Point(133, 3);
+            this.pictureBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(73, 61);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox2.TabIndex = 168;
+            this.pictureBox2.TabStop = false;
+            // 
             // pictureBox1
             // 
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
@@ -2602,18 +2626,6 @@ namespace NhatKySanXuat
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 166;
             this.pictureBox1.TabStop = false;
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox2.Image = global::NhatKySanXuat.Properties.Resources.loading;
-            this.pictureBox2.Location = new System.Drawing.Point(133, 3);
-            this.pictureBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(73, 63);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox2.TabIndex = 168;
-            this.pictureBox2.TabStop = false;
             // 
             // Form3
             // 
@@ -2817,8 +2829,8 @@ namespace NhatKySanXuat
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.pnloading.ResumeLayout(false);
             this.pnloading.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -3053,5 +3065,6 @@ namespace NhatKySanXuat
         private System.Windows.Forms.Label label86;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.Button button_load_polymer;
     }
 }
