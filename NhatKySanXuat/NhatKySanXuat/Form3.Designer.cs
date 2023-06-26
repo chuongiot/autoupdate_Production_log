@@ -30,7 +30,7 @@ namespace NhatKySanXuat
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form3));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tbngay_release = new System.Windows.Forms.TextBox();
             this.cbbnguoinhap = new System.Windows.Forms.ComboBox();
             this.cbmaBTP = new System.Windows.Forms.ComboBox();
@@ -254,8 +254,15 @@ namespace NhatKySanXuat
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pnloading = new System.Windows.Forms.Panel();
+            this.label86 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.panel8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.pnloading.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // tbngay_release
@@ -386,10 +393,10 @@ namespace NhatKySanXuat
             this.dateTimePickerngaysx.CalendarMonthBackground = System.Drawing.SystemColors.Info;
             this.dateTimePickerngaysx.Cursor = System.Windows.Forms.Cursors.Default;
             this.dateTimePickerngaysx.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePickerngaysx.Location = new System.Drawing.Point(90, 72);
+            this.dateTimePickerngaysx.Location = new System.Drawing.Point(92, 72);
             this.dateTimePickerngaysx.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dateTimePickerngaysx.Name = "dateTimePickerngaysx";
-            this.dateTimePickerngaysx.Size = new System.Drawing.Size(117, 20);
+            this.dateTimePickerngaysx.Size = new System.Drawing.Size(115, 20);
             this.dateTimePickerngaysx.TabIndex = 4;
             // 
             // label55
@@ -1851,6 +1858,7 @@ namespace NhatKySanXuat
             // 
             this.panel8.BackColor = System.Drawing.Color.Azure;
             this.panel8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel8.Controls.Add(this.pnloading);
             this.panel8.Controls.Add(this.tb_ngay140);
             this.panel8.Controls.Add(this.tb_thoigianondinh);
             this.panel8.Controls.Add(this.tb_ngay126);
@@ -1896,7 +1904,7 @@ namespace NhatKySanXuat
             // 
             // tb_ngay140
             // 
-            this.tb_ngay140.Location = new System.Drawing.Point(282, 45);
+            this.tb_ngay140.Location = new System.Drawing.Point(284, 44);
             this.tb_ngay140.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_ngay140.Name = "tb_ngay140";
             this.tb_ngay140.Size = new System.Drawing.Size(43, 20);
@@ -1912,7 +1920,7 @@ namespace NhatKySanXuat
             // 
             // tb_ngay126
             // 
-            this.tb_ngay126.Location = new System.Drawing.Point(282, 21);
+            this.tb_ngay126.Location = new System.Drawing.Point(284, 20);
             this.tb_ngay126.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_ngay126.Name = "tb_ngay126";
             this.tb_ngay126.Size = new System.Drawing.Size(43, 20);
@@ -1972,7 +1980,7 @@ namespace NhatKySanXuat
             // label128
             // 
             this.label128.AutoSize = true;
-            this.label128.Location = new System.Drawing.Point(246, 51);
+            this.label128.Location = new System.Drawing.Point(248, 50);
             this.label128.Name = "label128";
             this.label128.Size = new System.Drawing.Size(37, 13);
             this.label128.TabIndex = 14;
@@ -2040,7 +2048,7 @@ namespace NhatKySanXuat
             // label124
             // 
             this.label124.AutoSize = true;
-            this.label124.Location = new System.Drawing.Point(244, 23);
+            this.label124.Location = new System.Drawing.Point(246, 22);
             this.label124.Name = "label124";
             this.label124.Size = new System.Drawing.Size(37, 13);
             this.label124.TabIndex = 11;
@@ -2361,7 +2369,7 @@ namespace NhatKySanXuat
             // 
             this.label33.AutoSize = true;
             this.label33.BackColor = System.Drawing.Color.SkyBlue;
-            this.label33.Location = new System.Drawing.Point(444, 3);
+            this.label33.Location = new System.Drawing.Point(428, 3);
             this.label33.Name = "label33";
             this.label33.Size = new System.Drawing.Size(145, 13);
             this.label33.TabIndex = 484;
@@ -2463,10 +2471,10 @@ namespace NhatKySanXuat
             this.dateTimePicker_TG_BD.Cursor = System.Windows.Forms.Cursors.Default;
             this.dateTimePicker_TG_BD.CustomFormat = "yyyy/MM/dd HH:mm";
             this.dateTimePicker_TG_BD.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker_TG_BD.Location = new System.Drawing.Point(78, 93);
+            this.dateTimePicker_TG_BD.Location = new System.Drawing.Point(80, 93);
             this.dateTimePicker_TG_BD.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dateTimePicker_TG_BD.Name = "dateTimePicker_TG_BD";
-            this.dateTimePicker_TG_BD.Size = new System.Drawing.Size(129, 20);
+            this.dateTimePicker_TG_BD.Size = new System.Drawing.Size(127, 20);
             this.dateTimePicker_TG_BD.TabIndex = 5;
             // 
             // label53
@@ -2486,10 +2494,10 @@ namespace NhatKySanXuat
             this.dateTimePicker_TG_KT.Cursor = System.Windows.Forms.Cursors.Default;
             this.dateTimePicker_TG_KT.CustomFormat = "yyyy/MM/dd HH:mm";
             this.dateTimePicker_TG_KT.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker_TG_KT.Location = new System.Drawing.Point(78, 114);
+            this.dateTimePicker_TG_KT.Location = new System.Drawing.Point(80, 114);
             this.dateTimePicker_TG_KT.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dateTimePicker_TG_KT.Name = "dateTimePicker_TG_KT";
-            this.dateTimePicker_TG_KT.Size = new System.Drawing.Size(129, 20);
+            this.dateTimePicker_TG_KT.Size = new System.Drawing.Size(127, 20);
             this.dateTimePicker_TG_KT.TabIndex = 6;
             // 
             // label57
@@ -2515,19 +2523,19 @@ namespace NhatKySanXuat
             this.Column3,
             this.Column4});
             this.dataGridView1.EnableHeadersVisualStyles = false;
-            this.dataGridView1.Location = new System.Drawing.Point(343, 21);
+            this.dataGridView1.Location = new System.Drawing.Point(340, 29);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.ButtonFace;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.dataGridView1.Size = new System.Drawing.Size(324, 123);
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.ButtonFace;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            this.dataGridView1.Size = new System.Drawing.Size(324, 101);
             this.dataGridView1.TabIndex = 497;
             // 
             // Column1
@@ -2557,6 +2565,55 @@ namespace NhatKySanXuat
             this.Column4.Name = "Column4";
             this.Column4.ReadOnly = true;
             this.Column4.Width = 70;
+            // 
+            // pnloading
+            // 
+            this.pnloading.BackColor = System.Drawing.Color.White;
+            this.pnloading.Controls.Add(this.pictureBox2);
+            this.pnloading.Controls.Add(this.label86);
+            this.pnloading.Controls.Add(this.pictureBox1);
+            this.pnloading.Location = new System.Drawing.Point(340, 61);
+            this.pnloading.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.pnloading.Name = "pnloading";
+            this.pnloading.Size = new System.Drawing.Size(324, 69);
+            this.pnloading.TabIndex = 497;
+            this.pnloading.Visible = false;
+            // 
+            // label86
+            // 
+            this.label86.AutoSize = true;
+            this.label86.BackColor = System.Drawing.Color.White;
+            this.label86.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label86.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label86.Location = new System.Drawing.Point(954, 458);
+            this.label86.Name = "label86";
+            this.label86.Size = new System.Drawing.Size(80, 22);
+            this.label86.TabIndex = 167;
+            this.label86.Text = "Loading...";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox1.Image = global::NhatKySanXuat.Properties.Resources.loading;
+            this.pictureBox1.Location = new System.Drawing.Point(923, 369);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(137, 123);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 166;
+            this.pictureBox1.TabStop = false;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox2.Image = global::NhatKySanXuat.Properties.Resources.loading;
+            this.pictureBox2.Location = new System.Drawing.Point(133, 3);
+            this.pictureBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(73, 63);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox2.TabIndex = 168;
+            this.pictureBox2.TabStop = false;
             // 
             // Form3
             // 
@@ -2758,6 +2815,10 @@ namespace NhatKySanXuat
             this.panel8.ResumeLayout(false);
             this.panel8.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.pnloading.ResumeLayout(false);
+            this.pnloading.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2988,5 +3049,9 @@ namespace NhatKySanXuat
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
+        private System.Windows.Forms.Panel pnloading;
+        private System.Windows.Forms.Label label86;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pictureBox2;
     }
 }
