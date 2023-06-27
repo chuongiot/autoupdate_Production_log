@@ -14,7 +14,6 @@ using System.IO;
 using System.Threading;
 using System.Runtime.InteropServices;
 using System.Data.OleDb;
-
 namespace NhatKySanXuat
 {
     public partial class Form3 : Form
@@ -29,16 +28,10 @@ namespace NhatKySanXuat
         {
             load_data(tblot.Text);
             loadcbb_LOT();
-            //load_data_polymer_use();
             dataGridView1.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridView1.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
             dataGridView1.ColumnHeadersDefaultCellStyle.BackColor = Color.LightGray;
             dataGridView1.ColumnHeadersDefaultCellStyle.ForeColor = Color.Black;
-            //ThreadStart threadStart = new ThreadStart(load_data_polymer_use);
-            //Thread thread = new Thread(threadStart);
-            //thread.Start();
-            //thread.IsBackground = true;
-            //pnloading.Visible = true;
         }
         public void insert_data()
         {
@@ -126,6 +119,22 @@ namespace NhatKySanXuat
                 string N3_3_lot = tb_n3_3_lot.Text;
 
 
+                string N1_BD = "0";
+                string N1_KT = "0";
+                string N2_BD = "0";
+                string N2_KT = "0";
+                string N3_BD = "0";
+                string N3_KT = "0";
+                if (dataGridView1.Rows.Count > 0)
+                {
+                    N1_BD = dataGridView1.Rows[0].Cells[1].Value.ToString();
+                    N1_KT = dataGridView1.Rows[0].Cells[2].Value.ToString();
+                    N2_BD = dataGridView1.Rows[1].Cells[1].Value.ToString();
+                    N2_KT = dataGridView1.Rows[1].Cells[2].Value.ToString();
+                    N3_BD = dataGridView1.Rows[2].Cells[1].Value.ToString();
+                    N3_KT = dataGridView1.Rows[2].Cells[2].Value.ToString();
+                }
+
                 string GA3 = tbga3.Text;
                 string GA3_barcode = tbbarcodeGA3.Text;
                 string Borax = tbborax.Text;
@@ -198,7 +207,7 @@ namespace NhatKySanXuat
                         "N1_2_lot,N1_3_lot,N2_1,N2_2,N2_1_barcode,N2_2_barcode,N2_1_lot,N2_2_lot,N3_1,N3_1_barcode,N3_1_lot,N1_4,N1_4_barcode," +
                         "N1_4_lot,N2_3,N2_3_barcode,N2_3_lot,N3_2,N3_2_barcode,N3_2_lot,N3_3,N3_3_barcode,N3_3_lot,thoigian_ondinh,do_am,coating_layer," +
                         "ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140,NVL_1," +
-                        "barcode_NVL_1,lot_NVL_1,NVL_2,barcode_NVL_2,lot_NVL_2,KL_NVL_1,KL_NVL_2)" +
+                        "barcode_NVL_1,lot_NVL_1,NVL_2,barcode_NVL_2,lot_NVL_2,KL_NVL_1,KL_NVL_2,N1_BD,N1_KT,N2_BD,N2_KT,N3_BD,N3_KT)" +
                         "values (N'" + Nguoi_nhap + "','" + Dotsx + "','" + Ngaysx + "','" + Thietbi + "','" + Mabtp + "','" + Tenbtp + "','" + Me + "','" + LOT + "','" + Tocdo_release + "'," +
                         "'" + Ngayrelease + "','" + Loai + "','" + Tongklsp_thuduoc + "','" + Kldongkhoi + "','" + Khongdongkhoi + "','" + Kl_lythuyet + "','" + Hieusuatthu + "'," +
                         "'" + Hieusuatrelease + "','" + Thoigiancb + "','" + Thoigiansx + "','" + Phanbon_nvl + "','" + KL_phan_nvl + "','" + Barcode_nvl + "','" + LOT_nvl + "'," +
@@ -214,7 +223,7 @@ namespace NhatKySanXuat
                         "'" + N3_3_kl + "','" + N3_3_code + "','" + N3_3_lot + "','" + thoi_gian + "','" + do_am + "','" + coating + "','" + ngay_0 + "','" + ngay_7 + "','" + ngay_14 + "'," +
                         "'" + ngay_21 + "','" + ngay_28 + "','" + ngay_42 + "','" + ngay_49 + "','" + ngay_56 + "','" + ngay_70 + "','" + ngay_84 + "','" + ngay_98 + "'," +
                         "'" + ngay_112 + "','" + ngay_126 + "','" + ngay_140 + "','" + phan_nvl1 + "','" + barcode_nvl1 + "','" + lot_nvl1 + "','" + phan_nvl2 + "','" + barcode_nvl2 + "','" + lot_nvl2 + "'," +
-                        "'" + kl_nvl_1 + "','" + kl_nvl_2 + "')";
+                        "'" + kl_nvl_1 + "','" + kl_nvl_2 + "','" + N1_BD + "','" + N1_KT + "','" + N2_BD + "','" + N2_KT + "','" + N3_BD + "','" + N3_KT + "')";
                     command.ExecuteNonQuery();
                     MessageBox.Show("Thêm Thành Công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     insert_blogtruycap("Đã thêm LOT : " + tblot.Text);
@@ -234,6 +243,21 @@ namespace NhatKySanXuat
             }
             else
             {
+                string N1_BD = "0";
+                string N1_KT = "0";
+                string N2_BD = "0";
+                string N2_KT = "0";
+                string N3_BD = "0";
+                string N3_KT = "0";
+                if (dataGridView1.Rows.Count > 0)
+                {
+                    N1_BD = dataGridView1.Rows[0].Cells[1].Value.ToString();
+                    N1_KT = dataGridView1.Rows[0].Cells[2].Value.ToString();
+                    N2_BD = dataGridView1.Rows[1].Cells[1].Value.ToString();
+                    N2_KT = dataGridView1.Rows[1].Cells[2].Value.ToString();
+                    N3_BD = dataGridView1.Rows[2].Cells[1].Value.ToString();
+                    N3_KT = dataGridView1.Rows[2].Cells[2].Value.ToString();
+                }
                 try
                 {
                     string sqlupdate = "update nhatkysanxuat set thoigian_ondinh = '" + tb_thoigianondinh.Text + "',do_am = '" + tb_do_am.Text + "',coating_layer = '" + tb_coating.Text + "'," +
@@ -269,7 +293,8 @@ namespace NhatKySanXuat
                         "N3_2_lot='" + tb_n3_2_lot.Text + "',N3_3='" + tb_n3_3_kl.Text + "',N3_3_barcode='" + tb_n3_3_code.Text + "',N3_3_lot='" + tb_n3_3_lot.Text + "'," +
                         "TG_BD='" + dateTimePicker_TG_BD.Text + "',TG_KT='" + dateTimePicker_TG_KT.Text + "',NVL_1='" + comboBox_nvl_1.Text + "',barcode_NVL_1='" + textBox_barcode_nvl_1.Text + "'," +
                         "lot_NVL_1='" + textBox_lot_nvl_1.Text + "',NVL_2='" + comboBox_nvl_2.Text + "',barcode_NVL_2='" + textBox_barcode_nvl_2.Text + "',lot_NVL_2='" + textBox_lot_nvl_2.Text + "'," +
-                        "KL_NVL_1='" + textBox_kl_nvl_1.Text + "',KL_NVL_2='" + textBox_kl_nvl_2.Text + "' where LOT ='" + tblot.Text + "'";
+                        "KL_NVL_1='" + textBox_kl_nvl_1.Text + "',KL_NVL_2='" + textBox_kl_nvl_2.Text + "',N1_BD='" + N1_BD + "',N1_KT='" + N1_KT + "'," +
+                        "N2_BD='" + N2_BD + "',N2_KT='" + N2_KT + "',N3_BD='" + N3_BD + "',N3_KT='" + N3_KT + "' where LOT ='" + tblot.Text + "'";
                     SqlConnection sqlcon = new SqlConnection(@"Data Source = 192.168.21.244,1433; Initial Catalog= RSFLOGSANXUAT ;User ID = sa; Password =mylan@2016");
                     sqlcon.Open();
                     SqlCommand cmd = new SqlCommand(sqlupdate, sqlcon);
@@ -436,6 +461,40 @@ namespace NhatKySanXuat
                     textBox_kl_nvl_2.Text = row[0]["KL_NVL_2"].ToString();
                     textBox_barcode_nvl_2.Text = row[0]["barcode_NVL_2"].ToString();
                     textBox_lot_nvl_2.Text = row[0]["lot_NVL_2"].ToString();
+                    string N1_BD = "0";
+                    string N1_KT = "0";
+                    string N2_BD = "0";
+                    string N2_KT = "0";
+                    string N3_BD = "0";
+                    string N3_KT = "0";
+                    if (row[0]["N1_BD"].ToString() != "")
+                    {
+                        N1_BD = row[0]["N1_BD"].ToString();
+                    }
+                    if (row[0]["N1_KT"].ToString() != "")
+                    {
+                        N1_KT = row[0]["N1_KT"].ToString();
+                    }
+                    if (row[0]["N2_BD"].ToString() != "")
+                    {
+                        N2_BD = row[0]["N2_BD"].ToString();
+                    }
+                    if (row[0]["N2_KT"].ToString() != "")
+                    {
+                        N2_KT = row[0]["N2_KT"].ToString();
+                    }
+                    if (row[0]["N3_BD"].ToString() != "")
+                    {
+                        N3_BD = row[0]["N3_BD"].ToString();
+                    }
+                    if (row[0]["N3_KT"].ToString() != "")
+                    {
+                        N3_KT = row[0]["N3_KT"].ToString();
+                    }
+                    dataGridView1.Rows.Clear();
+                    dataGridView1.Rows.Add("N1-157", N1_BD, N1_KT, Math.Round((Convert.ToDouble(N1_BD) - Convert.ToDouble(N1_KT)), 1));
+                    dataGridView1.Rows.Add("N2-21", N2_BD, N2_KT, Math.Round((Convert.ToDouble(N2_BD) - Convert.ToDouble(N2_KT)), 1));
+                    dataGridView1.Rows.Add("N3-190", N3_BD, N3_KT, Math.Round((Convert.ToDouble(N3_BD) - Convert.ToDouble(N3_KT)), 1));
                     total_tring_barcode_n1_n2_n3();
                     total_tring_lot_n1_n2_n3();
                 }
@@ -443,6 +502,7 @@ namespace NhatKySanXuat
                 {
                     try
                     {
+                        cleardata();
                         SqlConnection sqlcon = new SqlConnection(@"Data Source=192.168.23.219,1433;Initial Catalog=QL_SX;User ID=sa;Password=rynan2020");
                         sqlcon.Open();
                         SqlCommand cmd = new SqlCommand();
@@ -992,11 +1052,6 @@ namespace NhatKySanXuat
         private void tblot_SelectedValueChanged(object sender, EventArgs e)
         {
             load_data(tblot.Text);
-            ThreadStart threadStart = new ThreadStart(load_data_polymer_use);
-            Thread thread = new Thread(threadStart);
-            thread.Start();
-            thread.IsBackground = true;
-            pnloading.Visible = true;
         }
         public void Load_data_polymer_pro()
         {
@@ -1174,7 +1229,6 @@ namespace NhatKySanXuat
         }
         Double TANK1_BD, TANK1_KT, TANK2_BD, TANK2_KT, TANK3_BD, TANK3_KT;
         Boolean bit_tank1, bit_tank2, bit_tank3, bit_tank4;
-
         private void load_polymer_Click(object sender, EventArgs e)
         {
             button_load_polymer.Enabled = false;
@@ -1184,7 +1238,6 @@ namespace NhatKySanXuat
             thread.IsBackground = true;
             pnloading.Visible = true;
         }
-
         Double TANK1_BD_02, TANK1_KT_02, TANK2_BD_02, TANK2_KT_02, TANK3_BD_02, TANK3_KT_02;
         Boolean bit_tank1_02, bit_tank2_02, bit_tank3_02, bit_tank4_02;
         string sqlcon, sql;
@@ -1307,9 +1360,9 @@ namespace NhatKySanXuat
                                 MessageBox.Show(ex.Message);
                             }
                         }
-                        dataGridView1.Rows.Add("N1-157", TANK1_BD, TANK1_KT, TANK1_BD - TANK1_KT);
-                        dataGridView1.Rows.Add("N2-21", TANK2_BD, TANK2_KT, TANK2_BD - TANK2_KT);
-                        dataGridView1.Rows.Add("N3-190", TANK3_BD, TANK3_KT, TANK3_BD - TANK3_KT);
+                        dataGridView1.Rows.Add("N1-157", TANK1_BD, TANK1_KT, Math.Round(TANK1_BD - TANK1_KT, 1));
+                        dataGridView1.Rows.Add("N2-21", TANK2_BD, TANK2_KT, Math.Round(TANK2_BD - TANK2_KT, 1));
+                        dataGridView1.Rows.Add("N3-190", TANK3_BD, TANK3_KT, Math.Round(TANK3_BD - TANK3_KT, 1));
                         bit_tank1 = false;
                         bit_tank2 = false;
                         bit_tank3 = false;
@@ -1409,9 +1462,9 @@ namespace NhatKySanXuat
                                 MessageBox.Show(ex.Message);
                             }
                         }
-                        dataGridView1.Rows.Add("N1-157", TANK1_BD_02, TANK1_KT_02, TANK1_BD_02 - TANK1_KT_02);
-                        dataGridView1.Rows.Add("N2-21", TANK2_BD_02, TANK2_KT_02, TANK2_BD_02 - TANK2_KT_02);
-                        dataGridView1.Rows.Add("N3-190", TANK3_BD_02, TANK3_KT_02, TANK3_BD_02 - TANK3_KT_02);
+                        dataGridView1.Rows.Add("N1-157", TANK1_BD_02, TANK1_KT_02, Math.Round(TANK1_BD_02 - TANK1_KT_02, 1));
+                        dataGridView1.Rows.Add("N2-21", TANK2_BD_02, TANK2_KT_02, Math.Round(TANK2_BD_02 - TANK2_KT_02, 1));
+                        dataGridView1.Rows.Add("N3-190", TANK3_BD_02, TANK3_KT_02, Math.Round(TANK3_BD_02 - TANK3_KT_02, 1));
                         bit_tank1_02 = false;
                         bit_tank2_02 = false;
                         bit_tank3_02 = false;
