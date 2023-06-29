@@ -26,7 +26,7 @@
     <InstallUrl>https://raw.githubusercontent.com/chuongiot/autoupdate_Production_log/main/published/</InstallUrl>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>42</ApplicationRevision>
+    <ApplicationRevision>43</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -332,6 +332,9 @@
     <None Include="Resources\icons8-cycle-16.png" />
     <None Include="Resources\icons8-double-down-16.png" />
     <None Include="Resources\icons8-double-left-32.png" />
+    <None Include="Resources\icons8-delete-16.png" />
+    <None Include="Resources\icons8-erase-16.png" />
+    <None Include="Resources\icons8-double-right-24.png" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
