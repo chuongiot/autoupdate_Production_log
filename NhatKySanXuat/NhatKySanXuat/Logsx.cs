@@ -46,6 +46,15 @@ namespace NhatKySanXuat
             dataGridView1.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
             dataGridView1.ColumnHeadersDefaultCellStyle.BackColor = Color.LightGray;
             dataGridView1.ColumnHeadersDefaultCellStyle.ForeColor = Color.Black;
+            chart1.Titles.Add("Release Chart");
+            chart1.ChartAreas[0].AxisY.Minimum = 0;
+            chart1.ChartAreas[0].AxisY.Maximum = 100;
+            chart1.ChartAreas[0].AxisY.Interval = 10;
+            chart1.ChartAreas[0].AxisX.Interval = 1;
+            chart1.ChartAreas[0].AxisY.Title = "VALUE";
+            chart1.ChartAreas[0].AxisX.Title = "TIME";
+            chart1.ChartAreas[0].AxisX.Minimum = 1;
+            chart1.ChartAreas[0].AxisX.Maximum = 14;
         }
         private void btthem_Click(object sender, EventArgs e)
         {
@@ -267,7 +276,7 @@ namespace NhatKySanXuat
             load_log();
         }
         private void dataGridView1_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
-        {  
+        {
             try
             {
                 Form3 form3 = new Form3(dataGridView1.SelectedRows[0].Cells[7].Value.ToString());
@@ -626,7 +635,7 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "",row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
                                 "", Math.Round(TONG_KL_LT, 4), Math.Round(Hieu_suat_thu_tb / dataGridView1.Rows.Count, 4), Math.Round(Hieu_suat_release_tb / dataGridView1.Rows.Count, 4),
                                 "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
                                 "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
@@ -994,7 +1003,7 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "",row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
                                 "", Math.Round(TONG_KL_LT, 4), Math.Round(Hieu_suat_thu_tb / dataGridView1.Rows.Count, 4), Math.Round(Hieu_suat_release_tb / dataGridView1.Rows.Count, 4),
                                 "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
                                 "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
@@ -1362,7 +1371,7 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "",row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
                                 "", Math.Round(TONG_KL_LT, 4), Math.Round(Hieu_suat_thu_tb / dataGridView1.Rows.Count, 4), Math.Round(Hieu_suat_release_tb / dataGridView1.Rows.Count, 4),
                                 "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
                                 "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
@@ -1730,7 +1739,7 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "",row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
                                 "", Math.Round(TONG_KL_LT, 4), Math.Round(Hieu_suat_thu_tb / dataGridView1.Rows.Count, 4), Math.Round(Hieu_suat_release_tb / dataGridView1.Rows.Count, 4),
                                 "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
                                 "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
@@ -2835,7 +2844,7 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "",row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
                                 "", Math.Round(TONG_KL_LT, 4), Math.Round(Hieu_suat_thu_tb / dataGridView1.Rows.Count, 4), Math.Round(Hieu_suat_release_tb / dataGridView1.Rows.Count, 4),
                                 "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
                                 "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
@@ -3203,7 +3212,7 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "",row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
                                 "", Math.Round(TONG_KL_LT, 4), Math.Round(Hieu_suat_thu_tb / dataGridView1.Rows.Count, 4), Math.Round(Hieu_suat_release_tb / dataGridView1.Rows.Count, 4),
                                 "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
                                 "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
@@ -3571,7 +3580,7 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "",row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
                                 "", Math.Round(TONG_KL_LT, 4), Math.Round(Hieu_suat_thu_tb / dataGridView1.Rows.Count, 4), Math.Round(Hieu_suat_release_tb / dataGridView1.Rows.Count, 4),
                                 "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
                                 "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
@@ -3939,7 +3948,7 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "",row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
                                 "", Math.Round(TONG_KL_LT, 4), Math.Round(Hieu_suat_thu_tb / dataGridView1.Rows.Count, 4), Math.Round(Hieu_suat_release_tb / dataGridView1.Rows.Count, 4),
                                 "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
                                 "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
@@ -4307,7 +4316,7 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "",row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
                                 "", Math.Round(TONG_KL_LT, 4), Math.Round(Hieu_suat_thu_tb / dataGridView1.Rows.Count, 4), Math.Round(Hieu_suat_release_tb / dataGridView1.Rows.Count, 4),
                                 "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
                                 "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
@@ -4675,7 +4684,7 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "",row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
                                 "", Math.Round(TONG_KL_LT, 4), Math.Round(Hieu_suat_thu_tb / dataGridView1.Rows.Count, 4), Math.Round(Hieu_suat_release_tb / dataGridView1.Rows.Count, 4),
                                 "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
                                 "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
@@ -6147,7 +6156,7 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "",row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
                                 "", Math.Round(TONG_KL_LT, 4), Math.Round(Hieu_suat_thu_tb / dataGridView1.Rows.Count, 4), Math.Round(Hieu_suat_release_tb / dataGridView1.Rows.Count, 4),
                                 "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
                                 "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
@@ -6515,7 +6524,7 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "",row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
                                 "", Math.Round(TONG_KL_LT, 4), Math.Round(Hieu_suat_thu_tb / dataGridView1.Rows.Count, 4), Math.Round(Hieu_suat_release_tb / dataGridView1.Rows.Count, 4),
                                 "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
                                 "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
@@ -6883,7 +6892,7 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "",row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
                                 "", Math.Round(TONG_KL_LT, 4), Math.Round(Hieu_suat_thu_tb / dataGridView1.Rows.Count, 4), Math.Round(Hieu_suat_release_tb / dataGridView1.Rows.Count, 4),
                                 "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
                                 "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
@@ -7251,7 +7260,7 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "",row.Length.ToString(), "", "", "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                dataGridView1.Rows.Add("Tổng", "", "", "", row.Length.ToString(), "", "", "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
                                 "", Math.Round(TONG_KL_LT, 4), Math.Round(Hieu_suat_thu_tb / dataGridView1.Rows.Count, 4), Math.Round(Hieu_suat_release_tb / dataGridView1.Rows.Count, 4),
                                 "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
                                 "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
@@ -7619,7 +7628,7 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "",row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
                                 "", Math.Round(TONG_KL_LT, 4), Math.Round(Hieu_suat_thu_tb / dataGridView1.Rows.Count, 4), Math.Round(Hieu_suat_release_tb / dataGridView1.Rows.Count, 4),
                                 "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
                                 "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
@@ -7987,7 +7996,7 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "",row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
                                 "", Math.Round(TONG_KL_LT, 4), Math.Round(Hieu_suat_thu_tb / dataGridView1.Rows.Count, 4), Math.Round(Hieu_suat_release_tb / dataGridView1.Rows.Count, 4),
                                 "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
                                 "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
@@ -8355,7 +8364,7 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "",row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
                                 "", Math.Round(TONG_KL_LT, 4), Math.Round(Hieu_suat_thu_tb / dataGridView1.Rows.Count, 4), Math.Round(Hieu_suat_release_tb / dataGridView1.Rows.Count, 4),
                                 "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
                                 "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
@@ -8723,7 +8732,7 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "",row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
                                 "", Math.Round(TONG_KL_LT, 4), Math.Round(Hieu_suat_thu_tb / dataGridView1.Rows.Count, 4), Math.Round(Hieu_suat_release_tb / dataGridView1.Rows.Count, 4),
                                 "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
                                 "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
@@ -9091,7 +9100,7 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "",row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
                                 "", Math.Round(TONG_KL_LT, 4), Math.Round(Hieu_suat_thu_tb / dataGridView1.Rows.Count, 4), Math.Round(Hieu_suat_release_tb / dataGridView1.Rows.Count, 4),
                                 "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
                                 "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
@@ -9111,7 +9120,7 @@ namespace NhatKySanXuat
             pnloading.Visible = false;
             button_search.Enabled = true;
         }
-        public void load_data_with_dotsx_loai_BTP_S1_02() 
+        public void load_data_with_dotsx_loai_BTP_S1_02()
         {
             try
             {
@@ -9459,7 +9468,7 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "",row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
                                 "", Math.Round(TONG_KL_LT, 4), Math.Round(Hieu_suat_thu_tb / dataGridView1.Rows.Count, 4), Math.Round(Hieu_suat_release_tb / dataGridView1.Rows.Count, 4),
                                 "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
                                 "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
@@ -9827,7 +9836,7 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "",row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
                                 "", Math.Round(TONG_KL_LT, 4), Math.Round(Hieu_suat_thu_tb / dataGridView1.Rows.Count, 4), Math.Round(Hieu_suat_release_tb / dataGridView1.Rows.Count, 4),
                                 "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
                                 "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
@@ -10563,7 +10572,7 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "",row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
                                 "", Math.Round(TONG_KL_LT, 4), Math.Round(Hieu_suat_thu_tb / dataGridView1.Rows.Count, 4), Math.Round(Hieu_suat_release_tb / dataGridView1.Rows.Count, 4),
                                 "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
                                 "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
@@ -10931,7 +10940,7 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "",row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
                                 "", Math.Round(TONG_KL_LT, 4), Math.Round(Hieu_suat_thu_tb / dataGridView1.Rows.Count, 4), Math.Round(Hieu_suat_release_tb / dataGridView1.Rows.Count, 4),
                                 "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
                                 "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
@@ -11299,7 +11308,7 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "",row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
                                 "", Math.Round(TONG_KL_LT, 4), Math.Round(Hieu_suat_thu_tb / dataGridView1.Rows.Count, 4), Math.Round(Hieu_suat_release_tb / dataGridView1.Rows.Count, 4),
                                 "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
                                 "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
@@ -11667,7 +11676,7 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "",row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
                                 "", Math.Round(TONG_KL_LT, 4), Math.Round(Hieu_suat_thu_tb / dataGridView1.Rows.Count, 4), Math.Round(Hieu_suat_release_tb / dataGridView1.Rows.Count, 4),
                                 "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
                                 "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
@@ -12035,7 +12044,7 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "",row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
                                 "", Math.Round(TONG_KL_LT, 4), Math.Round(Hieu_suat_thu_tb / dataGridView1.Rows.Count, 4), Math.Round(Hieu_suat_release_tb / dataGridView1.Rows.Count, 4),
                                 "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
                                 "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
@@ -12072,7 +12081,6 @@ namespace NhatKySanXuat
             pn_import.BackColor = Color.Lime;
             pn_import.BorderStyle = BorderStyle.Fixed3D;
             lb_import.ForeColor = Color.White;
-            tabControl1.SelectedTab = tabPageImportexcel;
 
             panel_nhap_release.BackColor = Color.Silver;
             panel_nhap_release.BorderStyle = BorderStyle.FixedSingle;
@@ -12081,195 +12089,6 @@ namespace NhatKySanXuat
             pnxuatkhonvl.BackColor = Color.Silver;
             pnxuatkhonvl.BorderStyle = BorderStyle.FixedSingle;
             lb_xuatkhonvl.ForeColor = Color.Black;
-        }
-        private void button2_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog opn = new OpenFileDialog();
-            if (opn.ShowDialog() == DialogResult.OK)
-            {
-                this.textBox_path.Text = opn.FileName;
-                ThreadStart thrstart = new ThreadStart(load_file_excel);
-                Thread thrd = new Thread(thrstart);
-                thrd.Start();
-                thrd.IsBackground = true;
-            }
-        }
-        public void load_file_excel()
-        {
-            try
-            {
-                string path = @"Provider = Microsoft.ACE.OLEDB.12.0 ; Data Source = '" + textBox_path.Text + "' ; Extended Properties" + "= 'Excel 12.0; HDR = YES';";
-                OleDbConnection cnn = new OleDbConnection(path);
-                OleDbDataAdapter adptr = new OleDbDataAdapter("select * from [Sheet1$]", cnn);
-                DataTable dt = new DataTable();
-                adptr.Fill(dt);
-                dataGridView2.DataSource = dt;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-        public void insert_from_excel()
-        {
-            if (E_tb_lot.Text == "")
-            {
-                MessageBox.Show("Chưa Nhập LOT", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-            else
-            {
-                SqlConnection sqlcon = new SqlConnection(@"Data Source = 192.168.21.244,1433; Initial Catalog= RSFLOGSANXUAT ;User ID = sa; Password =mylan@2016");
-                SqlCommand command = new SqlCommand();
-                SqlDataAdapter adapter = new SqlDataAdapter();
-                DataTable tb_buff = new DataTable();
-                string Nguoi_nhap = E_cbb_nguoi_nhap.Text;
-                string LOT = E_tb_lot.Text;
-                string Dotsx = E_tb_dotsx.Text;
-                string Ngaysx = E_ngaysx.Text;
-                string Thietbi = E_thietbi.Text;
-                string Mabtp = E_ma_btp.Text;
-                string Tenbtp = E_ten_btp.Text;
-                string Me = E_so_me.Text;
-                string Klnvl = "";
-                string Tocdo_release = E_tocdo_release.Text;
-                string Ngayrelease = E_ngay_release.Text;
-                string Loai = E_loai.Text;
-                string Tongklsp_thuduoc = E_tong_sp_thu.Text;
-                string Kldongkhoi = E_sp_dongkhoi.Text;
-                string Khongdongkhoi = E_sp_khong_dong_khoi.Text;
-                string Kl_lythuyet = E_kl_ly_thuyet.Text;
-                string Hieusuatthu = E_hieusuatthu.Text;
-                string Hieusuatrelease = "";
-                string Thoigiancb = E_thoigiancbsx.Text;
-                string Thoigiansx = E_thoigiansx.Text;
-                string Phanbon_nvl = E_phanbon_nvl.Text;
-                string KL_phan_nvl = E_kl_phanbon_nvl.Text;
-                string Barcode_nvl = E_barcode_phanbonnvl.Text;
-                string LOT_nvl = E_lot_phanbonnvl.Text;
-                string N1_khoiluong = E_n1.Text;
-                string N1_barcode = E_n1_barcode.Text;
-                string N1_LOT = E_n1_lot.Text;
-                string N2_khoiluong = E_n2.Text;
-                string N2_barcode = E_n2_barcode.Text;
-                string N2_LOT = E_n2_lot.Text;
-                string n3_khoiluong = E_n3.Text;
-                string N3_barcode = E_n3_barcode.Text;
-                string N3_LOT = E_n3_lot.Text;
-                string GA3 = "";
-                string GA3_barcode = "";
-                string Borax = "";
-                string Borax_barcode = "";
-                string NAA = "";
-                string NAA_barcode = "";
-                string Sodium = "";
-                string Sodium_barcode = "";
-                string Citric = "";
-                string Barcode_Citric = "";
-                string Naoh = "";
-                string Barcode_Naoh = "";
-                string Solubo = "";
-                string Barcode_Solubo = "";
-                string Edtazn = "";
-                string Barcode_Edta = "";
-                string Red = "";
-                string Barcode_red = "";
-                string Violet = "";
-                string Barcode_violet = "";
-                string Blue = "";
-                string Barcode_blue = "";
-                string Yellow = "";
-                string Barcode_yellow = "";
-                string Black = "";
-                string Barcode_black = "";
-                string Prev = "";
-                string Barcode_Prev = "";
-                string Than_cam = "";
-                string Dien = "";
-                string Nuoc_RO = "";
-                string Nuoc_thuycuc = "";
-                string BHLD = "";
-                string Ghi_chu = "";
-                string Vitri_spthuduoc = "";
-                string Vitri_spdongkhoi = "";
-                string Vitri_spkhongdongkhoi = "";
-                try
-                {
-                    sqlcon.Open();
-                    command = sqlcon.CreateCommand();
-                    command.CommandText = "insert into nhatkysanxuat (name,dot_sx,ngay_sx,thiet_bi,ma_BTP,ten_BTP,me,LOT ,tocdo_release," +
-                        "ngay_release,loai,klnl_sudung,tong_klspsx,kl_dongkhoi,kl_khongdongkhoi,kl_lythuyet,hieuxuat_thu,hieuxuat_release," +
-                        "thoigian_cb,thoigian_sx,phanbon_nvl,kl_nvl,barcode_nvl,lot_nvl,N1,barcode_n1," +
-                        "lot_n1,N2,barcode_n2,lot_n2,N3,barcode_n3,lot_n3,Ga3,barcode_ga3,Borax,bacode_borax,Naa,barcode_naa,solubo,barocde_solubo," +
-                        "Edta,barcode_edta,Red,barcode_red,violet,barcode_violet,blue,barocde_blue,yellow,barcode_yellow,black,barcode_back,prev," +
-                        "barcode_prev,thancam,dien,nuocRO,nuocthuycuc,BHLD,Sodium,barcode_sodium,Citric,barcode_citric,Naoh,barocde_naoh,ghi_chu," +
-                        "vitri_spthuduoc,vitri_spdongkhoi,vitri_spkhongdongkhoi)" +
-                        "values (N'" + Nguoi_nhap + "','" + Dotsx + "','" + Ngaysx + "','" + Thietbi + "','" + Mabtp + "','" + Tenbtp + "','" + Me + "','" + LOT + "','" + Tocdo_release + "'," +
-                        "'" + Ngayrelease + "','" + Loai + "','" + Klnvl + "','" + Tongklsp_thuduoc + "','" + Kldongkhoi + "','" + Khongdongkhoi + "','" + Kl_lythuyet + "','" + Hieusuatthu + "'," +
-                        "'" + Hieusuatrelease + "','" + Thoigiancb + "','" + Thoigiansx + "'," +
-                        "'" + Phanbon_nvl + "','" + KL_phan_nvl + "','" + Barcode_nvl + "','" + LOT_nvl + "','" + N1_khoiluong + "','" + N1_barcode + "','" + N1_LOT + "','" + N2_khoiluong + "'," +
-                        "'" + N2_barcode + "','" + N2_LOT + "','" + n3_khoiluong + "','" + N3_barcode + "','" + N3_LOT + "','" + GA3 + "','" + GA3_barcode + "','" + Borax + "','" + Borax_barcode + "'," +
-                        "'" + NAA + "','" + NAA_barcode + "','" + Solubo + "','" + Barcode_Solubo + "','" + Edtazn + "','" + Barcode_Edta + "','" + Red + "','" + Barcode_red + "'," +
-                        "'" + Violet + "','" + Barcode_violet + "','" + Blue + "','" + Barcode_blue + "','" + Yellow + "','" + Barcode_yellow + "','" + Black + "','" + Barcode_black + "'," +
-                        "'" + Prev + "','" + Barcode_Prev + "','" + Than_cam + "','" + Dien + "','" + Nuoc_RO + "','" + Nuoc_thuycuc + "','" + BHLD + "','" + Sodium + "','" + Sodium_barcode + "','" + Citric + "'," +
-                        "'" + Barcode_Citric + "','" + Naoh + "','" + Barcode_Naoh + "',N'" + Ghi_chu + "','" + Vitri_spthuduoc + "','" + Vitri_spdongkhoi + "','" + Vitri_spkhongdongkhoi + "')";
-                    command.ExecuteNonQuery();
-                    MessageBox.Show("Thêm Thành Công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    insert_blogtruycap("Đã thêm LOT : " + E_tb_lot.Text);
-                    sqlcon.Close();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-            }
-        }
-        private void dataGridView2_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            try
-            {
-                E_tb_lot.Text = dataGridView2.SelectedRows[0].Cells[7].Value.ToString();
-                E_tb_dotsx.Text = dataGridView2.SelectedRows[0].Cells[1].Value.ToString();
-                string ngay = dataGridView2.SelectedRows[0].Cells[3].Value.ToString();
-                E_ngaysx.Text = ngay.Substring(6, 4) + '-' + ngay.Substring(3, 2) + '-' + ngay.Substring(0, 2);
-                if (E_tb_lot.Text.Substring(0, 2) == "02")
-                {
-                    E_thietbi.Text = "02";
-                }
-                else
-                {
-                    E_thietbi.Text = "S1";
-                }
-                E_ten_btp.Text = dataGridView2.SelectedRows[0].Cells[5].Value.ToString();
-                E_ma_btp.Text = dataGridView2.SelectedRows[0].Cells[4].Value.ToString();
-                E_so_me.Text = dataGridView2.SelectedRows[0].Cells[6].Value.ToString();
-                E_loai.Text = dataGridView2.SelectedRows[0].Cells[10].Value.ToString();
-                E_tong_sp_thu.Text = dataGridView2.SelectedRows[0].Cells[12].Value.ToString();
-                E_sp_dongkhoi.Text = dataGridView2.SelectedRows[0].Cells[13].Value.ToString();
-                E_sp_khong_dong_khoi.Text = dataGridView2.SelectedRows[0].Cells[14].Value.ToString();
-                E_kl_ly_thuyet.Text = dataGridView2.SelectedRows[0].Cells[15].Value.ToString();
-                if (dataGridView2.SelectedRows[0].Cells[16].Value.ToString() == "")
-                {
-                    E_hieusuatthu.Text = "";
-                }
-                else
-                {
-                    double hieu_suat_thu = Math.Round(Convert.ToDouble(dataGridView2.SelectedRows[0].Cells[16].Value), 4);
-                    E_hieusuatthu.Text = hieu_suat_thu.ToString();
-                }
-                E_kl_phanbon_nvl.Text = dataGridView2.SelectedRows[0].Cells[11].Value.ToString();
-                E_tocdo_release.Text = dataGridView2.SelectedRows[0].Cells[8].Value.ToString();
-                E_ngay_release.Text = dataGridView2.SelectedRows[0].Cells[9].Value.ToString();
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-
-        }
-        private void btt_insert_tt_database_Click(object sender, EventArgs e)
-        {
-            insert_from_excel();
         }
         public void load_data_LOT()
         {
@@ -13028,24 +12847,24 @@ namespace NhatKySanXuat
             pn_import.BackColor = Color.Silver;
             pn_import.BorderStyle = BorderStyle.FixedSingle;
             lb_import.ForeColor = Color.Black;
-            tabControl1.SelectedTab = tabPageNhaprelease;
+            tabControl1.SelectedTab = tabPageChartrelease;
 
             panel_nhap_release.BackColor = Color.Lime;
             panel_nhap_release.BorderStyle = BorderStyle.Fixed3D;
             lb_nhap_release.ForeColor = Color.White;
+            load_data_for_chart();
 
             pn_nksx_button.BackColor = Color.Silver;
             pn_nksx_button.BorderStyle = BorderStyle.FixedSingle;
             lb_nksx.ForeColor = Color.Black;
-            //pn_loading_release.Visible = true;
-            //ThreadStart threadStart1 = new ThreadStart(load_data_release);
-            //Thread thread1 = new Thread(threadStart1);
-            //thread1.Start();
-            //thread1.IsBackground = true;
-            load_data_release();
+
             pnxuatkhonvl.BackColor = Color.Silver;
             pnxuatkhonvl.BorderStyle = BorderStyle.FixedSingle;
             lb_xuatkhonvl.ForeColor = Color.Black;
+
+            pnkehoachsx.BackColor = Color.Silver;
+            pnkehoachsx.BorderStyle = BorderStyle.FixedSingle;
+            lbkehoachsx.ForeColor = Color.Black;
         }
         private void dataGridView3_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
@@ -13072,17 +12891,6 @@ namespace NhatKySanXuat
                 tb_ngay126.Text = dataGridView3.SelectedRows[0].Cells[19].Value.ToString();
                 tb_ngay140.Text = dataGridView3.SelectedRows[0].Cells[20].Value.ToString();
                 */
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-        private void E_tong_sp_thu_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                E_tong_sp_thu.Text = (Convert.ToDouble(E_sp_dongkhoi.Text) + Convert.ToDouble(E_sp_khong_dong_khoi.Text)).ToString();
             }
             catch (Exception ex)
             {
@@ -13119,132 +12927,6 @@ namespace NhatKySanXuat
             pnkehoachsx.BackColor = Color.Silver;
             pnkehoachsx.BorderStyle = BorderStyle.FixedSingle;
             lbkehoachsx.ForeColor = Color.Black;
-        }
-        public void load_data_polymer_fill_textbox()
-        {
-            try
-            {
-                /*SqlConnection sqlcon = new SqlConnection(@"Data Source = 192.168.21.244,1433; Initial Catalog= RSFLOGSANXUAT ;User ID = sa; Password =mylan@2016");
-                sqlcon.Open();
-                SqlCommand command = new SqlCommand();
-                SqlDataAdapter adapter = new SqlDataAdapter();
-                DataTable tb_buff = new DataTable();
-                command = sqlcon.CreateCommand();
-                command.CommandText = "select N1_1,N1_2,N1_3,N1_1_barcode,N1_2_barcode,N1_3_barcode,N1_1_lot,N1_2_lot,N1_3_lot,N2_1,N2_2,N2_1_barcode,N2_2_barcode,N2_1_lot,N2_2_lot,N3_1,N3_1_barcode,N3_1_lot,N1_4_lot,N2_3,N2_3_barcode,N2_3_lot,N3_2,N3_2_barcode,N3_2_lot,N3_3,N3_3_barcode,N3_3_lot,N1_4,N1_4_barcode,N1_4_lot,N2_3,N2_3_barcode,N2_3_lot,N3_2,N3_2_barcode,N3_2_lot,N3_3,N3_3_barcode,N3_3_lot from nhatkysanxuat where LOT = '" + tblot.Text + "' ORDER BY dot_sx DESC ";
-                adapter.SelectCommand = command;
-                tb_buff.Clear();
-                adapter.Fill(tb_buff);
-                sqlcon.Close();
-                DataRow[] row = tb_buff.Select();
-                tb_n1_1_kl.Text = row[0]["N1_1"].ToString();
-                tb_n1_2_kl.Text = row[0]["N1_2"].ToString();
-                tb_n1_3_kl.Text = row[0]["N1_3"].ToString();
-                tb_n1_4_kl.Text = row[0]["N1_4"].ToString();
-                tb_n1_1_code.Text = row[0]["N1_1_barcode"].ToString();
-                tb_n1_2_code.Text = row[0]["N1_2_barcode"].ToString();
-                tb_n1_3_code.Text = row[0]["N1_3_barcode"].ToString();
-                tb_n1_4_code.Text = row[0]["N1_4_barcode"].ToString();
-                tb_n1_1_lot.Text = row[0]["N1_1_lot"].ToString();
-                tb_n1_2_lot.Text = row[0]["N1_2_lot"].ToString();
-                tb_n1_3_lot.Text = row[0]["N1_3_lot"].ToString();
-                tb_n1_4_lot.Text = row[0]["N1_4_lot"].ToString();
-
-                tb_n2_1_kl.Text = row[0]["N2_1"].ToString();
-                tb_n2_2_kl.Text = row[0]["N2_2"].ToString();
-                tb_n2_3_kl.Text = row[0]["N2_3"].ToString();
-                tb_n2_1_code.Text = row[0]["N2_1_barcode"].ToString();
-                tb_n2_2_code.Text = row[0]["N2_2_barcode"].ToString();
-                tb_n2_3_code.Text = row[0]["N2_3_barcode"].ToString();
-                tb_n2_1_lot.Text = row[0]["N2_1_lot"].ToString();
-                tb_n2_2_lot.Text = row[0]["N2_2_lot"].ToString();
-                tb_n2_3_lot.Text = row[0]["N2_3_lot"].ToString();
-
-                tb_n3_1_kl.Text = row[0]["N3_1"].ToString();
-                tb_n3_2_kl.Text = row[0]["N3_2"].ToString();
-                tb_n3_3_kl.Text = row[0]["N3_3"].ToString();
-                tb_n3_1_code.Text = row[0]["N3_1_barcode"].ToString();
-                tb_n3_2_code.Text = row[0]["N3_2_barcode"].ToString();
-                tb_n3_3_code.Text = row[0]["N3_3_barcode"].ToString();
-                tb_n3_1_lot.Text = row[0]["N3_1_lot"].ToString();
-                tb_n3_2_lot.Text = row[0]["N3_2_lot"].ToString();
-                tb_n3_3_lot.Text = row[0]["N3_3_lot"].ToString();
-                */
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-        public void load_data_release()
-        {
-            if (tb_timkiem_dotsx_release.Text == "" && cbb_tb_release.Text == "")
-            {
-                SqlConnection sqlcon = new SqlConnection(@"Data Source = 192.168.21.244,1433; Initial Catalog= RSFLOGSANXUAT ;User ID = sa; Password =mylan@2016");
-                sqlcon.Open();
-                SqlCommand command = new SqlCommand();
-                SqlDataAdapter adapter = new SqlDataAdapter();
-                DataTable tb_buff = new DataTable();
-                command = sqlcon.CreateCommand();
-                command.CommandText = "select ngay_sx,dot_sx,LOT,thiet_bi,do_am,coating_layer,thoigian_ondinh,ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140 from nhatkysanxuat ORDER BY dot_sx DESC ";
-                adapter.SelectCommand = command;
-                tb_buff.Clear();
-                adapter.Fill(tb_buff);
-                dataGridView3.DataSource = tb_buff;
-                sqlcon.Close();
-                pn_loading_release.Visible = false;
-            }
-            else if (cbb_tb_release.Text != "" && tb_timkiem_dotsx_release.Text == "")
-            {
-                SqlConnection sqlcon = new SqlConnection(@"Data Source = 192.168.21.244,1433; Initial Catalog= RSFLOGSANXUAT ;User ID = sa; Password =mylan@2016");
-                sqlcon.Open();
-                SqlCommand command = new SqlCommand();
-                SqlDataAdapter adapter = new SqlDataAdapter();
-                DataTable tb_buff = new DataTable();
-                command = sqlcon.CreateCommand();
-                command.CommandText = "select ngay_sx,dot_sx,LOT,thiet_bi,do_am,coating_layer,thoigian_ondinh,ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140 from nhatkysanxuat where thiet_bi = '" + cbb_tb_release.Text + "' ORDER BY dot_sx DESC ";
-                adapter.SelectCommand = command;
-                tb_buff.Clear();
-                adapter.Fill(tb_buff);
-                dataGridView3.DataSource = tb_buff;
-                sqlcon.Close();
-                pn_loading_release.Visible = false;
-            }
-            else if (cbb_tb_release.Text == "" && tb_timkiem_dotsx_release.Text != "")
-            {
-                SqlConnection sqlcon = new SqlConnection(@"Data Source = 192.168.21.244,1433; Initial Catalog= RSFLOGSANXUAT ;User ID = sa; Password =mylan@2016");
-                sqlcon.Open();
-                SqlCommand command = new SqlCommand();
-                SqlDataAdapter adapter = new SqlDataAdapter();
-                DataTable tb_buff = new DataTable();
-                command = sqlcon.CreateCommand();
-                command.CommandText = "select ngay_sx,dot_sx,LOT,thiet_bi,do_am,coating_layer,thoigian_ondinh,ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140 from nhatkysanxuat where dot_sx = '" + tb_timkiem_dotsx_release.Text + "' ORDER BY dot_sx DESC ";
-                adapter.SelectCommand = command;
-                tb_buff.Clear();
-                adapter.Fill(tb_buff);
-                dataGridView3.DataSource = tb_buff;
-                sqlcon.Close();
-                pn_loading_release.Visible = false;
-            }
-            else
-            {
-                SqlConnection sqlcon = new SqlConnection(@"Data Source = 192.168.21.244,1433; Initial Catalog= RSFLOGSANXUAT ;User ID = sa; Password =mylan@2016");
-                sqlcon.Open();
-                SqlCommand command = new SqlCommand();
-                SqlDataAdapter adapter = new SqlDataAdapter();
-                DataTable tb_buff = new DataTable();
-                command = sqlcon.CreateCommand();
-                command.CommandText = "select ngay_sx,dot_sx,LOT,thiet_bi,do_am,coating_layer,thoigian_ondinh,ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140 from nhatkysanxuat where thiet_bi = '" + cbb_tb_release.Text + "' AND dot_sx = '" + tb_timkiem_dotsx_release.Text + "' ORDER BY dot_sx DESC ";
-                adapter.SelectCommand = command;
-                tb_buff.Clear();
-                adapter.Fill(tb_buff);
-                dataGridView3.DataSource = tb_buff;
-                sqlcon.Close();
-                pn_loading_release.Visible = false;
-            }
-        }
-        private void button1_Click(object sender, EventArgs e)
-        {
-            load_data_release();
         }
         public void loadcbbma_BTP()
         {
@@ -13649,7 +13331,7 @@ namespace NhatKySanXuat
                 dataGridView1.Columns[index_column].Visible = false;
                 old_index.Add(index_column);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -13664,7 +13346,7 @@ namespace NhatKySanXuat
                 }
                 old_index.Clear();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -13687,7 +13369,7 @@ namespace NhatKySanXuat
                     try
                     {
                         DialogResult dialogResult;
-                        dialogResult = MessageBox.Show("Bạn có muốn xóa LOT : '"+lot+"'?", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                        dialogResult = MessageBox.Show("Bạn có muốn xóa LOT : '" + lot + "'?", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
                         if (dialogResult == DialogResult.OK)
                         {
                             SqlConnection sqlcon = new SqlConnection(@"Data Source = 192.168.21.244,1433; Initial Catalog= RSFLOGSANXUAT ;User ID = sa; Password =mylan@2016");
@@ -14033,6 +13715,215 @@ namespace NhatKySanXuat
             pnkehoachsx.BackColor = Color.Lime;
             pnkehoachsx.BorderStyle = BorderStyle.Fixed3D;
             lbkehoachsx.ForeColor = Color.White;
+        }
+        public void load_data_for_chart()
+        {
+            try
+            {
+                if (cbb_thietbi_tabchart.Text == "" && tb_dotsx_tabchart.Text == "")
+                {
+                    SqlConnection sqlcon = new SqlConnection(@"Data Source = 192.168.21.244,1433; Initial Catalog= RSFLOGSANXUAT ;User ID = sa; Password =mylan@2016");
+                    sqlcon.Open();
+                    SqlCommand command = new SqlCommand();
+                    SqlDataAdapter adapter = new SqlDataAdapter();
+                    DataTable tb_buff = new DataTable();
+                    command = sqlcon.CreateCommand();
+                    command.CommandText = "select LOT,dot_sx,thiet_bi,ngay_sx from nhatkysanxuat ORDER BY dot_sx DESC ";
+                    adapter.SelectCommand = command;
+                    tb_buff.Clear();
+                    adapter.Fill(tb_buff);
+                    dgv_select_lot.DataSource = tb_buff;
+                    sqlcon.Close();
+                }
+                else if (cbb_thietbi_tabchart.Text != "" && tb_dotsx_tabchart.Text == "")
+                {
+                    SqlConnection sqlcon = new SqlConnection(@"Data Source = 192.168.21.244,1433; Initial Catalog= RSFLOGSANXUAT ;User ID = sa; Password =mylan@2016");
+                    sqlcon.Open();
+                    SqlCommand command = new SqlCommand();
+                    SqlDataAdapter adapter = new SqlDataAdapter();
+                    DataTable tb_buff = new DataTable();
+                    command = sqlcon.CreateCommand();
+                    command.CommandText = "select LOT,dot_sx,thiet_bi,ngay_sx from nhatkysanxuat where thiet_bi ='" + cbb_thietbi_tabchart.Text + "' ORDER BY dot_sx DESC ";
+                    adapter.SelectCommand = command;
+                    tb_buff.Clear();
+                    adapter.Fill(tb_buff);
+                    dgv_select_lot.DataSource = tb_buff;
+                    sqlcon.Close();
+                }
+                else if (cbb_thietbi_tabchart.Text == "" && tb_dotsx_tabchart.Text != "")
+                {
+                    SqlConnection sqlcon = new SqlConnection(@"Data Source = 192.168.21.244,1433; Initial Catalog= RSFLOGSANXUAT ;User ID = sa; Password =mylan@2016");
+                    sqlcon.Open();
+                    SqlCommand command = new SqlCommand();
+                    SqlDataAdapter adapter = new SqlDataAdapter();
+                    DataTable tb_buff = new DataTable();
+                    command = sqlcon.CreateCommand();
+                    command.CommandText = "select LOT,dot_sx,thiet_bi,ngay_sx from nhatkysanxuat where dot_sx ='" + tb_dotsx_tabchart.Text + "' ORDER BY me ASC ";
+                    adapter.SelectCommand = command;
+                    tb_buff.Clear();
+                    adapter.Fill(tb_buff);
+                    dgv_select_lot.DataSource = tb_buff;
+                    sqlcon.Close();
+                }
+                else if (cbb_thietbi_tabchart.Text != "" && tb_dotsx_tabchart.Text != "")
+                {
+                    SqlConnection sqlcon = new SqlConnection(@"Data Source = 192.168.21.244,1433; Initial Catalog= RSFLOGSANXUAT ;User ID = sa; Password =mylan@2016");
+                    sqlcon.Open();
+                    SqlCommand command = new SqlCommand();
+                    SqlDataAdapter adapter = new SqlDataAdapter();
+                    DataTable tb_buff = new DataTable();
+                    command = sqlcon.CreateCommand();
+                    command.CommandText = "select LOT,dot_sx,thiet_bi,ngay_sx from nhatkysanxuat where thiet_bi ='" + cbb_thietbi_tabchart.Text + "' AND dot_sx ='" + tb_dotsx_tabchart.Text + "' ORDER BY me ASC ";
+                    adapter.SelectCommand = command;
+                    tb_buff.Clear();
+                    adapter.Fill(tb_buff);
+                    dgv_select_lot.DataSource = tb_buff;
+                    sqlcon.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void btt_search_tabchart_Click(object sender, EventArgs e)
+        {
+            load_data_for_chart();
+        }
+        public void draw_chart(string lot)
+        {
+            try
+            {
+                double ngay0 = 0;
+                double ngay7 = 0;
+                double ngay14 = 0;
+                double ngay21 = 0;
+                double ngay28 = 0;
+                double ngay42 = 0;
+                double ngay49 = 0;
+                double ngay56 = 0;
+                double ngay70 = 0;
+                double ngay84 = 0;
+                double ngay98 = 0;
+                double ngay112 = 0;
+                double ngay126 = 0;
+                double ngay140 = 0;
+                SqlConnection sqlcon = new SqlConnection(@"Data Source = 192.168.21.244,1433; Initial Catalog= RSFLOGSANXUAT ;User ID = sa; Password =mylan@2016");
+                SqlCommand command = new SqlCommand();
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                DataTable tb_buff = new DataTable();
+                sqlcon.Open();
+                command = sqlcon.CreateCommand();
+                command.CommandText = "select ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140 from nhatkysanxuat where LOT='" + lot + "'";
+                adapter.SelectCommand = command;
+                tb_buff.Clear();
+                adapter.Fill(tb_buff);
+                sqlcon.Close();
+                DataRow[] row = tb_buff.Select();
+                if (row[0]["ngay_0"].ToString() == "")
+                    ngay0 = 0;
+                else
+                    ngay0 = Convert.ToDouble(row[0]["ngay_0"].ToString());
+                if (row[0]["ngay_7"].ToString() == "")
+                    ngay7 = 0;
+                else
+                    ngay7 = Convert.ToDouble(row[0]["ngay_7"].ToString());
+                if (row[0]["ngay_14"].ToString() == "")
+                    ngay14 = 0;
+                else
+                    ngay14 = Convert.ToDouble(row[0]["ngay_14"].ToString());
+                if (row[0]["ngay_21"].ToString() == "")
+                    ngay21 = 0;
+                else
+                    ngay21 = Convert.ToDouble(row[0]["ngay_21"].ToString());
+                if (row[0]["ngay_28"].ToString() == "")
+                    ngay28 = 0;
+                else
+                    ngay28 = Convert.ToDouble(row[0]["ngay_28"].ToString());
+                if (row[0]["ngay_42"].ToString() == "")
+                    ngay42 = 0;
+                else
+                    ngay42 = Convert.ToDouble(row[0]["ngay_42"].ToString());
+                if (row[0]["ngay_49"].ToString() == "")
+                    ngay49 = 0;
+                else
+                    ngay49 = Convert.ToDouble(row[0]["ngay_49"].ToString());
+                if (row[0]["ngay_56"].ToString() == "")
+                    ngay56 = 0;
+                else
+                    ngay56 = Convert.ToDouble(row[0]["ngay_56"].ToString());
+                if (row[0]["ngay_70"].ToString() == "")
+                    ngay70 = 0;
+                else
+                    ngay70 = Convert.ToDouble(row[0]["ngay_70"].ToString());
+                if (row[0]["ngay_84"].ToString() == "")
+                    ngay84 = 0;
+                else
+                    ngay84 = Convert.ToDouble(row[0]["ngay_84"].ToString());
+                if (row[0]["ngay_98"].ToString() == "")
+                    ngay98 = 0;
+                else
+                    ngay98 = Convert.ToDouble(row[0]["ngay_98"].ToString());
+                if (row[0]["ngay_112"].ToString() == "")
+                    ngay112 = 0;
+                else
+                    ngay112 = Convert.ToDouble(row[0]["ngay_112"].ToString());
+                if (row[0]["ngay_126"].ToString() == "")
+                    ngay126 = 0;
+                else
+                    ngay126 = Convert.ToDouble(row[0]["ngay_126"].ToString());
+                if (row[0]["ngay_140"].ToString() == "")
+                    ngay140 = 0;
+                else
+                    ngay140 = Convert.ToDouble(row[0]["ngay_140"].ToString());
+                chart1.Series.Add(lot).ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+                chart1.Series[lot].BorderWidth = 3;
+                chart1.Series[lot].Points.AddXY("0 Day", ngay0);
+                chart1.Series[lot].Points.AddXY("7 Day", ngay7);
+                chart1.Series[lot].Points.AddXY("14 Day", ngay14);
+                chart1.Series[lot].Points.AddXY("21 Day", ngay21);
+                chart1.Series[lot].Points.AddXY("28 Day", ngay28);
+                chart1.Series[lot].Points.AddXY("42 Day", ngay42);
+                chart1.Series[lot].Points.AddXY("49 Day", ngay49);
+                chart1.Series[lot].Points.AddXY("56 Day", ngay56);
+                chart1.Series[lot].Points.AddXY("70 Day", ngay70);
+                chart1.Series[lot].Points.AddXY("84 Day", ngay84);
+                chart1.Series[lot].Points.AddXY("98 Day", ngay98);
+                chart1.Series[lot].Points.AddXY("112 Day", ngay112);
+                chart1.Series[lot].Points.AddXY("126 Day", ngay126);
+                chart1.Series[lot].Points.AddXY("140 Day", ngay140);
+                chart1.Series[lot].IsValueShownAsLabel = true;
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void btt_select_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow check in (dgv_select_lot).Rows)
+            {
+                if ((bool)check.Cells[0].FormattedValue)
+                {
+                    dgv_draw_chart.Rows.Add(check.Cells[1].Value.ToString(), check.Cells[2].Value.ToString(), check.Cells[3].Value.ToString(), check.Cells[4].Value.ToString());
+                }
+            }
+        }
+
+        private void btt_clear_Click(object sender, EventArgs e)
+        {
+            dgv_draw_chart.Rows.Clear();
+        }
+
+        private void btt_draw_Click(object sender, EventArgs e)
+        {
+            chart1.Series.Clear();
+            for (int i = 0; i <= dgv_draw_chart.Rows.Count - 1; i++)
+            {
+                draw_chart(dgv_draw_chart.Rows[i].Cells[0].Value.ToString());
+            }
         }
     }
 }
