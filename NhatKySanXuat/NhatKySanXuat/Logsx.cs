@@ -36,7 +36,7 @@ namespace NhatKySanXuat
             button_search.Enabled = false;
             load_data_with_date();
             load_log();
-            LoadQLSX("Select DOT_SX,ME_THU,SO_LOT,MA_TB,TG_BD,TG_KT,LOAI_SP,KL_NL,NV_VH,TRUONG_CA from DataSX_RSF WHERE MA_TB = 'S1' ORDER BY TG_BD DESC");
+            //LoadQLSX("Select DOT_SX,ME_THU,SO_LOT,MA_TB,TG_BD,TG_KT,LOAI_SP,KL_NL,NV_VH,TRUONG_CA from DataSX_RSF WHERE MA_TB = 'S1' ORDER BY TG_BD DESC");
             loadcbbma_BTP();
             loadcbbma_NVL();
             loadcbb_Loai();
@@ -47,15 +47,23 @@ namespace NhatKySanXuat
             dataGridView1.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
             dataGridView1.ColumnHeadersDefaultCellStyle.BackColor = Color.LightGray;
             dataGridView1.ColumnHeadersDefaultCellStyle.ForeColor = Color.Black;
-
             chart1.Titles.Add("RELEASE CHART");
             chart1.ChartAreas[0].AxisY.Minimum = 0;
             chart1.ChartAreas[0].AxisY.Maximum = 100;
-            chart1.ChartAreas[0].AxisY.Interval = 10;
+            chart1.ChartAreas[0].AxisY.Interval = 5;
             chart1.ChartAreas[0].AxisX.Interval = 1;
-            chart1.ChartAreas[0].AxisY.Title = "VALUE";
+            chart1.ChartAreas[0].AxisY.Title = "% RELEASE";
             chart1.ChartAreas[0].AxisX.Title = "DAY";
+            dgv_select_lot.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgv_select_lot.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+            dgv_select_lot.ColumnHeadersDefaultCellStyle.BackColor = Color.LightGray;
+            dgv_select_lot.ColumnHeadersDefaultCellStyle.ForeColor = Color.Black;
 
+
+            dgv_draw_chart.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgv_draw_chart.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+            dgv_draw_chart.ColumnHeadersDefaultCellStyle.BackColor = Color.LightGray;
+            dgv_draw_chart.ColumnHeadersDefaultCellStyle.ForeColor = Color.Black;
         }
         private void btthem_Click(object sender, EventArgs e)
         {
@@ -12853,7 +12861,7 @@ namespace NhatKySanXuat
             panel_nhap_release.BackColor = Color.Lime;
             panel_nhap_release.BorderStyle = BorderStyle.Fixed3D;
             lb_nhap_release.ForeColor = Color.White;
-            load_data_for_chart();
+            load_data_for_chart_with_date();
 
             pn_nksx_button.BackColor = Color.Silver;
             pn_nksx_button.BorderStyle = BorderStyle.FixedSingle;
@@ -12947,6 +12955,7 @@ namespace NhatKySanXuat
                 if (dataRow["ma_BTP"].ToString() != "")
                 {
                     cbb_ma_BTP_search.Items.Add(dataRow["ma_BTP"].ToString());
+                    cbb_mabtp_chart.Items.Add(dataRow["ma_BTP"].ToString());
                 }
             }
         }
@@ -12968,6 +12977,7 @@ namespace NhatKySanXuat
                 if (dataRow["LOT"].ToString() != "")
                 {
                     cbb_search_lot.Items.Add(dataRow["LOT"].ToString());
+                    cbb_lot_chart.Items.Add(dataRow["LOT"].ToString());
                 }
             }
         }
@@ -12989,6 +12999,7 @@ namespace NhatKySanXuat
                 if (dataRow["phanbon_nvl"].ToString() != "")
                 {
                     cbb_phanbonnvl_search.Items.Add(dataRow["phanbon_nvl"].ToString());
+                    cbb_nvl_chart.Items.Add(dataRow["phanbon_nvl"].ToString());
                 }
             }
         }
@@ -13010,6 +13021,7 @@ namespace NhatKySanXuat
                 if (dataRow["loai"].ToString() != "")
                 {
                     cbb_search_loai.Items.Add(dataRow["loai"].ToString());
+                    cbb_loai_chart.Items.Add(dataRow["loai"].ToString());
                 }
             }
         }
@@ -13717,70 +13729,697 @@ namespace NhatKySanXuat
             pnkehoachsx.BorderStyle = BorderStyle.Fixed3D;
             lbkehoachsx.ForeColor = Color.White;
         }
-        public void load_data_for_chart()
+        public void load_data_for_chart_with_date()
         {
             try
             {
-                if (cbb_thietbi_tabchart.Text == "" && tb_dotsx_tabchart.Text == "")
-                {
-                    SqlConnection sqlcon = new SqlConnection(@"Data Source = 192.168.21.244,1433; Initial Catalog= RSFLOGSANXUAT ;User ID = sa; Password =mylan@2016");
-                    sqlcon.Open();
-                    SqlCommand command = new SqlCommand();
-                    SqlDataAdapter adapter = new SqlDataAdapter();
-                    DataTable tb_buff = new DataTable();
-                    command = sqlcon.CreateCommand();
-                    command.CommandText = "select LOT,ma_BTP,dot_sx,thiet_bi,ngay_sx from nhatkysanxuat ORDER BY dot_sx DESC ";
-                    adapter.SelectCommand = command;
-                    tb_buff.Clear();
-                    adapter.Fill(tb_buff);
-                    dgv_select_lot.DataSource = tb_buff;
-                    sqlcon.Close();
-                }
-                else if (cbb_thietbi_tabchart.Text != "" && tb_dotsx_tabchart.Text == "")
-                {
-                    SqlConnection sqlcon = new SqlConnection(@"Data Source = 192.168.21.244,1433; Initial Catalog= RSFLOGSANXUAT ;User ID = sa; Password =mylan@2016");
-                    sqlcon.Open();
-                    SqlCommand command = new SqlCommand();
-                    SqlDataAdapter adapter = new SqlDataAdapter();
-                    DataTable tb_buff = new DataTable();
-                    command = sqlcon.CreateCommand();
-                    command.CommandText = "select LOT,ma_BTP,dot_sx,thiet_bi,ngay_sx from nhatkysanxuat where thiet_bi ='" + cbb_thietbi_tabchart.Text + "' ORDER BY dot_sx DESC ";
-                    adapter.SelectCommand = command;
-                    tb_buff.Clear();
-                    adapter.Fill(tb_buff);
-                    dgv_select_lot.DataSource = tb_buff;
-                    sqlcon.Close();
-                }
-                else if (cbb_thietbi_tabchart.Text == "" && tb_dotsx_tabchart.Text != "")
-                {
-                    SqlConnection sqlcon = new SqlConnection(@"Data Source = 192.168.21.244,1433; Initial Catalog= RSFLOGSANXUAT ;User ID = sa; Password =mylan@2016");
-                    sqlcon.Open();
-                    SqlCommand command = new SqlCommand();
-                    SqlDataAdapter adapter = new SqlDataAdapter();
-                    DataTable tb_buff = new DataTable();
-                    command = sqlcon.CreateCommand();
-                    command.CommandText = "select LOT,ma_BTP,dot_sx,thiet_bi,ngay_sx from nhatkysanxuat where dot_sx ='" + tb_dotsx_tabchart.Text + "' ORDER BY me ASC ";
-                    adapter.SelectCommand = command;
-                    tb_buff.Clear();
-                    adapter.Fill(tb_buff);
-                    dgv_select_lot.DataSource = tb_buff;
-                    sqlcon.Close();
-                }
-                else if (cbb_thietbi_tabchart.Text != "" && tb_dotsx_tabchart.Text != "")
-                {
-                    SqlConnection sqlcon = new SqlConnection(@"Data Source = 192.168.21.244,1433; Initial Catalog= RSFLOGSANXUAT ;User ID = sa; Password =mylan@2016");
-                    sqlcon.Open();
-                    SqlCommand command = new SqlCommand();
-                    SqlDataAdapter adapter = new SqlDataAdapter();
-                    DataTable tb_buff = new DataTable();
-                    command = sqlcon.CreateCommand();
-                    command.CommandText = "select LOT,ma_BTP,dot_sx,thiet_bi,ngay_sx from nhatkysanxuat where thiet_bi ='" + cbb_thietbi_tabchart.Text + "' AND dot_sx ='" + tb_dotsx_tabchart.Text + "' ORDER BY me ASC ";
-                    adapter.SelectCommand = command;
-                    tb_buff.Clear();
-                    adapter.Fill(tb_buff);
-                    dgv_select_lot.DataSource = tb_buff;
-                    sqlcon.Close();
-                }
+                SqlConnection sqlcon = new SqlConnection(@"Data Source = 192.168.21.244,1433; Initial Catalog= RSFLOGSANXUAT ;User ID = sa; Password =mylan@2016");
+                sqlcon.Open();
+                SqlCommand command = new SqlCommand();
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                DataTable tb_buff = new DataTable();
+                command = sqlcon.CreateCommand();
+                command.CommandText = "select LOT,ma_BTP,phanbon_nvl,loai,dot_sx,thiet_bi,ngay_sx,ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140 from nhatkysanxuat where ngay_sx between cast('" + dateTimePicker_form_chart.Text + "' as date) and cast('" + dateTimePicker_to_chart.Text + "' as date) ORDER BY dot_sx DESC ";
+                adapter.SelectCommand = command;
+                tb_buff.Clear();
+                adapter.Fill(tb_buff);
+                dgv_select_lot.DataSource = tb_buff;
+                sqlcon.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        public void load_data_for_chart_with_dotsx()
+        {
+            try
+            {
+                SqlConnection sqlcon = new SqlConnection(@"Data Source = 192.168.21.244,1433; Initial Catalog= RSFLOGSANXUAT ;User ID = sa; Password =mylan@2016");
+                sqlcon.Open();
+                SqlCommand command = new SqlCommand();
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                DataTable tb_buff = new DataTable();
+                command = sqlcon.CreateCommand();
+                command.CommandText = "select LOT,ma_BTP,phanbon_nvl,loai,dot_sx,thiet_bi,ngay_sx,ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140 from nhatkysanxuat where dot_sx ='" + tb_dotsx_tabchart.Text + "' AND ngay_sx between cast('" + dateTimePicker_form_chart.Text + "' as date) and cast('" + dateTimePicker_to_chart.Text + "' as date) ORDER BY dot_sx DESC ";
+                adapter.SelectCommand = command;
+                tb_buff.Clear();
+                adapter.Fill(tb_buff);
+                dgv_select_lot.DataSource = tb_buff;
+                sqlcon.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        public void load_data_for_chart_with_loai()
+        {
+            try
+            {
+                SqlConnection sqlcon = new SqlConnection(@"Data Source = 192.168.21.244,1433; Initial Catalog= RSFLOGSANXUAT ;User ID = sa; Password =mylan@2016");
+                sqlcon.Open();
+                SqlCommand command = new SqlCommand();
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                DataTable tb_buff = new DataTable();
+                command = sqlcon.CreateCommand();
+                command.CommandText = "select LOT,ma_BTP,phanbon_nvl,loai,dot_sx,thiet_bi,ngay_sx,ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140 from nhatkysanxuat where loai ='" + cbb_loai_chart.Text + "' AND ngay_sx between cast('" + dateTimePicker_form_chart.Text + "' as date) and cast('" + dateTimePicker_to_chart.Text + "' as date) ORDER BY dot_sx DESC ";
+                adapter.SelectCommand = command;
+                tb_buff.Clear();
+                adapter.Fill(tb_buff);
+                dgv_select_lot.DataSource = tb_buff;
+                sqlcon.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        public void load_data_for_chart_with_btp()
+        {
+            try
+            {
+                SqlConnection sqlcon = new SqlConnection(@"Data Source = 192.168.21.244,1433; Initial Catalog= RSFLOGSANXUAT ;User ID = sa; Password =mylan@2016");
+                sqlcon.Open();
+                SqlCommand command = new SqlCommand();
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                DataTable tb_buff = new DataTable();
+                command = sqlcon.CreateCommand();
+                command.CommandText = "select LOT,ma_BTP,phanbon_nvl,loai,dot_sx,thiet_bi,ngay_sx,ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140 from nhatkysanxuat where ma_BTP LIKE '%" + cbb_mabtp_chart.Text + "%' AND ngay_sx between cast('" + dateTimePicker_form_chart.Text + "' as date) and cast('" + dateTimePicker_to_chart.Text + "' as date) ORDER BY dot_sx DESC ";
+                adapter.SelectCommand = command;
+                tb_buff.Clear();
+                adapter.Fill(tb_buff);
+                dgv_select_lot.DataSource = tb_buff;
+                sqlcon.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        public void load_data_for_chart_with_nvl()
+        {
+            try
+            {
+                SqlConnection sqlcon = new SqlConnection(@"Data Source = 192.168.21.244,1433; Initial Catalog= RSFLOGSANXUAT ;User ID = sa; Password =mylan@2016");
+                sqlcon.Open();
+                SqlCommand command = new SqlCommand();
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                DataTable tb_buff = new DataTable();
+                command = sqlcon.CreateCommand();
+                command.CommandText = "select LOT,ma_BTP,phanbon_nvl,loai,dot_sx,thiet_bi,ngay_sx,ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140 from nhatkysanxuat where phanbon_nvl LIKE '%" + cbb_nvl_chart.Text + "%' AND ngay_sx between cast('" + dateTimePicker_form_chart.Text + "' as date) and cast('" + dateTimePicker_to_chart.Text + "' as date) ORDER BY dot_sx DESC ";
+                adapter.SelectCommand = command;
+                tb_buff.Clear();
+                adapter.Fill(tb_buff);
+                dgv_select_lot.DataSource = tb_buff;
+                sqlcon.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+
+        public void load_data_for_chart_with_lot()
+        {
+            try
+            {
+                SqlConnection sqlcon = new SqlConnection(@"Data Source = 192.168.21.244,1433; Initial Catalog= RSFLOGSANXUAT ;User ID = sa; Password =mylan@2016");
+                sqlcon.Open();
+                SqlCommand command = new SqlCommand();
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                DataTable tb_buff = new DataTable();
+                command = sqlcon.CreateCommand();
+                command.CommandText = "select LOT,ma_BTP,phanbon_nvl,loai,dot_sx,thiet_bi,ngay_sx,ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140 from nhatkysanxuat where LOT LIKE '%" + cbb_lot_chart.Text + "%' AND ngay_sx between cast('" + dateTimePicker_form_chart.Text + "' as date) and cast('" + dateTimePicker_to_chart.Text + "' as date) ORDER BY dot_sx DESC ";
+                adapter.SelectCommand = command;
+                tb_buff.Clear();
+                adapter.Fill(tb_buff);
+                dgv_select_lot.DataSource = tb_buff;
+                sqlcon.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+
+        public void load_data_for_chart_with_date_s1_02()
+        {
+            try
+            {
+                SqlConnection sqlcon = new SqlConnection(@"Data Source = 192.168.21.244,1433; Initial Catalog= RSFLOGSANXUAT ;User ID = sa; Password =mylan@2016");
+                sqlcon.Open();
+                SqlCommand command = new SqlCommand();
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                DataTable tb_buff = new DataTable();
+                command = sqlcon.CreateCommand();
+                command.CommandText = "select LOT,ma_BTP,phanbon_nvl,loai,dot_sx,thiet_bi,ngay_sx,ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140 from nhatkysanxuat where thiet_bi = '" + cbb_thietbi_tabchart.Text + "' AND ngay_sx between cast('" + dateTimePicker_form_chart.Text + "' as date) and cast('" + dateTimePicker_to_chart.Text + "' as date) ORDER BY dot_sx DESC ";
+                adapter.SelectCommand = command;
+                tb_buff.Clear();
+                adapter.Fill(tb_buff);
+                dgv_select_lot.DataSource = tb_buff;
+                sqlcon.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        public void load_data_for_chart_with_dotsx_s1_02()
+        {
+            try
+            {
+                SqlConnection sqlcon = new SqlConnection(@"Data Source = 192.168.21.244,1433; Initial Catalog= RSFLOGSANXUAT ;User ID = sa; Password =mylan@2016");
+                sqlcon.Open();
+                SqlCommand command = new SqlCommand();
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                DataTable tb_buff = new DataTable();
+                command = sqlcon.CreateCommand();
+                command.CommandText = "select LOT,ma_BTP,phanbon_nvl,loai,dot_sx,thiet_bi,ngay_sx,ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140 from nhatkysanxuat where thiet_bi ='" + cbb_thietbi_tabchart.Text + "' AND dot_sx ='" + tb_dotsx_tabchart.Text + "' AND ngay_sx between cast('" + dateTimePicker_form_chart.Text + "' as date) and cast('" + dateTimePicker_to_chart.Text + "' as date) ORDER BY dot_sx DESC ";
+                adapter.SelectCommand = command;
+                tb_buff.Clear();
+                adapter.Fill(tb_buff);
+                dgv_select_lot.DataSource = tb_buff;
+                sqlcon.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        public void load_data_for_chart_with_loai_s1_02()
+        {
+            try
+            {
+                SqlConnection sqlcon = new SqlConnection(@"Data Source = 192.168.21.244,1433; Initial Catalog= RSFLOGSANXUAT ;User ID = sa; Password =mylan@2016");
+                sqlcon.Open();
+                SqlCommand command = new SqlCommand();
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                DataTable tb_buff = new DataTable();
+                command = sqlcon.CreateCommand();
+                command.CommandText = "select LOT,ma_BTP,phanbon_nvl,loai,dot_sx,thiet_bi,ngay_sx,ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140 from nhatkysanxuat where thiet_bi ='" + cbb_thietbi_tabchart.Text + "' AND loai ='" + cbb_loai_chart.Text + "' AND ngay_sx between cast('" + dateTimePicker_form_chart.Text + "' as date) and cast('" + dateTimePicker_to_chart.Text + "' as date) ORDER BY dot_sx DESC ";
+                adapter.SelectCommand = command;
+                tb_buff.Clear();
+                adapter.Fill(tb_buff);
+                dgv_select_lot.DataSource = tb_buff;
+                sqlcon.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        public void load_data_for_chart_with_btp_s1_02()
+        {
+            try
+            {
+                SqlConnection sqlcon = new SqlConnection(@"Data Source = 192.168.21.244,1433; Initial Catalog= RSFLOGSANXUAT ;User ID = sa; Password =mylan@2016");
+                sqlcon.Open();
+                SqlCommand command = new SqlCommand();
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                DataTable tb_buff = new DataTable();
+                command = sqlcon.CreateCommand();
+                command.CommandText = "select LOT,ma_BTP,phanbon_nvl,loai,dot_sx,thiet_bi,ngay_sx,ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140 from nhatkysanxuat where thiet_bi ='" + cbb_thietbi_tabchart.Text + "' AND ma_BTP LIKE '%" + cbb_mabtp_chart.Text + "%' AND ngay_sx between cast('" + dateTimePicker_form_chart.Text + "' as date) and cast('" + dateTimePicker_to_chart.Text + "' as date) ORDER BY dot_sx DESC ";
+                adapter.SelectCommand = command;
+                tb_buff.Clear();
+                adapter.Fill(tb_buff);
+                dgv_select_lot.DataSource = tb_buff;
+                sqlcon.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        public void load_data_for_chart_with_nvl_s1_02()
+        {
+            try
+            {
+                SqlConnection sqlcon = new SqlConnection(@"Data Source = 192.168.21.244,1433; Initial Catalog= RSFLOGSANXUAT ;User ID = sa; Password =mylan@2016");
+                sqlcon.Open();
+                SqlCommand command = new SqlCommand();
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                DataTable tb_buff = new DataTable();
+                command = sqlcon.CreateCommand();
+                command.CommandText = "select LOT,ma_BTP,phanbon_nvl,loai,dot_sx,thiet_bi,ngay_sx,ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140 from nhatkysanxuat where thiet_bi ='" + cbb_thietbi_tabchart.Text + "' AND phanbon_nvl LIKE '%" + cbb_nvl_chart.Text + "%' AND ngay_sx between cast('" + dateTimePicker_form_chart.Text + "' as date) and cast('" + dateTimePicker_to_chart.Text + "' as date) ORDER BY dot_sx DESC ";
+                adapter.SelectCommand = command;
+                tb_buff.Clear();
+                adapter.Fill(tb_buff);
+                dgv_select_lot.DataSource = tb_buff;
+                sqlcon.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+
+        public void load_data_for_chart_with_dotsx_loai()
+        {
+            try
+            {
+                SqlConnection sqlcon = new SqlConnection(@"Data Source = 192.168.21.244,1433; Initial Catalog= RSFLOGSANXUAT ;User ID = sa; Password =mylan@2016");
+                sqlcon.Open();
+                SqlCommand command = new SqlCommand();
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                DataTable tb_buff = new DataTable();
+                command = sqlcon.CreateCommand();
+                command.CommandText = "select LOT,ma_BTP,phanbon_nvl,loai,dot_sx,thiet_bi,ngay_sx,ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140 from nhatkysanxuat where dot_sx ='" + tb_dotsx_tabchart.Text + "' AND loai ='" + cbb_loai_chart.Text + "' AND ngay_sx between cast('" + dateTimePicker_form_chart.Text + "' as date) and cast('" + dateTimePicker_to_chart.Text + "' as date) ORDER BY dot_sx DESC ";
+                adapter.SelectCommand = command;
+                tb_buff.Clear();
+                adapter.Fill(tb_buff);
+                dgv_select_lot.DataSource = tb_buff;
+                sqlcon.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        public void load_data_for_chart_with_dotsx_btp()
+        {
+            try
+            {
+                SqlConnection sqlcon = new SqlConnection(@"Data Source = 192.168.21.244,1433; Initial Catalog= RSFLOGSANXUAT ;User ID = sa; Password =mylan@2016");
+                sqlcon.Open();
+                SqlCommand command = new SqlCommand();
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                DataTable tb_buff = new DataTable();
+                command = sqlcon.CreateCommand();
+                command.CommandText = "select LOT,ma_BTP,phanbon_nvl,loai,dot_sx,thiet_bi,ngay_sx,ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140 from nhatkysanxuat where dot_sx ='" + tb_dotsx_tabchart.Text + "' AND ma_BTP LIKE '%" + cbb_mabtp_chart.Text + "%' AND ngay_sx between cast('" + dateTimePicker_form_chart.Text + "' as date) and cast('" + dateTimePicker_to_chart.Text + "' as date) ORDER BY dot_sx DESC ";
+                adapter.SelectCommand = command;
+                tb_buff.Clear();
+                adapter.Fill(tb_buff);
+                dgv_select_lot.DataSource = tb_buff;
+                sqlcon.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        public void load_data_for_chart_with_dotsx_nvl()
+        {
+            try
+            {
+                SqlConnection sqlcon = new SqlConnection(@"Data Source = 192.168.21.244,1433; Initial Catalog= RSFLOGSANXUAT ;User ID = sa; Password =mylan@2016");
+                sqlcon.Open();
+                SqlCommand command = new SqlCommand();
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                DataTable tb_buff = new DataTable();
+                command = sqlcon.CreateCommand();
+                command.CommandText = "select LOT,ma_BTP,phanbon_nvl,loai,dot_sx,thiet_bi,ngay_sx,ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140 from nhatkysanxuat where dot_sx ='" + tb_dotsx_tabchart.Text + "' AND phanbon_nvl LIKE '%" + cbb_nvl_chart.Text + "%' AND ngay_sx between cast('" + dateTimePicker_form_chart.Text + "' as date) and cast('" + dateTimePicker_to_chart.Text + "' as date) ORDER BY dot_sx DESC ";
+                adapter.SelectCommand = command;
+                tb_buff.Clear();
+                adapter.Fill(tb_buff);
+                dgv_select_lot.DataSource = tb_buff;
+                sqlcon.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+
+        public void load_data_for_chart_with_dotsx_loai_s1_02()
+        {
+            try
+            {
+                SqlConnection sqlcon = new SqlConnection(@"Data Source = 192.168.21.244,1433; Initial Catalog= RSFLOGSANXUAT ;User ID = sa; Password =mylan@2016");
+                sqlcon.Open();
+                SqlCommand command = new SqlCommand();
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                DataTable tb_buff = new DataTable();
+                command = sqlcon.CreateCommand();
+                command.CommandText = "select LOT,ma_BTP,phanbon_nvl,loai,dot_sx,thiet_bi,ngay_sx,ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140 from nhatkysanxuat where thiet_bi ='" + cbb_thietbi_tabchart.Text + "' AND dot_sx ='" + tb_dotsx_tabchart.Text + "' AND loai ='" + cbb_loai_chart.Text + "' AND ngay_sx between cast('" + dateTimePicker_form_chart.Text + "' as date) and cast('" + dateTimePicker_to_chart.Text + "' as date) ORDER BY dot_sx DESC ";
+                adapter.SelectCommand = command;
+                tb_buff.Clear();
+                adapter.Fill(tb_buff);
+                dgv_select_lot.DataSource = tb_buff;
+                sqlcon.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        public void load_data_for_chart_with_dotsx_btp_s1_02()
+        {
+            try
+            {
+                SqlConnection sqlcon = new SqlConnection(@"Data Source = 192.168.21.244,1433; Initial Catalog= RSFLOGSANXUAT ;User ID = sa; Password =mylan@2016");
+                sqlcon.Open();
+                SqlCommand command = new SqlCommand();
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                DataTable tb_buff = new DataTable();
+                command = sqlcon.CreateCommand();
+                command.CommandText = "select LOT,ma_BTP,phanbon_nvl,loai,dot_sx,thiet_bi,ngay_sx,ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140 from nhatkysanxuat where thiet_bi ='" + cbb_thietbi_tabchart.Text + "' AND dot_sx ='" + tb_dotsx_tabchart.Text + "' AND ma_BTP LIKE '%" + cbb_mabtp_chart.Text + "%' AND ngay_sx between cast('" + dateTimePicker_form_chart.Text + "' as date) and cast('" + dateTimePicker_to_chart.Text + "' as date) ORDER BY dot_sx DESC ";
+                adapter.SelectCommand = command;
+                tb_buff.Clear();
+                adapter.Fill(tb_buff);
+                dgv_select_lot.DataSource = tb_buff;
+                sqlcon.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        public void load_data_for_chart_with_dotsx_nvl_s1_02()
+        {
+            try
+            {
+                SqlConnection sqlcon = new SqlConnection(@"Data Source = 192.168.21.244,1433; Initial Catalog= RSFLOGSANXUAT ;User ID = sa; Password =mylan@2016");
+                sqlcon.Open();
+                SqlCommand command = new SqlCommand();
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                DataTable tb_buff = new DataTable();
+                command = sqlcon.CreateCommand();
+                command.CommandText = "select LOT,ma_BTP,phanbon_nvl,loai,dot_sx,thiet_bi,ngay_sx,ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140 from nhatkysanxuat where thiet_bi ='" + cbb_thietbi_tabchart.Text + "' AND dot_sx ='" + tb_dotsx_tabchart.Text + "' AND phanbon_nvl LIKE '%" + cbb_nvl_chart.Text + "%' AND ngay_sx between cast('" + dateTimePicker_form_chart.Text + "' as date) and cast('" + dateTimePicker_to_chart.Text + "' as date) ORDER BY dot_sx DESC ";
+                adapter.SelectCommand = command;
+                tb_buff.Clear();
+                adapter.Fill(tb_buff);
+                dgv_select_lot.DataSource = tb_buff;
+                sqlcon.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        public void load_data_for_chart_with_loai_btp()
+        {
+            try
+            {
+                SqlConnection sqlcon = new SqlConnection(@"Data Source = 192.168.21.244,1433; Initial Catalog= RSFLOGSANXUAT ;User ID = sa; Password =mylan@2016");
+                sqlcon.Open();
+                SqlCommand command = new SqlCommand();
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                DataTable tb_buff = new DataTable();
+                command = sqlcon.CreateCommand();
+                command.CommandText = "select LOT,ma_BTP,phanbon_nvl,loai,dot_sx,thiet_bi,ngay_sx,ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140 from nhatkysanxuat where loai ='" + cbb_loai_chart.Text + "' AND ma_BTP LIKE '%" + cbb_mabtp_chart.Text + "%' AND ngay_sx between cast('" + dateTimePicker_form_chart.Text + "' as date) and cast('" + dateTimePicker_to_chart.Text + "' as date) ORDER BY dot_sx DESC ";
+                adapter.SelectCommand = command;
+                tb_buff.Clear();
+                adapter.Fill(tb_buff);
+                dgv_select_lot.DataSource = tb_buff;
+                sqlcon.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        public void load_data_for_chart_with_loai_nvl()
+        {
+            try
+            {
+                SqlConnection sqlcon = new SqlConnection(@"Data Source = 192.168.21.244,1433; Initial Catalog= RSFLOGSANXUAT ;User ID = sa; Password =mylan@2016");
+                sqlcon.Open();
+                SqlCommand command = new SqlCommand();
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                DataTable tb_buff = new DataTable();
+                command = sqlcon.CreateCommand();
+                command.CommandText = "select LOT,ma_BTP,phanbon_nvl,loai,dot_sx,thiet_bi,ngay_sx,ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140 from nhatkysanxuat where loai ='" + cbb_loai_chart.Text + "' AND phanbon_nvl LIKE '%" + cbb_nvl_chart.Text + "%' AND ngay_sx between cast('" + dateTimePicker_form_chart.Text + "' as date) and cast('" + dateTimePicker_to_chart.Text + "' as date) ORDER BY dot_sx DESC ";
+                adapter.SelectCommand = command;
+                tb_buff.Clear();
+                adapter.Fill(tb_buff);
+                dgv_select_lot.DataSource = tb_buff;
+                sqlcon.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        public void load_data_for_chart_with_loai_btp_s1_02()
+        {
+            try
+            {
+                SqlConnection sqlcon = new SqlConnection(@"Data Source = 192.168.21.244,1433; Initial Catalog= RSFLOGSANXUAT ;User ID = sa; Password =mylan@2016");
+                sqlcon.Open();
+                SqlCommand command = new SqlCommand();
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                DataTable tb_buff = new DataTable();
+                command = sqlcon.CreateCommand();
+                command.CommandText = "select LOT,ma_BTP,phanbon_nvl,loai,dot_sx,thiet_bi,ngay_sx,ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140 from nhatkysanxuat where thiet_bi ='" + cbb_thietbi_tabchart.Text + "' AND loai ='" + cbb_loai_chart.Text + "' AND ma_BTP LIKE '%" + cbb_mabtp_chart.Text + "%' AND ngay_sx between cast('" + dateTimePicker_form_chart.Text + "' as date) and cast('" + dateTimePicker_to_chart.Text + "' as date) ORDER BY dot_sx DESC ";
+                adapter.SelectCommand = command;
+                tb_buff.Clear();
+                adapter.Fill(tb_buff);
+                dgv_select_lot.DataSource = tb_buff;
+                sqlcon.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        public void load_data_for_chart_with_loai_nvl_s1_02()
+        {
+            try
+            {
+                SqlConnection sqlcon = new SqlConnection(@"Data Source = 192.168.21.244,1433; Initial Catalog= RSFLOGSANXUAT ;User ID = sa; Password =mylan@2016");
+                sqlcon.Open();
+                SqlCommand command = new SqlCommand();
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                DataTable tb_buff = new DataTable();
+                command = sqlcon.CreateCommand();
+                command.CommandText = "select LOT,ma_BTP,phanbon_nvl,loai,dot_sx,thiet_bi,ngay_sx,ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140 from nhatkysanxuat where thiet_bi ='" + cbb_thietbi_tabchart.Text + "' AND loai ='" + cbb_loai_chart.Text + "' AND phanbon_nvl LIKE '%" + cbb_nvl_chart.Text + "%' AND ngay_sx between cast('" + dateTimePicker_form_chart.Text + "' as date) and cast('" + dateTimePicker_to_chart.Text + "' as date) ORDER BY dot_sx DESC ";
+                adapter.SelectCommand = command;
+                tb_buff.Clear();
+                adapter.Fill(tb_buff);
+                dgv_select_lot.DataSource = tb_buff;
+                sqlcon.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        public void load_data_for_chart_with_btp_nvl()
+        {
+            try
+            {
+                SqlConnection sqlcon = new SqlConnection(@"Data Source = 192.168.21.244,1433; Initial Catalog= RSFLOGSANXUAT ;User ID = sa; Password =mylan@2016");
+                sqlcon.Open();
+                SqlCommand command = new SqlCommand();
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                DataTable tb_buff = new DataTable();
+                command = sqlcon.CreateCommand();
+                command.CommandText = "select LOT,ma_BTP,phanbon_nvl,loai,dot_sx,thiet_bi,ngay_sx,ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140 from nhatkysanxuat where phanbon_nvl LIKE '%" + cbb_nvl_chart.Text + "%' AND ma_BTP LIKE '%" + cbb_mabtp_chart.Text + "%' AND ngay_sx between cast('" + dateTimePicker_form_chart.Text + "' as date) and cast('" + dateTimePicker_to_chart.Text + "' as date) ORDER BY dot_sx DESC ";
+                adapter.SelectCommand = command;
+                tb_buff.Clear();
+                adapter.Fill(tb_buff);
+                dgv_select_lot.DataSource = tb_buff;
+                sqlcon.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        public void load_data_for_chart_with_btp_nvl_s1_02()
+        {
+            try
+            {
+                SqlConnection sqlcon = new SqlConnection(@"Data Source = 192.168.21.244,1433; Initial Catalog= RSFLOGSANXUAT ;User ID = sa; Password =mylan@2016");
+                sqlcon.Open();
+                SqlCommand command = new SqlCommand();
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                DataTable tb_buff = new DataTable();
+                command = sqlcon.CreateCommand();
+                command.CommandText = "select LOT,ma_BTP,phanbon_nvl,loai,dot_sx,thiet_bi,ngay_sx,ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140 from nhatkysanxuat where thiet_bi ='" + cbb_thietbi_tabchart.Text + "' AND phanbon_nvl LIKE '%" + cbb_nvl_chart.Text + "%' AND ma_BTP LIKE '%" + cbb_mabtp_chart.Text + "%' AND ngay_sx between cast('" + dateTimePicker_form_chart.Text + "' as date) and cast('" + dateTimePicker_to_chart.Text + "' as date) ORDER BY dot_sx DESC ";
+                adapter.SelectCommand = command;
+                tb_buff.Clear();
+                adapter.Fill(tb_buff);
+                dgv_select_lot.DataSource = tb_buff;
+                sqlcon.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        public void load_data_for_chart_with_dotsx_loai_btp()
+        {
+            try
+            {
+                SqlConnection sqlcon = new SqlConnection(@"Data Source = 192.168.21.244,1433; Initial Catalog= RSFLOGSANXUAT ;User ID = sa; Password =mylan@2016");
+                sqlcon.Open();
+                SqlCommand command = new SqlCommand();
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                DataTable tb_buff = new DataTable();
+                command = sqlcon.CreateCommand();
+                command.CommandText = "select LOT,ma_BTP,phanbon_nvl,loai,dot_sx,thiet_bi,ngay_sx,ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140 from nhatkysanxuat where dot_sx ='" + tb_dotsx_tabchart.Text + "' AND loai ='" + cbb_loai_chart.Text + "' AND ma_BTP LIKE '%" + cbb_mabtp_chart.Text + "%' AND ngay_sx between cast('" + dateTimePicker_form_chart.Text + "' as date) and cast('" + dateTimePicker_to_chart.Text + "' as date) ORDER BY dot_sx DESC ";
+                adapter.SelectCommand = command;
+                tb_buff.Clear();
+                adapter.Fill(tb_buff);
+                dgv_select_lot.DataSource = tb_buff;
+                sqlcon.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        public void load_data_for_chart_with_dotsx_loai_nvl()
+        {
+            try
+            {
+                SqlConnection sqlcon = new SqlConnection(@"Data Source = 192.168.21.244,1433; Initial Catalog= RSFLOGSANXUAT ;User ID = sa; Password =mylan@2016");
+                sqlcon.Open();
+                SqlCommand command = new SqlCommand();
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                DataTable tb_buff = new DataTable();
+                command = sqlcon.CreateCommand();
+                command.CommandText = "select LOT,ma_BTP,phanbon_nvl,loai,dot_sx,thiet_bi,ngay_sx,ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140 from nhatkysanxuat where dot_sx ='" + tb_dotsx_tabchart.Text + "' AND loai ='" + cbb_loai_chart.Text + "' AND phanbon_nvl LIKE '%" + cbb_nvl_chart.Text + "%' AND ngay_sx between cast('" + dateTimePicker_form_chart.Text + "' as date) and cast('" + dateTimePicker_to_chart.Text + "' as date) ORDER BY dot_sx DESC ";
+                adapter.SelectCommand = command;
+                tb_buff.Clear();
+                adapter.Fill(tb_buff);
+                dgv_select_lot.DataSource = tb_buff;
+                sqlcon.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        public void load_data_for_chart_with_dotsx_loai_btp_s1_02()
+        {
+            try
+            {
+                SqlConnection sqlcon = new SqlConnection(@"Data Source = 192.168.21.244,1433; Initial Catalog= RSFLOGSANXUAT ;User ID = sa; Password =mylan@2016");
+                sqlcon.Open();
+                SqlCommand command = new SqlCommand();
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                DataTable tb_buff = new DataTable();
+                command = sqlcon.CreateCommand();
+                command.CommandText = "select LOT,ma_BTP,phanbon_nvl,loai,dot_sx,thiet_bi,ngay_sx,ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140 from nhatkysanxuat where thiet_bi ='" + cbb_thietbi_tabchart.Text + "' AND dot_sx ='" + tb_dotsx_tabchart.Text + "' AND loai ='" + cbb_loai_chart.Text + "' AND ma_BTP LIKE '%" + cbb_mabtp_chart.Text + "%' AND ngay_sx between cast('" + dateTimePicker_form_chart.Text + "' as date) and cast('" + dateTimePicker_to_chart.Text + "' as date) ORDER BY dot_sx DESC ";
+                adapter.SelectCommand = command;
+                tb_buff.Clear();
+                adapter.Fill(tb_buff);
+                dgv_select_lot.DataSource = tb_buff;
+                sqlcon.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        public void load_data_for_chart_with_dotsx_loai_nvl_s1_02()
+        {
+            try
+            {
+                SqlConnection sqlcon = new SqlConnection(@"Data Source = 192.168.21.244,1433; Initial Catalog= RSFLOGSANXUAT ;User ID = sa; Password =mylan@2016");
+                sqlcon.Open();
+                SqlCommand command = new SqlCommand();
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                DataTable tb_buff = new DataTable();
+                command = sqlcon.CreateCommand();
+                command.CommandText = "select LOT,ma_BTP,phanbon_nvl,loai,dot_sx,thiet_bi,ngay_sx,ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140 from nhatkysanxuat where thiet_bi ='" + cbb_thietbi_tabchart.Text + "' AND dot_sx ='" + tb_dotsx_tabchart.Text + "' AND loai ='" + cbb_loai_chart.Text + "' AND phanbon_nvl LIKE '%" + cbb_nvl_chart.Text + "%' AND ngay_sx between cast('" + dateTimePicker_form_chart.Text + "' as date) and cast('" + dateTimePicker_to_chart.Text + "' as date) ORDER BY dot_sx DESC ";
+                adapter.SelectCommand = command;
+                tb_buff.Clear();
+                adapter.Fill(tb_buff);
+                dgv_select_lot.DataSource = tb_buff;
+                sqlcon.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        public void load_data_for_chart_with_dotsx_btp_nvl()
+        {
+            try
+            {
+                SqlConnection sqlcon = new SqlConnection(@"Data Source = 192.168.21.244,1433; Initial Catalog= RSFLOGSANXUAT ;User ID = sa; Password =mylan@2016");
+                sqlcon.Open();
+                SqlCommand command = new SqlCommand();
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                DataTable tb_buff = new DataTable();
+                command = sqlcon.CreateCommand();
+                command.CommandText = "select LOT,ma_BTP,phanbon_nvl,loai,dot_sx,thiet_bi,ngay_sx,ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140 from nhatkysanxuat where dot_sx ='" + tb_dotsx_tabchart.Text + "' phanbon_nvl LIKE '%" + cbb_nvl_chart.Text + "%' AND ma_BTP LIKE '%" + cbb_mabtp_chart.Text + "%' AND ngay_sx between cast('" + dateTimePicker_form_chart.Text + "' as date) and cast('" + dateTimePicker_to_chart.Text + "' as date) ORDER BY dot_sx DESC ";
+                adapter.SelectCommand = command;
+                tb_buff.Clear();
+                adapter.Fill(tb_buff);
+                dgv_select_lot.DataSource = tb_buff;
+                sqlcon.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        public void load_data_for_chart_with_dotsx_btp_nvl_s1_02()
+        {
+            try
+            {
+                SqlConnection sqlcon = new SqlConnection(@"Data Source = 192.168.21.244,1433; Initial Catalog= RSFLOGSANXUAT ;User ID = sa; Password =mylan@2016");
+                sqlcon.Open();
+                SqlCommand command = new SqlCommand();
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                DataTable tb_buff = new DataTable();
+                command = sqlcon.CreateCommand();
+                command.CommandText = "select LOT,ma_BTP,phanbon_nvl,loai,dot_sx,thiet_bi,ngay_sx,ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140 from nhatkysanxuat where dot_sx ='" + tb_dotsx_tabchart.Text + "' AND thiet_bi ='" + cbb_thietbi_tabchart.Text + "' AND phanbon_nvl LIKE '%" + cbb_nvl_chart.Text + "%' AND ma_BTP LIKE '%" + cbb_mabtp_chart.Text + "%' AND ngay_sx between cast('" + dateTimePicker_form_chart.Text + "' as date) and cast('" + dateTimePicker_to_chart.Text + "' as date) ORDER BY dot_sx DESC ";
+                adapter.SelectCommand = command;
+                tb_buff.Clear();
+                adapter.Fill(tb_buff);
+                dgv_select_lot.DataSource = tb_buff;
+                sqlcon.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        public void load_data_for_chart_with_dotsx_loai_btp_nvl()
+        {
+            try
+            {
+                SqlConnection sqlcon = new SqlConnection(@"Data Source = 192.168.21.244,1433; Initial Catalog= RSFLOGSANXUAT ;User ID = sa; Password =mylan@2016");
+                sqlcon.Open();
+                SqlCommand command = new SqlCommand();
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                DataTable tb_buff = new DataTable();
+                command = sqlcon.CreateCommand();
+                command.CommandText = "select LOT,ma_BTP,phanbon_nvl,loai,dot_sx,thiet_bi,ngay_sx,ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140 from nhatkysanxuat where dot_sx ='" + tb_dotsx_tabchart.Text + "' AND loai ='" + cbb_loai_chart.Text + "' AND ma_BTP LIKE '%" + cbb_mabtp_chart.Text + "%' AND phanbon_nvl LIKE '%" + cbb_nvl_chart.Text + "%' AND ngay_sx between cast('" + dateTimePicker_form_chart.Text + "' as date) and cast('" + dateTimePicker_to_chart.Text + "' as date) ORDER BY dot_sx DESC ";
+                adapter.SelectCommand = command;
+                tb_buff.Clear();
+                adapter.Fill(tb_buff);
+                dgv_select_lot.DataSource = tb_buff;
+                sqlcon.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        public void load_data_for_chart_with_dotsx_loai_btp_nvl_s1_02()
+        {
+            try
+            {
+                SqlConnection sqlcon = new SqlConnection(@"Data Source = 192.168.21.244,1433; Initial Catalog= RSFLOGSANXUAT ;User ID = sa; Password =mylan@2016");
+                sqlcon.Open();
+                SqlCommand command = new SqlCommand();
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                DataTable tb_buff = new DataTable();
+                command = sqlcon.CreateCommand();
+                command.CommandText = "select LOT,ma_BTP,phanbon_nvl,loai,dot_sx,thiet_bi,ngay_sx,ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140 from nhatkysanxuat where thiet_bi ='" + cbb_thietbi_tabchart.Text + "' AND dot_sx ='" + tb_dotsx_tabchart.Text + "' AND loai ='" + cbb_loai_chart.Text + "' AND ma_BTP LIKE '%" + cbb_mabtp_chart.Text + "%' AND phanbon_nvl LIKE '%" + cbb_nvl_chart.Text + "%' AND ngay_sx between cast('" + dateTimePicker_form_chart.Text + "' as date) and cast('" + dateTimePicker_to_chart.Text + "' as date) ORDER BY dot_sx DESC ";
+                adapter.SelectCommand = command;
+                tb_buff.Clear();
+                adapter.Fill(tb_buff);
+                dgv_select_lot.DataSource = tb_buff;
+                sqlcon.Close();
             }
             catch (Exception ex)
             {
@@ -13790,9 +14429,132 @@ namespace NhatKySanXuat
 
         private void btt_search_tabchart_Click(object sender, EventArgs e)
         {
-            load_data_for_chart();
+            if (cbb_lot_chart.Text != "")
+            {
+                load_data_for_chart_with_lot();
+            }
+            if (cbb_thietbi_tabchart.Text == "" && tb_dotsx_tabchart.Text == "" && cbb_loai_chart.Text == "" && cbb_mabtp_chart.Text == "" && cbb_nvl_chart.Text == ""&& cbb_lot_chart.Text == "")
+            {
+                load_data_for_chart_with_date();
+            }
+            if (cbb_thietbi_tabchart.Text != "" && tb_dotsx_tabchart.Text == "" && cbb_loai_chart.Text == "" && cbb_mabtp_chart.Text == "" && cbb_nvl_chart.Text == "" && cbb_lot_chart.Text == "")
+            {
+                load_data_for_chart_with_date_s1_02();
+            }
+            if (cbb_thietbi_tabchart.Text == "" && tb_dotsx_tabchart.Text != "" && cbb_loai_chart.Text == "" && cbb_mabtp_chart.Text == "" && cbb_nvl_chart.Text == "" && cbb_lot_chart.Text == "")
+            {
+                load_data_for_chart_with_dotsx();
+            }
+            if (cbb_thietbi_tabchart.Text == "" && tb_dotsx_tabchart.Text == "" && cbb_loai_chart.Text != "" && cbb_mabtp_chart.Text == "" && cbb_nvl_chart.Text == "" && cbb_lot_chart.Text == "")
+            {
+                load_data_for_chart_with_loai();
+            }
+            if (cbb_thietbi_tabchart.Text == "" && tb_dotsx_tabchart.Text == "" && cbb_loai_chart.Text == "" && cbb_mabtp_chart.Text != "" && cbb_nvl_chart.Text == "" && cbb_lot_chart.Text == "")
+            {
+                load_data_for_chart_with_btp();
+            }
+            if (cbb_thietbi_tabchart.Text == "" && tb_dotsx_tabchart.Text == "" && cbb_loai_chart.Text == "" && cbb_mabtp_chart.Text == "" && cbb_nvl_chart.Text != "" && cbb_lot_chart.Text == "")
+            {
+                load_data_for_chart_with_nvl();
+            }
+            if (cbb_thietbi_tabchart.Text != "" && tb_dotsx_tabchart.Text != "" && cbb_loai_chart.Text == "" && cbb_mabtp_chart.Text == "" && cbb_nvl_chart.Text == "" && cbb_lot_chart.Text == "")
+            {
+                load_data_for_chart_with_dotsx_s1_02();
+            }
+            if (cbb_thietbi_tabchart.Text != "" && tb_dotsx_tabchart.Text == "" && cbb_loai_chart.Text != "" && cbb_mabtp_chart.Text == "" && cbb_nvl_chart.Text == "" && cbb_lot_chart.Text == "")
+            {
+                load_data_for_chart_with_loai_s1_02();
+            }
+            if (cbb_thietbi_tabchart.Text != "" && tb_dotsx_tabchart.Text == "" && cbb_loai_chart.Text == "" && cbb_mabtp_chart.Text != "" && cbb_nvl_chart.Text == "" && cbb_lot_chart.Text == "")
+            {
+                load_data_for_chart_with_btp_s1_02();
+            }
+            if (cbb_thietbi_tabchart.Text != "" && tb_dotsx_tabchart.Text == "" && cbb_loai_chart.Text == "" && cbb_mabtp_chart.Text == "" && cbb_nvl_chart.Text != "" && cbb_lot_chart.Text == "")
+            {
+                load_data_for_chart_with_nvl_s1_02();
+            }
+            if (cbb_thietbi_tabchart.Text == "" && tb_dotsx_tabchart.Text != "" && cbb_loai_chart.Text != "" && cbb_mabtp_chart.Text == "" && cbb_nvl_chart.Text == "" && cbb_lot_chart.Text == "")
+            {
+                load_data_for_chart_with_dotsx_loai();
+            }
+            if (cbb_thietbi_tabchart.Text == "" && tb_dotsx_tabchart.Text != "" && cbb_loai_chart.Text == "" && cbb_mabtp_chart.Text != "" && cbb_nvl_chart.Text == "" && cbb_lot_chart.Text == "")
+            {
+                load_data_for_chart_with_dotsx_btp();
+            }
+            if (cbb_thietbi_tabchart.Text == "" && tb_dotsx_tabchart.Text != "" && cbb_loai_chart.Text == "" && cbb_mabtp_chart.Text == "" && cbb_nvl_chart.Text != "" && cbb_lot_chart.Text == "")
+            {
+                load_data_for_chart_with_dotsx_nvl();
+            }
+            if (cbb_thietbi_tabchart.Text != "" && tb_dotsx_tabchart.Text != "" && cbb_loai_chart.Text != "" && cbb_mabtp_chart.Text == "" && cbb_nvl_chart.Text == "" && cbb_lot_chart.Text == "")
+            {
+                load_data_for_chart_with_dotsx_loai_s1_02();
+            }
+            if (cbb_thietbi_tabchart.Text != "" && tb_dotsx_tabchart.Text != "" && cbb_loai_chart.Text == "" && cbb_mabtp_chart.Text != "" && cbb_nvl_chart.Text == "" && cbb_lot_chart.Text == "")
+            {
+                load_data_for_chart_with_dotsx_btp_s1_02();
+            }
+            if (cbb_thietbi_tabchart.Text != "" && tb_dotsx_tabchart.Text != "" && cbb_loai_chart.Text == "" && cbb_mabtp_chart.Text == "" && cbb_nvl_chart.Text != "" && cbb_lot_chart.Text == "")
+            {
+                load_data_for_chart_with_dotsx_nvl_s1_02();
+            }
+            if (cbb_thietbi_tabchart.Text == "" && tb_dotsx_tabchart.Text == "" && cbb_loai_chart.Text != "" && cbb_mabtp_chart.Text != "" && cbb_nvl_chart.Text == "" && cbb_lot_chart.Text == "")
+            {
+                load_data_for_chart_with_loai_btp();
+            }
+            if (cbb_thietbi_tabchart.Text == "" && tb_dotsx_tabchart.Text == "" && cbb_loai_chart.Text != "" && cbb_mabtp_chart.Text == "" && cbb_nvl_chart.Text != "" && cbb_lot_chart.Text == "")
+            {
+                load_data_for_chart_with_loai_nvl();
+            }
+            if (cbb_thietbi_tabchart.Text != "" && tb_dotsx_tabchart.Text == "" && cbb_loai_chart.Text != "" && cbb_mabtp_chart.Text != "" && cbb_nvl_chart.Text == "" && cbb_lot_chart.Text == "")
+            {
+                load_data_for_chart_with_loai_btp_s1_02();
+            }
+            if (cbb_thietbi_tabchart.Text != "" && tb_dotsx_tabchart.Text == "" && cbb_loai_chart.Text != "" && cbb_mabtp_chart.Text == "" && cbb_nvl_chart.Text != "" && cbb_lot_chart.Text == "")
+            {
+                load_data_for_chart_with_loai_nvl_s1_02();
+            }
+            if (cbb_thietbi_tabchart.Text == "" && tb_dotsx_tabchart.Text == "" && cbb_loai_chart.Text == "" && cbb_mabtp_chart.Text != "" && cbb_nvl_chart.Text != "" && cbb_lot_chart.Text == "")
+            {
+                load_data_for_chart_with_btp_nvl();
+            }
+            if (cbb_thietbi_tabchart.Text != "" && tb_dotsx_tabchart.Text == "" && cbb_loai_chart.Text == "" && cbb_mabtp_chart.Text != "" && cbb_nvl_chart.Text != "" && cbb_lot_chart.Text == "")
+            {
+                load_data_for_chart_with_btp_nvl_s1_02();
+            }
+            if (cbb_thietbi_tabchart.Text == "" && tb_dotsx_tabchart.Text != "" && cbb_loai_chart.Text != "" && cbb_mabtp_chart.Text != "" && cbb_nvl_chart.Text == "" && cbb_lot_chart.Text == "")
+            {
+                load_data_for_chart_with_dotsx_loai_btp();
+            }
+            if (cbb_thietbi_tabchart.Text == "" && tb_dotsx_tabchart.Text != "" && cbb_loai_chart.Text != "" && cbb_mabtp_chart.Text == "" && cbb_nvl_chart.Text != "" && cbb_lot_chart.Text == "")
+            {
+                load_data_for_chart_with_dotsx_loai_nvl();
+            }
+            if (cbb_thietbi_tabchart.Text != "" && tb_dotsx_tabchart.Text != "" && cbb_loai_chart.Text != "" && cbb_mabtp_chart.Text != "" && cbb_nvl_chart.Text == "" && cbb_lot_chart.Text == "")
+            {
+                load_data_for_chart_with_dotsx_loai_btp_s1_02();
+            }
+            if (cbb_thietbi_tabchart.Text != "" && tb_dotsx_tabchart.Text != "" && cbb_loai_chart.Text != "" && cbb_mabtp_chart.Text == "" && cbb_nvl_chart.Text != "" && cbb_lot_chart.Text == "")
+            {
+                load_data_for_chart_with_dotsx_loai_nvl_s1_02();
+            }
+            if (cbb_thietbi_tabchart.Text == "" && tb_dotsx_tabchart.Text != "" && cbb_loai_chart.Text == "" && cbb_mabtp_chart.Text != "" && cbb_nvl_chart.Text != "" && cbb_lot_chart.Text == "")
+            {
+                load_data_for_chart_with_dotsx_btp_nvl();
+            }
+            if (cbb_thietbi_tabchart.Text != "" && tb_dotsx_tabchart.Text != "" && cbb_loai_chart.Text == "" && cbb_mabtp_chart.Text != "" && cbb_nvl_chart.Text != "" && cbb_lot_chart.Text == "")
+            {
+                load_data_for_chart_with_dotsx_btp_nvl_s1_02();
+            }
+            if (cbb_thietbi_tabchart.Text == "" && tb_dotsx_tabchart.Text != "" && cbb_loai_chart.Text != "" && cbb_mabtp_chart.Text != "" && cbb_nvl_chart.Text != "" && cbb_lot_chart.Text == "")
+            {
+                load_data_for_chart_with_dotsx_loai_btp_nvl();
+            }
+            if (cbb_thietbi_tabchart.Text != "" && tb_dotsx_tabchart.Text != "" && cbb_loai_chart.Text != "" && cbb_mabtp_chart.Text != "" && cbb_nvl_chart.Text != "" && cbb_lot_chart.Text == "")
+            {
+                load_data_for_chart_with_dotsx_loai_btp_nvl_s1_02();
+            }
         }
-        public void draw_chart(string lot)
+        public void draw_chart(string lot_stt)
         {
             try
             {
@@ -13810,20 +14572,23 @@ namespace NhatKySanXuat
                 double ngay112 = 0;
                 double ngay126 = 0;
                 double ngay140 = 0;
+                string[] LOT_AND_STT = lot_stt.Split(new char[] { ',' });
+                string LOT = LOT_AND_STT[0];
+                string STT = LOT_AND_STT[1];
                 SqlConnection sqlcon = new SqlConnection(@"Data Source = 192.168.21.244,1433; Initial Catalog= RSFLOGSANXUAT ;User ID = sa; Password =mylan@2016");
                 SqlCommand command = new SqlCommand();
                 SqlDataAdapter adapter = new SqlDataAdapter();
                 DataTable tb_buff = new DataTable();
                 sqlcon.Open();
                 command = sqlcon.CreateCommand();
-                command.CommandText = "select ma_BTP,ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140 from nhatkysanxuat where LOT='" + lot + "'";
+                command.CommandText = "select ma_BTP,ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140 from nhatkysanxuat where LOT='" + LOT + "'";
                 adapter.SelectCommand = command;
                 tb_buff.Clear();
                 adapter.Fill(tb_buff);
                 sqlcon.Close();
                 DataRow[] row = tb_buff.Select();
                 string ma_btp = row[0]["ma_BTP"].ToString();
-                chart1.Series.Add(lot + " - " + ma_btp).ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+                chart1.Series.Add(STT + "-" + LOT + "-" + ma_btp).ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
                 chart1.ChartAreas[0].AxisX.Minimum = 0;
                 chart1.ChartAreas[0].AxisX.Maximum = 20;
                 range[0] = "0";
@@ -13852,109 +14617,111 @@ namespace NhatKySanXuat
                 if (row[0]["ngay_0"].ToString() != "")
                 {
                     ngay0 = Convert.ToDouble(row[0]["ngay_0"].ToString());
-                    chart1.Series[lot + " - " + ma_btp].Points.AddXY(0, ngay0);
+                    chart1.Series[STT + "-" + LOT + "-" + ma_btp].Points.AddXY(0, ngay0);
                 }
                 if (row[0]["ngay_7"].ToString() != "")
                 {
                     ngay7 = Convert.ToDouble(row[0]["ngay_7"].ToString());
-                    chart1.Series[lot + " - " + ma_btp].Points.AddXY(1, ngay7);
+                    chart1.Series[STT + "-" + LOT + "-" + ma_btp].Points.AddXY(1, ngay7);
                 }
                 if (row[0]["ngay_14"].ToString() != "")
                 {
                     ngay14 = Convert.ToDouble(row[0]["ngay_14"].ToString());
-                    chart1.Series[lot + " - " + ma_btp].Points.AddXY(2, ngay14);
+                    chart1.Series[STT + "-" + LOT + "-" + ma_btp].Points.AddXY(2, ngay14);
                 }
                 if (row[0]["ngay_21"].ToString() != "")
                 {
                     ngay21 = Convert.ToDouble(row[0]["ngay_21"].ToString());
-                    chart1.Series[lot + " - " + ma_btp].Points.AddXY(3, ngay21);
+                    chart1.Series[STT + "-" + LOT + "-" + ma_btp].Points.AddXY(3, ngay21);
                 }
                 if (row[0]["ngay_28"].ToString() != "")
                 {
                     ngay28 = Convert.ToDouble(row[0]["ngay_28"].ToString());
-                    chart1.Series[lot + " - " + ma_btp].Points.AddXY(4, ngay28);
+                    chart1.Series[STT + "-" + LOT + "-" + ma_btp].Points.AddXY(4, ngay28);
                 }
                 if (row[0]["ngay_42"].ToString() != "")
                 {
                     ngay42 = Convert.ToDouble(row[0]["ngay_42"].ToString());
-                    chart1.Series[lot + " - " + ma_btp].Points.AddXY(6, ngay42);
+                    chart1.Series[STT + "-" + LOT + "-" + ma_btp].Points.AddXY(6, ngay42);
                 }
                 if (row[0]["ngay_49"].ToString() != "")
                 {
                     ngay49 = Convert.ToDouble(row[0]["ngay_49"].ToString());
-                    chart1.Series[lot + " - " + ma_btp].Points.AddXY(7, ngay49);
+                    chart1.Series[STT + "-" + LOT + "-" + ma_btp].Points.AddXY(7, ngay49);
                 }
                 if (row[0]["ngay_56"].ToString() != "")
                 {
                     ngay56 = Convert.ToDouble(row[0]["ngay_56"].ToString());
-                    chart1.Series[lot + " - " + ma_btp].Points.AddXY(8, ngay56);
+                    chart1.Series[STT + "-" + LOT + "-" + ma_btp].Points.AddXY(8, ngay56);
                 }
                 if (row[0]["ngay_70"].ToString() != "")
                 {
                     ngay70 = Convert.ToDouble(row[0]["ngay_70"].ToString());
-                    chart1.Series[lot + " - " + ma_btp].Points.AddXY(10, ngay70);
+                    chart1.Series[STT + "-" + LOT + "-" + ma_btp].Points.AddXY(10, ngay70);
                 }
                 if (row[0]["ngay_84"].ToString() != "")
                 {
                     ngay84 = Convert.ToDouble(row[0]["ngay_84"].ToString());
-                    chart1.Series[lot + " - " + ma_btp].Points.AddXY(12, ngay84);
+                    chart1.Series[STT + "-" + LOT + "-" + ma_btp].Points.AddXY(12, ngay84);
                 }
                 if (row[0]["ngay_98"].ToString() != "")
                 {
                     ngay98 = Convert.ToDouble(row[0]["ngay_98"].ToString());
-                    chart1.Series[lot + " - " + ma_btp].Points.AddXY(14, ngay98);
+                    chart1.Series[STT + "-" + LOT + "-" + ma_btp].Points.AddXY(14, ngay98);
                 }
                 if (row[0]["ngay_112"].ToString() != "")
                 {
                     ngay112 = Convert.ToDouble(row[0]["ngay_112"].ToString());
-                    chart1.Series[lot + " - " + ma_btp].Points.AddXY(16, ngay112);
+                    chart1.Series[STT + "-" + LOT + "-" + ma_btp].Points.AddXY(16, ngay112);
                 }
                 if (row[0]["ngay_126"].ToString() != "")
                 {
                     ngay126 = Convert.ToDouble(row[0]["ngay_126"].ToString());
-                    chart1.Series[lot + " - " + ma_btp].Points.AddXY(18, ngay126);
+                    chart1.Series[STT + "-" + LOT + "-" + ma_btp].Points.AddXY(18, ngay126);
                 }
                 if (row[0]["ngay_140"].ToString() != "")
                 {
                     ngay140 = Convert.ToDouble(row[0]["ngay_140"].ToString());
-                    chart1.Series[lot + " - " + ma_btp].Points.AddXY(20, ngay140);
+                    chart1.Series[STT + "-" + LOT + "-" + ma_btp].Points.AddXY(20, ngay140);
                 }
-                chart1.Series[lot + " - " + ma_btp].IsValueShownAsLabel = true;
-                chart1.Series[lot + " - " + ma_btp].BorderWidth = 2;
-                chart1.Series[lot + " - " + ma_btp].MarkerStyle = MarkerStyle.Circle;
-                chart1.Series[lot + " - " + ma_btp].MarkerSize = 8;
+                chart1.Series[STT + "-" + LOT + "-" + ma_btp].IsValueShownAsLabel = true;
+                chart1.Series[STT + "-" + LOT + "-" + ma_btp].BorderWidth = 2;
+                chart1.Series[STT + "-" + LOT + "-" + ma_btp].MarkerStyle = MarkerStyle.Circle;
+                chart1.Series[STT + "-" + LOT + "-" + ma_btp].MarkerSize = 6;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
         }
-
         private void btt_select_Click(object sender, EventArgs e)
         {
+            int stt;
             foreach (DataGridViewRow check in (dgv_select_lot).Rows)
             {
                 if ((bool)check.Cells[0].FormattedValue)
                 {
-                    dgv_draw_chart.Rows.Add(check.Cells[1].Value.ToString(), check.Cells[2].Value.ToString(), check.Cells[3].Value.ToString(), check.Cells[4].Value.ToString(), check.Cells[5].Value.ToString());
+                    stt = dgv_draw_chart.Rows.Count;
+                    stt++;
+                    dgv_draw_chart.Rows.Add(stt, check.Cells[1].Value.ToString(), check.Cells[2].Value.ToString(), check.Cells[3].Value.ToString(), check.Cells[4].Value.ToString(), check.Cells[5].Value.ToString(),
+                    check.Cells[6].Value.ToString(), check.Cells[7].Value.ToString(), check.Cells[8].Value.ToString(), check.Cells[9].Value.ToString(), check.Cells[10].Value.ToString(),
+                    check.Cells[11].Value.ToString(), check.Cells[12].Value.ToString(), check.Cells[13].Value.ToString(), check.Cells[14].Value.ToString(), check.Cells[15].Value.ToString(),
+                    check.Cells[16].Value.ToString(), check.Cells[17].Value.ToString(), check.Cells[18].Value.ToString(), check.Cells[19].Value.ToString(), check.Cells[20].Value.ToString(), check.Cells[21].Value.ToString());
                 }
             }
         }
-
         private void btt_clear_Click(object sender, EventArgs e)
         {
             dgv_draw_chart.Rows.Clear();
         }
-
         private void btt_draw_Click(object sender, EventArgs e)
         {
             chart1.Series.Clear();
             for (int i = 0; i <= dgv_draw_chart.Rows.Count - 1; i++)
             {
-                draw_chart(dgv_draw_chart.Rows[i].Cells[0].Value.ToString());
+                draw_chart(dgv_draw_chart.Rows[i].Cells[1].Value.ToString() + ',' + dgv_draw_chart.Rows[i].Cells[0].Value.ToString());
             }
         }
-
         private void btt_delete_Click(object sender, EventArgs e)
         {
             if (this.dgv_draw_chart.SelectedRows.Count > 0)
@@ -13975,6 +14742,16 @@ namespace NhatKySanXuat
         string[] range = new string[21];
         private void Logsx_Shown(object sender, EventArgs e)
         {
+        }
+        private void button_uncheck_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in dgv_select_lot.Rows)
+            {
+                if (Convert.ToBoolean(row.Cells[0].Value) == true)
+                {
+                    row.Cells[0].Value = false;
+                }
+            }
         }
     }
 }
