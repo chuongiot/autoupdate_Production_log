@@ -36,7 +36,6 @@ namespace NhatKySanXuat
             button_search.Enabled = false;
             load_data_with_date();
             load_log();
-            //LoadQLSX("Select DOT_SX,ME_THU,SO_LOT,MA_TB,TG_BD,TG_KT,LOAI_SP,KL_NL,NV_VH,TRUONG_CA from DataSX_RSF WHERE MA_TB = 'S1' ORDER BY TG_BD DESC");
             loadcbbma_BTP();
             loadcbbma_NVL();
             loadcbb_Loai();
@@ -58,8 +57,6 @@ namespace NhatKySanXuat
             dgv_select_lot.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
             dgv_select_lot.ColumnHeadersDefaultCellStyle.BackColor = Color.LightGray;
             dgv_select_lot.ColumnHeadersDefaultCellStyle.ForeColor = Color.Black;
-
-
             dgv_draw_chart.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dgv_draw_chart.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
             dgv_draw_chart.ColumnHeadersDefaultCellStyle.BackColor = Color.LightGray;
@@ -220,28 +217,6 @@ namespace NhatKySanXuat
                         MessageBox.Show(ex.Message);
                     }
                 }
-            }
-        }
-        public void LoadQLSX(string query)
-        {
-            try
-            {
-                SqlConnection sqlcon = new SqlConnection(@"Data Source=192.168.23.219,1433;Initial Catalog=QL_SX;User ID=sa;Password=rynan2020");
-                sqlcon.Open();
-                SqlCommand cmd = new SqlCommand();
-                SqlDataAdapter sqlDataAdapter = new SqlDataAdapter();
-                cmd = sqlcon.CreateCommand();
-                cmd.CommandText = query;
-                sqlDataAdapter.SelectCommand = cmd;
-                DataTable dt_a = new DataTable();
-                dt_a.Clear();
-                sqlDataAdapter.Fill(dt_a);
-                dgv_coater_s1.DataSource = dt_a;
-                sqlcon.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
             }
         }
         private void dgv_coater_s1_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
@@ -12861,7 +12836,6 @@ namespace NhatKySanXuat
             panel_nhap_release.BackColor = Color.Lime;
             panel_nhap_release.BorderStyle = BorderStyle.Fixed3D;
             lb_nhap_release.ForeColor = Color.White;
-            load_data_for_chart_with_date();
 
             pn_nksx_button.BackColor = Color.Silver;
             pn_nksx_button.BorderStyle = BorderStyle.FixedSingle;
@@ -13839,8 +13813,6 @@ namespace NhatKySanXuat
                 MessageBox.Show(ex.Message);
             }
         }
-
-
         public void load_data_for_chart_with_lot()
         {
             try
@@ -13863,8 +13835,6 @@ namespace NhatKySanXuat
                 MessageBox.Show(ex.Message);
             }
         }
-
-
         public void load_data_for_chart_with_date_s1_02()
         {
             try
@@ -13975,8 +13945,6 @@ namespace NhatKySanXuat
                 MessageBox.Show(ex.Message);
             }
         }
-
-
         public void load_data_for_chart_with_dotsx_loai()
         {
             try
@@ -14043,8 +14011,6 @@ namespace NhatKySanXuat
                 MessageBox.Show(ex.Message);
             }
         }
-
-
         public void load_data_for_chart_with_dotsx_loai_s1_02()
         {
             try
@@ -14111,7 +14077,6 @@ namespace NhatKySanXuat
                 MessageBox.Show(ex.Message);
             }
         }
-
         public void load_data_for_chart_with_loai_btp()
         {
             try
@@ -14156,7 +14121,6 @@ namespace NhatKySanXuat
                 MessageBox.Show(ex.Message);
             }
         }
-
         public void load_data_for_chart_with_loai_btp_s1_02()
         {
             try
@@ -14201,7 +14165,6 @@ namespace NhatKySanXuat
                 MessageBox.Show(ex.Message);
             }
         }
-
         public void load_data_for_chart_with_btp_nvl()
         {
             try
@@ -14246,7 +14209,6 @@ namespace NhatKySanXuat
                 MessageBox.Show(ex.Message);
             }
         }
-
         public void load_data_for_chart_with_dotsx_loai_btp()
         {
             try
@@ -14291,7 +14253,6 @@ namespace NhatKySanXuat
                 MessageBox.Show(ex.Message);
             }
         }
-
         public void load_data_for_chart_with_dotsx_loai_btp_s1_02()
         {
             try
@@ -14336,7 +14297,6 @@ namespace NhatKySanXuat
                 MessageBox.Show(ex.Message);
             }
         }
-
         public void load_data_for_chart_with_dotsx_btp_nvl()
         {
             try
@@ -14381,7 +14341,6 @@ namespace NhatKySanXuat
                 MessageBox.Show(ex.Message);
             }
         }
-
         public void load_data_for_chart_with_dotsx_loai_btp_nvl()
         {
             try
@@ -14426,7 +14385,6 @@ namespace NhatKySanXuat
                 MessageBox.Show(ex.Message);
             }
         }
-
         private void btt_search_tabchart_Click(object sender, EventArgs e)
         {
             if (cbb_lot_chart.Text != "")
@@ -14554,7 +14512,7 @@ namespace NhatKySanXuat
                 load_data_for_chart_with_dotsx_loai_btp_nvl_s1_02();
             }
         }
-        public void draw_chart(string lot_stt)
+        public void draw_chart(string LOT)
         {
             try
             {
@@ -14572,9 +14530,6 @@ namespace NhatKySanXuat
                 double ngay112 = 0;
                 double ngay126 = 0;
                 double ngay140 = 0;
-                string[] LOT_AND_STT = lot_stt.Split(new char[] { ',' });
-                string LOT = LOT_AND_STT[0];
-                string STT = LOT_AND_STT[1];
                 SqlConnection sqlcon = new SqlConnection(@"Data Source = 192.168.21.244,1433; Initial Catalog= RSFLOGSANXUAT ;User ID = sa; Password =mylan@2016");
                 SqlCommand command = new SqlCommand();
                 SqlDataAdapter adapter = new SqlDataAdapter();
@@ -14588,7 +14543,7 @@ namespace NhatKySanXuat
                 sqlcon.Close();
                 DataRow[] row = tb_buff.Select();
                 string ma_btp = row[0]["ma_BTP"].ToString();
-                chart1.Series.Add(STT + "-" + LOT + "-" + ma_btp).ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+                chart1.Series.Add(LOT + "-" + ma_btp).ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
                 chart1.ChartAreas[0].AxisX.Minimum = 0;
                 chart1.ChartAreas[0].AxisX.Maximum = 20;
                 range[0] = "0";
@@ -14612,82 +14567,81 @@ namespace NhatKySanXuat
                 range[18] = "126";
                 range[19] = "133";
                 range[20] = "140";
-                //range[21] = "147";
-                //range[22] = "154";
                 if (row[0]["ngay_0"].ToString() != "")
                 {
                     ngay0 = Convert.ToDouble(row[0]["ngay_0"].ToString());
-                    chart1.Series[STT + "-" + LOT + "-" + ma_btp].Points.AddXY(0, ngay0);
+                    chart1.Series[LOT + "-" + ma_btp].Points.AddXY(0, ngay0);
                 }
                 if (row[0]["ngay_7"].ToString() != "")
                 {
                     ngay7 = Convert.ToDouble(row[0]["ngay_7"].ToString());
-                    chart1.Series[STT + "-" + LOT + "-" + ma_btp].Points.AddXY(1, ngay7);
+                    chart1.Series[LOT + "-" + ma_btp].Points.AddXY(1, ngay7);
                 }
                 if (row[0]["ngay_14"].ToString() != "")
                 {
                     ngay14 = Convert.ToDouble(row[0]["ngay_14"].ToString());
-                    chart1.Series[STT + "-" + LOT + "-" + ma_btp].Points.AddXY(2, ngay14);
+                    chart1.Series[LOT + "-" + ma_btp].Points.AddXY(2, ngay14);
                 }
                 if (row[0]["ngay_21"].ToString() != "")
                 {
                     ngay21 = Convert.ToDouble(row[0]["ngay_21"].ToString());
-                    chart1.Series[STT + "-" + LOT + "-" + ma_btp].Points.AddXY(3, ngay21);
+                    chart1.Series[LOT + "-" + ma_btp].Points.AddXY(3, ngay21);
                 }
                 if (row[0]["ngay_28"].ToString() != "")
                 {
                     ngay28 = Convert.ToDouble(row[0]["ngay_28"].ToString());
-                    chart1.Series[STT + "-" + LOT + "-" + ma_btp].Points.AddXY(4, ngay28);
+                    chart1.Series[LOT + "-" + ma_btp].Points.AddXY(4, ngay28);
                 }
                 if (row[0]["ngay_42"].ToString() != "")
                 {
                     ngay42 = Convert.ToDouble(row[0]["ngay_42"].ToString());
-                    chart1.Series[STT + "-" + LOT + "-" + ma_btp].Points.AddXY(6, ngay42);
+                    chart1.Series[LOT + "-" + ma_btp].Points.AddXY(6, ngay42);
                 }
                 if (row[0]["ngay_49"].ToString() != "")
                 {
                     ngay49 = Convert.ToDouble(row[0]["ngay_49"].ToString());
-                    chart1.Series[STT + "-" + LOT + "-" + ma_btp].Points.AddXY(7, ngay49);
+                    chart1.Series[LOT + "-" + ma_btp].Points.AddXY(7, ngay49);
                 }
                 if (row[0]["ngay_56"].ToString() != "")
                 {
                     ngay56 = Convert.ToDouble(row[0]["ngay_56"].ToString());
-                    chart1.Series[STT + "-" + LOT + "-" + ma_btp].Points.AddXY(8, ngay56);
+                    chart1.Series[LOT + "-" + ma_btp].Points.AddXY(8, ngay56);
                 }
                 if (row[0]["ngay_70"].ToString() != "")
                 {
                     ngay70 = Convert.ToDouble(row[0]["ngay_70"].ToString());
-                    chart1.Series[STT + "-" + LOT + "-" + ma_btp].Points.AddXY(10, ngay70);
+                    chart1.Series[LOT + "-" + ma_btp].Points.AddXY(10, ngay70);
                 }
                 if (row[0]["ngay_84"].ToString() != "")
                 {
                     ngay84 = Convert.ToDouble(row[0]["ngay_84"].ToString());
-                    chart1.Series[STT + "-" + LOT + "-" + ma_btp].Points.AddXY(12, ngay84);
+                    chart1.Series[LOT + "-" + ma_btp].Points.AddXY(12, ngay84);
                 }
                 if (row[0]["ngay_98"].ToString() != "")
                 {
                     ngay98 = Convert.ToDouble(row[0]["ngay_98"].ToString());
-                    chart1.Series[STT + "-" + LOT + "-" + ma_btp].Points.AddXY(14, ngay98);
+                    chart1.Series[LOT + "-" + ma_btp].Points.AddXY(14, ngay98);
                 }
                 if (row[0]["ngay_112"].ToString() != "")
                 {
                     ngay112 = Convert.ToDouble(row[0]["ngay_112"].ToString());
-                    chart1.Series[STT + "-" + LOT + "-" + ma_btp].Points.AddXY(16, ngay112);
+                    chart1.Series[LOT + "-" + ma_btp].Points.AddXY(16, ngay112);
                 }
                 if (row[0]["ngay_126"].ToString() != "")
                 {
                     ngay126 = Convert.ToDouble(row[0]["ngay_126"].ToString());
-                    chart1.Series[STT + "-" + LOT + "-" + ma_btp].Points.AddXY(18, ngay126);
+                    chart1.Series[LOT + "-" + ma_btp].Points.AddXY(18, ngay126);
                 }
                 if (row[0]["ngay_140"].ToString() != "")
                 {
                     ngay140 = Convert.ToDouble(row[0]["ngay_140"].ToString());
-                    chart1.Series[STT + "-" + LOT + "-" + ma_btp].Points.AddXY(20, ngay140);
+                    chart1.Series[LOT + "-" + ma_btp].Points.AddXY(20, ngay140);
                 }
-                chart1.Series[STT + "-" + LOT + "-" + ma_btp].IsValueShownAsLabel = true;
-                chart1.Series[STT + "-" + LOT + "-" + ma_btp].BorderWidth = 2;
-                chart1.Series[STT + "-" + LOT + "-" + ma_btp].MarkerStyle = MarkerStyle.Circle;
-                chart1.Series[STT + "-" + LOT + "-" + ma_btp].MarkerSize = 6;
+                chart1.Series[LOT + "-" + ma_btp].MarkerStyle = MarkerStyle.Circle;
+                chart1.Series[LOT + "-" + ma_btp].IsValueShownAsLabel = true;
+                chart1.Series[LOT + "-" + ma_btp].IsVisibleInLegend = true;
+                chart1.Series[LOT + "-" + ma_btp].BorderWidth = 2;
+                chart1.Series[LOT + "-" + ma_btp].MarkerSize = 5;
             }
             catch (Exception ex)
             {
@@ -14696,14 +14650,11 @@ namespace NhatKySanXuat
         }
         private void btt_select_Click(object sender, EventArgs e)
         {
-            int stt;
             foreach (DataGridViewRow check in (dgv_select_lot).Rows)
             {
                 if ((bool)check.Cells[0].FormattedValue)
                 {
-                    stt = dgv_draw_chart.Rows.Count;
-                    stt++;
-                    dgv_draw_chart.Rows.Add(stt, check.Cells[1].Value.ToString(), check.Cells[2].Value.ToString(), check.Cells[3].Value.ToString(), check.Cells[4].Value.ToString(), check.Cells[5].Value.ToString(),
+                    dgv_draw_chart.Rows.Add(check.Cells[1].Value.ToString(), check.Cells[2].Value.ToString(), check.Cells[3].Value.ToString(), check.Cells[4].Value.ToString(), check.Cells[5].Value.ToString(),
                     check.Cells[6].Value.ToString(), check.Cells[7].Value.ToString(), check.Cells[8].Value.ToString(), check.Cells[9].Value.ToString(), check.Cells[10].Value.ToString(),
                     check.Cells[11].Value.ToString(), check.Cells[12].Value.ToString(), check.Cells[13].Value.ToString(), check.Cells[14].Value.ToString(), check.Cells[15].Value.ToString(),
                     check.Cells[16].Value.ToString(), check.Cells[17].Value.ToString(), check.Cells[18].Value.ToString(), check.Cells[19].Value.ToString(), check.Cells[20].Value.ToString(), check.Cells[21].Value.ToString());
@@ -14719,7 +14670,7 @@ namespace NhatKySanXuat
             chart1.Series.Clear();
             for (int i = 0; i <= dgv_draw_chart.Rows.Count - 1; i++)
             {
-                draw_chart(dgv_draw_chart.Rows[i].Cells[1].Value.ToString() + ',' + dgv_draw_chart.Rows[i].Cells[0].Value.ToString());
+                draw_chart(dgv_draw_chart.Rows[i].Cells[0].Value.ToString());
             }
         }
         private void btt_delete_Click(object sender, EventArgs e)
