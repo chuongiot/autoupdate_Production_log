@@ -14641,7 +14641,7 @@ namespace NhatKySanXuat
                 chart1.Series[LOT + "-" + ma_btp].IsValueShownAsLabel = true;
                 chart1.Series[LOT + "-" + ma_btp].IsVisibleInLegend = true;
                 chart1.Series[LOT + "-" + ma_btp].BorderWidth = 2;
-                chart1.Series[LOT + "-" + ma_btp].MarkerSize = 5;
+                chart1.Series[LOT + "-" + ma_btp].MarkerSize = 8;
             }
             catch (Exception ex)
             {
