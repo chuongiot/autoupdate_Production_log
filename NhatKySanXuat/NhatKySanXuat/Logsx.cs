@@ -40,8 +40,6 @@ namespace NhatKySanXuat
             loadcbbma_NVL();
             loadcbb_Loai();
             loadcbb_LOT();
-            //this.reportViewer_xuatkho.RefreshReport();
-            //this.reportViewer_xuatkho.LocalReport.Refresh();
             dataGridView1.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridView1.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
             dataGridView1.ColumnHeadersDefaultCellStyle.BackColor = Color.LightGray;
@@ -61,6 +59,10 @@ namespace NhatKySanXuat
             dgv_draw_chart.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
             dgv_draw_chart.ColumnHeadersDefaultCellStyle.BackColor = Color.LightGray;
             dgv_draw_chart.ColumnHeadersDefaultCellStyle.ForeColor = Color.Black;
+            foreach (DataGridViewColumn column in dataGridView1.Columns)
+            {
+                column.SortMode = DataGridViewColumnSortMode.NotSortable;
+            }
         }
         private void btthem_Click(object sender, EventArgs e)
         {
@@ -281,7 +283,17 @@ namespace NhatKySanXuat
                 SqlDataAdapter adapter = new SqlDataAdapter();
                 DataTable tb_buff = new DataTable();
                 command = sqlcon.CreateCommand();
-                command.CommandText = "select * from nhatkysanxuat where thiet_bi = '" + cbb_thietbi_search.Text + "' AND ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) ORDER BY dot_sx DESC ";
+                command.CommandText = "select name,dot_sx,ngay_sx,thiet_bi,ma_BTP,ten_BTP,me,LOT ,tocdo_release," +
+                        "ngay_release,loai,tong_klspsx,kl_dongkhoi,kl_khongdongkhoi,kl_lythuyet,hieuxuat_thu,hieuxuat_release," +
+                        "thoigian_cb,thoigian_sx,phanbon_nvl,kl_nvl,barcode_nvl,lot_nvl,N1,barcode_n1,lot_n1," +
+                        "N2,barcode_n2,lot_n2,N3,barcode_n3,lot_n3,Ga3,barcode_ga3,Borax,bacode_borax,Naa,barcode_naa,solubo,barocde_solubo," +
+                        "Edta,barcode_edta,Red,barcode_red,violet,barcode_violet,blue,barocde_blue,yellow,barcode_yellow,black,barcode_back,prev," +
+                        "barcode_prev,thancam,dien,nuocRO,nuocthuycuc,BHLD,Sodium,barcode_sodium,Citric,barcode_citric,Naoh,barocde_naoh,ghi_chu," +
+                        "vitri_spthuduoc,vitri_spdongkhoi,vitri_spkhongdongkhoi,N1_1,N1_2,N1_3,N1_1_barcode,N1_2_barcode,N1_3_barcode,N1_1_lot," +
+                        "N1_2_lot,N1_3_lot,N2_1,N2_2,N2_1_barcode,N2_2_barcode,N2_1_lot,N2_2_lot,N3_1,N3_1_barcode,N3_1_lot,N1_4,N1_4_barcode," +
+                        "N1_4_lot,N2_3,N2_3_barcode,N2_3_lot,N3_2,N3_2_barcode,N3_2_lot,N3_3,N3_3_barcode,N3_3_lot,thoigian_ondinh,do_am,coating_layer," +
+                        "ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140,NVL_1," +
+                        "barcode_NVL_1,lot_NVL_1,NVL_2,barcode_NVL_2,lot_NVL_2,KL_NVL_1,KL_NVL_2,N1_BD,N1_KT,N2_BD,N2_KT,N3_BD,N3_KT from nhatkysanxuat where thiet_bi = '" + cbb_thietbi_search.Text + "' AND ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) ORDER BY dot_sx DESC ";
                 adapter.SelectCommand = command;
                 tb_buff.Clear();
                 adapter.Fill(tb_buff);
@@ -436,18 +448,6 @@ namespace NhatKySanXuat
                         count_coating++;
                         tb_coating += Convert.ToDouble(row[i]["coating_layer"].ToString());
                     }
-                    string Nguoi_nhap = row[i]["name"].ToString();
-                    string LOT = row[i]["LOT"].ToString();
-                    string Dot_sx = row[i]["dot_sx"].ToString();
-                    string Ngay_sx = row[i]["ngay_sx"].ToString();
-                    string Thiet_bi = row[i]["thiet_bi"].ToString();
-                    string Ma_btp = row[i]["ma_BTP"].ToString();
-                    string Ten_btp = row[i]["ten_BTP"].ToString();
-                    string Me = row[i]["me"].ToString();
-                    string Kl_nvl = row[i]["klnl_sudung"].ToString();
-                    string Toc_do_release = row[i]["tocdo_release"].ToString();
-                    string Ngay_release = row[i]["ngay_release"].ToString();
-                    string Loai = row[i]["loai"].ToString();
                     string Tong_klsp_thuduoc = row[i]["tong_klspsx"].ToString();
                     if (Tong_klsp_thuduoc == "")
                         Tong_klsp_thuduoc = "0";
@@ -472,103 +472,78 @@ namespace NhatKySanXuat
                     if (Hieusuatrelease == "")
                         Hieusuatrelease = "0";
                     Hieu_suat_release_tb += Convert.ToDouble(Hieusuatrelease);
-                    string Thoigiancb = row[i]["thoigian_cb"].ToString();
-                    string Thoigiansx = row[i]["thoigian_sx"].ToString();
-                    string Phanbon_nvl = row[i]["phanbon_nvl"].ToString();
                     string KL_phan_nvl = row[i]["kl_nvl"].ToString();
                     if (KL_phan_nvl == "")
                         KL_phan_nvl = "0";
                     KHOI_LUONG_NVL += Convert.ToDouble(KL_phan_nvl);
-                    string Barcode_nvl = row[i]["barcode_nvl"].ToString();
-                    string LOT_nvl = row[i]["lot_nvl"].ToString();
                     string N1_khoiluong = row[i]["N1"].ToString();
                     if (N1_khoiluong == "")
                         N1_khoiluong = "0";
                     Tong_N1_KL += Convert.ToDouble(N1_khoiluong);
-                    string N1_barcode = row[i]["barcode_n1"].ToString();
-                    string N1_LOT = row[i]["lot_n1"].ToString();
                     string N2_khoiluong = row[i]["N2"].ToString();
                     if (N2_khoiluong == "")
                         N2_khoiluong = "0";
                     Tong_N2_KL += Convert.ToDouble(N2_khoiluong);
-                    string N2_barcode = row[i]["barcode_n2"].ToString();
-                    string N2_LOT = row[i]["lot_n2"].ToString();
                     string n3_khoiluong = row[i]["N3"].ToString();
                     if (n3_khoiluong == "")
                         n3_khoiluong = "0";
                     Tong_N3_KL += Convert.ToDouble(n3_khoiluong);
-                    string N3_barcode = row[i]["barcode_n3"].ToString();
-                    string N3_LOT = row[i]["lot_n3"].ToString();
                     string GA3 = row[i]["Ga3"].ToString();
                     if (GA3 == "")
                         GA3 = "0";
                     Tong_ga3 += Convert.ToDouble(GA3);
-                    string GA3_barcode = row[i]["barcode_ga3"].ToString();
                     string Borax = row[i]["Borax"].ToString();
                     if (Borax == "")
                         Borax = "0";
                     Tong_borax += Convert.ToDouble(Borax);
-                    string Borax_barcode = row[i]["bacode_borax"].ToString();
                     string NAA = row[i]["Naa"].ToString();
                     if (NAA == "")
                         NAA = "0";
                     Tong_Naa += Convert.ToDouble(NAA);
-                    string NAA_barcode = row[i]["barcode_naa"].ToString();
                     string Sodium = row[i]["Sodium"].ToString();
                     if (Sodium == "")
                         Sodium = "0";
                     Tong_sodium += Convert.ToDouble(Sodium);
-                    string Sodium_barcode = row[i]["barcode_sodium"].ToString();
                     string Citric = row[i]["Citric"].ToString();
                     if (Citric == "")
                         Citric = "0";
                     Tong_citric += Convert.ToDouble(Citric);
-                    string Barcode_Citric = row[i]["barcode_citric"].ToString();
                     string Naoh = row[i]["Naoh"].ToString();
                     if (Naoh == "")
                         Naoh = "0";
                     Tong_naoh += Convert.ToDouble(Naoh);
-                    string Barcode_Naoh = row[i]["barocde_naoh"].ToString();
                     string Solubo = row[i]["solubo"].ToString();
                     if (Solubo == "")
                         Solubo = "0";
                     Tong_solubo += Convert.ToDouble(Solubo);
-                    string Barcode_Solubo = row[i]["barocde_solubo"].ToString();
                     string Edtazn = row[i]["Edta"].ToString();
                     if (Edtazn == "")
                         Edtazn = "0";
                     Tong_edtazn += Convert.ToDouble(Edtazn);
-                    string Barcode_Edta = row[i]["barcode_edta"].ToString();
                     string Red = row[i]["Red"].ToString();
                     if (Red == "")
                         Red = "0";
                     Tong_red += Convert.ToDouble(Red);
-                    string Barcode_red = row[i]["barcode_red"].ToString();
                     string Violet = row[i]["violet"].ToString();
                     if (Violet == "")
                         Violet = "0";
                     Tong_violet += Convert.ToDouble(Violet);
-                    string Barcode_violet = row[i]["barcode_violet"].ToString();
                     string Blue = row[i]["blue"].ToString();
                     if (Blue == "")
                         Blue = "0";
                     Tong_blue += Convert.ToDouble(Blue);
-                    string Barcode_blue = row[i]["barocde_blue"].ToString();
                     string Yellow = row[i]["yellow"].ToString();
                     if (Yellow == "")
                         Yellow = "0";
                     Tong_yellow += Convert.ToDouble(Yellow);
-                    string Barcode_yellow = row[i]["barcode_yellow"].ToString();
                     string Black = row[i]["black"].ToString();
                     if (Black == "")
                         Black = "0";
                     Tong_black += Convert.ToDouble(Black);
-                    string Barcode_black = row[i]["barcode_back"].ToString();
                     string Prev = row[i]["prev"].ToString();
                     if (Prev == "")
                         Prev = "0";
                     Tong_prev += Convert.ToDouble(Prev);
-                    string Barcode_Prev = row[i]["barcode_prev"].ToString();
                     string Than_cam = row[i]["thancam"].ToString();
                     if (Than_cam == "")
                         Than_cam = "0";
@@ -585,6 +560,139 @@ namespace NhatKySanXuat
                     if (Nuoc_thuycuc == "")
                         Nuoc_thuycuc = "0";
                     Tong_nuocthuycuc += Convert.ToDouble(Nuoc_thuycuc);
+                }
+                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                "", Math.Round(TONG_KL_LT, 3), Math.Round(Hieu_suat_thu_tb / row.Length, 3), Math.Round(Hieu_suat_release_tb / row.Length, 3),
+                "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
+                "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
+                "", "", Math.Round(tb_do_am / count_doam, 3), Math.Round(tb_coating / count_coating, 3), "",
+                Math.Round(tb_0ngay / count_0, 3), Math.Round(tb_7ngay / count_7, 3), Math.Round(tb_14ngay / count_14, 3),
+                Math.Round(tb_21ngay / count_21, 3), Math.Round(tb_28ngay / count_28, 3), Math.Round(tb_42ngay / count_42, 3),
+                Math.Round(tb_49ngay / count_49, 3), Math.Round(tb_56ngay / count_56, 3), Math.Round(tb_70ngay / count_70, 3),
+                Math.Round(tb_84ngay / count_84, 3), Math.Round(tb_98ngay / count_98, 3), Math.Round(tb_112ngay / count_112, 3),
+                Math.Round(tb_126ngay / count_126, 3), Math.Round(tb_140ngay / count_140, 3));
+                for (int i = 0; i < row.Length; i++)
+                {
+                    string Nguoi_nhap = row[i]["name"].ToString();
+                    string LOT = row[i]["LOT"].ToString();
+                    string Dot_sx = row[i]["dot_sx"].ToString();
+                    string Ngay_sx = row[i]["ngay_sx"].ToString();
+                    string Thiet_bi = row[i]["thiet_bi"].ToString();
+                    string Ma_btp = row[i]["ma_BTP"].ToString();
+                    string Ten_btp = row[i]["ten_BTP"].ToString();
+                    string Me = row[i]["me"].ToString();
+                    string Toc_do_release = row[i]["tocdo_release"].ToString();
+                    string Ngay_release = row[i]["ngay_release"].ToString();
+                    string Loai = row[i]["loai"].ToString();
+                    string Tong_klsp_thuduoc = row[i]["tong_klspsx"].ToString();
+                    if (Tong_klsp_thuduoc == "")
+                        Tong_klsp_thuduoc = "0";
+                    string Kl_dongkhoi = row[i]["kl_dongkhoi"].ToString();
+                    if (Kl_dongkhoi == "")
+                        Kl_dongkhoi = "0";
+                    string Khongdongkhoi = row[i]["kl_khongdongkhoi"].ToString();
+                    if (Khongdongkhoi == "")
+                        Khongdongkhoi = "0";
+                    string Kl_lythuyet = row[i]["kl_lythuyet"].ToString();
+                    if (Kl_lythuyet == "")
+                        Kl_lythuyet = "0";
+                    string Hieusuatthu = row[i]["hieuxuat_thu"].ToString();
+                    if (Hieusuatthu == "")
+                        Hieusuatthu = "0";
+                    string Hieusuatrelease = row[i]["hieuxuat_release"].ToString();
+                    if (Hieusuatrelease == "")
+                        Hieusuatrelease = "0";
+                    string Thoigiancb = row[i]["thoigian_cb"].ToString();
+                    string Thoigiansx = row[i]["thoigian_sx"].ToString();
+                    string Phanbon_nvl = row[i]["phanbon_nvl"].ToString();
+                    string KL_phan_nvl = row[i]["kl_nvl"].ToString();
+                    if (KL_phan_nvl == "")
+                        KL_phan_nvl = "0";
+                    string Barcode_nvl = row[i]["barcode_nvl"].ToString();
+                    string LOT_nvl = row[i]["lot_nvl"].ToString();
+                    string N1_khoiluong = row[i]["N1"].ToString();
+                    if (N1_khoiluong == "")
+                        N1_khoiluong = "0";
+                    string N1_barcode = row[i]["barcode_n1"].ToString();
+                    string N1_LOT = row[i]["lot_n1"].ToString();
+                    string N2_khoiluong = row[i]["N2"].ToString();
+                    if (N2_khoiluong == "")
+                        N2_khoiluong = "0";
+                    string N2_barcode = row[i]["barcode_n2"].ToString();
+                    string N2_LOT = row[i]["lot_n2"].ToString();
+                    string n3_khoiluong = row[i]["N3"].ToString();
+                    if (n3_khoiluong == "")
+                        n3_khoiluong = "0";
+                    string N3_barcode = row[i]["barcode_n3"].ToString();
+                    string N3_LOT = row[i]["lot_n3"].ToString();
+                    string GA3 = row[i]["Ga3"].ToString();
+                    if (GA3 == "")
+                        GA3 = "0";
+                    string GA3_barcode = row[i]["barcode_ga3"].ToString();
+                    string Borax = row[i]["Borax"].ToString();
+                    if (Borax == "")
+                        Borax = "0";
+                    string Borax_barcode = row[i]["bacode_borax"].ToString();
+                    string NAA = row[i]["Naa"].ToString();
+                    if (NAA == "")
+                        NAA = "0";
+                    string NAA_barcode = row[i]["barcode_naa"].ToString();
+                    string Sodium = row[i]["Sodium"].ToString();
+                    if (Sodium == "")
+                        Sodium = "0";
+                    string Sodium_barcode = row[i]["barcode_sodium"].ToString();
+                    string Citric = row[i]["Citric"].ToString();
+                    if (Citric == "")
+                        Citric = "0";
+                    string Barcode_Citric = row[i]["barcode_citric"].ToString();
+                    string Naoh = row[i]["Naoh"].ToString();
+                    if (Naoh == "")
+                        Naoh = "0";
+                    string Barcode_Naoh = row[i]["barocde_naoh"].ToString();
+                    string Solubo = row[i]["solubo"].ToString();
+                    if (Solubo == "")
+                        Solubo = "0";
+                    string Barcode_Solubo = row[i]["barocde_solubo"].ToString();
+                    string Edtazn = row[i]["Edta"].ToString();
+                    if (Edtazn == "")
+                        Edtazn = "0";
+                    string Barcode_Edta = row[i]["barcode_edta"].ToString();
+                    string Red = row[i]["Red"].ToString();
+                    if (Red == "")
+                        Red = "0";
+                    string Barcode_red = row[i]["barcode_red"].ToString();
+                    string Violet = row[i]["violet"].ToString();
+                    if (Violet == "")
+                        Violet = "0";
+                    string Barcode_violet = row[i]["barcode_violet"].ToString();
+                    string Blue = row[i]["blue"].ToString();
+                    if (Blue == "")
+                        Blue = "0";
+                    string Barcode_blue = row[i]["barocde_blue"].ToString();
+                    string Yellow = row[i]["yellow"].ToString();
+                    if (Yellow == "")
+                        Yellow = "0";
+                    string Barcode_yellow = row[i]["barcode_yellow"].ToString();
+                    string Black = row[i]["black"].ToString();
+                    if (Black == "")
+                        Black = "0";
+                    string Barcode_black = row[i]["barcode_back"].ToString();
+                    string Prev = row[i]["prev"].ToString();
+                    if (Prev == "")
+                        Prev = "0";
+                    string Barcode_Prev = row[i]["barcode_prev"].ToString();
+                    string Than_cam = row[i]["thancam"].ToString();
+                    if (Than_cam == "")
+                        Than_cam = "0";
+                    string Dien = row[i]["dien"].ToString();
+                    if (Dien == "")
+                        Dien = "0";
+                    string Nuoc_RO = row[i]["nuocRo"].ToString();
+                    if (Nuoc_RO == "")
+                        Nuoc_RO = "0";
+                    string Nuoc_thuycuc = row[i]["nuocthuycuc"].ToString();
+                    if (Nuoc_thuycuc == "")
+                        Nuoc_thuycuc = "0";
                     string BHLD = row[i]["BHLD"].ToString();
                     string Ghi_chu = row[i]["ghi_chu"].ToString();
                     string Vitri_tongspthuduoc = row[i]["vitri_spthuduoc"].ToString();
@@ -619,18 +727,11 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
-                                "", Math.Round(TONG_KL_LT, 4), Math.Round(Hieu_suat_thu_tb / dataGridView1.Rows.Count, 4), Math.Round(Hieu_suat_release_tb / dataGridView1.Rows.Count, 4),
-                                "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
-                                "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
-                                "", "", Math.Round(tb_do_am / count_doam, 4), Math.Round(tb_coating / count_coating, 4), "",
-                                Math.Round(tb_0ngay / count_0, 4), Math.Round(tb_7ngay / count_7, 4), Math.Round(tb_14ngay / count_14, 4),
-                                Math.Round(tb_21ngay / count_21, 4), Math.Round(tb_28ngay / count_28, 4), Math.Round(tb_42ngay / count_42, 4),
-                                Math.Round(tb_49ngay / count_49, 4), Math.Round(tb_56ngay / count_56, 4), Math.Round(tb_70ngay / count_70, 4),
-                                Math.Round(tb_84ngay / count_84, 4), Math.Round(tb_98ngay / count_98, 4), Math.Round(tb_112ngay / count_112, 4),
-                                Math.Round(tb_126ngay / count_126, 4), Math.Round(tb_140ngay / count_140, 4));
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
+                dataGridView1.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dataGridView1.Rows[0].Frozen = true;
+                dataGridView1.Columns[7].Frozen = true;
+                dataGridView1.CurrentCell = dataGridView1.Rows[1].Cells[0];
             }
             catch (Exception ex)
             {
@@ -649,7 +750,17 @@ namespace NhatKySanXuat
                 SqlDataAdapter adapter = new SqlDataAdapter();
                 DataTable tb_buff = new DataTable();
                 command = sqlcon.CreateCommand();
-                command.CommandText = "select * from nhatkysanxuat where ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) ORDER BY dot_sx DESC ";
+                command.CommandText = "select name,dot_sx,ngay_sx,thiet_bi,ma_BTP,ten_BTP,me,LOT ,tocdo_release," +
+                        "ngay_release,loai,tong_klspsx,kl_dongkhoi,kl_khongdongkhoi,kl_lythuyet,hieuxuat_thu,hieuxuat_release," +
+                        "thoigian_cb,thoigian_sx,phanbon_nvl,kl_nvl,barcode_nvl,lot_nvl,N1,barcode_n1,lot_n1," +
+                        "N2,barcode_n2,lot_n2,N3,barcode_n3,lot_n3,Ga3,barcode_ga3,Borax,bacode_borax,Naa,barcode_naa,solubo,barocde_solubo," +
+                        "Edta,barcode_edta,Red,barcode_red,violet,barcode_violet,blue,barocde_blue,yellow,barcode_yellow,black,barcode_back,prev," +
+                        "barcode_prev,thancam,dien,nuocRO,nuocthuycuc,BHLD,Sodium,barcode_sodium,Citric,barcode_citric,Naoh,barocde_naoh,ghi_chu," +
+                        "vitri_spthuduoc,vitri_spdongkhoi,vitri_spkhongdongkhoi,N1_1,N1_2,N1_3,N1_1_barcode,N1_2_barcode,N1_3_barcode,N1_1_lot," +
+                        "N1_2_lot,N1_3_lot,N2_1,N2_2,N2_1_barcode,N2_2_barcode,N2_1_lot,N2_2_lot,N3_1,N3_1_barcode,N3_1_lot,N1_4,N1_4_barcode," +
+                        "N1_4_lot,N2_3,N2_3_barcode,N2_3_lot,N3_2,N3_2_barcode,N3_2_lot,N3_3,N3_3_barcode,N3_3_lot,thoigian_ondinh,do_am,coating_layer," +
+                        "ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140,NVL_1," +
+                        "barcode_NVL_1,lot_NVL_1,NVL_2,barcode_NVL_2,lot_NVL_2,KL_NVL_1,KL_NVL_2,N1_BD,N1_KT,N2_BD,N2_KT,N3_BD,N3_KT from nhatkysanxuat where ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) ORDER BY dot_sx DESC ";
                 adapter.SelectCommand = command;
                 tb_buff.Clear();
                 adapter.Fill(tb_buff);
@@ -804,18 +915,6 @@ namespace NhatKySanXuat
                         count_coating++;
                         tb_coating += Convert.ToDouble(row[i]["coating_layer"].ToString());
                     }
-                    string Nguoi_nhap = row[i]["name"].ToString();
-                    string LOT = row[i]["LOT"].ToString();
-                    string Dot_sx = row[i]["dot_sx"].ToString();
-                    string Ngay_sx = row[i]["ngay_sx"].ToString();
-                    string Thiet_bi = row[i]["thiet_bi"].ToString();
-                    string Ma_btp = row[i]["ma_BTP"].ToString();
-                    string Ten_btp = row[i]["ten_BTP"].ToString();
-                    string Me = row[i]["me"].ToString();
-                    string Kl_nvl = row[i]["klnl_sudung"].ToString();
-                    string Toc_do_release = row[i]["tocdo_release"].ToString();
-                    string Ngay_release = row[i]["ngay_release"].ToString();
-                    string Loai = row[i]["loai"].ToString();
                     string Tong_klsp_thuduoc = row[i]["tong_klspsx"].ToString();
                     if (Tong_klsp_thuduoc == "")
                         Tong_klsp_thuduoc = "0";
@@ -840,103 +939,78 @@ namespace NhatKySanXuat
                     if (Hieusuatrelease == "")
                         Hieusuatrelease = "0";
                     Hieu_suat_release_tb += Convert.ToDouble(Hieusuatrelease);
-                    string Thoigiancb = row[i]["thoigian_cb"].ToString();
-                    string Thoigiansx = row[i]["thoigian_sx"].ToString();
-                    string Phanbon_nvl = row[i]["phanbon_nvl"].ToString();
                     string KL_phan_nvl = row[i]["kl_nvl"].ToString();
                     if (KL_phan_nvl == "")
                         KL_phan_nvl = "0";
                     KHOI_LUONG_NVL += Convert.ToDouble(KL_phan_nvl);
-                    string Barcode_nvl = row[i]["barcode_nvl"].ToString();
-                    string LOT_nvl = row[i]["lot_nvl"].ToString();
                     string N1_khoiluong = row[i]["N1"].ToString();
                     if (N1_khoiluong == "")
                         N1_khoiluong = "0";
                     Tong_N1_KL += Convert.ToDouble(N1_khoiluong);
-                    string N1_barcode = row[i]["barcode_n1"].ToString();
-                    string N1_LOT = row[i]["lot_n1"].ToString();
                     string N2_khoiluong = row[i]["N2"].ToString();
                     if (N2_khoiluong == "")
                         N2_khoiluong = "0";
                     Tong_N2_KL += Convert.ToDouble(N2_khoiluong);
-                    string N2_barcode = row[i]["barcode_n2"].ToString();
-                    string N2_LOT = row[i]["lot_n2"].ToString();
                     string n3_khoiluong = row[i]["N3"].ToString();
                     if (n3_khoiluong == "")
                         n3_khoiluong = "0";
                     Tong_N3_KL += Convert.ToDouble(n3_khoiluong);
-                    string N3_barcode = row[i]["barcode_n3"].ToString();
-                    string N3_LOT = row[i]["lot_n3"].ToString();
                     string GA3 = row[i]["Ga3"].ToString();
                     if (GA3 == "")
                         GA3 = "0";
                     Tong_ga3 += Convert.ToDouble(GA3);
-                    string GA3_barcode = row[i]["barcode_ga3"].ToString();
                     string Borax = row[i]["Borax"].ToString();
                     if (Borax == "")
                         Borax = "0";
                     Tong_borax += Convert.ToDouble(Borax);
-                    string Borax_barcode = row[i]["bacode_borax"].ToString();
                     string NAA = row[i]["Naa"].ToString();
                     if (NAA == "")
                         NAA = "0";
                     Tong_Naa += Convert.ToDouble(NAA);
-                    string NAA_barcode = row[i]["barcode_naa"].ToString();
                     string Sodium = row[i]["Sodium"].ToString();
                     if (Sodium == "")
                         Sodium = "0";
                     Tong_sodium += Convert.ToDouble(Sodium);
-                    string Sodium_barcode = row[i]["barcode_sodium"].ToString();
                     string Citric = row[i]["Citric"].ToString();
                     if (Citric == "")
                         Citric = "0";
                     Tong_citric += Convert.ToDouble(Citric);
-                    string Barcode_Citric = row[i]["barcode_citric"].ToString();
                     string Naoh = row[i]["Naoh"].ToString();
                     if (Naoh == "")
                         Naoh = "0";
                     Tong_naoh += Convert.ToDouble(Naoh);
-                    string Barcode_Naoh = row[i]["barocde_naoh"].ToString();
                     string Solubo = row[i]["solubo"].ToString();
                     if (Solubo == "")
                         Solubo = "0";
                     Tong_solubo += Convert.ToDouble(Solubo);
-                    string Barcode_Solubo = row[i]["barocde_solubo"].ToString();
                     string Edtazn = row[i]["Edta"].ToString();
                     if (Edtazn == "")
                         Edtazn = "0";
                     Tong_edtazn += Convert.ToDouble(Edtazn);
-                    string Barcode_Edta = row[i]["barcode_edta"].ToString();
                     string Red = row[i]["Red"].ToString();
                     if (Red == "")
                         Red = "0";
                     Tong_red += Convert.ToDouble(Red);
-                    string Barcode_red = row[i]["barcode_red"].ToString();
                     string Violet = row[i]["violet"].ToString();
                     if (Violet == "")
                         Violet = "0";
                     Tong_violet += Convert.ToDouble(Violet);
-                    string Barcode_violet = row[i]["barcode_violet"].ToString();
                     string Blue = row[i]["blue"].ToString();
                     if (Blue == "")
                         Blue = "0";
                     Tong_blue += Convert.ToDouble(Blue);
-                    string Barcode_blue = row[i]["barocde_blue"].ToString();
                     string Yellow = row[i]["yellow"].ToString();
                     if (Yellow == "")
                         Yellow = "0";
                     Tong_yellow += Convert.ToDouble(Yellow);
-                    string Barcode_yellow = row[i]["barcode_yellow"].ToString();
                     string Black = row[i]["black"].ToString();
                     if (Black == "")
                         Black = "0";
                     Tong_black += Convert.ToDouble(Black);
-                    string Barcode_black = row[i]["barcode_back"].ToString();
                     string Prev = row[i]["prev"].ToString();
                     if (Prev == "")
                         Prev = "0";
                     Tong_prev += Convert.ToDouble(Prev);
-                    string Barcode_Prev = row[i]["barcode_prev"].ToString();
                     string Than_cam = row[i]["thancam"].ToString();
                     if (Than_cam == "")
                         Than_cam = "0";
@@ -953,6 +1027,139 @@ namespace NhatKySanXuat
                     if (Nuoc_thuycuc == "")
                         Nuoc_thuycuc = "0";
                     Tong_nuocthuycuc += Convert.ToDouble(Nuoc_thuycuc);
+                }
+                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                "", Math.Round(TONG_KL_LT, 3), Math.Round(Hieu_suat_thu_tb / row.Length, 3), Math.Round(Hieu_suat_release_tb / row.Length, 3),
+                "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
+                "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
+                "", "", Math.Round(tb_do_am / count_doam, 3), Math.Round(tb_coating / count_coating, 3), "",
+                Math.Round(tb_0ngay / count_0, 3), Math.Round(tb_7ngay / count_7, 3), Math.Round(tb_14ngay / count_14, 3),
+                Math.Round(tb_21ngay / count_21, 3), Math.Round(tb_28ngay / count_28, 3), Math.Round(tb_42ngay / count_42, 3),
+                Math.Round(tb_49ngay / count_49, 3), Math.Round(tb_56ngay / count_56, 3), Math.Round(tb_70ngay / count_70, 3),
+                Math.Round(tb_84ngay / count_84, 3), Math.Round(tb_98ngay / count_98, 3), Math.Round(tb_112ngay / count_112, 3),
+                Math.Round(tb_126ngay / count_126, 3), Math.Round(tb_140ngay / count_140, 3));
+                for (int i = 0; i < row.Length; i++)
+                {
+                    string Nguoi_nhap = row[i]["name"].ToString();
+                    string LOT = row[i]["LOT"].ToString();
+                    string Dot_sx = row[i]["dot_sx"].ToString();
+                    string Ngay_sx = row[i]["ngay_sx"].ToString();
+                    string Thiet_bi = row[i]["thiet_bi"].ToString();
+                    string Ma_btp = row[i]["ma_BTP"].ToString();
+                    string Ten_btp = row[i]["ten_BTP"].ToString();
+                    string Me = row[i]["me"].ToString();
+                    string Toc_do_release = row[i]["tocdo_release"].ToString();
+                    string Ngay_release = row[i]["ngay_release"].ToString();
+                    string Loai = row[i]["loai"].ToString();
+                    string Tong_klsp_thuduoc = row[i]["tong_klspsx"].ToString();
+                    if (Tong_klsp_thuduoc == "")
+                        Tong_klsp_thuduoc = "0";
+                    string Kl_dongkhoi = row[i]["kl_dongkhoi"].ToString();
+                    if (Kl_dongkhoi == "")
+                        Kl_dongkhoi = "0";
+                    string Khongdongkhoi = row[i]["kl_khongdongkhoi"].ToString();
+                    if (Khongdongkhoi == "")
+                        Khongdongkhoi = "0";
+                    string Kl_lythuyet = row[i]["kl_lythuyet"].ToString();
+                    if (Kl_lythuyet == "")
+                        Kl_lythuyet = "0";
+                    string Hieusuatthu = row[i]["hieuxuat_thu"].ToString();
+                    if (Hieusuatthu == "")
+                        Hieusuatthu = "0";
+                    string Hieusuatrelease = row[i]["hieuxuat_release"].ToString();
+                    if (Hieusuatrelease == "")
+                        Hieusuatrelease = "0";
+                    string Thoigiancb = row[i]["thoigian_cb"].ToString();
+                    string Thoigiansx = row[i]["thoigian_sx"].ToString();
+                    string Phanbon_nvl = row[i]["phanbon_nvl"].ToString();
+                    string KL_phan_nvl = row[i]["kl_nvl"].ToString();
+                    if (KL_phan_nvl == "")
+                        KL_phan_nvl = "0";
+                    string Barcode_nvl = row[i]["barcode_nvl"].ToString();
+                    string LOT_nvl = row[i]["lot_nvl"].ToString();
+                    string N1_khoiluong = row[i]["N1"].ToString();
+                    if (N1_khoiluong == "")
+                        N1_khoiluong = "0";
+                    string N1_barcode = row[i]["barcode_n1"].ToString();
+                    string N1_LOT = row[i]["lot_n1"].ToString();
+                    string N2_khoiluong = row[i]["N2"].ToString();
+                    if (N2_khoiluong == "")
+                        N2_khoiluong = "0";
+                    string N2_barcode = row[i]["barcode_n2"].ToString();
+                    string N2_LOT = row[i]["lot_n2"].ToString();
+                    string n3_khoiluong = row[i]["N3"].ToString();
+                    if (n3_khoiluong == "")
+                        n3_khoiluong = "0";
+                    string N3_barcode = row[i]["barcode_n3"].ToString();
+                    string N3_LOT = row[i]["lot_n3"].ToString();
+                    string GA3 = row[i]["Ga3"].ToString();
+                    if (GA3 == "")
+                        GA3 = "0";
+                    string GA3_barcode = row[i]["barcode_ga3"].ToString();
+                    string Borax = row[i]["Borax"].ToString();
+                    if (Borax == "")
+                        Borax = "0";
+                    string Borax_barcode = row[i]["bacode_borax"].ToString();
+                    string NAA = row[i]["Naa"].ToString();
+                    if (NAA == "")
+                        NAA = "0";
+                    string NAA_barcode = row[i]["barcode_naa"].ToString();
+                    string Sodium = row[i]["Sodium"].ToString();
+                    if (Sodium == "")
+                        Sodium = "0";
+                    string Sodium_barcode = row[i]["barcode_sodium"].ToString();
+                    string Citric = row[i]["Citric"].ToString();
+                    if (Citric == "")
+                        Citric = "0";
+                    string Barcode_Citric = row[i]["barcode_citric"].ToString();
+                    string Naoh = row[i]["Naoh"].ToString();
+                    if (Naoh == "")
+                        Naoh = "0";
+                    string Barcode_Naoh = row[i]["barocde_naoh"].ToString();
+                    string Solubo = row[i]["solubo"].ToString();
+                    if (Solubo == "")
+                        Solubo = "0";
+                    string Barcode_Solubo = row[i]["barocde_solubo"].ToString();
+                    string Edtazn = row[i]["Edta"].ToString();
+                    if (Edtazn == "")
+                        Edtazn = "0";
+                    string Barcode_Edta = row[i]["barcode_edta"].ToString();
+                    string Red = row[i]["Red"].ToString();
+                    if (Red == "")
+                        Red = "0";
+                    string Barcode_red = row[i]["barcode_red"].ToString();
+                    string Violet = row[i]["violet"].ToString();
+                    if (Violet == "")
+                        Violet = "0";
+                    string Barcode_violet = row[i]["barcode_violet"].ToString();
+                    string Blue = row[i]["blue"].ToString();
+                    if (Blue == "")
+                        Blue = "0";
+                    string Barcode_blue = row[i]["barocde_blue"].ToString();
+                    string Yellow = row[i]["yellow"].ToString();
+                    if (Yellow == "")
+                        Yellow = "0";
+                    string Barcode_yellow = row[i]["barcode_yellow"].ToString();
+                    string Black = row[i]["black"].ToString();
+                    if (Black == "")
+                        Black = "0";
+                    string Barcode_black = row[i]["barcode_back"].ToString();
+                    string Prev = row[i]["prev"].ToString();
+                    if (Prev == "")
+                        Prev = "0";
+                    string Barcode_Prev = row[i]["barcode_prev"].ToString();
+                    string Than_cam = row[i]["thancam"].ToString();
+                    if (Than_cam == "")
+                        Than_cam = "0";
+                    string Dien = row[i]["dien"].ToString();
+                    if (Dien == "")
+                        Dien = "0";
+                    string Nuoc_RO = row[i]["nuocRo"].ToString();
+                    if (Nuoc_RO == "")
+                        Nuoc_RO = "0";
+                    string Nuoc_thuycuc = row[i]["nuocthuycuc"].ToString();
+                    if (Nuoc_thuycuc == "")
+                        Nuoc_thuycuc = "0";
                     string BHLD = row[i]["BHLD"].ToString();
                     string Ghi_chu = row[i]["ghi_chu"].ToString();
                     string Vitri_tongspthuduoc = row[i]["vitri_spthuduoc"].ToString();
@@ -987,18 +1194,11 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
-                                "", Math.Round(TONG_KL_LT, 4), Math.Round(Hieu_suat_thu_tb / dataGridView1.Rows.Count, 4), Math.Round(Hieu_suat_release_tb / dataGridView1.Rows.Count, 4),
-                                "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
-                                "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
-                                "", "", Math.Round(tb_do_am / count_doam, 4), Math.Round(tb_coating / count_coating, 4), "",
-                                Math.Round(tb_0ngay / count_0, 4), Math.Round(tb_7ngay / count_7, 4), Math.Round(tb_14ngay / count_14, 4),
-                                Math.Round(tb_21ngay / count_21, 4), Math.Round(tb_28ngay / count_28, 4), Math.Round(tb_42ngay / count_42, 4),
-                                Math.Round(tb_49ngay / count_49, 4), Math.Round(tb_56ngay / count_56, 4), Math.Round(tb_70ngay / count_70, 4),
-                                Math.Round(tb_84ngay / count_84, 4), Math.Round(tb_98ngay / count_98, 4), Math.Round(tb_112ngay / count_112, 4),
-                                Math.Round(tb_126ngay / count_126, 4), Math.Round(tb_140ngay / count_140, 4));
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
+                dataGridView1.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dataGridView1.Columns[7].Frozen = true;
+                dataGridView1.Rows[0].Frozen = true;
+                dataGridView1.CurrentCell = dataGridView1.Rows[1].Cells[0];
             }
             catch (Exception ex)
             {
@@ -1172,18 +1372,6 @@ namespace NhatKySanXuat
                         count_coating++;
                         tb_coating += Convert.ToDouble(row[i]["coating_layer"].ToString());
                     }
-                    string Nguoi_nhap = row[i]["name"].ToString();
-                    string LOT = row[i]["LOT"].ToString();
-                    string Dot_sx = row[i]["dot_sx"].ToString();
-                    string Ngay_sx = row[i]["ngay_sx"].ToString();
-                    string Thiet_bi = row[i]["thiet_bi"].ToString();
-                    string Ma_btp = row[i]["ma_BTP"].ToString();
-                    string Ten_btp = row[i]["ten_BTP"].ToString();
-                    string Me = row[i]["me"].ToString();
-                    string Kl_nvl = row[i]["klnl_sudung"].ToString();
-                    string Toc_do_release = row[i]["tocdo_release"].ToString();
-                    string Ngay_release = row[i]["ngay_release"].ToString();
-                    string Loai = row[i]["loai"].ToString();
                     string Tong_klsp_thuduoc = row[i]["tong_klspsx"].ToString();
                     if (Tong_klsp_thuduoc == "")
                         Tong_klsp_thuduoc = "0";
@@ -1208,103 +1396,78 @@ namespace NhatKySanXuat
                     if (Hieusuatrelease == "")
                         Hieusuatrelease = "0";
                     Hieu_suat_release_tb += Convert.ToDouble(Hieusuatrelease);
-                    string Thoigiancb = row[i]["thoigian_cb"].ToString();
-                    string Thoigiansx = row[i]["thoigian_sx"].ToString();
-                    string Phanbon_nvl = row[i]["phanbon_nvl"].ToString();
                     string KL_phan_nvl = row[i]["kl_nvl"].ToString();
                     if (KL_phan_nvl == "")
                         KL_phan_nvl = "0";
                     KHOI_LUONG_NVL += Convert.ToDouble(KL_phan_nvl);
-                    string Barcode_nvl = row[i]["barcode_nvl"].ToString();
-                    string LOT_nvl = row[i]["lot_nvl"].ToString();
                     string N1_khoiluong = row[i]["N1"].ToString();
                     if (N1_khoiluong == "")
                         N1_khoiluong = "0";
                     Tong_N1_KL += Convert.ToDouble(N1_khoiluong);
-                    string N1_barcode = row[i]["barcode_n1"].ToString();
-                    string N1_LOT = row[i]["lot_n1"].ToString();
                     string N2_khoiluong = row[i]["N2"].ToString();
                     if (N2_khoiluong == "")
                         N2_khoiluong = "0";
                     Tong_N2_KL += Convert.ToDouble(N2_khoiluong);
-                    string N2_barcode = row[i]["barcode_n2"].ToString();
-                    string N2_LOT = row[i]["lot_n2"].ToString();
                     string n3_khoiluong = row[i]["N3"].ToString();
                     if (n3_khoiluong == "")
                         n3_khoiluong = "0";
                     Tong_N3_KL += Convert.ToDouble(n3_khoiluong);
-                    string N3_barcode = row[i]["barcode_n3"].ToString();
-                    string N3_LOT = row[i]["lot_n3"].ToString();
                     string GA3 = row[i]["Ga3"].ToString();
                     if (GA3 == "")
                         GA3 = "0";
                     Tong_ga3 += Convert.ToDouble(GA3);
-                    string GA3_barcode = row[i]["barcode_ga3"].ToString();
                     string Borax = row[i]["Borax"].ToString();
                     if (Borax == "")
                         Borax = "0";
                     Tong_borax += Convert.ToDouble(Borax);
-                    string Borax_barcode = row[i]["bacode_borax"].ToString();
                     string NAA = row[i]["Naa"].ToString();
                     if (NAA == "")
                         NAA = "0";
                     Tong_Naa += Convert.ToDouble(NAA);
-                    string NAA_barcode = row[i]["barcode_naa"].ToString();
                     string Sodium = row[i]["Sodium"].ToString();
                     if (Sodium == "")
                         Sodium = "0";
                     Tong_sodium += Convert.ToDouble(Sodium);
-                    string Sodium_barcode = row[i]["barcode_sodium"].ToString();
                     string Citric = row[i]["Citric"].ToString();
                     if (Citric == "")
                         Citric = "0";
                     Tong_citric += Convert.ToDouble(Citric);
-                    string Barcode_Citric = row[i]["barcode_citric"].ToString();
                     string Naoh = row[i]["Naoh"].ToString();
                     if (Naoh == "")
                         Naoh = "0";
                     Tong_naoh += Convert.ToDouble(Naoh);
-                    string Barcode_Naoh = row[i]["barocde_naoh"].ToString();
                     string Solubo = row[i]["solubo"].ToString();
                     if (Solubo == "")
                         Solubo = "0";
                     Tong_solubo += Convert.ToDouble(Solubo);
-                    string Barcode_Solubo = row[i]["barocde_solubo"].ToString();
                     string Edtazn = row[i]["Edta"].ToString();
                     if (Edtazn == "")
                         Edtazn = "0";
                     Tong_edtazn += Convert.ToDouble(Edtazn);
-                    string Barcode_Edta = row[i]["barcode_edta"].ToString();
                     string Red = row[i]["Red"].ToString();
                     if (Red == "")
                         Red = "0";
                     Tong_red += Convert.ToDouble(Red);
-                    string Barcode_red = row[i]["barcode_red"].ToString();
                     string Violet = row[i]["violet"].ToString();
                     if (Violet == "")
                         Violet = "0";
                     Tong_violet += Convert.ToDouble(Violet);
-                    string Barcode_violet = row[i]["barcode_violet"].ToString();
                     string Blue = row[i]["blue"].ToString();
                     if (Blue == "")
                         Blue = "0";
                     Tong_blue += Convert.ToDouble(Blue);
-                    string Barcode_blue = row[i]["barocde_blue"].ToString();
                     string Yellow = row[i]["yellow"].ToString();
                     if (Yellow == "")
                         Yellow = "0";
                     Tong_yellow += Convert.ToDouble(Yellow);
-                    string Barcode_yellow = row[i]["barcode_yellow"].ToString();
                     string Black = row[i]["black"].ToString();
                     if (Black == "")
                         Black = "0";
                     Tong_black += Convert.ToDouble(Black);
-                    string Barcode_black = row[i]["barcode_back"].ToString();
                     string Prev = row[i]["prev"].ToString();
                     if (Prev == "")
                         Prev = "0";
                     Tong_prev += Convert.ToDouble(Prev);
-                    string Barcode_Prev = row[i]["barcode_prev"].ToString();
                     string Than_cam = row[i]["thancam"].ToString();
                     if (Than_cam == "")
                         Than_cam = "0";
@@ -1321,6 +1484,139 @@ namespace NhatKySanXuat
                     if (Nuoc_thuycuc == "")
                         Nuoc_thuycuc = "0";
                     Tong_nuocthuycuc += Convert.ToDouble(Nuoc_thuycuc);
+                }
+                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                "", Math.Round(TONG_KL_LT, 3), Math.Round(Hieu_suat_thu_tb / row.Length, 3), Math.Round(Hieu_suat_release_tb / row.Length, 3),
+                "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
+                "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
+                "", "", Math.Round(tb_do_am / count_doam, 3), Math.Round(tb_coating / count_coating, 3), "",
+                Math.Round(tb_0ngay / count_0, 3), Math.Round(tb_7ngay / count_7, 3), Math.Round(tb_14ngay / count_14, 3),
+                Math.Round(tb_21ngay / count_21, 3), Math.Round(tb_28ngay / count_28, 3), Math.Round(tb_42ngay / count_42, 3),
+                Math.Round(tb_49ngay / count_49, 3), Math.Round(tb_56ngay / count_56, 3), Math.Round(tb_70ngay / count_70, 3),
+                Math.Round(tb_84ngay / count_84, 3), Math.Round(tb_98ngay / count_98, 3), Math.Round(tb_112ngay / count_112, 3),
+                Math.Round(tb_126ngay / count_126, 3), Math.Round(tb_140ngay / count_140, 3));
+                for (int i = 0; i < row.Length; i++)
+                {
+                    string Nguoi_nhap = row[i]["name"].ToString();
+                    string LOT = row[i]["LOT"].ToString();
+                    string Dot_sx = row[i]["dot_sx"].ToString();
+                    string Ngay_sx = row[i]["ngay_sx"].ToString();
+                    string Thiet_bi = row[i]["thiet_bi"].ToString();
+                    string Ma_btp = row[i]["ma_BTP"].ToString();
+                    string Ten_btp = row[i]["ten_BTP"].ToString();
+                    string Me = row[i]["me"].ToString();
+                    string Toc_do_release = row[i]["tocdo_release"].ToString();
+                    string Ngay_release = row[i]["ngay_release"].ToString();
+                    string Loai = row[i]["loai"].ToString();
+                    string Tong_klsp_thuduoc = row[i]["tong_klspsx"].ToString();
+                    if (Tong_klsp_thuduoc == "")
+                        Tong_klsp_thuduoc = "0";
+                    string Kl_dongkhoi = row[i]["kl_dongkhoi"].ToString();
+                    if (Kl_dongkhoi == "")
+                        Kl_dongkhoi = "0";
+                    string Khongdongkhoi = row[i]["kl_khongdongkhoi"].ToString();
+                    if (Khongdongkhoi == "")
+                        Khongdongkhoi = "0";
+                    string Kl_lythuyet = row[i]["kl_lythuyet"].ToString();
+                    if (Kl_lythuyet == "")
+                        Kl_lythuyet = "0";
+                    string Hieusuatthu = row[i]["hieuxuat_thu"].ToString();
+                    if (Hieusuatthu == "")
+                        Hieusuatthu = "0";
+                    string Hieusuatrelease = row[i]["hieuxuat_release"].ToString();
+                    if (Hieusuatrelease == "")
+                        Hieusuatrelease = "0";
+                    string Thoigiancb = row[i]["thoigian_cb"].ToString();
+                    string Thoigiansx = row[i]["thoigian_sx"].ToString();
+                    string Phanbon_nvl = row[i]["phanbon_nvl"].ToString();
+                    string KL_phan_nvl = row[i]["kl_nvl"].ToString();
+                    if (KL_phan_nvl == "")
+                        KL_phan_nvl = "0";
+                    string Barcode_nvl = row[i]["barcode_nvl"].ToString();
+                    string LOT_nvl = row[i]["lot_nvl"].ToString();
+                    string N1_khoiluong = row[i]["N1"].ToString();
+                    if (N1_khoiluong == "")
+                        N1_khoiluong = "0";
+                    string N1_barcode = row[i]["barcode_n1"].ToString();
+                    string N1_LOT = row[i]["lot_n1"].ToString();
+                    string N2_khoiluong = row[i]["N2"].ToString();
+                    if (N2_khoiluong == "")
+                        N2_khoiluong = "0";
+                    string N2_barcode = row[i]["barcode_n2"].ToString();
+                    string N2_LOT = row[i]["lot_n2"].ToString();
+                    string n3_khoiluong = row[i]["N3"].ToString();
+                    if (n3_khoiluong == "")
+                        n3_khoiluong = "0";
+                    string N3_barcode = row[i]["barcode_n3"].ToString();
+                    string N3_LOT = row[i]["lot_n3"].ToString();
+                    string GA3 = row[i]["Ga3"].ToString();
+                    if (GA3 == "")
+                        GA3 = "0";
+                    string GA3_barcode = row[i]["barcode_ga3"].ToString();
+                    string Borax = row[i]["Borax"].ToString();
+                    if (Borax == "")
+                        Borax = "0";
+                    string Borax_barcode = row[i]["bacode_borax"].ToString();
+                    string NAA = row[i]["Naa"].ToString();
+                    if (NAA == "")
+                        NAA = "0";
+                    string NAA_barcode = row[i]["barcode_naa"].ToString();
+                    string Sodium = row[i]["Sodium"].ToString();
+                    if (Sodium == "")
+                        Sodium = "0";
+                    string Sodium_barcode = row[i]["barcode_sodium"].ToString();
+                    string Citric = row[i]["Citric"].ToString();
+                    if (Citric == "")
+                        Citric = "0";
+                    string Barcode_Citric = row[i]["barcode_citric"].ToString();
+                    string Naoh = row[i]["Naoh"].ToString();
+                    if (Naoh == "")
+                        Naoh = "0";
+                    string Barcode_Naoh = row[i]["barocde_naoh"].ToString();
+                    string Solubo = row[i]["solubo"].ToString();
+                    if (Solubo == "")
+                        Solubo = "0";
+                    string Barcode_Solubo = row[i]["barocde_solubo"].ToString();
+                    string Edtazn = row[i]["Edta"].ToString();
+                    if (Edtazn == "")
+                        Edtazn = "0";
+                    string Barcode_Edta = row[i]["barcode_edta"].ToString();
+                    string Red = row[i]["Red"].ToString();
+                    if (Red == "")
+                        Red = "0";
+                    string Barcode_red = row[i]["barcode_red"].ToString();
+                    string Violet = row[i]["violet"].ToString();
+                    if (Violet == "")
+                        Violet = "0";
+                    string Barcode_violet = row[i]["barcode_violet"].ToString();
+                    string Blue = row[i]["blue"].ToString();
+                    if (Blue == "")
+                        Blue = "0";
+                    string Barcode_blue = row[i]["barocde_blue"].ToString();
+                    string Yellow = row[i]["yellow"].ToString();
+                    if (Yellow == "")
+                        Yellow = "0";
+                    string Barcode_yellow = row[i]["barcode_yellow"].ToString();
+                    string Black = row[i]["black"].ToString();
+                    if (Black == "")
+                        Black = "0";
+                    string Barcode_black = row[i]["barcode_back"].ToString();
+                    string Prev = row[i]["prev"].ToString();
+                    if (Prev == "")
+                        Prev = "0";
+                    string Barcode_Prev = row[i]["barcode_prev"].ToString();
+                    string Than_cam = row[i]["thancam"].ToString();
+                    if (Than_cam == "")
+                        Than_cam = "0";
+                    string Dien = row[i]["dien"].ToString();
+                    if (Dien == "")
+                        Dien = "0";
+                    string Nuoc_RO = row[i]["nuocRo"].ToString();
+                    if (Nuoc_RO == "")
+                        Nuoc_RO = "0";
+                    string Nuoc_thuycuc = row[i]["nuocthuycuc"].ToString();
+                    if (Nuoc_thuycuc == "")
+                        Nuoc_thuycuc = "0";
                     string BHLD = row[i]["BHLD"].ToString();
                     string Ghi_chu = row[i]["ghi_chu"].ToString();
                     string Vitri_tongspthuduoc = row[i]["vitri_spthuduoc"].ToString();
@@ -1355,18 +1651,11 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
-                                "", Math.Round(TONG_KL_LT, 4), Math.Round(Hieu_suat_thu_tb / dataGridView1.Rows.Count, 4), Math.Round(Hieu_suat_release_tb / dataGridView1.Rows.Count, 4),
-                                "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
-                                "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
-                                "", "", Math.Round(tb_do_am / count_doam, 4), Math.Round(tb_coating / count_coating, 4), "",
-                                Math.Round(tb_0ngay / count_0, 4), Math.Round(tb_7ngay / count_7, 4), Math.Round(tb_14ngay / count_14, 4),
-                                Math.Round(tb_21ngay / count_21, 4), Math.Round(tb_28ngay / count_28, 4), Math.Round(tb_42ngay / count_42, 4),
-                                Math.Round(tb_49ngay / count_49, 4), Math.Round(tb_56ngay / count_56, 4), Math.Round(tb_70ngay / count_70, 4),
-                                Math.Round(tb_84ngay / count_84, 4), Math.Round(tb_98ngay / count_98, 4), Math.Round(tb_112ngay / count_112, 4),
-                                Math.Round(tb_126ngay / count_126, 4), Math.Round(tb_140ngay / count_140, 4));
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
+                dataGridView1.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dataGridView1.Columns[7].Frozen = true;
+                dataGridView1.Rows[0].Frozen = true;
+                dataGridView1.CurrentCell = dataGridView1.Rows[1].Cells[0];
             }
             catch (Exception ex)
             {
@@ -1385,7 +1674,17 @@ namespace NhatKySanXuat
                 DataTable tb_buff = new DataTable();
                 sqlcon.Open();
                 command = sqlcon.CreateCommand();
-                command.CommandText = "select * from nhatkysanxuat where ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) AND loai = '" + cbb_search_loai.Text + "' ORDER BY dot_sx DESC";
+                command.CommandText = "select name,dot_sx,ngay_sx,thiet_bi,ma_BTP,ten_BTP,me,LOT ,tocdo_release," +
+                        "ngay_release,loai,tong_klspsx,kl_dongkhoi,kl_khongdongkhoi,kl_lythuyet,hieuxuat_thu,hieuxuat_release," +
+                        "thoigian_cb,thoigian_sx,phanbon_nvl,kl_nvl,barcode_nvl,lot_nvl,N1,barcode_n1,lot_n1," +
+                        "N2,barcode_n2,lot_n2,N3,barcode_n3,lot_n3,Ga3,barcode_ga3,Borax,bacode_borax,Naa,barcode_naa,solubo,barocde_solubo," +
+                        "Edta,barcode_edta,Red,barcode_red,violet,barcode_violet,blue,barocde_blue,yellow,barcode_yellow,black,barcode_back,prev," +
+                        "barcode_prev,thancam,dien,nuocRO,nuocthuycuc,BHLD,Sodium,barcode_sodium,Citric,barcode_citric,Naoh,barocde_naoh,ghi_chu," +
+                        "vitri_spthuduoc,vitri_spdongkhoi,vitri_spkhongdongkhoi,N1_1,N1_2,N1_3,N1_1_barcode,N1_2_barcode,N1_3_barcode,N1_1_lot," +
+                        "N1_2_lot,N1_3_lot,N2_1,N2_2,N2_1_barcode,N2_2_barcode,N2_1_lot,N2_2_lot,N3_1,N3_1_barcode,N3_1_lot,N1_4,N1_4_barcode," +
+                        "N1_4_lot,N2_3,N2_3_barcode,N2_3_lot,N3_2,N3_2_barcode,N3_2_lot,N3_3,N3_3_barcode,N3_3_lot,thoigian_ondinh,do_am,coating_layer," +
+                        "ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140,NVL_1," +
+                        "barcode_NVL_1,lot_NVL_1,NVL_2,barcode_NVL_2,lot_NVL_2,KL_NVL_1,KL_NVL_2,N1_BD,N1_KT,N2_BD,N2_KT,N3_BD,N3_KT from nhatkysanxuat where ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) AND loai = '" + cbb_search_loai.Text + "' ORDER BY dot_sx DESC";
                 adapter.SelectCommand = command;
                 tb_buff.Clear();
                 adapter.Fill(tb_buff);
@@ -1540,18 +1839,6 @@ namespace NhatKySanXuat
                         count_coating++;
                         tb_coating += Convert.ToDouble(row[i]["coating_layer"].ToString());
                     }
-                    string Nguoi_nhap = row[i]["name"].ToString();
-                    string LOT = row[i]["LOT"].ToString();
-                    string Dot_sx = row[i]["dot_sx"].ToString();
-                    string Ngay_sx = row[i]["ngay_sx"].ToString();
-                    string Thiet_bi = row[i]["thiet_bi"].ToString();
-                    string Ma_btp = row[i]["ma_BTP"].ToString();
-                    string Ten_btp = row[i]["ten_BTP"].ToString();
-                    string Me = row[i]["me"].ToString();
-                    string Kl_nvl = row[i]["klnl_sudung"].ToString();
-                    string Toc_do_release = row[i]["tocdo_release"].ToString();
-                    string Ngay_release = row[i]["ngay_release"].ToString();
-                    string Loai = row[i]["loai"].ToString();
                     string Tong_klsp_thuduoc = row[i]["tong_klspsx"].ToString();
                     if (Tong_klsp_thuduoc == "")
                         Tong_klsp_thuduoc = "0";
@@ -1576,103 +1863,78 @@ namespace NhatKySanXuat
                     if (Hieusuatrelease == "")
                         Hieusuatrelease = "0";
                     Hieu_suat_release_tb += Convert.ToDouble(Hieusuatrelease);
-                    string Thoigiancb = row[i]["thoigian_cb"].ToString();
-                    string Thoigiansx = row[i]["thoigian_sx"].ToString();
-                    string Phanbon_nvl = row[i]["phanbon_nvl"].ToString();
                     string KL_phan_nvl = row[i]["kl_nvl"].ToString();
                     if (KL_phan_nvl == "")
                         KL_phan_nvl = "0";
                     KHOI_LUONG_NVL += Convert.ToDouble(KL_phan_nvl);
-                    string Barcode_nvl = row[i]["barcode_nvl"].ToString();
-                    string LOT_nvl = row[i]["lot_nvl"].ToString();
                     string N1_khoiluong = row[i]["N1"].ToString();
                     if (N1_khoiluong == "")
                         N1_khoiluong = "0";
                     Tong_N1_KL += Convert.ToDouble(N1_khoiluong);
-                    string N1_barcode = row[i]["barcode_n1"].ToString();
-                    string N1_LOT = row[i]["lot_n1"].ToString();
                     string N2_khoiluong = row[i]["N2"].ToString();
                     if (N2_khoiluong == "")
                         N2_khoiluong = "0";
                     Tong_N2_KL += Convert.ToDouble(N2_khoiluong);
-                    string N2_barcode = row[i]["barcode_n2"].ToString();
-                    string N2_LOT = row[i]["lot_n2"].ToString();
                     string n3_khoiluong = row[i]["N3"].ToString();
                     if (n3_khoiluong == "")
                         n3_khoiluong = "0";
                     Tong_N3_KL += Convert.ToDouble(n3_khoiluong);
-                    string N3_barcode = row[i]["barcode_n3"].ToString();
-                    string N3_LOT = row[i]["lot_n3"].ToString();
                     string GA3 = row[i]["Ga3"].ToString();
                     if (GA3 == "")
                         GA3 = "0";
                     Tong_ga3 += Convert.ToDouble(GA3);
-                    string GA3_barcode = row[i]["barcode_ga3"].ToString();
                     string Borax = row[i]["Borax"].ToString();
                     if (Borax == "")
                         Borax = "0";
                     Tong_borax += Convert.ToDouble(Borax);
-                    string Borax_barcode = row[i]["bacode_borax"].ToString();
                     string NAA = row[i]["Naa"].ToString();
                     if (NAA == "")
                         NAA = "0";
                     Tong_Naa += Convert.ToDouble(NAA);
-                    string NAA_barcode = row[i]["barcode_naa"].ToString();
                     string Sodium = row[i]["Sodium"].ToString();
                     if (Sodium == "")
                         Sodium = "0";
                     Tong_sodium += Convert.ToDouble(Sodium);
-                    string Sodium_barcode = row[i]["barcode_sodium"].ToString();
                     string Citric = row[i]["Citric"].ToString();
                     if (Citric == "")
                         Citric = "0";
                     Tong_citric += Convert.ToDouble(Citric);
-                    string Barcode_Citric = row[i]["barcode_citric"].ToString();
                     string Naoh = row[i]["Naoh"].ToString();
                     if (Naoh == "")
                         Naoh = "0";
                     Tong_naoh += Convert.ToDouble(Naoh);
-                    string Barcode_Naoh = row[i]["barocde_naoh"].ToString();
                     string Solubo = row[i]["solubo"].ToString();
                     if (Solubo == "")
                         Solubo = "0";
                     Tong_solubo += Convert.ToDouble(Solubo);
-                    string Barcode_Solubo = row[i]["barocde_solubo"].ToString();
                     string Edtazn = row[i]["Edta"].ToString();
                     if (Edtazn == "")
                         Edtazn = "0";
                     Tong_edtazn += Convert.ToDouble(Edtazn);
-                    string Barcode_Edta = row[i]["barcode_edta"].ToString();
                     string Red = row[i]["Red"].ToString();
                     if (Red == "")
                         Red = "0";
                     Tong_red += Convert.ToDouble(Red);
-                    string Barcode_red = row[i]["barcode_red"].ToString();
                     string Violet = row[i]["violet"].ToString();
                     if (Violet == "")
                         Violet = "0";
                     Tong_violet += Convert.ToDouble(Violet);
-                    string Barcode_violet = row[i]["barcode_violet"].ToString();
                     string Blue = row[i]["blue"].ToString();
                     if (Blue == "")
                         Blue = "0";
                     Tong_blue += Convert.ToDouble(Blue);
-                    string Barcode_blue = row[i]["barocde_blue"].ToString();
                     string Yellow = row[i]["yellow"].ToString();
                     if (Yellow == "")
                         Yellow = "0";
                     Tong_yellow += Convert.ToDouble(Yellow);
-                    string Barcode_yellow = row[i]["barcode_yellow"].ToString();
                     string Black = row[i]["black"].ToString();
                     if (Black == "")
                         Black = "0";
                     Tong_black += Convert.ToDouble(Black);
-                    string Barcode_black = row[i]["barcode_back"].ToString();
                     string Prev = row[i]["prev"].ToString();
                     if (Prev == "")
                         Prev = "0";
                     Tong_prev += Convert.ToDouble(Prev);
-                    string Barcode_Prev = row[i]["barcode_prev"].ToString();
                     string Than_cam = row[i]["thancam"].ToString();
                     if (Than_cam == "")
                         Than_cam = "0";
@@ -1689,6 +1951,139 @@ namespace NhatKySanXuat
                     if (Nuoc_thuycuc == "")
                         Nuoc_thuycuc = "0";
                     Tong_nuocthuycuc += Convert.ToDouble(Nuoc_thuycuc);
+                }
+                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                "", Math.Round(TONG_KL_LT, 3), Math.Round(Hieu_suat_thu_tb / row.Length, 3), Math.Round(Hieu_suat_release_tb / row.Length, 3),
+                "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
+                "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
+                "", "", Math.Round(tb_do_am / count_doam, 3), Math.Round(tb_coating / count_coating, 3), "",
+                Math.Round(tb_0ngay / count_0, 3), Math.Round(tb_7ngay / count_7, 3), Math.Round(tb_14ngay / count_14, 3),
+                Math.Round(tb_21ngay / count_21, 3), Math.Round(tb_28ngay / count_28, 3), Math.Round(tb_42ngay / count_42, 3),
+                Math.Round(tb_49ngay / count_49, 3), Math.Round(tb_56ngay / count_56, 3), Math.Round(tb_70ngay / count_70, 3),
+                Math.Round(tb_84ngay / count_84, 3), Math.Round(tb_98ngay / count_98, 3), Math.Round(tb_112ngay / count_112, 3),
+                Math.Round(tb_126ngay / count_126, 3), Math.Round(tb_140ngay / count_140, 3));
+                for (int i = 0; i < row.Length; i++)
+                {
+                    string Nguoi_nhap = row[i]["name"].ToString();
+                    string LOT = row[i]["LOT"].ToString();
+                    string Dot_sx = row[i]["dot_sx"].ToString();
+                    string Ngay_sx = row[i]["ngay_sx"].ToString();
+                    string Thiet_bi = row[i]["thiet_bi"].ToString();
+                    string Ma_btp = row[i]["ma_BTP"].ToString();
+                    string Ten_btp = row[i]["ten_BTP"].ToString();
+                    string Me = row[i]["me"].ToString();
+                    string Toc_do_release = row[i]["tocdo_release"].ToString();
+                    string Ngay_release = row[i]["ngay_release"].ToString();
+                    string Loai = row[i]["loai"].ToString();
+                    string Tong_klsp_thuduoc = row[i]["tong_klspsx"].ToString();
+                    if (Tong_klsp_thuduoc == "")
+                        Tong_klsp_thuduoc = "0";
+                    string Kl_dongkhoi = row[i]["kl_dongkhoi"].ToString();
+                    if (Kl_dongkhoi == "")
+                        Kl_dongkhoi = "0";
+                    string Khongdongkhoi = row[i]["kl_khongdongkhoi"].ToString();
+                    if (Khongdongkhoi == "")
+                        Khongdongkhoi = "0";
+                    string Kl_lythuyet = row[i]["kl_lythuyet"].ToString();
+                    if (Kl_lythuyet == "")
+                        Kl_lythuyet = "0";
+                    string Hieusuatthu = row[i]["hieuxuat_thu"].ToString();
+                    if (Hieusuatthu == "")
+                        Hieusuatthu = "0";
+                    string Hieusuatrelease = row[i]["hieuxuat_release"].ToString();
+                    if (Hieusuatrelease == "")
+                        Hieusuatrelease = "0";
+                    string Thoigiancb = row[i]["thoigian_cb"].ToString();
+                    string Thoigiansx = row[i]["thoigian_sx"].ToString();
+                    string Phanbon_nvl = row[i]["phanbon_nvl"].ToString();
+                    string KL_phan_nvl = row[i]["kl_nvl"].ToString();
+                    if (KL_phan_nvl == "")
+                        KL_phan_nvl = "0";
+                    string Barcode_nvl = row[i]["barcode_nvl"].ToString();
+                    string LOT_nvl = row[i]["lot_nvl"].ToString();
+                    string N1_khoiluong = row[i]["N1"].ToString();
+                    if (N1_khoiluong == "")
+                        N1_khoiluong = "0";
+                    string N1_barcode = row[i]["barcode_n1"].ToString();
+                    string N1_LOT = row[i]["lot_n1"].ToString();
+                    string N2_khoiluong = row[i]["N2"].ToString();
+                    if (N2_khoiluong == "")
+                        N2_khoiluong = "0";
+                    string N2_barcode = row[i]["barcode_n2"].ToString();
+                    string N2_LOT = row[i]["lot_n2"].ToString();
+                    string n3_khoiluong = row[i]["N3"].ToString();
+                    if (n3_khoiluong == "")
+                        n3_khoiluong = "0";
+                    string N3_barcode = row[i]["barcode_n3"].ToString();
+                    string N3_LOT = row[i]["lot_n3"].ToString();
+                    string GA3 = row[i]["Ga3"].ToString();
+                    if (GA3 == "")
+                        GA3 = "0";
+                    string GA3_barcode = row[i]["barcode_ga3"].ToString();
+                    string Borax = row[i]["Borax"].ToString();
+                    if (Borax == "")
+                        Borax = "0";
+                    string Borax_barcode = row[i]["bacode_borax"].ToString();
+                    string NAA = row[i]["Naa"].ToString();
+                    if (NAA == "")
+                        NAA = "0";
+                    string NAA_barcode = row[i]["barcode_naa"].ToString();
+                    string Sodium = row[i]["Sodium"].ToString();
+                    if (Sodium == "")
+                        Sodium = "0";
+                    string Sodium_barcode = row[i]["barcode_sodium"].ToString();
+                    string Citric = row[i]["Citric"].ToString();
+                    if (Citric == "")
+                        Citric = "0";
+                    string Barcode_Citric = row[i]["barcode_citric"].ToString();
+                    string Naoh = row[i]["Naoh"].ToString();
+                    if (Naoh == "")
+                        Naoh = "0";
+                    string Barcode_Naoh = row[i]["barocde_naoh"].ToString();
+                    string Solubo = row[i]["solubo"].ToString();
+                    if (Solubo == "")
+                        Solubo = "0";
+                    string Barcode_Solubo = row[i]["barocde_solubo"].ToString();
+                    string Edtazn = row[i]["Edta"].ToString();
+                    if (Edtazn == "")
+                        Edtazn = "0";
+                    string Barcode_Edta = row[i]["barcode_edta"].ToString();
+                    string Red = row[i]["Red"].ToString();
+                    if (Red == "")
+                        Red = "0";
+                    string Barcode_red = row[i]["barcode_red"].ToString();
+                    string Violet = row[i]["violet"].ToString();
+                    if (Violet == "")
+                        Violet = "0";
+                    string Barcode_violet = row[i]["barcode_violet"].ToString();
+                    string Blue = row[i]["blue"].ToString();
+                    if (Blue == "")
+                        Blue = "0";
+                    string Barcode_blue = row[i]["barocde_blue"].ToString();
+                    string Yellow = row[i]["yellow"].ToString();
+                    if (Yellow == "")
+                        Yellow = "0";
+                    string Barcode_yellow = row[i]["barcode_yellow"].ToString();
+                    string Black = row[i]["black"].ToString();
+                    if (Black == "")
+                        Black = "0";
+                    string Barcode_black = row[i]["barcode_back"].ToString();
+                    string Prev = row[i]["prev"].ToString();
+                    if (Prev == "")
+                        Prev = "0";
+                    string Barcode_Prev = row[i]["barcode_prev"].ToString();
+                    string Than_cam = row[i]["thancam"].ToString();
+                    if (Than_cam == "")
+                        Than_cam = "0";
+                    string Dien = row[i]["dien"].ToString();
+                    if (Dien == "")
+                        Dien = "0";
+                    string Nuoc_RO = row[i]["nuocRo"].ToString();
+                    if (Nuoc_RO == "")
+                        Nuoc_RO = "0";
+                    string Nuoc_thuycuc = row[i]["nuocthuycuc"].ToString();
+                    if (Nuoc_thuycuc == "")
+                        Nuoc_thuycuc = "0";
                     string BHLD = row[i]["BHLD"].ToString();
                     string Ghi_chu = row[i]["ghi_chu"].ToString();
                     string Vitri_tongspthuduoc = row[i]["vitri_spthuduoc"].ToString();
@@ -1723,18 +2118,11 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
-                                "", Math.Round(TONG_KL_LT, 4), Math.Round(Hieu_suat_thu_tb / dataGridView1.Rows.Count, 4), Math.Round(Hieu_suat_release_tb / dataGridView1.Rows.Count, 4),
-                                "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
-                                "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
-                                "", "", Math.Round(tb_do_am / count_doam, 4), Math.Round(tb_coating / count_coating, 4), "",
-                                Math.Round(tb_0ngay / count_0, 4), Math.Round(tb_7ngay / count_7, 4), Math.Round(tb_14ngay / count_14, 4),
-                                Math.Round(tb_21ngay / count_21, 4), Math.Round(tb_28ngay / count_28, 4), Math.Round(tb_42ngay / count_42, 4),
-                                Math.Round(tb_49ngay / count_49, 4), Math.Round(tb_56ngay / count_56, 4), Math.Round(tb_70ngay / count_70, 4),
-                                Math.Round(tb_84ngay / count_84, 4), Math.Round(tb_98ngay / count_98, 4), Math.Round(tb_112ngay / count_112, 4),
-                                Math.Round(tb_126ngay / count_126, 4), Math.Round(tb_140ngay / count_140, 4));
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
+                dataGridView1.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dataGridView1.Columns[7].Frozen = true;
+                dataGridView1.Rows[0].Frozen = true;
+                dataGridView1.CurrentCell = dataGridView1.Rows[1].Cells[0];
             }
             catch (Exception ex)
             {
@@ -1753,7 +2141,17 @@ namespace NhatKySanXuat
                 SqlDataAdapter adapter = new SqlDataAdapter();
                 DataTable tb_buff = new DataTable();
                 command = sqlcon.CreateCommand();
-                command.CommandText = "select * from nhatkysanxuat where dot_sx = '" + tb_dotsx_search.Text + "' AND ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) ORDER BY me ASC";
+                command.CommandText = "select name,dot_sx,ngay_sx,thiet_bi,ma_BTP,ten_BTP,me,LOT ,tocdo_release," +
+                        "ngay_release,loai,tong_klspsx,kl_dongkhoi,kl_khongdongkhoi,kl_lythuyet,hieuxuat_thu,hieuxuat_release," +
+                        "thoigian_cb,thoigian_sx,phanbon_nvl,kl_nvl,barcode_nvl,lot_nvl,N1,barcode_n1,lot_n1," +
+                        "N2,barcode_n2,lot_n2,N3,barcode_n3,lot_n3,Ga3,barcode_ga3,Borax,bacode_borax,Naa,barcode_naa,solubo,barocde_solubo," +
+                        "Edta,barcode_edta,Red,barcode_red,violet,barcode_violet,blue,barocde_blue,yellow,barcode_yellow,black,barcode_back,prev," +
+                        "barcode_prev,thancam,dien,nuocRO,nuocthuycuc,BHLD,Sodium,barcode_sodium,Citric,barcode_citric,Naoh,barocde_naoh,ghi_chu," +
+                        "vitri_spthuduoc,vitri_spdongkhoi,vitri_spkhongdongkhoi,N1_1,N1_2,N1_3,N1_1_barcode,N1_2_barcode,N1_3_barcode,N1_1_lot," +
+                        "N1_2_lot,N1_3_lot,N2_1,N2_2,N2_1_barcode,N2_2_barcode,N2_1_lot,N2_2_lot,N3_1,N3_1_barcode,N3_1_lot,N1_4,N1_4_barcode," +
+                        "N1_4_lot,N2_3,N2_3_barcode,N2_3_lot,N3_2,N3_2_barcode,N3_2_lot,N3_3,N3_3_barcode,N3_3_lot,thoigian_ondinh,do_am,coating_layer," +
+                        "ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140,NVL_1," +
+                        "barcode_NVL_1,lot_NVL_1,NVL_2,barcode_NVL_2,lot_NVL_2,KL_NVL_1,KL_NVL_2,N1_BD,N1_KT,N2_BD,N2_KT,N3_BD,N3_KT from nhatkysanxuat where dot_sx = '" + tb_dotsx_search.Text + "' AND ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) ORDER BY me ASC";
                 adapter.SelectCommand = command;
                 tb_buff.Clear();
                 adapter.Fill(tb_buff);
@@ -1908,18 +2306,6 @@ namespace NhatKySanXuat
                         count_coating++;
                         tb_coating += Convert.ToDouble(row[i]["coating_layer"].ToString());
                     }
-                    string Nguoi_nhap = row[i]["name"].ToString();
-                    string LOT = row[i]["LOT"].ToString();
-                    string Dot_sx = row[i]["dot_sx"].ToString();
-                    string Ngay_sx = row[i]["ngay_sx"].ToString();
-                    string Thiet_bi = row[i]["thiet_bi"].ToString();
-                    string Ma_btp = row[i]["ma_BTP"].ToString();
-                    string Ten_btp = row[i]["ten_BTP"].ToString();
-                    string Me = row[i]["me"].ToString();
-                    string Kl_nvl = row[i]["klnl_sudung"].ToString();
-                    string Toc_do_release = row[i]["tocdo_release"].ToString();
-                    string Ngay_release = row[i]["ngay_release"].ToString();
-                    string Loai = row[i]["loai"].ToString();
                     string Tong_klsp_thuduoc = row[i]["tong_klspsx"].ToString();
                     if (Tong_klsp_thuduoc == "")
                         Tong_klsp_thuduoc = "0";
@@ -1944,103 +2330,78 @@ namespace NhatKySanXuat
                     if (Hieusuatrelease == "")
                         Hieusuatrelease = "0";
                     Hieu_suat_release_tb += Convert.ToDouble(Hieusuatrelease);
-                    string Thoigiancb = row[i]["thoigian_cb"].ToString();
-                    string Thoigiansx = row[i]["thoigian_sx"].ToString();
-                    string Phanbon_nvl = row[i]["phanbon_nvl"].ToString();
                     string KL_phan_nvl = row[i]["kl_nvl"].ToString();
                     if (KL_phan_nvl == "")
                         KL_phan_nvl = "0";
                     KHOI_LUONG_NVL += Convert.ToDouble(KL_phan_nvl);
-                    string Barcode_nvl = row[i]["barcode_nvl"].ToString();
-                    string LOT_nvl = row[i]["lot_nvl"].ToString();
                     string N1_khoiluong = row[i]["N1"].ToString();
                     if (N1_khoiluong == "")
                         N1_khoiluong = "0";
                     Tong_N1_KL += Convert.ToDouble(N1_khoiluong);
-                    string N1_barcode = row[i]["barcode_n1"].ToString();
-                    string N1_LOT = row[i]["lot_n1"].ToString();
                     string N2_khoiluong = row[i]["N2"].ToString();
                     if (N2_khoiluong == "")
                         N2_khoiluong = "0";
                     Tong_N2_KL += Convert.ToDouble(N2_khoiluong);
-                    string N2_barcode = row[i]["barcode_n2"].ToString();
-                    string N2_LOT = row[i]["lot_n2"].ToString();
                     string n3_khoiluong = row[i]["N3"].ToString();
                     if (n3_khoiluong == "")
                         n3_khoiluong = "0";
                     Tong_N3_KL += Convert.ToDouble(n3_khoiluong);
-                    string N3_barcode = row[i]["barcode_n3"].ToString();
-                    string N3_LOT = row[i]["lot_n3"].ToString();
                     string GA3 = row[i]["Ga3"].ToString();
                     if (GA3 == "")
                         GA3 = "0";
                     Tong_ga3 += Convert.ToDouble(GA3);
-                    string GA3_barcode = row[i]["barcode_ga3"].ToString();
                     string Borax = row[i]["Borax"].ToString();
                     if (Borax == "")
                         Borax = "0";
                     Tong_borax += Convert.ToDouble(Borax);
-                    string Borax_barcode = row[i]["bacode_borax"].ToString();
                     string NAA = row[i]["Naa"].ToString();
                     if (NAA == "")
                         NAA = "0";
                     Tong_Naa += Convert.ToDouble(NAA);
-                    string NAA_barcode = row[i]["barcode_naa"].ToString();
                     string Sodium = row[i]["Sodium"].ToString();
                     if (Sodium == "")
                         Sodium = "0";
                     Tong_sodium += Convert.ToDouble(Sodium);
-                    string Sodium_barcode = row[i]["barcode_sodium"].ToString();
                     string Citric = row[i]["Citric"].ToString();
                     if (Citric == "")
                         Citric = "0";
                     Tong_citric += Convert.ToDouble(Citric);
-                    string Barcode_Citric = row[i]["barcode_citric"].ToString();
                     string Naoh = row[i]["Naoh"].ToString();
                     if (Naoh == "")
                         Naoh = "0";
                     Tong_naoh += Convert.ToDouble(Naoh);
-                    string Barcode_Naoh = row[i]["barocde_naoh"].ToString();
                     string Solubo = row[i]["solubo"].ToString();
                     if (Solubo == "")
                         Solubo = "0";
                     Tong_solubo += Convert.ToDouble(Solubo);
-                    string Barcode_Solubo = row[i]["barocde_solubo"].ToString();
                     string Edtazn = row[i]["Edta"].ToString();
                     if (Edtazn == "")
                         Edtazn = "0";
                     Tong_edtazn += Convert.ToDouble(Edtazn);
-                    string Barcode_Edta = row[i]["barcode_edta"].ToString();
                     string Red = row[i]["Red"].ToString();
                     if (Red == "")
                         Red = "0";
                     Tong_red += Convert.ToDouble(Red);
-                    string Barcode_red = row[i]["barcode_red"].ToString();
                     string Violet = row[i]["violet"].ToString();
                     if (Violet == "")
                         Violet = "0";
                     Tong_violet += Convert.ToDouble(Violet);
-                    string Barcode_violet = row[i]["barcode_violet"].ToString();
                     string Blue = row[i]["blue"].ToString();
                     if (Blue == "")
                         Blue = "0";
                     Tong_blue += Convert.ToDouble(Blue);
-                    string Barcode_blue = row[i]["barocde_blue"].ToString();
                     string Yellow = row[i]["yellow"].ToString();
                     if (Yellow == "")
                         Yellow = "0";
                     Tong_yellow += Convert.ToDouble(Yellow);
-                    string Barcode_yellow = row[i]["barcode_yellow"].ToString();
                     string Black = row[i]["black"].ToString();
                     if (Black == "")
                         Black = "0";
                     Tong_black += Convert.ToDouble(Black);
-                    string Barcode_black = row[i]["barcode_back"].ToString();
                     string Prev = row[i]["prev"].ToString();
                     if (Prev == "")
                         Prev = "0";
                     Tong_prev += Convert.ToDouble(Prev);
-                    string Barcode_Prev = row[i]["barcode_prev"].ToString();
                     string Than_cam = row[i]["thancam"].ToString();
                     if (Than_cam == "")
                         Than_cam = "0";
@@ -2057,6 +2418,139 @@ namespace NhatKySanXuat
                     if (Nuoc_thuycuc == "")
                         Nuoc_thuycuc = "0";
                     Tong_nuocthuycuc += Convert.ToDouble(Nuoc_thuycuc);
+                }
+                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                "", Math.Round(TONG_KL_LT, 3), Math.Round(Hieu_suat_thu_tb / row.Length, 3), Math.Round(Hieu_suat_release_tb / row.Length, 3),
+                "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
+                "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
+                "", "", Math.Round(tb_do_am / count_doam, 3), Math.Round(tb_coating / count_coating, 3), "",
+                Math.Round(tb_0ngay / count_0, 3), Math.Round(tb_7ngay / count_7, 3), Math.Round(tb_14ngay / count_14, 3),
+                Math.Round(tb_21ngay / count_21, 3), Math.Round(tb_28ngay / count_28, 3), Math.Round(tb_42ngay / count_42, 3),
+                Math.Round(tb_49ngay / count_49, 3), Math.Round(tb_56ngay / count_56, 3), Math.Round(tb_70ngay / count_70, 3),
+                Math.Round(tb_84ngay / count_84, 3), Math.Round(tb_98ngay / count_98, 3), Math.Round(tb_112ngay / count_112, 3),
+                Math.Round(tb_126ngay / count_126, 3), Math.Round(tb_140ngay / count_140, 3));
+                for (int i = 0; i < row.Length; i++)
+                {
+                    string Nguoi_nhap = row[i]["name"].ToString();
+                    string LOT = row[i]["LOT"].ToString();
+                    string Dot_sx = row[i]["dot_sx"].ToString();
+                    string Ngay_sx = row[i]["ngay_sx"].ToString();
+                    string Thiet_bi = row[i]["thiet_bi"].ToString();
+                    string Ma_btp = row[i]["ma_BTP"].ToString();
+                    string Ten_btp = row[i]["ten_BTP"].ToString();
+                    string Me = row[i]["me"].ToString();
+                    string Toc_do_release = row[i]["tocdo_release"].ToString();
+                    string Ngay_release = row[i]["ngay_release"].ToString();
+                    string Loai = row[i]["loai"].ToString();
+                    string Tong_klsp_thuduoc = row[i]["tong_klspsx"].ToString();
+                    if (Tong_klsp_thuduoc == "")
+                        Tong_klsp_thuduoc = "0";
+                    string Kl_dongkhoi = row[i]["kl_dongkhoi"].ToString();
+                    if (Kl_dongkhoi == "")
+                        Kl_dongkhoi = "0";
+                    string Khongdongkhoi = row[i]["kl_khongdongkhoi"].ToString();
+                    if (Khongdongkhoi == "")
+                        Khongdongkhoi = "0";
+                    string Kl_lythuyet = row[i]["kl_lythuyet"].ToString();
+                    if (Kl_lythuyet == "")
+                        Kl_lythuyet = "0";
+                    string Hieusuatthu = row[i]["hieuxuat_thu"].ToString();
+                    if (Hieusuatthu == "")
+                        Hieusuatthu = "0";
+                    string Hieusuatrelease = row[i]["hieuxuat_release"].ToString();
+                    if (Hieusuatrelease == "")
+                        Hieusuatrelease = "0";
+                    string Thoigiancb = row[i]["thoigian_cb"].ToString();
+                    string Thoigiansx = row[i]["thoigian_sx"].ToString();
+                    string Phanbon_nvl = row[i]["phanbon_nvl"].ToString();
+                    string KL_phan_nvl = row[i]["kl_nvl"].ToString();
+                    if (KL_phan_nvl == "")
+                        KL_phan_nvl = "0";
+                    string Barcode_nvl = row[i]["barcode_nvl"].ToString();
+                    string LOT_nvl = row[i]["lot_nvl"].ToString();
+                    string N1_khoiluong = row[i]["N1"].ToString();
+                    if (N1_khoiluong == "")
+                        N1_khoiluong = "0";
+                    string N1_barcode = row[i]["barcode_n1"].ToString();
+                    string N1_LOT = row[i]["lot_n1"].ToString();
+                    string N2_khoiluong = row[i]["N2"].ToString();
+                    if (N2_khoiluong == "")
+                        N2_khoiluong = "0";
+                    string N2_barcode = row[i]["barcode_n2"].ToString();
+                    string N2_LOT = row[i]["lot_n2"].ToString();
+                    string n3_khoiluong = row[i]["N3"].ToString();
+                    if (n3_khoiluong == "")
+                        n3_khoiluong = "0";
+                    string N3_barcode = row[i]["barcode_n3"].ToString();
+                    string N3_LOT = row[i]["lot_n3"].ToString();
+                    string GA3 = row[i]["Ga3"].ToString();
+                    if (GA3 == "")
+                        GA3 = "0";
+                    string GA3_barcode = row[i]["barcode_ga3"].ToString();
+                    string Borax = row[i]["Borax"].ToString();
+                    if (Borax == "")
+                        Borax = "0";
+                    string Borax_barcode = row[i]["bacode_borax"].ToString();
+                    string NAA = row[i]["Naa"].ToString();
+                    if (NAA == "")
+                        NAA = "0";
+                    string NAA_barcode = row[i]["barcode_naa"].ToString();
+                    string Sodium = row[i]["Sodium"].ToString();
+                    if (Sodium == "")
+                        Sodium = "0";
+                    string Sodium_barcode = row[i]["barcode_sodium"].ToString();
+                    string Citric = row[i]["Citric"].ToString();
+                    if (Citric == "")
+                        Citric = "0";
+                    string Barcode_Citric = row[i]["barcode_citric"].ToString();
+                    string Naoh = row[i]["Naoh"].ToString();
+                    if (Naoh == "")
+                        Naoh = "0";
+                    string Barcode_Naoh = row[i]["barocde_naoh"].ToString();
+                    string Solubo = row[i]["solubo"].ToString();
+                    if (Solubo == "")
+                        Solubo = "0";
+                    string Barcode_Solubo = row[i]["barocde_solubo"].ToString();
+                    string Edtazn = row[i]["Edta"].ToString();
+                    if (Edtazn == "")
+                        Edtazn = "0";
+                    string Barcode_Edta = row[i]["barcode_edta"].ToString();
+                    string Red = row[i]["Red"].ToString();
+                    if (Red == "")
+                        Red = "0";
+                    string Barcode_red = row[i]["barcode_red"].ToString();
+                    string Violet = row[i]["violet"].ToString();
+                    if (Violet == "")
+                        Violet = "0";
+                    string Barcode_violet = row[i]["barcode_violet"].ToString();
+                    string Blue = row[i]["blue"].ToString();
+                    if (Blue == "")
+                        Blue = "0";
+                    string Barcode_blue = row[i]["barocde_blue"].ToString();
+                    string Yellow = row[i]["yellow"].ToString();
+                    if (Yellow == "")
+                        Yellow = "0";
+                    string Barcode_yellow = row[i]["barcode_yellow"].ToString();
+                    string Black = row[i]["black"].ToString();
+                    if (Black == "")
+                        Black = "0";
+                    string Barcode_black = row[i]["barcode_back"].ToString();
+                    string Prev = row[i]["prev"].ToString();
+                    if (Prev == "")
+                        Prev = "0";
+                    string Barcode_Prev = row[i]["barcode_prev"].ToString();
+                    string Than_cam = row[i]["thancam"].ToString();
+                    if (Than_cam == "")
+                        Than_cam = "0";
+                    string Dien = row[i]["dien"].ToString();
+                    if (Dien == "")
+                        Dien = "0";
+                    string Nuoc_RO = row[i]["nuocRo"].ToString();
+                    if (Nuoc_RO == "")
+                        Nuoc_RO = "0";
+                    string Nuoc_thuycuc = row[i]["nuocthuycuc"].ToString();
+                    if (Nuoc_thuycuc == "")
+                        Nuoc_thuycuc = "0";
                     string BHLD = row[i]["BHLD"].ToString();
                     string Ghi_chu = row[i]["ghi_chu"].ToString();
                     string Vitri_tongspthuduoc = row[i]["vitri_spthuduoc"].ToString();
@@ -2091,19 +2585,11 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP.ToString(), "", TONG_KL_DONGKHOI.ToString(), "", TONG_KHOILUONG_KHONG_DONG_KHOI.ToString(),
-                                "", Math.Round(TONG_KL_LT, 4), Math.Round(Hieu_suat_thu_tb / dataGridView1.Rows.Count, 4), Math.Round(Hieu_suat_release_tb / dataGridView1.Rows.Count, 4),
-                                "", "", "", KHOI_LUONG_NVL, "", "", Math.Round(Tong_N1_KL, 4), "", "", Math.Round(Tong_N2_KL, 4), "", "", Math.Round(Tong_N3_KL, 4), "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
-                                "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
-                                "", "", Math.Round(tb_do_am / count_doam, 4), Math.Round(tb_coating / count_coating, 4), "",
-                                Math.Round(tb_0ngay / count_0, 4), Math.Round(tb_7ngay / count_7, 4), Math.Round(tb_14ngay / count_14, 4),
-                                Math.Round(tb_21ngay / count_21, 4), Math.Round(tb_28ngay / count_28, 4), Math.Round(tb_42ngay / count_42, 4),
-                                Math.Round(tb_49ngay / count_49, 4), Math.Round(tb_56ngay / count_56, 4), Math.Round(tb_70ngay / count_70, 4),
-                                Math.Round(tb_84ngay / count_84, 4), Math.Round(tb_98ngay / count_98, 4), Math.Round(tb_112ngay / count_112, 4),
-                                Math.Round(tb_126ngay / count_126, 4), Math.Round(tb_140ngay / count_140, 4));
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].ReadOnly = true;
+                dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
+                dataGridView1.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dataGridView1.Columns[7].Frozen = true;
+                dataGridView1.Rows[0].Frozen = true;
+                dataGridView1.CurrentCell = dataGridView1.Rows[1].Cells[0];
             }
             catch (Exception ex)
             {
@@ -2122,7 +2608,17 @@ namespace NhatKySanXuat
                 SqlDataAdapter adapter = new SqlDataAdapter();
                 DataTable tb_buff = new DataTable();
                 command = sqlcon.CreateCommand();
-                command.CommandText = "select * from nhatkysanxuat where thiet_bi = '" + cbb_thietbi_search.Text + "' AND dot_sx = '" + tb_dotsx_search.Text + "' ORDER BY me ASC";
+                command.CommandText = "select name,dot_sx,ngay_sx,thiet_bi,ma_BTP,ten_BTP,me,LOT ,tocdo_release," +
+                        "ngay_release,loai,tong_klspsx,kl_dongkhoi,kl_khongdongkhoi,kl_lythuyet,hieuxuat_thu,hieuxuat_release," +
+                        "thoigian_cb,thoigian_sx,phanbon_nvl,kl_nvl,barcode_nvl,lot_nvl,N1,barcode_n1,lot_n1," +
+                        "N2,barcode_n2,lot_n2,N3,barcode_n3,lot_n3,Ga3,barcode_ga3,Borax,bacode_borax,Naa,barcode_naa,solubo,barocde_solubo," +
+                        "Edta,barcode_edta,Red,barcode_red,violet,barcode_violet,blue,barocde_blue,yellow,barcode_yellow,black,barcode_back,prev," +
+                        "barcode_prev,thancam,dien,nuocRO,nuocthuycuc,BHLD,Sodium,barcode_sodium,Citric,barcode_citric,Naoh,barocde_naoh,ghi_chu," +
+                        "vitri_spthuduoc,vitri_spdongkhoi,vitri_spkhongdongkhoi,N1_1,N1_2,N1_3,N1_1_barcode,N1_2_barcode,N1_3_barcode,N1_1_lot," +
+                        "N1_2_lot,N1_3_lot,N2_1,N2_2,N2_1_barcode,N2_2_barcode,N2_1_lot,N2_2_lot,N3_1,N3_1_barcode,N3_1_lot,N1_4,N1_4_barcode," +
+                        "N1_4_lot,N2_3,N2_3_barcode,N2_3_lot,N3_2,N3_2_barcode,N3_2_lot,N3_3,N3_3_barcode,N3_3_lot,thoigian_ondinh,do_am,coating_layer," +
+                        "ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140,NVL_1," +
+                        "barcode_NVL_1,lot_NVL_1,NVL_2,barcode_NVL_2,lot_NVL_2,KL_NVL_1,KL_NVL_2,N1_BD,N1_KT,N2_BD,N2_KT,N3_BD,N3_KT from nhatkysanxuat where thiet_bi = '" + cbb_thietbi_search.Text + "' AND dot_sx = '" + tb_dotsx_search.Text + "' ORDER BY me ASC";
                 adapter.SelectCommand = command;
                 tb_buff.Clear();
                 adapter.Fill(tb_buff);
@@ -2277,18 +2773,6 @@ namespace NhatKySanXuat
                         count_coating++;
                         tb_coating += Convert.ToDouble(row[i]["coating_layer"].ToString());
                     }
-                    string Nguoi_nhap = row[i]["name"].ToString();
-                    string LOT = row[i]["LOT"].ToString();
-                    string Dot_sx = row[i]["dot_sx"].ToString();
-                    string Ngay_sx = row[i]["ngay_sx"].ToString();
-                    string Thiet_bi = row[i]["thiet_bi"].ToString();
-                    string Ma_btp = row[i]["ma_BTP"].ToString();
-                    string Ten_btp = row[i]["ten_BTP"].ToString();
-                    string Me = row[i]["me"].ToString();
-                    string Kl_nvl = row[i]["klnl_sudung"].ToString();
-                    string Toc_do_release = row[i]["tocdo_release"].ToString();
-                    string Ngay_release = row[i]["ngay_release"].ToString();
-                    string Loai = row[i]["loai"].ToString();
                     string Tong_klsp_thuduoc = row[i]["tong_klspsx"].ToString();
                     if (Tong_klsp_thuduoc == "")
                         Tong_klsp_thuduoc = "0";
@@ -2313,103 +2797,78 @@ namespace NhatKySanXuat
                     if (Hieusuatrelease == "")
                         Hieusuatrelease = "0";
                     Hieu_suat_release_tb += Convert.ToDouble(Hieusuatrelease);
-                    string Thoigiancb = row[i]["thoigian_cb"].ToString();
-                    string Thoigiansx = row[i]["thoigian_sx"].ToString();
-                    string Phanbon_nvl = row[i]["phanbon_nvl"].ToString();
                     string KL_phan_nvl = row[i]["kl_nvl"].ToString();
                     if (KL_phan_nvl == "")
                         KL_phan_nvl = "0";
                     KHOI_LUONG_NVL += Convert.ToDouble(KL_phan_nvl);
-                    string Barcode_nvl = row[i]["barcode_nvl"].ToString();
-                    string LOT_nvl = row[i]["lot_nvl"].ToString();
                     string N1_khoiluong = row[i]["N1"].ToString();
                     if (N1_khoiluong == "")
                         N1_khoiluong = "0";
                     Tong_N1_KL += Convert.ToDouble(N1_khoiluong);
-                    string N1_barcode = row[i]["barcode_n1"].ToString();
-                    string N1_LOT = row[i]["lot_n1"].ToString();
                     string N2_khoiluong = row[i]["N2"].ToString();
                     if (N2_khoiluong == "")
                         N2_khoiluong = "0";
                     Tong_N2_KL += Convert.ToDouble(N2_khoiluong);
-                    string N2_barcode = row[i]["barcode_n2"].ToString();
-                    string N2_LOT = row[i]["lot_n2"].ToString();
                     string n3_khoiluong = row[i]["N3"].ToString();
                     if (n3_khoiluong == "")
                         n3_khoiluong = "0";
                     Tong_N3_KL += Convert.ToDouble(n3_khoiluong);
-                    string N3_barcode = row[i]["barcode_n3"].ToString();
-                    string N3_LOT = row[i]["lot_n3"].ToString();
                     string GA3 = row[i]["Ga3"].ToString();
                     if (GA3 == "")
                         GA3 = "0";
                     Tong_ga3 += Convert.ToDouble(GA3);
-                    string GA3_barcode = row[i]["barcode_ga3"].ToString();
                     string Borax = row[i]["Borax"].ToString();
                     if (Borax == "")
                         Borax = "0";
                     Tong_borax += Convert.ToDouble(Borax);
-                    string Borax_barcode = row[i]["bacode_borax"].ToString();
                     string NAA = row[i]["Naa"].ToString();
                     if (NAA == "")
                         NAA = "0";
                     Tong_Naa += Convert.ToDouble(NAA);
-                    string NAA_barcode = row[i]["barcode_naa"].ToString();
                     string Sodium = row[i]["Sodium"].ToString();
                     if (Sodium == "")
                         Sodium = "0";
                     Tong_sodium += Convert.ToDouble(Sodium);
-                    string Sodium_barcode = row[i]["barcode_sodium"].ToString();
                     string Citric = row[i]["Citric"].ToString();
                     if (Citric == "")
                         Citric = "0";
                     Tong_citric += Convert.ToDouble(Citric);
-                    string Barcode_Citric = row[i]["barcode_citric"].ToString();
                     string Naoh = row[i]["Naoh"].ToString();
                     if (Naoh == "")
                         Naoh = "0";
                     Tong_naoh += Convert.ToDouble(Naoh);
-                    string Barcode_Naoh = row[i]["barocde_naoh"].ToString();
                     string Solubo = row[i]["solubo"].ToString();
                     if (Solubo == "")
                         Solubo = "0";
                     Tong_solubo += Convert.ToDouble(Solubo);
-                    string Barcode_Solubo = row[i]["barocde_solubo"].ToString();
                     string Edtazn = row[i]["Edta"].ToString();
                     if (Edtazn == "")
                         Edtazn = "0";
                     Tong_edtazn += Convert.ToDouble(Edtazn);
-                    string Barcode_Edta = row[i]["barcode_edta"].ToString();
                     string Red = row[i]["Red"].ToString();
                     if (Red == "")
                         Red = "0";
                     Tong_red += Convert.ToDouble(Red);
-                    string Barcode_red = row[i]["barcode_red"].ToString();
                     string Violet = row[i]["violet"].ToString();
                     if (Violet == "")
                         Violet = "0";
                     Tong_violet += Convert.ToDouble(Violet);
-                    string Barcode_violet = row[i]["barcode_violet"].ToString();
                     string Blue = row[i]["blue"].ToString();
                     if (Blue == "")
                         Blue = "0";
                     Tong_blue += Convert.ToDouble(Blue);
-                    string Barcode_blue = row[i]["barocde_blue"].ToString();
                     string Yellow = row[i]["yellow"].ToString();
                     if (Yellow == "")
                         Yellow = "0";
                     Tong_yellow += Convert.ToDouble(Yellow);
-                    string Barcode_yellow = row[i]["barcode_yellow"].ToString();
                     string Black = row[i]["black"].ToString();
                     if (Black == "")
                         Black = "0";
                     Tong_black += Convert.ToDouble(Black);
-                    string Barcode_black = row[i]["barcode_back"].ToString();
                     string Prev = row[i]["prev"].ToString();
                     if (Prev == "")
                         Prev = "0";
                     Tong_prev += Convert.ToDouble(Prev);
-                    string Barcode_Prev = row[i]["barcode_prev"].ToString();
                     string Than_cam = row[i]["thancam"].ToString();
                     if (Than_cam == "")
                         Than_cam = "0";
@@ -2426,6 +2885,139 @@ namespace NhatKySanXuat
                     if (Nuoc_thuycuc == "")
                         Nuoc_thuycuc = "0";
                     Tong_nuocthuycuc += Convert.ToDouble(Nuoc_thuycuc);
+                }
+                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                "", Math.Round(TONG_KL_LT, 3), Math.Round(Hieu_suat_thu_tb / row.Length, 3), Math.Round(Hieu_suat_release_tb / row.Length, 3),
+                "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
+                "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
+                "", "", Math.Round(tb_do_am / count_doam, 3), Math.Round(tb_coating / count_coating, 3), "",
+                Math.Round(tb_0ngay / count_0, 3), Math.Round(tb_7ngay / count_7, 3), Math.Round(tb_14ngay / count_14, 3),
+                Math.Round(tb_21ngay / count_21, 3), Math.Round(tb_28ngay / count_28, 3), Math.Round(tb_42ngay / count_42, 3),
+                Math.Round(tb_49ngay / count_49, 3), Math.Round(tb_56ngay / count_56, 3), Math.Round(tb_70ngay / count_70, 3),
+                Math.Round(tb_84ngay / count_84, 3), Math.Round(tb_98ngay / count_98, 3), Math.Round(tb_112ngay / count_112, 3),
+                Math.Round(tb_126ngay / count_126, 3), Math.Round(tb_140ngay / count_140, 3));
+                for (int i = 0; i < row.Length; i++)
+                {
+                    string Nguoi_nhap = row[i]["name"].ToString();
+                    string LOT = row[i]["LOT"].ToString();
+                    string Dot_sx = row[i]["dot_sx"].ToString();
+                    string Ngay_sx = row[i]["ngay_sx"].ToString();
+                    string Thiet_bi = row[i]["thiet_bi"].ToString();
+                    string Ma_btp = row[i]["ma_BTP"].ToString();
+                    string Ten_btp = row[i]["ten_BTP"].ToString();
+                    string Me = row[i]["me"].ToString();
+                    string Toc_do_release = row[i]["tocdo_release"].ToString();
+                    string Ngay_release = row[i]["ngay_release"].ToString();
+                    string Loai = row[i]["loai"].ToString();
+                    string Tong_klsp_thuduoc = row[i]["tong_klspsx"].ToString();
+                    if (Tong_klsp_thuduoc == "")
+                        Tong_klsp_thuduoc = "0";
+                    string Kl_dongkhoi = row[i]["kl_dongkhoi"].ToString();
+                    if (Kl_dongkhoi == "")
+                        Kl_dongkhoi = "0";
+                    string Khongdongkhoi = row[i]["kl_khongdongkhoi"].ToString();
+                    if (Khongdongkhoi == "")
+                        Khongdongkhoi = "0";
+                    string Kl_lythuyet = row[i]["kl_lythuyet"].ToString();
+                    if (Kl_lythuyet == "")
+                        Kl_lythuyet = "0";
+                    string Hieusuatthu = row[i]["hieuxuat_thu"].ToString();
+                    if (Hieusuatthu == "")
+                        Hieusuatthu = "0";
+                    string Hieusuatrelease = row[i]["hieuxuat_release"].ToString();
+                    if (Hieusuatrelease == "")
+                        Hieusuatrelease = "0";
+                    string Thoigiancb = row[i]["thoigian_cb"].ToString();
+                    string Thoigiansx = row[i]["thoigian_sx"].ToString();
+                    string Phanbon_nvl = row[i]["phanbon_nvl"].ToString();
+                    string KL_phan_nvl = row[i]["kl_nvl"].ToString();
+                    if (KL_phan_nvl == "")
+                        KL_phan_nvl = "0";
+                    string Barcode_nvl = row[i]["barcode_nvl"].ToString();
+                    string LOT_nvl = row[i]["lot_nvl"].ToString();
+                    string N1_khoiluong = row[i]["N1"].ToString();
+                    if (N1_khoiluong == "")
+                        N1_khoiluong = "0";
+                    string N1_barcode = row[i]["barcode_n1"].ToString();
+                    string N1_LOT = row[i]["lot_n1"].ToString();
+                    string N2_khoiluong = row[i]["N2"].ToString();
+                    if (N2_khoiluong == "")
+                        N2_khoiluong = "0";
+                    string N2_barcode = row[i]["barcode_n2"].ToString();
+                    string N2_LOT = row[i]["lot_n2"].ToString();
+                    string n3_khoiluong = row[i]["N3"].ToString();
+                    if (n3_khoiluong == "")
+                        n3_khoiluong = "0";
+                    string N3_barcode = row[i]["barcode_n3"].ToString();
+                    string N3_LOT = row[i]["lot_n3"].ToString();
+                    string GA3 = row[i]["Ga3"].ToString();
+                    if (GA3 == "")
+                        GA3 = "0";
+                    string GA3_barcode = row[i]["barcode_ga3"].ToString();
+                    string Borax = row[i]["Borax"].ToString();
+                    if (Borax == "")
+                        Borax = "0";
+                    string Borax_barcode = row[i]["bacode_borax"].ToString();
+                    string NAA = row[i]["Naa"].ToString();
+                    if (NAA == "")
+                        NAA = "0";
+                    string NAA_barcode = row[i]["barcode_naa"].ToString();
+                    string Sodium = row[i]["Sodium"].ToString();
+                    if (Sodium == "")
+                        Sodium = "0";
+                    string Sodium_barcode = row[i]["barcode_sodium"].ToString();
+                    string Citric = row[i]["Citric"].ToString();
+                    if (Citric == "")
+                        Citric = "0";
+                    string Barcode_Citric = row[i]["barcode_citric"].ToString();
+                    string Naoh = row[i]["Naoh"].ToString();
+                    if (Naoh == "")
+                        Naoh = "0";
+                    string Barcode_Naoh = row[i]["barocde_naoh"].ToString();
+                    string Solubo = row[i]["solubo"].ToString();
+                    if (Solubo == "")
+                        Solubo = "0";
+                    string Barcode_Solubo = row[i]["barocde_solubo"].ToString();
+                    string Edtazn = row[i]["Edta"].ToString();
+                    if (Edtazn == "")
+                        Edtazn = "0";
+                    string Barcode_Edta = row[i]["barcode_edta"].ToString();
+                    string Red = row[i]["Red"].ToString();
+                    if (Red == "")
+                        Red = "0";
+                    string Barcode_red = row[i]["barcode_red"].ToString();
+                    string Violet = row[i]["violet"].ToString();
+                    if (Violet == "")
+                        Violet = "0";
+                    string Barcode_violet = row[i]["barcode_violet"].ToString();
+                    string Blue = row[i]["blue"].ToString();
+                    if (Blue == "")
+                        Blue = "0";
+                    string Barcode_blue = row[i]["barocde_blue"].ToString();
+                    string Yellow = row[i]["yellow"].ToString();
+                    if (Yellow == "")
+                        Yellow = "0";
+                    string Barcode_yellow = row[i]["barcode_yellow"].ToString();
+                    string Black = row[i]["black"].ToString();
+                    if (Black == "")
+                        Black = "0";
+                    string Barcode_black = row[i]["barcode_back"].ToString();
+                    string Prev = row[i]["prev"].ToString();
+                    if (Prev == "")
+                        Prev = "0";
+                    string Barcode_Prev = row[i]["barcode_prev"].ToString();
+                    string Than_cam = row[i]["thancam"].ToString();
+                    if (Than_cam == "")
+                        Than_cam = "0";
+                    string Dien = row[i]["dien"].ToString();
+                    if (Dien == "")
+                        Dien = "0";
+                    string Nuoc_RO = row[i]["nuocRo"].ToString();
+                    if (Nuoc_RO == "")
+                        Nuoc_RO = "0";
+                    string Nuoc_thuycuc = row[i]["nuocthuycuc"].ToString();
+                    if (Nuoc_thuycuc == "")
+                        Nuoc_thuycuc = "0";
                     string BHLD = row[i]["BHLD"].ToString();
                     string Ghi_chu = row[i]["ghi_chu"].ToString();
                     string Vitri_tongspthuduoc = row[i]["vitri_spthuduoc"].ToString();
@@ -2460,18 +3052,11 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
-                                "", Math.Round(TONG_KL_LT, 4), Math.Round(Hieu_suat_thu_tb / dataGridView1.Rows.Count, 4), Math.Round(Hieu_suat_release_tb / dataGridView1.Rows.Count, 4),
-                                "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
-                                "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
-                                "", "", Math.Round(tb_do_am / count_doam, 4), Math.Round(tb_coating / count_coating, 4), "",
-                                Math.Round(tb_0ngay / count_0, 4), Math.Round(tb_7ngay / count_7, 4), Math.Round(tb_14ngay / count_14, 4),
-                                Math.Round(tb_21ngay / count_21, 4), Math.Round(tb_28ngay / count_28, 4), Math.Round(tb_42ngay / count_42, 4),
-                                Math.Round(tb_49ngay / count_49, 4), Math.Round(tb_56ngay / count_56, 4), Math.Round(tb_70ngay / count_70, 4),
-                                Math.Round(tb_84ngay / count_84, 4), Math.Round(tb_98ngay / count_98, 4), Math.Round(tb_112ngay / count_112, 4),
-                                Math.Round(tb_126ngay / count_126, 4), Math.Round(tb_140ngay / count_140, 4));
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
+                dataGridView1.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dataGridView1.Columns[7].Frozen = true;
+                dataGridView1.Rows[0].Frozen = true;
+                dataGridView1.CurrentCell = dataGridView1.Rows[1].Cells[0];
             }
             catch (Exception ex)
             {
@@ -2490,7 +3075,17 @@ namespace NhatKySanXuat
                 SqlDataAdapter adapter = new SqlDataAdapter();
                 DataTable tb_buff = new DataTable();
                 command = sqlcon.CreateCommand();
-                command.CommandText = "select * from nhatkysanxuat where phanbon_nvl LIKE '%" + cbb_phanbonnvl_search.Text + "%' AND ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) ORDER BY dot_sx DESC";
+                command.CommandText = "select name,dot_sx,ngay_sx,thiet_bi,ma_BTP,ten_BTP,me,LOT ,tocdo_release," +
+                        "ngay_release,loai,tong_klspsx,kl_dongkhoi,kl_khongdongkhoi,kl_lythuyet,hieuxuat_thu,hieuxuat_release," +
+                        "thoigian_cb,thoigian_sx,phanbon_nvl,kl_nvl,barcode_nvl,lot_nvl,N1,barcode_n1,lot_n1," +
+                        "N2,barcode_n2,lot_n2,N3,barcode_n3,lot_n3,Ga3,barcode_ga3,Borax,bacode_borax,Naa,barcode_naa,solubo,barocde_solubo," +
+                        "Edta,barcode_edta,Red,barcode_red,violet,barcode_violet,blue,barocde_blue,yellow,barcode_yellow,black,barcode_back,prev," +
+                        "barcode_prev,thancam,dien,nuocRO,nuocthuycuc,BHLD,Sodium,barcode_sodium,Citric,barcode_citric,Naoh,barocde_naoh,ghi_chu," +
+                        "vitri_spthuduoc,vitri_spdongkhoi,vitri_spkhongdongkhoi,N1_1,N1_2,N1_3,N1_1_barcode,N1_2_barcode,N1_3_barcode,N1_1_lot," +
+                        "N1_2_lot,N1_3_lot,N2_1,N2_2,N2_1_barcode,N2_2_barcode,N2_1_lot,N2_2_lot,N3_1,N3_1_barcode,N3_1_lot,N1_4,N1_4_barcode," +
+                        "N1_4_lot,N2_3,N2_3_barcode,N2_3_lot,N3_2,N3_2_barcode,N3_2_lot,N3_3,N3_3_barcode,N3_3_lot,thoigian_ondinh,do_am,coating_layer," +
+                        "ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140,NVL_1," +
+                        "barcode_NVL_1,lot_NVL_1,NVL_2,barcode_NVL_2,lot_NVL_2,KL_NVL_1,KL_NVL_2,N1_BD,N1_KT,N2_BD,N2_KT,N3_BD,N3_KT from nhatkysanxuat where phanbon_nvl LIKE '%" + cbb_phanbonnvl_search.Text + "%' AND ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) ORDER BY dot_sx DESC";
                 adapter.SelectCommand = command;
                 tb_buff.Clear();
                 adapter.Fill(tb_buff);
@@ -2645,18 +3240,6 @@ namespace NhatKySanXuat
                         count_coating++;
                         tb_coating += Convert.ToDouble(row[i]["coating_layer"].ToString());
                     }
-                    string Nguoi_nhap = row[i]["name"].ToString();
-                    string LOT = row[i]["LOT"].ToString();
-                    string Dot_sx = row[i]["dot_sx"].ToString();
-                    string Ngay_sx = row[i]["ngay_sx"].ToString();
-                    string Thiet_bi = row[i]["thiet_bi"].ToString();
-                    string Ma_btp = row[i]["ma_BTP"].ToString();
-                    string Ten_btp = row[i]["ten_BTP"].ToString();
-                    string Me = row[i]["me"].ToString();
-                    string Kl_nvl = row[i]["klnl_sudung"].ToString();
-                    string Toc_do_release = row[i]["tocdo_release"].ToString();
-                    string Ngay_release = row[i]["ngay_release"].ToString();
-                    string Loai = row[i]["loai"].ToString();
                     string Tong_klsp_thuduoc = row[i]["tong_klspsx"].ToString();
                     if (Tong_klsp_thuduoc == "")
                         Tong_klsp_thuduoc = "0";
@@ -2681,103 +3264,78 @@ namespace NhatKySanXuat
                     if (Hieusuatrelease == "")
                         Hieusuatrelease = "0";
                     Hieu_suat_release_tb += Convert.ToDouble(Hieusuatrelease);
-                    string Thoigiancb = row[i]["thoigian_cb"].ToString();
-                    string Thoigiansx = row[i]["thoigian_sx"].ToString();
-                    string Phanbon_nvl = row[i]["phanbon_nvl"].ToString();
                     string KL_phan_nvl = row[i]["kl_nvl"].ToString();
                     if (KL_phan_nvl == "")
                         KL_phan_nvl = "0";
                     KHOI_LUONG_NVL += Convert.ToDouble(KL_phan_nvl);
-                    string Barcode_nvl = row[i]["barcode_nvl"].ToString();
-                    string LOT_nvl = row[i]["lot_nvl"].ToString();
                     string N1_khoiluong = row[i]["N1"].ToString();
                     if (N1_khoiluong == "")
                         N1_khoiluong = "0";
                     Tong_N1_KL += Convert.ToDouble(N1_khoiluong);
-                    string N1_barcode = row[i]["barcode_n1"].ToString();
-                    string N1_LOT = row[i]["lot_n1"].ToString();
                     string N2_khoiluong = row[i]["N2"].ToString();
                     if (N2_khoiluong == "")
                         N2_khoiluong = "0";
                     Tong_N2_KL += Convert.ToDouble(N2_khoiluong);
-                    string N2_barcode = row[i]["barcode_n2"].ToString();
-                    string N2_LOT = row[i]["lot_n2"].ToString();
                     string n3_khoiluong = row[i]["N3"].ToString();
                     if (n3_khoiluong == "")
                         n3_khoiluong = "0";
                     Tong_N3_KL += Convert.ToDouble(n3_khoiluong);
-                    string N3_barcode = row[i]["barcode_n3"].ToString();
-                    string N3_LOT = row[i]["lot_n3"].ToString();
                     string GA3 = row[i]["Ga3"].ToString();
                     if (GA3 == "")
                         GA3 = "0";
                     Tong_ga3 += Convert.ToDouble(GA3);
-                    string GA3_barcode = row[i]["barcode_ga3"].ToString();
                     string Borax = row[i]["Borax"].ToString();
                     if (Borax == "")
                         Borax = "0";
                     Tong_borax += Convert.ToDouble(Borax);
-                    string Borax_barcode = row[i]["bacode_borax"].ToString();
                     string NAA = row[i]["Naa"].ToString();
                     if (NAA == "")
                         NAA = "0";
                     Tong_Naa += Convert.ToDouble(NAA);
-                    string NAA_barcode = row[i]["barcode_naa"].ToString();
                     string Sodium = row[i]["Sodium"].ToString();
                     if (Sodium == "")
                         Sodium = "0";
                     Tong_sodium += Convert.ToDouble(Sodium);
-                    string Sodium_barcode = row[i]["barcode_sodium"].ToString();
                     string Citric = row[i]["Citric"].ToString();
                     if (Citric == "")
                         Citric = "0";
                     Tong_citric += Convert.ToDouble(Citric);
-                    string Barcode_Citric = row[i]["barcode_citric"].ToString();
                     string Naoh = row[i]["Naoh"].ToString();
                     if (Naoh == "")
                         Naoh = "0";
                     Tong_naoh += Convert.ToDouble(Naoh);
-                    string Barcode_Naoh = row[i]["barocde_naoh"].ToString();
                     string Solubo = row[i]["solubo"].ToString();
                     if (Solubo == "")
                         Solubo = "0";
                     Tong_solubo += Convert.ToDouble(Solubo);
-                    string Barcode_Solubo = row[i]["barocde_solubo"].ToString();
                     string Edtazn = row[i]["Edta"].ToString();
                     if (Edtazn == "")
                         Edtazn = "0";
                     Tong_edtazn += Convert.ToDouble(Edtazn);
-                    string Barcode_Edta = row[i]["barcode_edta"].ToString();
                     string Red = row[i]["Red"].ToString();
                     if (Red == "")
                         Red = "0";
                     Tong_red += Convert.ToDouble(Red);
-                    string Barcode_red = row[i]["barcode_red"].ToString();
                     string Violet = row[i]["violet"].ToString();
                     if (Violet == "")
                         Violet = "0";
                     Tong_violet += Convert.ToDouble(Violet);
-                    string Barcode_violet = row[i]["barcode_violet"].ToString();
                     string Blue = row[i]["blue"].ToString();
                     if (Blue == "")
                         Blue = "0";
                     Tong_blue += Convert.ToDouble(Blue);
-                    string Barcode_blue = row[i]["barocde_blue"].ToString();
                     string Yellow = row[i]["yellow"].ToString();
                     if (Yellow == "")
                         Yellow = "0";
                     Tong_yellow += Convert.ToDouble(Yellow);
-                    string Barcode_yellow = row[i]["barcode_yellow"].ToString();
                     string Black = row[i]["black"].ToString();
                     if (Black == "")
                         Black = "0";
                     Tong_black += Convert.ToDouble(Black);
-                    string Barcode_black = row[i]["barcode_back"].ToString();
                     string Prev = row[i]["prev"].ToString();
                     if (Prev == "")
                         Prev = "0";
                     Tong_prev += Convert.ToDouble(Prev);
-                    string Barcode_Prev = row[i]["barcode_prev"].ToString();
                     string Than_cam = row[i]["thancam"].ToString();
                     if (Than_cam == "")
                         Than_cam = "0";
@@ -2794,6 +3352,139 @@ namespace NhatKySanXuat
                     if (Nuoc_thuycuc == "")
                         Nuoc_thuycuc = "0";
                     Tong_nuocthuycuc += Convert.ToDouble(Nuoc_thuycuc);
+                }
+                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                "", Math.Round(TONG_KL_LT, 3), Math.Round(Hieu_suat_thu_tb / row.Length, 3), Math.Round(Hieu_suat_release_tb / row.Length, 3),
+                "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
+                "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
+                "", "", Math.Round(tb_do_am / count_doam, 3), Math.Round(tb_coating / count_coating, 3), "",
+                Math.Round(tb_0ngay / count_0, 3), Math.Round(tb_7ngay / count_7, 3), Math.Round(tb_14ngay / count_14, 3),
+                Math.Round(tb_21ngay / count_21, 3), Math.Round(tb_28ngay / count_28, 3), Math.Round(tb_42ngay / count_42, 3),
+                Math.Round(tb_49ngay / count_49, 3), Math.Round(tb_56ngay / count_56, 3), Math.Round(tb_70ngay / count_70, 3),
+                Math.Round(tb_84ngay / count_84, 3), Math.Round(tb_98ngay / count_98, 3), Math.Round(tb_112ngay / count_112, 3),
+                Math.Round(tb_126ngay / count_126, 3), Math.Round(tb_140ngay / count_140, 3));
+                for (int i = 0; i < row.Length; i++)
+                {
+                    string Nguoi_nhap = row[i]["name"].ToString();
+                    string LOT = row[i]["LOT"].ToString();
+                    string Dot_sx = row[i]["dot_sx"].ToString();
+                    string Ngay_sx = row[i]["ngay_sx"].ToString();
+                    string Thiet_bi = row[i]["thiet_bi"].ToString();
+                    string Ma_btp = row[i]["ma_BTP"].ToString();
+                    string Ten_btp = row[i]["ten_BTP"].ToString();
+                    string Me = row[i]["me"].ToString();
+                    string Toc_do_release = row[i]["tocdo_release"].ToString();
+                    string Ngay_release = row[i]["ngay_release"].ToString();
+                    string Loai = row[i]["loai"].ToString();
+                    string Tong_klsp_thuduoc = row[i]["tong_klspsx"].ToString();
+                    if (Tong_klsp_thuduoc == "")
+                        Tong_klsp_thuduoc = "0";
+                    string Kl_dongkhoi = row[i]["kl_dongkhoi"].ToString();
+                    if (Kl_dongkhoi == "")
+                        Kl_dongkhoi = "0";
+                    string Khongdongkhoi = row[i]["kl_khongdongkhoi"].ToString();
+                    if (Khongdongkhoi == "")
+                        Khongdongkhoi = "0";
+                    string Kl_lythuyet = row[i]["kl_lythuyet"].ToString();
+                    if (Kl_lythuyet == "")
+                        Kl_lythuyet = "0";
+                    string Hieusuatthu = row[i]["hieuxuat_thu"].ToString();
+                    if (Hieusuatthu == "")
+                        Hieusuatthu = "0";
+                    string Hieusuatrelease = row[i]["hieuxuat_release"].ToString();
+                    if (Hieusuatrelease == "")
+                        Hieusuatrelease = "0";
+                    string Thoigiancb = row[i]["thoigian_cb"].ToString();
+                    string Thoigiansx = row[i]["thoigian_sx"].ToString();
+                    string Phanbon_nvl = row[i]["phanbon_nvl"].ToString();
+                    string KL_phan_nvl = row[i]["kl_nvl"].ToString();
+                    if (KL_phan_nvl == "")
+                        KL_phan_nvl = "0";
+                    string Barcode_nvl = row[i]["barcode_nvl"].ToString();
+                    string LOT_nvl = row[i]["lot_nvl"].ToString();
+                    string N1_khoiluong = row[i]["N1"].ToString();
+                    if (N1_khoiluong == "")
+                        N1_khoiluong = "0";
+                    string N1_barcode = row[i]["barcode_n1"].ToString();
+                    string N1_LOT = row[i]["lot_n1"].ToString();
+                    string N2_khoiluong = row[i]["N2"].ToString();
+                    if (N2_khoiluong == "")
+                        N2_khoiluong = "0";
+                    string N2_barcode = row[i]["barcode_n2"].ToString();
+                    string N2_LOT = row[i]["lot_n2"].ToString();
+                    string n3_khoiluong = row[i]["N3"].ToString();
+                    if (n3_khoiluong == "")
+                        n3_khoiluong = "0";
+                    string N3_barcode = row[i]["barcode_n3"].ToString();
+                    string N3_LOT = row[i]["lot_n3"].ToString();
+                    string GA3 = row[i]["Ga3"].ToString();
+                    if (GA3 == "")
+                        GA3 = "0";
+                    string GA3_barcode = row[i]["barcode_ga3"].ToString();
+                    string Borax = row[i]["Borax"].ToString();
+                    if (Borax == "")
+                        Borax = "0";
+                    string Borax_barcode = row[i]["bacode_borax"].ToString();
+                    string NAA = row[i]["Naa"].ToString();
+                    if (NAA == "")
+                        NAA = "0";
+                    string NAA_barcode = row[i]["barcode_naa"].ToString();
+                    string Sodium = row[i]["Sodium"].ToString();
+                    if (Sodium == "")
+                        Sodium = "0";
+                    string Sodium_barcode = row[i]["barcode_sodium"].ToString();
+                    string Citric = row[i]["Citric"].ToString();
+                    if (Citric == "")
+                        Citric = "0";
+                    string Barcode_Citric = row[i]["barcode_citric"].ToString();
+                    string Naoh = row[i]["Naoh"].ToString();
+                    if (Naoh == "")
+                        Naoh = "0";
+                    string Barcode_Naoh = row[i]["barocde_naoh"].ToString();
+                    string Solubo = row[i]["solubo"].ToString();
+                    if (Solubo == "")
+                        Solubo = "0";
+                    string Barcode_Solubo = row[i]["barocde_solubo"].ToString();
+                    string Edtazn = row[i]["Edta"].ToString();
+                    if (Edtazn == "")
+                        Edtazn = "0";
+                    string Barcode_Edta = row[i]["barcode_edta"].ToString();
+                    string Red = row[i]["Red"].ToString();
+                    if (Red == "")
+                        Red = "0";
+                    string Barcode_red = row[i]["barcode_red"].ToString();
+                    string Violet = row[i]["violet"].ToString();
+                    if (Violet == "")
+                        Violet = "0";
+                    string Barcode_violet = row[i]["barcode_violet"].ToString();
+                    string Blue = row[i]["blue"].ToString();
+                    if (Blue == "")
+                        Blue = "0";
+                    string Barcode_blue = row[i]["barocde_blue"].ToString();
+                    string Yellow = row[i]["yellow"].ToString();
+                    if (Yellow == "")
+                        Yellow = "0";
+                    string Barcode_yellow = row[i]["barcode_yellow"].ToString();
+                    string Black = row[i]["black"].ToString();
+                    if (Black == "")
+                        Black = "0";
+                    string Barcode_black = row[i]["barcode_back"].ToString();
+                    string Prev = row[i]["prev"].ToString();
+                    if (Prev == "")
+                        Prev = "0";
+                    string Barcode_Prev = row[i]["barcode_prev"].ToString();
+                    string Than_cam = row[i]["thancam"].ToString();
+                    if (Than_cam == "")
+                        Than_cam = "0";
+                    string Dien = row[i]["dien"].ToString();
+                    if (Dien == "")
+                        Dien = "0";
+                    string Nuoc_RO = row[i]["nuocRo"].ToString();
+                    if (Nuoc_RO == "")
+                        Nuoc_RO = "0";
+                    string Nuoc_thuycuc = row[i]["nuocthuycuc"].ToString();
+                    if (Nuoc_thuycuc == "")
+                        Nuoc_thuycuc = "0";
                     string BHLD = row[i]["BHLD"].ToString();
                     string Ghi_chu = row[i]["ghi_chu"].ToString();
                     string Vitri_tongspthuduoc = row[i]["vitri_spthuduoc"].ToString();
@@ -2828,18 +3519,11 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
-                                "", Math.Round(TONG_KL_LT, 4), Math.Round(Hieu_suat_thu_tb / dataGridView1.Rows.Count, 4), Math.Round(Hieu_suat_release_tb / dataGridView1.Rows.Count, 4),
-                                "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
-                                "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
-                                "", "", Math.Round(tb_do_am / count_doam, 4), Math.Round(tb_coating / count_coating, 4), "",
-                                Math.Round(tb_0ngay / count_0, 4), Math.Round(tb_7ngay / count_7, 4), Math.Round(tb_14ngay / count_14, 4),
-                                Math.Round(tb_21ngay / count_21, 4), Math.Round(tb_28ngay / count_28, 4), Math.Round(tb_42ngay / count_42, 4),
-                                Math.Round(tb_49ngay / count_49, 4), Math.Round(tb_56ngay / count_56, 4), Math.Round(tb_70ngay / count_70, 4),
-                                Math.Round(tb_84ngay / count_84, 4), Math.Round(tb_98ngay / count_98, 4), Math.Round(tb_112ngay / count_112, 4),
-                                Math.Round(tb_126ngay / count_126, 4), Math.Round(tb_140ngay / count_140, 4));
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
+                dataGridView1.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dataGridView1.Columns[7].Frozen = true;
+                dataGridView1.Rows[0].Frozen = true;
+                dataGridView1.CurrentCell = dataGridView1.Rows[1].Cells[0];
             }
             catch (Exception ex)
             {
@@ -2858,7 +3542,17 @@ namespace NhatKySanXuat
                 SqlDataAdapter adapter = new SqlDataAdapter();
                 DataTable tb_buff = new DataTable();
                 command = sqlcon.CreateCommand();
-                command.CommandText = "select * from nhatkysanxuat where thiet_bi = '" + cbb_thietbi_search.Text + "' AND phanbon_nvl LIKE '%" + cbb_phanbonnvl_search.Text + "%' AND ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) ORDER BY dot_sx DESC";
+                command.CommandText = "select name,dot_sx,ngay_sx,thiet_bi,ma_BTP,ten_BTP,me,LOT ,tocdo_release," +
+                        "ngay_release,loai,tong_klspsx,kl_dongkhoi,kl_khongdongkhoi,kl_lythuyet,hieuxuat_thu,hieuxuat_release," +
+                        "thoigian_cb,thoigian_sx,phanbon_nvl,kl_nvl,barcode_nvl,lot_nvl,N1,barcode_n1,lot_n1," +
+                        "N2,barcode_n2,lot_n2,N3,barcode_n3,lot_n3,Ga3,barcode_ga3,Borax,bacode_borax,Naa,barcode_naa,solubo,barocde_solubo," +
+                        "Edta,barcode_edta,Red,barcode_red,violet,barcode_violet,blue,barocde_blue,yellow,barcode_yellow,black,barcode_back,prev," +
+                        "barcode_prev,thancam,dien,nuocRO,nuocthuycuc,BHLD,Sodium,barcode_sodium,Citric,barcode_citric,Naoh,barocde_naoh,ghi_chu," +
+                        "vitri_spthuduoc,vitri_spdongkhoi,vitri_spkhongdongkhoi,N1_1,N1_2,N1_3,N1_1_barcode,N1_2_barcode,N1_3_barcode,N1_1_lot," +
+                        "N1_2_lot,N1_3_lot,N2_1,N2_2,N2_1_barcode,N2_2_barcode,N2_1_lot,N2_2_lot,N3_1,N3_1_barcode,N3_1_lot,N1_4,N1_4_barcode," +
+                        "N1_4_lot,N2_3,N2_3_barcode,N2_3_lot,N3_2,N3_2_barcode,N3_2_lot,N3_3,N3_3_barcode,N3_3_lot,thoigian_ondinh,do_am,coating_layer," +
+                        "ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140,NVL_1," +
+                        "barcode_NVL_1,lot_NVL_1,NVL_2,barcode_NVL_2,lot_NVL_2,KL_NVL_1,KL_NVL_2,N1_BD,N1_KT,N2_BD,N2_KT,N3_BD,N3_KT from nhatkysanxuat where thiet_bi = '" + cbb_thietbi_search.Text + "' AND phanbon_nvl LIKE '%" + cbb_phanbonnvl_search.Text + "%' AND ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) ORDER BY dot_sx DESC";
                 adapter.SelectCommand = command;
                 tb_buff.Clear();
                 adapter.Fill(tb_buff);
@@ -3013,18 +3707,6 @@ namespace NhatKySanXuat
                         count_coating++;
                         tb_coating += Convert.ToDouble(row[i]["coating_layer"].ToString());
                     }
-                    string Nguoi_nhap = row[i]["name"].ToString();
-                    string LOT = row[i]["LOT"].ToString();
-                    string Dot_sx = row[i]["dot_sx"].ToString();
-                    string Ngay_sx = row[i]["ngay_sx"].ToString();
-                    string Thiet_bi = row[i]["thiet_bi"].ToString();
-                    string Ma_btp = row[i]["ma_BTP"].ToString();
-                    string Ten_btp = row[i]["ten_BTP"].ToString();
-                    string Me = row[i]["me"].ToString();
-                    string Kl_nvl = row[i]["klnl_sudung"].ToString();
-                    string Toc_do_release = row[i]["tocdo_release"].ToString();
-                    string Ngay_release = row[i]["ngay_release"].ToString();
-                    string Loai = row[i]["loai"].ToString();
                     string Tong_klsp_thuduoc = row[i]["tong_klspsx"].ToString();
                     if (Tong_klsp_thuduoc == "")
                         Tong_klsp_thuduoc = "0";
@@ -3049,103 +3731,78 @@ namespace NhatKySanXuat
                     if (Hieusuatrelease == "")
                         Hieusuatrelease = "0";
                     Hieu_suat_release_tb += Convert.ToDouble(Hieusuatrelease);
-                    string Thoigiancb = row[i]["thoigian_cb"].ToString();
-                    string Thoigiansx = row[i]["thoigian_sx"].ToString();
-                    string Phanbon_nvl = row[i]["phanbon_nvl"].ToString();
                     string KL_phan_nvl = row[i]["kl_nvl"].ToString();
                     if (KL_phan_nvl == "")
                         KL_phan_nvl = "0";
                     KHOI_LUONG_NVL += Convert.ToDouble(KL_phan_nvl);
-                    string Barcode_nvl = row[i]["barcode_nvl"].ToString();
-                    string LOT_nvl = row[i]["lot_nvl"].ToString();
                     string N1_khoiluong = row[i]["N1"].ToString();
                     if (N1_khoiluong == "")
                         N1_khoiluong = "0";
                     Tong_N1_KL += Convert.ToDouble(N1_khoiluong);
-                    string N1_barcode = row[i]["barcode_n1"].ToString();
-                    string N1_LOT = row[i]["lot_n1"].ToString();
                     string N2_khoiluong = row[i]["N2"].ToString();
                     if (N2_khoiluong == "")
                         N2_khoiluong = "0";
                     Tong_N2_KL += Convert.ToDouble(N2_khoiluong);
-                    string N2_barcode = row[i]["barcode_n2"].ToString();
-                    string N2_LOT = row[i]["lot_n2"].ToString();
                     string n3_khoiluong = row[i]["N3"].ToString();
                     if (n3_khoiluong == "")
                         n3_khoiluong = "0";
                     Tong_N3_KL += Convert.ToDouble(n3_khoiluong);
-                    string N3_barcode = row[i]["barcode_n3"].ToString();
-                    string N3_LOT = row[i]["lot_n3"].ToString();
                     string GA3 = row[i]["Ga3"].ToString();
                     if (GA3 == "")
                         GA3 = "0";
                     Tong_ga3 += Convert.ToDouble(GA3);
-                    string GA3_barcode = row[i]["barcode_ga3"].ToString();
                     string Borax = row[i]["Borax"].ToString();
                     if (Borax == "")
                         Borax = "0";
                     Tong_borax += Convert.ToDouble(Borax);
-                    string Borax_barcode = row[i]["bacode_borax"].ToString();
                     string NAA = row[i]["Naa"].ToString();
                     if (NAA == "")
                         NAA = "0";
                     Tong_Naa += Convert.ToDouble(NAA);
-                    string NAA_barcode = row[i]["barcode_naa"].ToString();
                     string Sodium = row[i]["Sodium"].ToString();
                     if (Sodium == "")
                         Sodium = "0";
                     Tong_sodium += Convert.ToDouble(Sodium);
-                    string Sodium_barcode = row[i]["barcode_sodium"].ToString();
                     string Citric = row[i]["Citric"].ToString();
                     if (Citric == "")
                         Citric = "0";
                     Tong_citric += Convert.ToDouble(Citric);
-                    string Barcode_Citric = row[i]["barcode_citric"].ToString();
                     string Naoh = row[i]["Naoh"].ToString();
                     if (Naoh == "")
                         Naoh = "0";
                     Tong_naoh += Convert.ToDouble(Naoh);
-                    string Barcode_Naoh = row[i]["barocde_naoh"].ToString();
                     string Solubo = row[i]["solubo"].ToString();
                     if (Solubo == "")
                         Solubo = "0";
                     Tong_solubo += Convert.ToDouble(Solubo);
-                    string Barcode_Solubo = row[i]["barocde_solubo"].ToString();
                     string Edtazn = row[i]["Edta"].ToString();
                     if (Edtazn == "")
                         Edtazn = "0";
                     Tong_edtazn += Convert.ToDouble(Edtazn);
-                    string Barcode_Edta = row[i]["barcode_edta"].ToString();
                     string Red = row[i]["Red"].ToString();
                     if (Red == "")
                         Red = "0";
                     Tong_red += Convert.ToDouble(Red);
-                    string Barcode_red = row[i]["barcode_red"].ToString();
                     string Violet = row[i]["violet"].ToString();
                     if (Violet == "")
                         Violet = "0";
                     Tong_violet += Convert.ToDouble(Violet);
-                    string Barcode_violet = row[i]["barcode_violet"].ToString();
                     string Blue = row[i]["blue"].ToString();
                     if (Blue == "")
                         Blue = "0";
                     Tong_blue += Convert.ToDouble(Blue);
-                    string Barcode_blue = row[i]["barocde_blue"].ToString();
                     string Yellow = row[i]["yellow"].ToString();
                     if (Yellow == "")
                         Yellow = "0";
                     Tong_yellow += Convert.ToDouble(Yellow);
-                    string Barcode_yellow = row[i]["barcode_yellow"].ToString();
                     string Black = row[i]["black"].ToString();
                     if (Black == "")
                         Black = "0";
                     Tong_black += Convert.ToDouble(Black);
-                    string Barcode_black = row[i]["barcode_back"].ToString();
                     string Prev = row[i]["prev"].ToString();
                     if (Prev == "")
                         Prev = "0";
                     Tong_prev += Convert.ToDouble(Prev);
-                    string Barcode_Prev = row[i]["barcode_prev"].ToString();
                     string Than_cam = row[i]["thancam"].ToString();
                     if (Than_cam == "")
                         Than_cam = "0";
@@ -3162,6 +3819,139 @@ namespace NhatKySanXuat
                     if (Nuoc_thuycuc == "")
                         Nuoc_thuycuc = "0";
                     Tong_nuocthuycuc += Convert.ToDouble(Nuoc_thuycuc);
+                }
+                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                "", Math.Round(TONG_KL_LT, 3), Math.Round(Hieu_suat_thu_tb / row.Length, 3), Math.Round(Hieu_suat_release_tb / row.Length, 3),
+                "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
+                "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
+                "", "", Math.Round(tb_do_am / count_doam, 3), Math.Round(tb_coating / count_coating, 3), "",
+                Math.Round(tb_0ngay / count_0, 3), Math.Round(tb_7ngay / count_7, 3), Math.Round(tb_14ngay / count_14, 3),
+                Math.Round(tb_21ngay / count_21, 3), Math.Round(tb_28ngay / count_28, 3), Math.Round(tb_42ngay / count_42, 3),
+                Math.Round(tb_49ngay / count_49, 3), Math.Round(tb_56ngay / count_56, 3), Math.Round(tb_70ngay / count_70, 3),
+                Math.Round(tb_84ngay / count_84, 3), Math.Round(tb_98ngay / count_98, 3), Math.Round(tb_112ngay / count_112, 3),
+                Math.Round(tb_126ngay / count_126, 3), Math.Round(tb_140ngay / count_140, 3));
+                for (int i = 0; i < row.Length; i++)
+                {
+                    string Nguoi_nhap = row[i]["name"].ToString();
+                    string LOT = row[i]["LOT"].ToString();
+                    string Dot_sx = row[i]["dot_sx"].ToString();
+                    string Ngay_sx = row[i]["ngay_sx"].ToString();
+                    string Thiet_bi = row[i]["thiet_bi"].ToString();
+                    string Ma_btp = row[i]["ma_BTP"].ToString();
+                    string Ten_btp = row[i]["ten_BTP"].ToString();
+                    string Me = row[i]["me"].ToString();
+                    string Toc_do_release = row[i]["tocdo_release"].ToString();
+                    string Ngay_release = row[i]["ngay_release"].ToString();
+                    string Loai = row[i]["loai"].ToString();
+                    string Tong_klsp_thuduoc = row[i]["tong_klspsx"].ToString();
+                    if (Tong_klsp_thuduoc == "")
+                        Tong_klsp_thuduoc = "0";
+                    string Kl_dongkhoi = row[i]["kl_dongkhoi"].ToString();
+                    if (Kl_dongkhoi == "")
+                        Kl_dongkhoi = "0";
+                    string Khongdongkhoi = row[i]["kl_khongdongkhoi"].ToString();
+                    if (Khongdongkhoi == "")
+                        Khongdongkhoi = "0";
+                    string Kl_lythuyet = row[i]["kl_lythuyet"].ToString();
+                    if (Kl_lythuyet == "")
+                        Kl_lythuyet = "0";
+                    string Hieusuatthu = row[i]["hieuxuat_thu"].ToString();
+                    if (Hieusuatthu == "")
+                        Hieusuatthu = "0";
+                    string Hieusuatrelease = row[i]["hieuxuat_release"].ToString();
+                    if (Hieusuatrelease == "")
+                        Hieusuatrelease = "0";
+                    string Thoigiancb = row[i]["thoigian_cb"].ToString();
+                    string Thoigiansx = row[i]["thoigian_sx"].ToString();
+                    string Phanbon_nvl = row[i]["phanbon_nvl"].ToString();
+                    string KL_phan_nvl = row[i]["kl_nvl"].ToString();
+                    if (KL_phan_nvl == "")
+                        KL_phan_nvl = "0";
+                    string Barcode_nvl = row[i]["barcode_nvl"].ToString();
+                    string LOT_nvl = row[i]["lot_nvl"].ToString();
+                    string N1_khoiluong = row[i]["N1"].ToString();
+                    if (N1_khoiluong == "")
+                        N1_khoiluong = "0";
+                    string N1_barcode = row[i]["barcode_n1"].ToString();
+                    string N1_LOT = row[i]["lot_n1"].ToString();
+                    string N2_khoiluong = row[i]["N2"].ToString();
+                    if (N2_khoiluong == "")
+                        N2_khoiluong = "0";
+                    string N2_barcode = row[i]["barcode_n2"].ToString();
+                    string N2_LOT = row[i]["lot_n2"].ToString();
+                    string n3_khoiluong = row[i]["N3"].ToString();
+                    if (n3_khoiluong == "")
+                        n3_khoiluong = "0";
+                    string N3_barcode = row[i]["barcode_n3"].ToString();
+                    string N3_LOT = row[i]["lot_n3"].ToString();
+                    string GA3 = row[i]["Ga3"].ToString();
+                    if (GA3 == "")
+                        GA3 = "0";
+                    string GA3_barcode = row[i]["barcode_ga3"].ToString();
+                    string Borax = row[i]["Borax"].ToString();
+                    if (Borax == "")
+                        Borax = "0";
+                    string Borax_barcode = row[i]["bacode_borax"].ToString();
+                    string NAA = row[i]["Naa"].ToString();
+                    if (NAA == "")
+                        NAA = "0";
+                    string NAA_barcode = row[i]["barcode_naa"].ToString();
+                    string Sodium = row[i]["Sodium"].ToString();
+                    if (Sodium == "")
+                        Sodium = "0";
+                    string Sodium_barcode = row[i]["barcode_sodium"].ToString();
+                    string Citric = row[i]["Citric"].ToString();
+                    if (Citric == "")
+                        Citric = "0";
+                    string Barcode_Citric = row[i]["barcode_citric"].ToString();
+                    string Naoh = row[i]["Naoh"].ToString();
+                    if (Naoh == "")
+                        Naoh = "0";
+                    string Barcode_Naoh = row[i]["barocde_naoh"].ToString();
+                    string Solubo = row[i]["solubo"].ToString();
+                    if (Solubo == "")
+                        Solubo = "0";
+                    string Barcode_Solubo = row[i]["barocde_solubo"].ToString();
+                    string Edtazn = row[i]["Edta"].ToString();
+                    if (Edtazn == "")
+                        Edtazn = "0";
+                    string Barcode_Edta = row[i]["barcode_edta"].ToString();
+                    string Red = row[i]["Red"].ToString();
+                    if (Red == "")
+                        Red = "0";
+                    string Barcode_red = row[i]["barcode_red"].ToString();
+                    string Violet = row[i]["violet"].ToString();
+                    if (Violet == "")
+                        Violet = "0";
+                    string Barcode_violet = row[i]["barcode_violet"].ToString();
+                    string Blue = row[i]["blue"].ToString();
+                    if (Blue == "")
+                        Blue = "0";
+                    string Barcode_blue = row[i]["barocde_blue"].ToString();
+                    string Yellow = row[i]["yellow"].ToString();
+                    if (Yellow == "")
+                        Yellow = "0";
+                    string Barcode_yellow = row[i]["barcode_yellow"].ToString();
+                    string Black = row[i]["black"].ToString();
+                    if (Black == "")
+                        Black = "0";
+                    string Barcode_black = row[i]["barcode_back"].ToString();
+                    string Prev = row[i]["prev"].ToString();
+                    if (Prev == "")
+                        Prev = "0";
+                    string Barcode_Prev = row[i]["barcode_prev"].ToString();
+                    string Than_cam = row[i]["thancam"].ToString();
+                    if (Than_cam == "")
+                        Than_cam = "0";
+                    string Dien = row[i]["dien"].ToString();
+                    if (Dien == "")
+                        Dien = "0";
+                    string Nuoc_RO = row[i]["nuocRo"].ToString();
+                    if (Nuoc_RO == "")
+                        Nuoc_RO = "0";
+                    string Nuoc_thuycuc = row[i]["nuocthuycuc"].ToString();
+                    if (Nuoc_thuycuc == "")
+                        Nuoc_thuycuc = "0";
                     string BHLD = row[i]["BHLD"].ToString();
                     string Ghi_chu = row[i]["ghi_chu"].ToString();
                     string Vitri_tongspthuduoc = row[i]["vitri_spthuduoc"].ToString();
@@ -3196,18 +3986,11 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
-                                "", Math.Round(TONG_KL_LT, 4), Math.Round(Hieu_suat_thu_tb / dataGridView1.Rows.Count, 4), Math.Round(Hieu_suat_release_tb / dataGridView1.Rows.Count, 4),
-                                "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
-                                "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
-                                "", "", Math.Round(tb_do_am / count_doam, 4), Math.Round(tb_coating / count_coating, 4), "",
-                                Math.Round(tb_0ngay / count_0, 4), Math.Round(tb_7ngay / count_7, 4), Math.Round(tb_14ngay / count_14, 4),
-                                Math.Round(tb_21ngay / count_21, 4), Math.Round(tb_28ngay / count_28, 4), Math.Round(tb_42ngay / count_42, 4),
-                                Math.Round(tb_49ngay / count_49, 4), Math.Round(tb_56ngay / count_56, 4), Math.Round(tb_70ngay / count_70, 4),
-                                Math.Round(tb_84ngay / count_84, 4), Math.Round(tb_98ngay / count_98, 4), Math.Round(tb_112ngay / count_112, 4),
-                                Math.Round(tb_126ngay / count_126, 4), Math.Round(tb_140ngay / count_140, 4));
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
+                dataGridView1.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dataGridView1.Columns[7].Frozen = true;
+                dataGridView1.Rows[0].Frozen = true;
+                dataGridView1.CurrentCell = dataGridView1.Rows[1].Cells[0];
             }
             catch (Exception ex)
             {
@@ -3226,7 +4009,17 @@ namespace NhatKySanXuat
                 SqlDataAdapter adapter = new SqlDataAdapter();
                 DataTable tb_buff = new DataTable();
                 command = sqlcon.CreateCommand();
-                command.CommandText = "select * from nhatkysanxuat where ma_BTP LIKE '%" + cbb_ma_BTP_search.Text + "%' AND ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) ORDER BY dot_sx DESC";
+                command.CommandText = "select name,dot_sx,ngay_sx,thiet_bi,ma_BTP,ten_BTP,me,LOT ,tocdo_release," +
+                        "ngay_release,loai,tong_klspsx,kl_dongkhoi,kl_khongdongkhoi,kl_lythuyet,hieuxuat_thu,hieuxuat_release," +
+                        "thoigian_cb,thoigian_sx,phanbon_nvl,kl_nvl,barcode_nvl,lot_nvl,N1,barcode_n1,lot_n1," +
+                        "N2,barcode_n2,lot_n2,N3,barcode_n3,lot_n3,Ga3,barcode_ga3,Borax,bacode_borax,Naa,barcode_naa,solubo,barocde_solubo," +
+                        "Edta,barcode_edta,Red,barcode_red,violet,barcode_violet,blue,barocde_blue,yellow,barcode_yellow,black,barcode_back,prev," +
+                        "barcode_prev,thancam,dien,nuocRO,nuocthuycuc,BHLD,Sodium,barcode_sodium,Citric,barcode_citric,Naoh,barocde_naoh,ghi_chu," +
+                        "vitri_spthuduoc,vitri_spdongkhoi,vitri_spkhongdongkhoi,N1_1,N1_2,N1_3,N1_1_barcode,N1_2_barcode,N1_3_barcode,N1_1_lot," +
+                        "N1_2_lot,N1_3_lot,N2_1,N2_2,N2_1_barcode,N2_2_barcode,N2_1_lot,N2_2_lot,N3_1,N3_1_barcode,N3_1_lot,N1_4,N1_4_barcode," +
+                        "N1_4_lot,N2_3,N2_3_barcode,N2_3_lot,N3_2,N3_2_barcode,N3_2_lot,N3_3,N3_3_barcode,N3_3_lot,thoigian_ondinh,do_am,coating_layer," +
+                        "ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140,NVL_1," +
+                        "barcode_NVL_1,lot_NVL_1,NVL_2,barcode_NVL_2,lot_NVL_2,KL_NVL_1,KL_NVL_2,N1_BD,N1_KT,N2_BD,N2_KT,N3_BD,N3_KT from nhatkysanxuat where ma_BTP LIKE '%" + cbb_ma_BTP_search.Text + "%' AND ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) ORDER BY dot_sx DESC";
                 adapter.SelectCommand = command;
                 tb_buff.Clear();
                 adapter.Fill(tb_buff);
@@ -3381,18 +4174,6 @@ namespace NhatKySanXuat
                         count_coating++;
                         tb_coating += Convert.ToDouble(row[i]["coating_layer"].ToString());
                     }
-                    string Nguoi_nhap = row[i]["name"].ToString();
-                    string LOT = row[i]["LOT"].ToString();
-                    string Dot_sx = row[i]["dot_sx"].ToString();
-                    string Ngay_sx = row[i]["ngay_sx"].ToString();
-                    string Thiet_bi = row[i]["thiet_bi"].ToString();
-                    string Ma_btp = row[i]["ma_BTP"].ToString();
-                    string Ten_btp = row[i]["ten_BTP"].ToString();
-                    string Me = row[i]["me"].ToString();
-                    string Kl_nvl = row[i]["klnl_sudung"].ToString();
-                    string Toc_do_release = row[i]["tocdo_release"].ToString();
-                    string Ngay_release = row[i]["ngay_release"].ToString();
-                    string Loai = row[i]["loai"].ToString();
                     string Tong_klsp_thuduoc = row[i]["tong_klspsx"].ToString();
                     if (Tong_klsp_thuduoc == "")
                         Tong_klsp_thuduoc = "0";
@@ -3417,103 +4198,78 @@ namespace NhatKySanXuat
                     if (Hieusuatrelease == "")
                         Hieusuatrelease = "0";
                     Hieu_suat_release_tb += Convert.ToDouble(Hieusuatrelease);
-                    string Thoigiancb = row[i]["thoigian_cb"].ToString();
-                    string Thoigiansx = row[i]["thoigian_sx"].ToString();
-                    string Phanbon_nvl = row[i]["phanbon_nvl"].ToString();
                     string KL_phan_nvl = row[i]["kl_nvl"].ToString();
                     if (KL_phan_nvl == "")
                         KL_phan_nvl = "0";
                     KHOI_LUONG_NVL += Convert.ToDouble(KL_phan_nvl);
-                    string Barcode_nvl = row[i]["barcode_nvl"].ToString();
-                    string LOT_nvl = row[i]["lot_nvl"].ToString();
                     string N1_khoiluong = row[i]["N1"].ToString();
                     if (N1_khoiluong == "")
                         N1_khoiluong = "0";
                     Tong_N1_KL += Convert.ToDouble(N1_khoiluong);
-                    string N1_barcode = row[i]["barcode_n1"].ToString();
-                    string N1_LOT = row[i]["lot_n1"].ToString();
                     string N2_khoiluong = row[i]["N2"].ToString();
                     if (N2_khoiluong == "")
                         N2_khoiluong = "0";
                     Tong_N2_KL += Convert.ToDouble(N2_khoiluong);
-                    string N2_barcode = row[i]["barcode_n2"].ToString();
-                    string N2_LOT = row[i]["lot_n2"].ToString();
                     string n3_khoiluong = row[i]["N3"].ToString();
                     if (n3_khoiluong == "")
                         n3_khoiluong = "0";
                     Tong_N3_KL += Convert.ToDouble(n3_khoiluong);
-                    string N3_barcode = row[i]["barcode_n3"].ToString();
-                    string N3_LOT = row[i]["lot_n3"].ToString();
                     string GA3 = row[i]["Ga3"].ToString();
                     if (GA3 == "")
                         GA3 = "0";
                     Tong_ga3 += Convert.ToDouble(GA3);
-                    string GA3_barcode = row[i]["barcode_ga3"].ToString();
                     string Borax = row[i]["Borax"].ToString();
                     if (Borax == "")
                         Borax = "0";
                     Tong_borax += Convert.ToDouble(Borax);
-                    string Borax_barcode = row[i]["bacode_borax"].ToString();
                     string NAA = row[i]["Naa"].ToString();
                     if (NAA == "")
                         NAA = "0";
                     Tong_Naa += Convert.ToDouble(NAA);
-                    string NAA_barcode = row[i]["barcode_naa"].ToString();
                     string Sodium = row[i]["Sodium"].ToString();
                     if (Sodium == "")
                         Sodium = "0";
                     Tong_sodium += Convert.ToDouble(Sodium);
-                    string Sodium_barcode = row[i]["barcode_sodium"].ToString();
                     string Citric = row[i]["Citric"].ToString();
                     if (Citric == "")
                         Citric = "0";
                     Tong_citric += Convert.ToDouble(Citric);
-                    string Barcode_Citric = row[i]["barcode_citric"].ToString();
                     string Naoh = row[i]["Naoh"].ToString();
                     if (Naoh == "")
                         Naoh = "0";
                     Tong_naoh += Convert.ToDouble(Naoh);
-                    string Barcode_Naoh = row[i]["barocde_naoh"].ToString();
                     string Solubo = row[i]["solubo"].ToString();
                     if (Solubo == "")
                         Solubo = "0";
                     Tong_solubo += Convert.ToDouble(Solubo);
-                    string Barcode_Solubo = row[i]["barocde_solubo"].ToString();
                     string Edtazn = row[i]["Edta"].ToString();
                     if (Edtazn == "")
                         Edtazn = "0";
                     Tong_edtazn += Convert.ToDouble(Edtazn);
-                    string Barcode_Edta = row[i]["barcode_edta"].ToString();
                     string Red = row[i]["Red"].ToString();
                     if (Red == "")
                         Red = "0";
                     Tong_red += Convert.ToDouble(Red);
-                    string Barcode_red = row[i]["barcode_red"].ToString();
                     string Violet = row[i]["violet"].ToString();
                     if (Violet == "")
                         Violet = "0";
                     Tong_violet += Convert.ToDouble(Violet);
-                    string Barcode_violet = row[i]["barcode_violet"].ToString();
                     string Blue = row[i]["blue"].ToString();
                     if (Blue == "")
                         Blue = "0";
                     Tong_blue += Convert.ToDouble(Blue);
-                    string Barcode_blue = row[i]["barocde_blue"].ToString();
                     string Yellow = row[i]["yellow"].ToString();
                     if (Yellow == "")
                         Yellow = "0";
                     Tong_yellow += Convert.ToDouble(Yellow);
-                    string Barcode_yellow = row[i]["barcode_yellow"].ToString();
                     string Black = row[i]["black"].ToString();
                     if (Black == "")
                         Black = "0";
                     Tong_black += Convert.ToDouble(Black);
-                    string Barcode_black = row[i]["barcode_back"].ToString();
                     string Prev = row[i]["prev"].ToString();
                     if (Prev == "")
                         Prev = "0";
                     Tong_prev += Convert.ToDouble(Prev);
-                    string Barcode_Prev = row[i]["barcode_prev"].ToString();
                     string Than_cam = row[i]["thancam"].ToString();
                     if (Than_cam == "")
                         Than_cam = "0";
@@ -3530,6 +4286,139 @@ namespace NhatKySanXuat
                     if (Nuoc_thuycuc == "")
                         Nuoc_thuycuc = "0";
                     Tong_nuocthuycuc += Convert.ToDouble(Nuoc_thuycuc);
+                }
+                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                "", Math.Round(TONG_KL_LT, 3), Math.Round(Hieu_suat_thu_tb / row.Length, 3), Math.Round(Hieu_suat_release_tb / row.Length, 3),
+                "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
+                "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
+                "", "", Math.Round(tb_do_am / count_doam, 3), Math.Round(tb_coating / count_coating, 3), "",
+                Math.Round(tb_0ngay / count_0, 3), Math.Round(tb_7ngay / count_7, 3), Math.Round(tb_14ngay / count_14, 3),
+                Math.Round(tb_21ngay / count_21, 3), Math.Round(tb_28ngay / count_28, 3), Math.Round(tb_42ngay / count_42, 3),
+                Math.Round(tb_49ngay / count_49, 3), Math.Round(tb_56ngay / count_56, 3), Math.Round(tb_70ngay / count_70, 3),
+                Math.Round(tb_84ngay / count_84, 3), Math.Round(tb_98ngay / count_98, 3), Math.Round(tb_112ngay / count_112, 3),
+                Math.Round(tb_126ngay / count_126, 3), Math.Round(tb_140ngay / count_140, 3));
+                for (int i = 0; i < row.Length; i++)
+                {
+                    string Nguoi_nhap = row[i]["name"].ToString();
+                    string LOT = row[i]["LOT"].ToString();
+                    string Dot_sx = row[i]["dot_sx"].ToString();
+                    string Ngay_sx = row[i]["ngay_sx"].ToString();
+                    string Thiet_bi = row[i]["thiet_bi"].ToString();
+                    string Ma_btp = row[i]["ma_BTP"].ToString();
+                    string Ten_btp = row[i]["ten_BTP"].ToString();
+                    string Me = row[i]["me"].ToString();
+                    string Toc_do_release = row[i]["tocdo_release"].ToString();
+                    string Ngay_release = row[i]["ngay_release"].ToString();
+                    string Loai = row[i]["loai"].ToString();
+                    string Tong_klsp_thuduoc = row[i]["tong_klspsx"].ToString();
+                    if (Tong_klsp_thuduoc == "")
+                        Tong_klsp_thuduoc = "0";
+                    string Kl_dongkhoi = row[i]["kl_dongkhoi"].ToString();
+                    if (Kl_dongkhoi == "")
+                        Kl_dongkhoi = "0";
+                    string Khongdongkhoi = row[i]["kl_khongdongkhoi"].ToString();
+                    if (Khongdongkhoi == "")
+                        Khongdongkhoi = "0";
+                    string Kl_lythuyet = row[i]["kl_lythuyet"].ToString();
+                    if (Kl_lythuyet == "")
+                        Kl_lythuyet = "0";
+                    string Hieusuatthu = row[i]["hieuxuat_thu"].ToString();
+                    if (Hieusuatthu == "")
+                        Hieusuatthu = "0";
+                    string Hieusuatrelease = row[i]["hieuxuat_release"].ToString();
+                    if (Hieusuatrelease == "")
+                        Hieusuatrelease = "0";
+                    string Thoigiancb = row[i]["thoigian_cb"].ToString();
+                    string Thoigiansx = row[i]["thoigian_sx"].ToString();
+                    string Phanbon_nvl = row[i]["phanbon_nvl"].ToString();
+                    string KL_phan_nvl = row[i]["kl_nvl"].ToString();
+                    if (KL_phan_nvl == "")
+                        KL_phan_nvl = "0";
+                    string Barcode_nvl = row[i]["barcode_nvl"].ToString();
+                    string LOT_nvl = row[i]["lot_nvl"].ToString();
+                    string N1_khoiluong = row[i]["N1"].ToString();
+                    if (N1_khoiluong == "")
+                        N1_khoiluong = "0";
+                    string N1_barcode = row[i]["barcode_n1"].ToString();
+                    string N1_LOT = row[i]["lot_n1"].ToString();
+                    string N2_khoiluong = row[i]["N2"].ToString();
+                    if (N2_khoiluong == "")
+                        N2_khoiluong = "0";
+                    string N2_barcode = row[i]["barcode_n2"].ToString();
+                    string N2_LOT = row[i]["lot_n2"].ToString();
+                    string n3_khoiluong = row[i]["N3"].ToString();
+                    if (n3_khoiluong == "")
+                        n3_khoiluong = "0";
+                    string N3_barcode = row[i]["barcode_n3"].ToString();
+                    string N3_LOT = row[i]["lot_n3"].ToString();
+                    string GA3 = row[i]["Ga3"].ToString();
+                    if (GA3 == "")
+                        GA3 = "0";
+                    string GA3_barcode = row[i]["barcode_ga3"].ToString();
+                    string Borax = row[i]["Borax"].ToString();
+                    if (Borax == "")
+                        Borax = "0";
+                    string Borax_barcode = row[i]["bacode_borax"].ToString();
+                    string NAA = row[i]["Naa"].ToString();
+                    if (NAA == "")
+                        NAA = "0";
+                    string NAA_barcode = row[i]["barcode_naa"].ToString();
+                    string Sodium = row[i]["Sodium"].ToString();
+                    if (Sodium == "")
+                        Sodium = "0";
+                    string Sodium_barcode = row[i]["barcode_sodium"].ToString();
+                    string Citric = row[i]["Citric"].ToString();
+                    if (Citric == "")
+                        Citric = "0";
+                    string Barcode_Citric = row[i]["barcode_citric"].ToString();
+                    string Naoh = row[i]["Naoh"].ToString();
+                    if (Naoh == "")
+                        Naoh = "0";
+                    string Barcode_Naoh = row[i]["barocde_naoh"].ToString();
+                    string Solubo = row[i]["solubo"].ToString();
+                    if (Solubo == "")
+                        Solubo = "0";
+                    string Barcode_Solubo = row[i]["barocde_solubo"].ToString();
+                    string Edtazn = row[i]["Edta"].ToString();
+                    if (Edtazn == "")
+                        Edtazn = "0";
+                    string Barcode_Edta = row[i]["barcode_edta"].ToString();
+                    string Red = row[i]["Red"].ToString();
+                    if (Red == "")
+                        Red = "0";
+                    string Barcode_red = row[i]["barcode_red"].ToString();
+                    string Violet = row[i]["violet"].ToString();
+                    if (Violet == "")
+                        Violet = "0";
+                    string Barcode_violet = row[i]["barcode_violet"].ToString();
+                    string Blue = row[i]["blue"].ToString();
+                    if (Blue == "")
+                        Blue = "0";
+                    string Barcode_blue = row[i]["barocde_blue"].ToString();
+                    string Yellow = row[i]["yellow"].ToString();
+                    if (Yellow == "")
+                        Yellow = "0";
+                    string Barcode_yellow = row[i]["barcode_yellow"].ToString();
+                    string Black = row[i]["black"].ToString();
+                    if (Black == "")
+                        Black = "0";
+                    string Barcode_black = row[i]["barcode_back"].ToString();
+                    string Prev = row[i]["prev"].ToString();
+                    if (Prev == "")
+                        Prev = "0";
+                    string Barcode_Prev = row[i]["barcode_prev"].ToString();
+                    string Than_cam = row[i]["thancam"].ToString();
+                    if (Than_cam == "")
+                        Than_cam = "0";
+                    string Dien = row[i]["dien"].ToString();
+                    if (Dien == "")
+                        Dien = "0";
+                    string Nuoc_RO = row[i]["nuocRo"].ToString();
+                    if (Nuoc_RO == "")
+                        Nuoc_RO = "0";
+                    string Nuoc_thuycuc = row[i]["nuocthuycuc"].ToString();
+                    if (Nuoc_thuycuc == "")
+                        Nuoc_thuycuc = "0";
                     string BHLD = row[i]["BHLD"].ToString();
                     string Ghi_chu = row[i]["ghi_chu"].ToString();
                     string Vitri_tongspthuduoc = row[i]["vitri_spthuduoc"].ToString();
@@ -3564,18 +4453,11 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
-                                "", Math.Round(TONG_KL_LT, 4), Math.Round(Hieu_suat_thu_tb / dataGridView1.Rows.Count, 4), Math.Round(Hieu_suat_release_tb / dataGridView1.Rows.Count, 4),
-                                "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
-                                "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
-                                "", "", Math.Round(tb_do_am / count_doam, 4), Math.Round(tb_coating / count_coating, 4), "",
-                                Math.Round(tb_0ngay / count_0, 4), Math.Round(tb_7ngay / count_7, 4), Math.Round(tb_14ngay / count_14, 4),
-                                Math.Round(tb_21ngay / count_21, 4), Math.Round(tb_28ngay / count_28, 4), Math.Round(tb_42ngay / count_42, 4),
-                                Math.Round(tb_49ngay / count_49, 4), Math.Round(tb_56ngay / count_56, 4), Math.Round(tb_70ngay / count_70, 4),
-                                Math.Round(tb_84ngay / count_84, 4), Math.Round(tb_98ngay / count_98, 4), Math.Round(tb_112ngay / count_112, 4),
-                                Math.Round(tb_126ngay / count_126, 4), Math.Round(tb_140ngay / count_140, 4));
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
+                dataGridView1.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dataGridView1.Columns[7].Frozen = true;
+                dataGridView1.Rows[0].Frozen = true;
+                dataGridView1.CurrentCell = dataGridView1.Rows[1].Cells[0];
             }
             catch (Exception ex)
             {
@@ -3594,7 +4476,17 @@ namespace NhatKySanXuat
                 SqlDataAdapter adapter = new SqlDataAdapter();
                 DataTable tb_buff = new DataTable();
                 command = sqlcon.CreateCommand();
-                command.CommandText = "select * from nhatkysanxuat where thiet_bi = '" + cbb_thietbi_search.Text + "' AND ma_BTP LIKE '%" + cbb_ma_BTP_search.Text + "%' AND ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) ORDER BY dot_sx DESC";
+                command.CommandText = "select name,dot_sx,ngay_sx,thiet_bi,ma_BTP,ten_BTP,me,LOT ,tocdo_release," +
+                        "ngay_release,loai,tong_klspsx,kl_dongkhoi,kl_khongdongkhoi,kl_lythuyet,hieuxuat_thu,hieuxuat_release," +
+                        "thoigian_cb,thoigian_sx,phanbon_nvl,kl_nvl,barcode_nvl,lot_nvl,N1,barcode_n1,lot_n1," +
+                        "N2,barcode_n2,lot_n2,N3,barcode_n3,lot_n3,Ga3,barcode_ga3,Borax,bacode_borax,Naa,barcode_naa,solubo,barocde_solubo," +
+                        "Edta,barcode_edta,Red,barcode_red,violet,barcode_violet,blue,barocde_blue,yellow,barcode_yellow,black,barcode_back,prev," +
+                        "barcode_prev,thancam,dien,nuocRO,nuocthuycuc,BHLD,Sodium,barcode_sodium,Citric,barcode_citric,Naoh,barocde_naoh,ghi_chu," +
+                        "vitri_spthuduoc,vitri_spdongkhoi,vitri_spkhongdongkhoi,N1_1,N1_2,N1_3,N1_1_barcode,N1_2_barcode,N1_3_barcode,N1_1_lot," +
+                        "N1_2_lot,N1_3_lot,N2_1,N2_2,N2_1_barcode,N2_2_barcode,N2_1_lot,N2_2_lot,N3_1,N3_1_barcode,N3_1_lot,N1_4,N1_4_barcode," +
+                        "N1_4_lot,N2_3,N2_3_barcode,N2_3_lot,N3_2,N3_2_barcode,N3_2_lot,N3_3,N3_3_barcode,N3_3_lot,thoigian_ondinh,do_am,coating_layer," +
+                        "ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140,NVL_1," +
+                        "barcode_NVL_1,lot_NVL_1,NVL_2,barcode_NVL_2,lot_NVL_2,KL_NVL_1,KL_NVL_2,N1_BD,N1_KT,N2_BD,N2_KT,N3_BD,N3_KT from nhatkysanxuat where thiet_bi = '" + cbb_thietbi_search.Text + "' AND ma_BTP LIKE '%" + cbb_ma_BTP_search.Text + "%' AND ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) ORDER BY dot_sx DESC";
                 adapter.SelectCommand = command;
                 tb_buff.Clear();
                 adapter.Fill(tb_buff);
@@ -3749,18 +4641,6 @@ namespace NhatKySanXuat
                         count_coating++;
                         tb_coating += Convert.ToDouble(row[i]["coating_layer"].ToString());
                     }
-                    string Nguoi_nhap = row[i]["name"].ToString();
-                    string LOT = row[i]["LOT"].ToString();
-                    string Dot_sx = row[i]["dot_sx"].ToString();
-                    string Ngay_sx = row[i]["ngay_sx"].ToString();
-                    string Thiet_bi = row[i]["thiet_bi"].ToString();
-                    string Ma_btp = row[i]["ma_BTP"].ToString();
-                    string Ten_btp = row[i]["ten_BTP"].ToString();
-                    string Me = row[i]["me"].ToString();
-                    string Kl_nvl = row[i]["klnl_sudung"].ToString();
-                    string Toc_do_release = row[i]["tocdo_release"].ToString();
-                    string Ngay_release = row[i]["ngay_release"].ToString();
-                    string Loai = row[i]["loai"].ToString();
                     string Tong_klsp_thuduoc = row[i]["tong_klspsx"].ToString();
                     if (Tong_klsp_thuduoc == "")
                         Tong_klsp_thuduoc = "0";
@@ -3785,103 +4665,78 @@ namespace NhatKySanXuat
                     if (Hieusuatrelease == "")
                         Hieusuatrelease = "0";
                     Hieu_suat_release_tb += Convert.ToDouble(Hieusuatrelease);
-                    string Thoigiancb = row[i]["thoigian_cb"].ToString();
-                    string Thoigiansx = row[i]["thoigian_sx"].ToString();
-                    string Phanbon_nvl = row[i]["phanbon_nvl"].ToString();
                     string KL_phan_nvl = row[i]["kl_nvl"].ToString();
                     if (KL_phan_nvl == "")
                         KL_phan_nvl = "0";
                     KHOI_LUONG_NVL += Convert.ToDouble(KL_phan_nvl);
-                    string Barcode_nvl = row[i]["barcode_nvl"].ToString();
-                    string LOT_nvl = row[i]["lot_nvl"].ToString();
                     string N1_khoiluong = row[i]["N1"].ToString();
                     if (N1_khoiluong == "")
                         N1_khoiluong = "0";
                     Tong_N1_KL += Convert.ToDouble(N1_khoiluong);
-                    string N1_barcode = row[i]["barcode_n1"].ToString();
-                    string N1_LOT = row[i]["lot_n1"].ToString();
                     string N2_khoiluong = row[i]["N2"].ToString();
                     if (N2_khoiluong == "")
                         N2_khoiluong = "0";
                     Tong_N2_KL += Convert.ToDouble(N2_khoiluong);
-                    string N2_barcode = row[i]["barcode_n2"].ToString();
-                    string N2_LOT = row[i]["lot_n2"].ToString();
                     string n3_khoiluong = row[i]["N3"].ToString();
                     if (n3_khoiluong == "")
                         n3_khoiluong = "0";
                     Tong_N3_KL += Convert.ToDouble(n3_khoiluong);
-                    string N3_barcode = row[i]["barcode_n3"].ToString();
-                    string N3_LOT = row[i]["lot_n3"].ToString();
                     string GA3 = row[i]["Ga3"].ToString();
                     if (GA3 == "")
                         GA3 = "0";
                     Tong_ga3 += Convert.ToDouble(GA3);
-                    string GA3_barcode = row[i]["barcode_ga3"].ToString();
                     string Borax = row[i]["Borax"].ToString();
                     if (Borax == "")
                         Borax = "0";
                     Tong_borax += Convert.ToDouble(Borax);
-                    string Borax_barcode = row[i]["bacode_borax"].ToString();
                     string NAA = row[i]["Naa"].ToString();
                     if (NAA == "")
                         NAA = "0";
                     Tong_Naa += Convert.ToDouble(NAA);
-                    string NAA_barcode = row[i]["barcode_naa"].ToString();
                     string Sodium = row[i]["Sodium"].ToString();
                     if (Sodium == "")
                         Sodium = "0";
                     Tong_sodium += Convert.ToDouble(Sodium);
-                    string Sodium_barcode = row[i]["barcode_sodium"].ToString();
                     string Citric = row[i]["Citric"].ToString();
                     if (Citric == "")
                         Citric = "0";
                     Tong_citric += Convert.ToDouble(Citric);
-                    string Barcode_Citric = row[i]["barcode_citric"].ToString();
                     string Naoh = row[i]["Naoh"].ToString();
                     if (Naoh == "")
                         Naoh = "0";
                     Tong_naoh += Convert.ToDouble(Naoh);
-                    string Barcode_Naoh = row[i]["barocde_naoh"].ToString();
                     string Solubo = row[i]["solubo"].ToString();
                     if (Solubo == "")
                         Solubo = "0";
                     Tong_solubo += Convert.ToDouble(Solubo);
-                    string Barcode_Solubo = row[i]["barocde_solubo"].ToString();
                     string Edtazn = row[i]["Edta"].ToString();
                     if (Edtazn == "")
                         Edtazn = "0";
                     Tong_edtazn += Convert.ToDouble(Edtazn);
-                    string Barcode_Edta = row[i]["barcode_edta"].ToString();
                     string Red = row[i]["Red"].ToString();
                     if (Red == "")
                         Red = "0";
                     Tong_red += Convert.ToDouble(Red);
-                    string Barcode_red = row[i]["barcode_red"].ToString();
                     string Violet = row[i]["violet"].ToString();
                     if (Violet == "")
                         Violet = "0";
                     Tong_violet += Convert.ToDouble(Violet);
-                    string Barcode_violet = row[i]["barcode_violet"].ToString();
                     string Blue = row[i]["blue"].ToString();
                     if (Blue == "")
                         Blue = "0";
                     Tong_blue += Convert.ToDouble(Blue);
-                    string Barcode_blue = row[i]["barocde_blue"].ToString();
                     string Yellow = row[i]["yellow"].ToString();
                     if (Yellow == "")
                         Yellow = "0";
                     Tong_yellow += Convert.ToDouble(Yellow);
-                    string Barcode_yellow = row[i]["barcode_yellow"].ToString();
                     string Black = row[i]["black"].ToString();
                     if (Black == "")
                         Black = "0";
                     Tong_black += Convert.ToDouble(Black);
-                    string Barcode_black = row[i]["barcode_back"].ToString();
                     string Prev = row[i]["prev"].ToString();
                     if (Prev == "")
                         Prev = "0";
                     Tong_prev += Convert.ToDouble(Prev);
-                    string Barcode_Prev = row[i]["barcode_prev"].ToString();
                     string Than_cam = row[i]["thancam"].ToString();
                     if (Than_cam == "")
                         Than_cam = "0";
@@ -3898,6 +4753,139 @@ namespace NhatKySanXuat
                     if (Nuoc_thuycuc == "")
                         Nuoc_thuycuc = "0";
                     Tong_nuocthuycuc += Convert.ToDouble(Nuoc_thuycuc);
+                }
+                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                "", Math.Round(TONG_KL_LT, 3), Math.Round(Hieu_suat_thu_tb / row.Length, 3), Math.Round(Hieu_suat_release_tb / row.Length, 3),
+                "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
+                "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
+                "", "", Math.Round(tb_do_am / count_doam, 3), Math.Round(tb_coating / count_coating, 3), "",
+                Math.Round(tb_0ngay / count_0, 3), Math.Round(tb_7ngay / count_7, 3), Math.Round(tb_14ngay / count_14, 3),
+                Math.Round(tb_21ngay / count_21, 3), Math.Round(tb_28ngay / count_28, 3), Math.Round(tb_42ngay / count_42, 3),
+                Math.Round(tb_49ngay / count_49, 3), Math.Round(tb_56ngay / count_56, 3), Math.Round(tb_70ngay / count_70, 3),
+                Math.Round(tb_84ngay / count_84, 3), Math.Round(tb_98ngay / count_98, 3), Math.Round(tb_112ngay / count_112, 3),
+                Math.Round(tb_126ngay / count_126, 3), Math.Round(tb_140ngay / count_140, 3));
+                for (int i = 0; i < row.Length; i++)
+                {
+                    string Nguoi_nhap = row[i]["name"].ToString();
+                    string LOT = row[i]["LOT"].ToString();
+                    string Dot_sx = row[i]["dot_sx"].ToString();
+                    string Ngay_sx = row[i]["ngay_sx"].ToString();
+                    string Thiet_bi = row[i]["thiet_bi"].ToString();
+                    string Ma_btp = row[i]["ma_BTP"].ToString();
+                    string Ten_btp = row[i]["ten_BTP"].ToString();
+                    string Me = row[i]["me"].ToString();
+                    string Toc_do_release = row[i]["tocdo_release"].ToString();
+                    string Ngay_release = row[i]["ngay_release"].ToString();
+                    string Loai = row[i]["loai"].ToString();
+                    string Tong_klsp_thuduoc = row[i]["tong_klspsx"].ToString();
+                    if (Tong_klsp_thuduoc == "")
+                        Tong_klsp_thuduoc = "0";
+                    string Kl_dongkhoi = row[i]["kl_dongkhoi"].ToString();
+                    if (Kl_dongkhoi == "")
+                        Kl_dongkhoi = "0";
+                    string Khongdongkhoi = row[i]["kl_khongdongkhoi"].ToString();
+                    if (Khongdongkhoi == "")
+                        Khongdongkhoi = "0";
+                    string Kl_lythuyet = row[i]["kl_lythuyet"].ToString();
+                    if (Kl_lythuyet == "")
+                        Kl_lythuyet = "0";
+                    string Hieusuatthu = row[i]["hieuxuat_thu"].ToString();
+                    if (Hieusuatthu == "")
+                        Hieusuatthu = "0";
+                    string Hieusuatrelease = row[i]["hieuxuat_release"].ToString();
+                    if (Hieusuatrelease == "")
+                        Hieusuatrelease = "0";
+                    string Thoigiancb = row[i]["thoigian_cb"].ToString();
+                    string Thoigiansx = row[i]["thoigian_sx"].ToString();
+                    string Phanbon_nvl = row[i]["phanbon_nvl"].ToString();
+                    string KL_phan_nvl = row[i]["kl_nvl"].ToString();
+                    if (KL_phan_nvl == "")
+                        KL_phan_nvl = "0";
+                    string Barcode_nvl = row[i]["barcode_nvl"].ToString();
+                    string LOT_nvl = row[i]["lot_nvl"].ToString();
+                    string N1_khoiluong = row[i]["N1"].ToString();
+                    if (N1_khoiluong == "")
+                        N1_khoiluong = "0";
+                    string N1_barcode = row[i]["barcode_n1"].ToString();
+                    string N1_LOT = row[i]["lot_n1"].ToString();
+                    string N2_khoiluong = row[i]["N2"].ToString();
+                    if (N2_khoiluong == "")
+                        N2_khoiluong = "0";
+                    string N2_barcode = row[i]["barcode_n2"].ToString();
+                    string N2_LOT = row[i]["lot_n2"].ToString();
+                    string n3_khoiluong = row[i]["N3"].ToString();
+                    if (n3_khoiluong == "")
+                        n3_khoiluong = "0";
+                    string N3_barcode = row[i]["barcode_n3"].ToString();
+                    string N3_LOT = row[i]["lot_n3"].ToString();
+                    string GA3 = row[i]["Ga3"].ToString();
+                    if (GA3 == "")
+                        GA3 = "0";
+                    string GA3_barcode = row[i]["barcode_ga3"].ToString();
+                    string Borax = row[i]["Borax"].ToString();
+                    if (Borax == "")
+                        Borax = "0";
+                    string Borax_barcode = row[i]["bacode_borax"].ToString();
+                    string NAA = row[i]["Naa"].ToString();
+                    if (NAA == "")
+                        NAA = "0";
+                    string NAA_barcode = row[i]["barcode_naa"].ToString();
+                    string Sodium = row[i]["Sodium"].ToString();
+                    if (Sodium == "")
+                        Sodium = "0";
+                    string Sodium_barcode = row[i]["barcode_sodium"].ToString();
+                    string Citric = row[i]["Citric"].ToString();
+                    if (Citric == "")
+                        Citric = "0";
+                    string Barcode_Citric = row[i]["barcode_citric"].ToString();
+                    string Naoh = row[i]["Naoh"].ToString();
+                    if (Naoh == "")
+                        Naoh = "0";
+                    string Barcode_Naoh = row[i]["barocde_naoh"].ToString();
+                    string Solubo = row[i]["solubo"].ToString();
+                    if (Solubo == "")
+                        Solubo = "0";
+                    string Barcode_Solubo = row[i]["barocde_solubo"].ToString();
+                    string Edtazn = row[i]["Edta"].ToString();
+                    if (Edtazn == "")
+                        Edtazn = "0";
+                    string Barcode_Edta = row[i]["barcode_edta"].ToString();
+                    string Red = row[i]["Red"].ToString();
+                    if (Red == "")
+                        Red = "0";
+                    string Barcode_red = row[i]["barcode_red"].ToString();
+                    string Violet = row[i]["violet"].ToString();
+                    if (Violet == "")
+                        Violet = "0";
+                    string Barcode_violet = row[i]["barcode_violet"].ToString();
+                    string Blue = row[i]["blue"].ToString();
+                    if (Blue == "")
+                        Blue = "0";
+                    string Barcode_blue = row[i]["barocde_blue"].ToString();
+                    string Yellow = row[i]["yellow"].ToString();
+                    if (Yellow == "")
+                        Yellow = "0";
+                    string Barcode_yellow = row[i]["barcode_yellow"].ToString();
+                    string Black = row[i]["black"].ToString();
+                    if (Black == "")
+                        Black = "0";
+                    string Barcode_black = row[i]["barcode_back"].ToString();
+                    string Prev = row[i]["prev"].ToString();
+                    if (Prev == "")
+                        Prev = "0";
+                    string Barcode_Prev = row[i]["barcode_prev"].ToString();
+                    string Than_cam = row[i]["thancam"].ToString();
+                    if (Than_cam == "")
+                        Than_cam = "0";
+                    string Dien = row[i]["dien"].ToString();
+                    if (Dien == "")
+                        Dien = "0";
+                    string Nuoc_RO = row[i]["nuocRo"].ToString();
+                    if (Nuoc_RO == "")
+                        Nuoc_RO = "0";
+                    string Nuoc_thuycuc = row[i]["nuocthuycuc"].ToString();
+                    if (Nuoc_thuycuc == "")
+                        Nuoc_thuycuc = "0";
                     string BHLD = row[i]["BHLD"].ToString();
                     string Ghi_chu = row[i]["ghi_chu"].ToString();
                     string Vitri_tongspthuduoc = row[i]["vitri_spthuduoc"].ToString();
@@ -3932,18 +4920,11 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
-                                "", Math.Round(TONG_KL_LT, 4), Math.Round(Hieu_suat_thu_tb / dataGridView1.Rows.Count, 4), Math.Round(Hieu_suat_release_tb / dataGridView1.Rows.Count, 4),
-                                "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
-                                "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
-                                "", "", Math.Round(tb_do_am / count_doam, 4), Math.Round(tb_coating / count_coating, 4), "",
-                                Math.Round(tb_0ngay / count_0, 4), Math.Round(tb_7ngay / count_7, 4), Math.Round(tb_14ngay / count_14, 4),
-                                Math.Round(tb_21ngay / count_21, 4), Math.Round(tb_28ngay / count_28, 4), Math.Round(tb_42ngay / count_42, 4),
-                                Math.Round(tb_49ngay / count_49, 4), Math.Round(tb_56ngay / count_56, 4), Math.Round(tb_70ngay / count_70, 4),
-                                Math.Round(tb_84ngay / count_84, 4), Math.Round(tb_98ngay / count_98, 4), Math.Round(tb_112ngay / count_112, 4),
-                                Math.Round(tb_126ngay / count_126, 4), Math.Round(tb_140ngay / count_140, 4));
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
+                dataGridView1.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dataGridView1.Columns[7].Frozen = true;
+                dataGridView1.Rows[0].Frozen = true;
+                dataGridView1.CurrentCell = dataGridView1.Rows[1].Cells[0];
             }
             catch (Exception ex)
             {
@@ -3962,7 +4943,17 @@ namespace NhatKySanXuat
                 SqlDataAdapter adapter = new SqlDataAdapter();
                 DataTable tb_buff = new DataTable();
                 command = sqlcon.CreateCommand();
-                command.CommandText = "select * from nhatkysanxuat where ma_BTP LIKE '%" + cbb_ma_BTP_search.Text + "%' dot_sx = '" + tb_dotsx_search.Text + "' AND loai = '" + cbb_search_loai.Text + "' AND phanbon_nvl LIKE '%" + cbb_phanbonnvl_search.Text + "%' AND ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) ORDER BY dot_sx DESC";
+                command.CommandText = "select name,dot_sx,ngay_sx,thiet_bi,ma_BTP,ten_BTP,me,LOT ,tocdo_release," +
+                        "ngay_release,loai,tong_klspsx,kl_dongkhoi,kl_khongdongkhoi,kl_lythuyet,hieuxuat_thu,hieuxuat_release," +
+                        "thoigian_cb,thoigian_sx,phanbon_nvl,kl_nvl,barcode_nvl,lot_nvl,N1,barcode_n1,lot_n1," +
+                        "N2,barcode_n2,lot_n2,N3,barcode_n3,lot_n3,Ga3,barcode_ga3,Borax,bacode_borax,Naa,barcode_naa,solubo,barocde_solubo," +
+                        "Edta,barcode_edta,Red,barcode_red,violet,barcode_violet,blue,barocde_blue,yellow,barcode_yellow,black,barcode_back,prev," +
+                        "barcode_prev,thancam,dien,nuocRO,nuocthuycuc,BHLD,Sodium,barcode_sodium,Citric,barcode_citric,Naoh,barocde_naoh,ghi_chu," +
+                        "vitri_spthuduoc,vitri_spdongkhoi,vitri_spkhongdongkhoi,N1_1,N1_2,N1_3,N1_1_barcode,N1_2_barcode,N1_3_barcode,N1_1_lot," +
+                        "N1_2_lot,N1_3_lot,N2_1,N2_2,N2_1_barcode,N2_2_barcode,N2_1_lot,N2_2_lot,N3_1,N3_1_barcode,N3_1_lot,N1_4,N1_4_barcode," +
+                        "N1_4_lot,N2_3,N2_3_barcode,N2_3_lot,N3_2,N3_2_barcode,N3_2_lot,N3_3,N3_3_barcode,N3_3_lot,thoigian_ondinh,do_am,coating_layer," +
+                        "ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140,NVL_1," +
+                        "barcode_NVL_1,lot_NVL_1,NVL_2,barcode_NVL_2,lot_NVL_2,KL_NVL_1,KL_NVL_2,N1_BD,N1_KT,N2_BD,N2_KT,N3_BD,N3_KT from nhatkysanxuat where ma_BTP LIKE '%" + cbb_ma_BTP_search.Text + "%' dot_sx = '" + tb_dotsx_search.Text + "' AND loai = '" + cbb_search_loai.Text + "' AND phanbon_nvl LIKE '%" + cbb_phanbonnvl_search.Text + "%' AND ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) ORDER BY dot_sx DESC";
                 adapter.SelectCommand = command;
                 tb_buff.Clear();
                 adapter.Fill(tb_buff);
@@ -4117,18 +5108,6 @@ namespace NhatKySanXuat
                         count_coating++;
                         tb_coating += Convert.ToDouble(row[i]["coating_layer"].ToString());
                     }
-                    string Nguoi_nhap = row[i]["name"].ToString();
-                    string LOT = row[i]["LOT"].ToString();
-                    string Dot_sx = row[i]["dot_sx"].ToString();
-                    string Ngay_sx = row[i]["ngay_sx"].ToString();
-                    string Thiet_bi = row[i]["thiet_bi"].ToString();
-                    string Ma_btp = row[i]["ma_BTP"].ToString();
-                    string Ten_btp = row[i]["ten_BTP"].ToString();
-                    string Me = row[i]["me"].ToString();
-                    string Kl_nvl = row[i]["klnl_sudung"].ToString();
-                    string Toc_do_release = row[i]["tocdo_release"].ToString();
-                    string Ngay_release = row[i]["ngay_release"].ToString();
-                    string Loai = row[i]["loai"].ToString();
                     string Tong_klsp_thuduoc = row[i]["tong_klspsx"].ToString();
                     if (Tong_klsp_thuduoc == "")
                         Tong_klsp_thuduoc = "0";
@@ -4153,103 +5132,78 @@ namespace NhatKySanXuat
                     if (Hieusuatrelease == "")
                         Hieusuatrelease = "0";
                     Hieu_suat_release_tb += Convert.ToDouble(Hieusuatrelease);
-                    string Thoigiancb = row[i]["thoigian_cb"].ToString();
-                    string Thoigiansx = row[i]["thoigian_sx"].ToString();
-                    string Phanbon_nvl = row[i]["phanbon_nvl"].ToString();
                     string KL_phan_nvl = row[i]["kl_nvl"].ToString();
                     if (KL_phan_nvl == "")
                         KL_phan_nvl = "0";
                     KHOI_LUONG_NVL += Convert.ToDouble(KL_phan_nvl);
-                    string Barcode_nvl = row[i]["barcode_nvl"].ToString();
-                    string LOT_nvl = row[i]["lot_nvl"].ToString();
                     string N1_khoiluong = row[i]["N1"].ToString();
                     if (N1_khoiluong == "")
                         N1_khoiluong = "0";
                     Tong_N1_KL += Convert.ToDouble(N1_khoiluong);
-                    string N1_barcode = row[i]["barcode_n1"].ToString();
-                    string N1_LOT = row[i]["lot_n1"].ToString();
                     string N2_khoiluong = row[i]["N2"].ToString();
                     if (N2_khoiluong == "")
                         N2_khoiluong = "0";
                     Tong_N2_KL += Convert.ToDouble(N2_khoiluong);
-                    string N2_barcode = row[i]["barcode_n2"].ToString();
-                    string N2_LOT = row[i]["lot_n2"].ToString();
                     string n3_khoiluong = row[i]["N3"].ToString();
                     if (n3_khoiluong == "")
                         n3_khoiluong = "0";
                     Tong_N3_KL += Convert.ToDouble(n3_khoiluong);
-                    string N3_barcode = row[i]["barcode_n3"].ToString();
-                    string N3_LOT = row[i]["lot_n3"].ToString();
                     string GA3 = row[i]["Ga3"].ToString();
                     if (GA3 == "")
                         GA3 = "0";
                     Tong_ga3 += Convert.ToDouble(GA3);
-                    string GA3_barcode = row[i]["barcode_ga3"].ToString();
                     string Borax = row[i]["Borax"].ToString();
                     if (Borax == "")
                         Borax = "0";
                     Tong_borax += Convert.ToDouble(Borax);
-                    string Borax_barcode = row[i]["bacode_borax"].ToString();
                     string NAA = row[i]["Naa"].ToString();
                     if (NAA == "")
                         NAA = "0";
                     Tong_Naa += Convert.ToDouble(NAA);
-                    string NAA_barcode = row[i]["barcode_naa"].ToString();
                     string Sodium = row[i]["Sodium"].ToString();
                     if (Sodium == "")
                         Sodium = "0";
                     Tong_sodium += Convert.ToDouble(Sodium);
-                    string Sodium_barcode = row[i]["barcode_sodium"].ToString();
                     string Citric = row[i]["Citric"].ToString();
                     if (Citric == "")
                         Citric = "0";
                     Tong_citric += Convert.ToDouble(Citric);
-                    string Barcode_Citric = row[i]["barcode_citric"].ToString();
                     string Naoh = row[i]["Naoh"].ToString();
                     if (Naoh == "")
                         Naoh = "0";
                     Tong_naoh += Convert.ToDouble(Naoh);
-                    string Barcode_Naoh = row[i]["barocde_naoh"].ToString();
                     string Solubo = row[i]["solubo"].ToString();
                     if (Solubo == "")
                         Solubo = "0";
                     Tong_solubo += Convert.ToDouble(Solubo);
-                    string Barcode_Solubo = row[i]["barocde_solubo"].ToString();
                     string Edtazn = row[i]["Edta"].ToString();
                     if (Edtazn == "")
                         Edtazn = "0";
                     Tong_edtazn += Convert.ToDouble(Edtazn);
-                    string Barcode_Edta = row[i]["barcode_edta"].ToString();
                     string Red = row[i]["Red"].ToString();
                     if (Red == "")
                         Red = "0";
                     Tong_red += Convert.ToDouble(Red);
-                    string Barcode_red = row[i]["barcode_red"].ToString();
                     string Violet = row[i]["violet"].ToString();
                     if (Violet == "")
                         Violet = "0";
                     Tong_violet += Convert.ToDouble(Violet);
-                    string Barcode_violet = row[i]["barcode_violet"].ToString();
                     string Blue = row[i]["blue"].ToString();
                     if (Blue == "")
                         Blue = "0";
                     Tong_blue += Convert.ToDouble(Blue);
-                    string Barcode_blue = row[i]["barocde_blue"].ToString();
                     string Yellow = row[i]["yellow"].ToString();
                     if (Yellow == "")
                         Yellow = "0";
                     Tong_yellow += Convert.ToDouble(Yellow);
-                    string Barcode_yellow = row[i]["barcode_yellow"].ToString();
                     string Black = row[i]["black"].ToString();
                     if (Black == "")
                         Black = "0";
                     Tong_black += Convert.ToDouble(Black);
-                    string Barcode_black = row[i]["barcode_back"].ToString();
                     string Prev = row[i]["prev"].ToString();
                     if (Prev == "")
                         Prev = "0";
                     Tong_prev += Convert.ToDouble(Prev);
-                    string Barcode_Prev = row[i]["barcode_prev"].ToString();
                     string Than_cam = row[i]["thancam"].ToString();
                     if (Than_cam == "")
                         Than_cam = "0";
@@ -4266,6 +5220,139 @@ namespace NhatKySanXuat
                     if (Nuoc_thuycuc == "")
                         Nuoc_thuycuc = "0";
                     Tong_nuocthuycuc += Convert.ToDouble(Nuoc_thuycuc);
+                }
+                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                "", Math.Round(TONG_KL_LT, 3), Math.Round(Hieu_suat_thu_tb / row.Length, 3), Math.Round(Hieu_suat_release_tb / row.Length, 3),
+                "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
+                "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
+                "", "", Math.Round(tb_do_am / count_doam, 3), Math.Round(tb_coating / count_coating, 3), "",
+                Math.Round(tb_0ngay / count_0, 3), Math.Round(tb_7ngay / count_7, 3), Math.Round(tb_14ngay / count_14, 3),
+                Math.Round(tb_21ngay / count_21, 3), Math.Round(tb_28ngay / count_28, 3), Math.Round(tb_42ngay / count_42, 3),
+                Math.Round(tb_49ngay / count_49, 3), Math.Round(tb_56ngay / count_56, 3), Math.Round(tb_70ngay / count_70, 3),
+                Math.Round(tb_84ngay / count_84, 3), Math.Round(tb_98ngay / count_98, 3), Math.Round(tb_112ngay / count_112, 3),
+                Math.Round(tb_126ngay / count_126, 3), Math.Round(tb_140ngay / count_140, 3));
+                for (int i = 0; i < row.Length; i++)
+                {
+                    string Nguoi_nhap = row[i]["name"].ToString();
+                    string LOT = row[i]["LOT"].ToString();
+                    string Dot_sx = row[i]["dot_sx"].ToString();
+                    string Ngay_sx = row[i]["ngay_sx"].ToString();
+                    string Thiet_bi = row[i]["thiet_bi"].ToString();
+                    string Ma_btp = row[i]["ma_BTP"].ToString();
+                    string Ten_btp = row[i]["ten_BTP"].ToString();
+                    string Me = row[i]["me"].ToString();
+                    string Toc_do_release = row[i]["tocdo_release"].ToString();
+                    string Ngay_release = row[i]["ngay_release"].ToString();
+                    string Loai = row[i]["loai"].ToString();
+                    string Tong_klsp_thuduoc = row[i]["tong_klspsx"].ToString();
+                    if (Tong_klsp_thuduoc == "")
+                        Tong_klsp_thuduoc = "0";
+                    string Kl_dongkhoi = row[i]["kl_dongkhoi"].ToString();
+                    if (Kl_dongkhoi == "")
+                        Kl_dongkhoi = "0";
+                    string Khongdongkhoi = row[i]["kl_khongdongkhoi"].ToString();
+                    if (Khongdongkhoi == "")
+                        Khongdongkhoi = "0";
+                    string Kl_lythuyet = row[i]["kl_lythuyet"].ToString();
+                    if (Kl_lythuyet == "")
+                        Kl_lythuyet = "0";
+                    string Hieusuatthu = row[i]["hieuxuat_thu"].ToString();
+                    if (Hieusuatthu == "")
+                        Hieusuatthu = "0";
+                    string Hieusuatrelease = row[i]["hieuxuat_release"].ToString();
+                    if (Hieusuatrelease == "")
+                        Hieusuatrelease = "0";
+                    string Thoigiancb = row[i]["thoigian_cb"].ToString();
+                    string Thoigiansx = row[i]["thoigian_sx"].ToString();
+                    string Phanbon_nvl = row[i]["phanbon_nvl"].ToString();
+                    string KL_phan_nvl = row[i]["kl_nvl"].ToString();
+                    if (KL_phan_nvl == "")
+                        KL_phan_nvl = "0";
+                    string Barcode_nvl = row[i]["barcode_nvl"].ToString();
+                    string LOT_nvl = row[i]["lot_nvl"].ToString();
+                    string N1_khoiluong = row[i]["N1"].ToString();
+                    if (N1_khoiluong == "")
+                        N1_khoiluong = "0";
+                    string N1_barcode = row[i]["barcode_n1"].ToString();
+                    string N1_LOT = row[i]["lot_n1"].ToString();
+                    string N2_khoiluong = row[i]["N2"].ToString();
+                    if (N2_khoiluong == "")
+                        N2_khoiluong = "0";
+                    string N2_barcode = row[i]["barcode_n2"].ToString();
+                    string N2_LOT = row[i]["lot_n2"].ToString();
+                    string n3_khoiluong = row[i]["N3"].ToString();
+                    if (n3_khoiluong == "")
+                        n3_khoiluong = "0";
+                    string N3_barcode = row[i]["barcode_n3"].ToString();
+                    string N3_LOT = row[i]["lot_n3"].ToString();
+                    string GA3 = row[i]["Ga3"].ToString();
+                    if (GA3 == "")
+                        GA3 = "0";
+                    string GA3_barcode = row[i]["barcode_ga3"].ToString();
+                    string Borax = row[i]["Borax"].ToString();
+                    if (Borax == "")
+                        Borax = "0";
+                    string Borax_barcode = row[i]["bacode_borax"].ToString();
+                    string NAA = row[i]["Naa"].ToString();
+                    if (NAA == "")
+                        NAA = "0";
+                    string NAA_barcode = row[i]["barcode_naa"].ToString();
+                    string Sodium = row[i]["Sodium"].ToString();
+                    if (Sodium == "")
+                        Sodium = "0";
+                    string Sodium_barcode = row[i]["barcode_sodium"].ToString();
+                    string Citric = row[i]["Citric"].ToString();
+                    if (Citric == "")
+                        Citric = "0";
+                    string Barcode_Citric = row[i]["barcode_citric"].ToString();
+                    string Naoh = row[i]["Naoh"].ToString();
+                    if (Naoh == "")
+                        Naoh = "0";
+                    string Barcode_Naoh = row[i]["barocde_naoh"].ToString();
+                    string Solubo = row[i]["solubo"].ToString();
+                    if (Solubo == "")
+                        Solubo = "0";
+                    string Barcode_Solubo = row[i]["barocde_solubo"].ToString();
+                    string Edtazn = row[i]["Edta"].ToString();
+                    if (Edtazn == "")
+                        Edtazn = "0";
+                    string Barcode_Edta = row[i]["barcode_edta"].ToString();
+                    string Red = row[i]["Red"].ToString();
+                    if (Red == "")
+                        Red = "0";
+                    string Barcode_red = row[i]["barcode_red"].ToString();
+                    string Violet = row[i]["violet"].ToString();
+                    if (Violet == "")
+                        Violet = "0";
+                    string Barcode_violet = row[i]["barcode_violet"].ToString();
+                    string Blue = row[i]["blue"].ToString();
+                    if (Blue == "")
+                        Blue = "0";
+                    string Barcode_blue = row[i]["barocde_blue"].ToString();
+                    string Yellow = row[i]["yellow"].ToString();
+                    if (Yellow == "")
+                        Yellow = "0";
+                    string Barcode_yellow = row[i]["barcode_yellow"].ToString();
+                    string Black = row[i]["black"].ToString();
+                    if (Black == "")
+                        Black = "0";
+                    string Barcode_black = row[i]["barcode_back"].ToString();
+                    string Prev = row[i]["prev"].ToString();
+                    if (Prev == "")
+                        Prev = "0";
+                    string Barcode_Prev = row[i]["barcode_prev"].ToString();
+                    string Than_cam = row[i]["thancam"].ToString();
+                    if (Than_cam == "")
+                        Than_cam = "0";
+                    string Dien = row[i]["dien"].ToString();
+                    if (Dien == "")
+                        Dien = "0";
+                    string Nuoc_RO = row[i]["nuocRo"].ToString();
+                    if (Nuoc_RO == "")
+                        Nuoc_RO = "0";
+                    string Nuoc_thuycuc = row[i]["nuocthuycuc"].ToString();
+                    if (Nuoc_thuycuc == "")
+                        Nuoc_thuycuc = "0";
                     string BHLD = row[i]["BHLD"].ToString();
                     string Ghi_chu = row[i]["ghi_chu"].ToString();
                     string Vitri_tongspthuduoc = row[i]["vitri_spthuduoc"].ToString();
@@ -4300,18 +5387,11 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
-                                "", Math.Round(TONG_KL_LT, 4), Math.Round(Hieu_suat_thu_tb / dataGridView1.Rows.Count, 4), Math.Round(Hieu_suat_release_tb / dataGridView1.Rows.Count, 4),
-                                "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
-                                "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
-                                "", "", Math.Round(tb_do_am / count_doam, 4), Math.Round(tb_coating / count_coating, 4), "",
-                                Math.Round(tb_0ngay / count_0, 4), Math.Round(tb_7ngay / count_7, 4), Math.Round(tb_14ngay / count_14, 4),
-                                Math.Round(tb_21ngay / count_21, 4), Math.Round(tb_28ngay / count_28, 4), Math.Round(tb_42ngay / count_42, 4),
-                                Math.Round(tb_49ngay / count_49, 4), Math.Round(tb_56ngay / count_56, 4), Math.Round(tb_70ngay / count_70, 4),
-                                Math.Round(tb_84ngay / count_84, 4), Math.Round(tb_98ngay / count_98, 4), Math.Round(tb_112ngay / count_112, 4),
-                                Math.Round(tb_126ngay / count_126, 4), Math.Round(tb_140ngay / count_140, 4));
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
+                dataGridView1.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dataGridView1.Columns[7].Frozen = true;
+                dataGridView1.Rows[0].Frozen = true;
+                dataGridView1.CurrentCell = dataGridView1.Rows[1].Cells[0];
             }
             catch (Exception ex)
             {
@@ -4330,7 +5410,17 @@ namespace NhatKySanXuat
                 SqlDataAdapter adapter = new SqlDataAdapter();
                 DataTable tb_buff = new DataTable();
                 command = sqlcon.CreateCommand();
-                command.CommandText = "select * from nhatkysanxuat where thiet_bi = '" + cbb_thietbi_search.Text + "' AND ma_BTP LIKE '%" + cbb_ma_BTP_search.Text + "%' AND dot_sx = '" + tb_dotsx_search.Text + "' AND loai = '" + cbb_search_loai.Text + "' AND phanbon_nvl LIKE '%" + cbb_phanbonnvl_search.Text + "%' AND ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) ORDER BY dot_sx DESC";
+                command.CommandText = "select name,dot_sx,ngay_sx,thiet_bi,ma_BTP,ten_BTP,me,LOT ,tocdo_release," +
+                        "ngay_release,loai,tong_klspsx,kl_dongkhoi,kl_khongdongkhoi,kl_lythuyet,hieuxuat_thu,hieuxuat_release," +
+                        "thoigian_cb,thoigian_sx,phanbon_nvl,kl_nvl,barcode_nvl,lot_nvl,N1,barcode_n1,lot_n1," +
+                        "N2,barcode_n2,lot_n2,N3,barcode_n3,lot_n3,Ga3,barcode_ga3,Borax,bacode_borax,Naa,barcode_naa,solubo,barocde_solubo," +
+                        "Edta,barcode_edta,Red,barcode_red,violet,barcode_violet,blue,barocde_blue,yellow,barcode_yellow,black,barcode_back,prev," +
+                        "barcode_prev,thancam,dien,nuocRO,nuocthuycuc,BHLD,Sodium,barcode_sodium,Citric,barcode_citric,Naoh,barocde_naoh,ghi_chu," +
+                        "vitri_spthuduoc,vitri_spdongkhoi,vitri_spkhongdongkhoi,N1_1,N1_2,N1_3,N1_1_barcode,N1_2_barcode,N1_3_barcode,N1_1_lot," +
+                        "N1_2_lot,N1_3_lot,N2_1,N2_2,N2_1_barcode,N2_2_barcode,N2_1_lot,N2_2_lot,N3_1,N3_1_barcode,N3_1_lot,N1_4,N1_4_barcode," +
+                        "N1_4_lot,N2_3,N2_3_barcode,N2_3_lot,N3_2,N3_2_barcode,N3_2_lot,N3_3,N3_3_barcode,N3_3_lot,thoigian_ondinh,do_am,coating_layer," +
+                        "ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140,NVL_1," +
+                        "barcode_NVL_1,lot_NVL_1,NVL_2,barcode_NVL_2,lot_NVL_2,KL_NVL_1,KL_NVL_2,N1_BD,N1_KT,N2_BD,N2_KT,N3_BD,N3_KT from nhatkysanxuat where thiet_bi = '" + cbb_thietbi_search.Text + "' AND ma_BTP LIKE '%" + cbb_ma_BTP_search.Text + "%' AND dot_sx = '" + tb_dotsx_search.Text + "' AND loai = '" + cbb_search_loai.Text + "' AND phanbon_nvl LIKE '%" + cbb_phanbonnvl_search.Text + "%' AND ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) ORDER BY dot_sx DESC";
                 adapter.SelectCommand = command;
                 tb_buff.Clear();
                 adapter.Fill(tb_buff);
@@ -4485,18 +5575,6 @@ namespace NhatKySanXuat
                         count_coating++;
                         tb_coating += Convert.ToDouble(row[i]["coating_layer"].ToString());
                     }
-                    string Nguoi_nhap = row[i]["name"].ToString();
-                    string LOT = row[i]["LOT"].ToString();
-                    string Dot_sx = row[i]["dot_sx"].ToString();
-                    string Ngay_sx = row[i]["ngay_sx"].ToString();
-                    string Thiet_bi = row[i]["thiet_bi"].ToString();
-                    string Ma_btp = row[i]["ma_BTP"].ToString();
-                    string Ten_btp = row[i]["ten_BTP"].ToString();
-                    string Me = row[i]["me"].ToString();
-                    string Kl_nvl = row[i]["klnl_sudung"].ToString();
-                    string Toc_do_release = row[i]["tocdo_release"].ToString();
-                    string Ngay_release = row[i]["ngay_release"].ToString();
-                    string Loai = row[i]["loai"].ToString();
                     string Tong_klsp_thuduoc = row[i]["tong_klspsx"].ToString();
                     if (Tong_klsp_thuduoc == "")
                         Tong_klsp_thuduoc = "0";
@@ -4521,103 +5599,78 @@ namespace NhatKySanXuat
                     if (Hieusuatrelease == "")
                         Hieusuatrelease = "0";
                     Hieu_suat_release_tb += Convert.ToDouble(Hieusuatrelease);
-                    string Thoigiancb = row[i]["thoigian_cb"].ToString();
-                    string Thoigiansx = row[i]["thoigian_sx"].ToString();
-                    string Phanbon_nvl = row[i]["phanbon_nvl"].ToString();
                     string KL_phan_nvl = row[i]["kl_nvl"].ToString();
                     if (KL_phan_nvl == "")
                         KL_phan_nvl = "0";
                     KHOI_LUONG_NVL += Convert.ToDouble(KL_phan_nvl);
-                    string Barcode_nvl = row[i]["barcode_nvl"].ToString();
-                    string LOT_nvl = row[i]["lot_nvl"].ToString();
                     string N1_khoiluong = row[i]["N1"].ToString();
                     if (N1_khoiluong == "")
                         N1_khoiluong = "0";
                     Tong_N1_KL += Convert.ToDouble(N1_khoiluong);
-                    string N1_barcode = row[i]["barcode_n1"].ToString();
-                    string N1_LOT = row[i]["lot_n1"].ToString();
                     string N2_khoiluong = row[i]["N2"].ToString();
                     if (N2_khoiluong == "")
                         N2_khoiluong = "0";
                     Tong_N2_KL += Convert.ToDouble(N2_khoiluong);
-                    string N2_barcode = row[i]["barcode_n2"].ToString();
-                    string N2_LOT = row[i]["lot_n2"].ToString();
                     string n3_khoiluong = row[i]["N3"].ToString();
                     if (n3_khoiluong == "")
                         n3_khoiluong = "0";
                     Tong_N3_KL += Convert.ToDouble(n3_khoiluong);
-                    string N3_barcode = row[i]["barcode_n3"].ToString();
-                    string N3_LOT = row[i]["lot_n3"].ToString();
                     string GA3 = row[i]["Ga3"].ToString();
                     if (GA3 == "")
                         GA3 = "0";
                     Tong_ga3 += Convert.ToDouble(GA3);
-                    string GA3_barcode = row[i]["barcode_ga3"].ToString();
                     string Borax = row[i]["Borax"].ToString();
                     if (Borax == "")
                         Borax = "0";
                     Tong_borax += Convert.ToDouble(Borax);
-                    string Borax_barcode = row[i]["bacode_borax"].ToString();
                     string NAA = row[i]["Naa"].ToString();
                     if (NAA == "")
                         NAA = "0";
                     Tong_Naa += Convert.ToDouble(NAA);
-                    string NAA_barcode = row[i]["barcode_naa"].ToString();
                     string Sodium = row[i]["Sodium"].ToString();
                     if (Sodium == "")
                         Sodium = "0";
                     Tong_sodium += Convert.ToDouble(Sodium);
-                    string Sodium_barcode = row[i]["barcode_sodium"].ToString();
                     string Citric = row[i]["Citric"].ToString();
                     if (Citric == "")
                         Citric = "0";
                     Tong_citric += Convert.ToDouble(Citric);
-                    string Barcode_Citric = row[i]["barcode_citric"].ToString();
                     string Naoh = row[i]["Naoh"].ToString();
                     if (Naoh == "")
                         Naoh = "0";
                     Tong_naoh += Convert.ToDouble(Naoh);
-                    string Barcode_Naoh = row[i]["barocde_naoh"].ToString();
                     string Solubo = row[i]["solubo"].ToString();
                     if (Solubo == "")
                         Solubo = "0";
                     Tong_solubo += Convert.ToDouble(Solubo);
-                    string Barcode_Solubo = row[i]["barocde_solubo"].ToString();
                     string Edtazn = row[i]["Edta"].ToString();
                     if (Edtazn == "")
                         Edtazn = "0";
                     Tong_edtazn += Convert.ToDouble(Edtazn);
-                    string Barcode_Edta = row[i]["barcode_edta"].ToString();
                     string Red = row[i]["Red"].ToString();
                     if (Red == "")
                         Red = "0";
                     Tong_red += Convert.ToDouble(Red);
-                    string Barcode_red = row[i]["barcode_red"].ToString();
                     string Violet = row[i]["violet"].ToString();
                     if (Violet == "")
                         Violet = "0";
                     Tong_violet += Convert.ToDouble(Violet);
-                    string Barcode_violet = row[i]["barcode_violet"].ToString();
                     string Blue = row[i]["blue"].ToString();
                     if (Blue == "")
                         Blue = "0";
                     Tong_blue += Convert.ToDouble(Blue);
-                    string Barcode_blue = row[i]["barocde_blue"].ToString();
                     string Yellow = row[i]["yellow"].ToString();
                     if (Yellow == "")
                         Yellow = "0";
                     Tong_yellow += Convert.ToDouble(Yellow);
-                    string Barcode_yellow = row[i]["barcode_yellow"].ToString();
                     string Black = row[i]["black"].ToString();
                     if (Black == "")
                         Black = "0";
                     Tong_black += Convert.ToDouble(Black);
-                    string Barcode_black = row[i]["barcode_back"].ToString();
                     string Prev = row[i]["prev"].ToString();
                     if (Prev == "")
                         Prev = "0";
                     Tong_prev += Convert.ToDouble(Prev);
-                    string Barcode_Prev = row[i]["barcode_prev"].ToString();
                     string Than_cam = row[i]["thancam"].ToString();
                     if (Than_cam == "")
                         Than_cam = "0";
@@ -4634,6 +5687,139 @@ namespace NhatKySanXuat
                     if (Nuoc_thuycuc == "")
                         Nuoc_thuycuc = "0";
                     Tong_nuocthuycuc += Convert.ToDouble(Nuoc_thuycuc);
+                }
+                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                "", Math.Round(TONG_KL_LT, 3), Math.Round(Hieu_suat_thu_tb / row.Length, 3), Math.Round(Hieu_suat_release_tb / row.Length, 3),
+                "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
+                "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
+                "", "", Math.Round(tb_do_am / count_doam, 3), Math.Round(tb_coating / count_coating, 3), "",
+                Math.Round(tb_0ngay / count_0, 3), Math.Round(tb_7ngay / count_7, 3), Math.Round(tb_14ngay / count_14, 3),
+                Math.Round(tb_21ngay / count_21, 3), Math.Round(tb_28ngay / count_28, 3), Math.Round(tb_42ngay / count_42, 3),
+                Math.Round(tb_49ngay / count_49, 3), Math.Round(tb_56ngay / count_56, 3), Math.Round(tb_70ngay / count_70, 3),
+                Math.Round(tb_84ngay / count_84, 3), Math.Round(tb_98ngay / count_98, 3), Math.Round(tb_112ngay / count_112, 3),
+                Math.Round(tb_126ngay / count_126, 3), Math.Round(tb_140ngay / count_140, 3));
+                for (int i = 0; i < row.Length; i++)
+                {
+                    string Nguoi_nhap = row[i]["name"].ToString();
+                    string LOT = row[i]["LOT"].ToString();
+                    string Dot_sx = row[i]["dot_sx"].ToString();
+                    string Ngay_sx = row[i]["ngay_sx"].ToString();
+                    string Thiet_bi = row[i]["thiet_bi"].ToString();
+                    string Ma_btp = row[i]["ma_BTP"].ToString();
+                    string Ten_btp = row[i]["ten_BTP"].ToString();
+                    string Me = row[i]["me"].ToString();
+                    string Toc_do_release = row[i]["tocdo_release"].ToString();
+                    string Ngay_release = row[i]["ngay_release"].ToString();
+                    string Loai = row[i]["loai"].ToString();
+                    string Tong_klsp_thuduoc = row[i]["tong_klspsx"].ToString();
+                    if (Tong_klsp_thuduoc == "")
+                        Tong_klsp_thuduoc = "0";
+                    string Kl_dongkhoi = row[i]["kl_dongkhoi"].ToString();
+                    if (Kl_dongkhoi == "")
+                        Kl_dongkhoi = "0";
+                    string Khongdongkhoi = row[i]["kl_khongdongkhoi"].ToString();
+                    if (Khongdongkhoi == "")
+                        Khongdongkhoi = "0";
+                    string Kl_lythuyet = row[i]["kl_lythuyet"].ToString();
+                    if (Kl_lythuyet == "")
+                        Kl_lythuyet = "0";
+                    string Hieusuatthu = row[i]["hieuxuat_thu"].ToString();
+                    if (Hieusuatthu == "")
+                        Hieusuatthu = "0";
+                    string Hieusuatrelease = row[i]["hieuxuat_release"].ToString();
+                    if (Hieusuatrelease == "")
+                        Hieusuatrelease = "0";
+                    string Thoigiancb = row[i]["thoigian_cb"].ToString();
+                    string Thoigiansx = row[i]["thoigian_sx"].ToString();
+                    string Phanbon_nvl = row[i]["phanbon_nvl"].ToString();
+                    string KL_phan_nvl = row[i]["kl_nvl"].ToString();
+                    if (KL_phan_nvl == "")
+                        KL_phan_nvl = "0";
+                    string Barcode_nvl = row[i]["barcode_nvl"].ToString();
+                    string LOT_nvl = row[i]["lot_nvl"].ToString();
+                    string N1_khoiluong = row[i]["N1"].ToString();
+                    if (N1_khoiluong == "")
+                        N1_khoiluong = "0";
+                    string N1_barcode = row[i]["barcode_n1"].ToString();
+                    string N1_LOT = row[i]["lot_n1"].ToString();
+                    string N2_khoiluong = row[i]["N2"].ToString();
+                    if (N2_khoiluong == "")
+                        N2_khoiluong = "0";
+                    string N2_barcode = row[i]["barcode_n2"].ToString();
+                    string N2_LOT = row[i]["lot_n2"].ToString();
+                    string n3_khoiluong = row[i]["N3"].ToString();
+                    if (n3_khoiluong == "")
+                        n3_khoiluong = "0";
+                    string N3_barcode = row[i]["barcode_n3"].ToString();
+                    string N3_LOT = row[i]["lot_n3"].ToString();
+                    string GA3 = row[i]["Ga3"].ToString();
+                    if (GA3 == "")
+                        GA3 = "0";
+                    string GA3_barcode = row[i]["barcode_ga3"].ToString();
+                    string Borax = row[i]["Borax"].ToString();
+                    if (Borax == "")
+                        Borax = "0";
+                    string Borax_barcode = row[i]["bacode_borax"].ToString();
+                    string NAA = row[i]["Naa"].ToString();
+                    if (NAA == "")
+                        NAA = "0";
+                    string NAA_barcode = row[i]["barcode_naa"].ToString();
+                    string Sodium = row[i]["Sodium"].ToString();
+                    if (Sodium == "")
+                        Sodium = "0";
+                    string Sodium_barcode = row[i]["barcode_sodium"].ToString();
+                    string Citric = row[i]["Citric"].ToString();
+                    if (Citric == "")
+                        Citric = "0";
+                    string Barcode_Citric = row[i]["barcode_citric"].ToString();
+                    string Naoh = row[i]["Naoh"].ToString();
+                    if (Naoh == "")
+                        Naoh = "0";
+                    string Barcode_Naoh = row[i]["barocde_naoh"].ToString();
+                    string Solubo = row[i]["solubo"].ToString();
+                    if (Solubo == "")
+                        Solubo = "0";
+                    string Barcode_Solubo = row[i]["barocde_solubo"].ToString();
+                    string Edtazn = row[i]["Edta"].ToString();
+                    if (Edtazn == "")
+                        Edtazn = "0";
+                    string Barcode_Edta = row[i]["barcode_edta"].ToString();
+                    string Red = row[i]["Red"].ToString();
+                    if (Red == "")
+                        Red = "0";
+                    string Barcode_red = row[i]["barcode_red"].ToString();
+                    string Violet = row[i]["violet"].ToString();
+                    if (Violet == "")
+                        Violet = "0";
+                    string Barcode_violet = row[i]["barcode_violet"].ToString();
+                    string Blue = row[i]["blue"].ToString();
+                    if (Blue == "")
+                        Blue = "0";
+                    string Barcode_blue = row[i]["barocde_blue"].ToString();
+                    string Yellow = row[i]["yellow"].ToString();
+                    if (Yellow == "")
+                        Yellow = "0";
+                    string Barcode_yellow = row[i]["barcode_yellow"].ToString();
+                    string Black = row[i]["black"].ToString();
+                    if (Black == "")
+                        Black = "0";
+                    string Barcode_black = row[i]["barcode_back"].ToString();
+                    string Prev = row[i]["prev"].ToString();
+                    if (Prev == "")
+                        Prev = "0";
+                    string Barcode_Prev = row[i]["barcode_prev"].ToString();
+                    string Than_cam = row[i]["thancam"].ToString();
+                    if (Than_cam == "")
+                        Than_cam = "0";
+                    string Dien = row[i]["dien"].ToString();
+                    if (Dien == "")
+                        Dien = "0";
+                    string Nuoc_RO = row[i]["nuocRo"].ToString();
+                    if (Nuoc_RO == "")
+                        Nuoc_RO = "0";
+                    string Nuoc_thuycuc = row[i]["nuocthuycuc"].ToString();
+                    if (Nuoc_thuycuc == "")
+                        Nuoc_thuycuc = "0";
                     string BHLD = row[i]["BHLD"].ToString();
                     string Ghi_chu = row[i]["ghi_chu"].ToString();
                     string Vitri_tongspthuduoc = row[i]["vitri_spthuduoc"].ToString();
@@ -4668,18 +5854,11 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
-                                "", Math.Round(TONG_KL_LT, 4), Math.Round(Hieu_suat_thu_tb / dataGridView1.Rows.Count, 4), Math.Round(Hieu_suat_release_tb / dataGridView1.Rows.Count, 4),
-                                "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
-                                "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
-                                "", "", Math.Round(tb_do_am / count_doam, 4), Math.Round(tb_coating / count_coating, 4), "",
-                                Math.Round(tb_0ngay / count_0, 4), Math.Round(tb_7ngay / count_7, 4), Math.Round(tb_14ngay / count_14, 4),
-                                Math.Round(tb_21ngay / count_21, 4), Math.Round(tb_28ngay / count_28, 4), Math.Round(tb_42ngay / count_42, 4),
-                                Math.Round(tb_49ngay / count_49, 4), Math.Round(tb_56ngay / count_56, 4), Math.Round(tb_70ngay / count_70, 4),
-                                Math.Round(tb_84ngay / count_84, 4), Math.Round(tb_98ngay / count_98, 4), Math.Round(tb_112ngay / count_112, 4),
-                                Math.Round(tb_126ngay / count_126, 4), Math.Round(tb_140ngay / count_140, 4));
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
+                dataGridView1.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dataGridView1.Columns[7].Frozen = true;
+                dataGridView1.Rows[0].Frozen = true;
+                dataGridView1.CurrentCell = dataGridView1.Rows[1].Cells[0];
             }
             catch (Exception ex)
             {
@@ -4698,7 +5877,17 @@ namespace NhatKySanXuat
                 SqlDataAdapter adapter = new SqlDataAdapter();
                 DataTable tb_buff = new DataTable();
                 command = sqlcon.CreateCommand();
-                command.CommandText = "select * from nhatkysanxuat where loai = '" + cbb_search_loai.Text + "' AND dot_sx = '" + tb_dotsx_search.Text + "' AND ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) ORDER BY me ASC";
+                command.CommandText = "select name,dot_sx,ngay_sx,thiet_bi,ma_BTP,ten_BTP,me,LOT ,tocdo_release," +
+                        "ngay_release,loai,tong_klspsx,kl_dongkhoi,kl_khongdongkhoi,kl_lythuyet,hieuxuat_thu,hieuxuat_release," +
+                        "thoigian_cb,thoigian_sx,phanbon_nvl,kl_nvl,barcode_nvl,lot_nvl,N1,barcode_n1,lot_n1," +
+                        "N2,barcode_n2,lot_n2,N3,barcode_n3,lot_n3,Ga3,barcode_ga3,Borax,bacode_borax,Naa,barcode_naa,solubo,barocde_solubo," +
+                        "Edta,barcode_edta,Red,barcode_red,violet,barcode_violet,blue,barocde_blue,yellow,barcode_yellow,black,barcode_back,prev," +
+                        "barcode_prev,thancam,dien,nuocRO,nuocthuycuc,BHLD,Sodium,barcode_sodium,Citric,barcode_citric,Naoh,barocde_naoh,ghi_chu," +
+                        "vitri_spthuduoc,vitri_spdongkhoi,vitri_spkhongdongkhoi,N1_1,N1_2,N1_3,N1_1_barcode,N1_2_barcode,N1_3_barcode,N1_1_lot," +
+                        "N1_2_lot,N1_3_lot,N2_1,N2_2,N2_1_barcode,N2_2_barcode,N2_1_lot,N2_2_lot,N3_1,N3_1_barcode,N3_1_lot,N1_4,N1_4_barcode," +
+                        "N1_4_lot,N2_3,N2_3_barcode,N2_3_lot,N3_2,N3_2_barcode,N3_2_lot,N3_3,N3_3_barcode,N3_3_lot,thoigian_ondinh,do_am,coating_layer," +
+                        "ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140,NVL_1," +
+                        "barcode_NVL_1,lot_NVL_1,NVL_2,barcode_NVL_2,lot_NVL_2,KL_NVL_1,KL_NVL_2,N1_BD,N1_KT,N2_BD,N2_KT,N3_BD,N3_KT from nhatkysanxuat where loai = '" + cbb_search_loai.Text + "' AND dot_sx = '" + tb_dotsx_search.Text + "' AND ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) ORDER BY me ASC";
                 adapter.SelectCommand = command;
                 tb_buff.Clear();
                 adapter.Fill(tb_buff);
@@ -4853,18 +6042,6 @@ namespace NhatKySanXuat
                         count_coating++;
                         tb_coating += Convert.ToDouble(row[i]["coating_layer"].ToString());
                     }
-                    string Nguoi_nhap = row[i]["name"].ToString();
-                    string LOT = row[i]["LOT"].ToString();
-                    string Dot_sx = row[i]["dot_sx"].ToString();
-                    string Ngay_sx = row[i]["ngay_sx"].ToString();
-                    string Thiet_bi = row[i]["thiet_bi"].ToString();
-                    string Ma_btp = row[i]["ma_BTP"].ToString();
-                    string Ten_btp = row[i]["ten_BTP"].ToString();
-                    string Me = row[i]["me"].ToString();
-                    string Kl_nvl = row[i]["klnl_sudung"].ToString();
-                    string Toc_do_release = row[i]["tocdo_release"].ToString();
-                    string Ngay_release = row[i]["ngay_release"].ToString();
-                    string Loai = row[i]["loai"].ToString();
                     string Tong_klsp_thuduoc = row[i]["tong_klspsx"].ToString();
                     if (Tong_klsp_thuduoc == "")
                         Tong_klsp_thuduoc = "0";
@@ -4889,103 +6066,78 @@ namespace NhatKySanXuat
                     if (Hieusuatrelease == "")
                         Hieusuatrelease = "0";
                     Hieu_suat_release_tb += Convert.ToDouble(Hieusuatrelease);
-                    string Thoigiancb = row[i]["thoigian_cb"].ToString();
-                    string Thoigiansx = row[i]["thoigian_sx"].ToString();
-                    string Phanbon_nvl = row[i]["phanbon_nvl"].ToString();
                     string KL_phan_nvl = row[i]["kl_nvl"].ToString();
                     if (KL_phan_nvl == "")
                         KL_phan_nvl = "0";
                     KHOI_LUONG_NVL += Convert.ToDouble(KL_phan_nvl);
-                    string Barcode_nvl = row[i]["barcode_nvl"].ToString();
-                    string LOT_nvl = row[i]["lot_nvl"].ToString();
                     string N1_khoiluong = row[i]["N1"].ToString();
                     if (N1_khoiluong == "")
                         N1_khoiluong = "0";
                     Tong_N1_KL += Convert.ToDouble(N1_khoiluong);
-                    string N1_barcode = row[i]["barcode_n1"].ToString();
-                    string N1_LOT = row[i]["lot_n1"].ToString();
                     string N2_khoiluong = row[i]["N2"].ToString();
                     if (N2_khoiluong == "")
                         N2_khoiluong = "0";
                     Tong_N2_KL += Convert.ToDouble(N2_khoiluong);
-                    string N2_barcode = row[i]["barcode_n2"].ToString();
-                    string N2_LOT = row[i]["lot_n2"].ToString();
                     string n3_khoiluong = row[i]["N3"].ToString();
                     if (n3_khoiluong == "")
                         n3_khoiluong = "0";
                     Tong_N3_KL += Convert.ToDouble(n3_khoiluong);
-                    string N3_barcode = row[i]["barcode_n3"].ToString();
-                    string N3_LOT = row[i]["lot_n3"].ToString();
                     string GA3 = row[i]["Ga3"].ToString();
                     if (GA3 == "")
                         GA3 = "0";
                     Tong_ga3 += Convert.ToDouble(GA3);
-                    string GA3_barcode = row[i]["barcode_ga3"].ToString();
                     string Borax = row[i]["Borax"].ToString();
                     if (Borax == "")
                         Borax = "0";
                     Tong_borax += Convert.ToDouble(Borax);
-                    string Borax_barcode = row[i]["bacode_borax"].ToString();
                     string NAA = row[i]["Naa"].ToString();
                     if (NAA == "")
                         NAA = "0";
                     Tong_Naa += Convert.ToDouble(NAA);
-                    string NAA_barcode = row[i]["barcode_naa"].ToString();
                     string Sodium = row[i]["Sodium"].ToString();
                     if (Sodium == "")
                         Sodium = "0";
                     Tong_sodium += Convert.ToDouble(Sodium);
-                    string Sodium_barcode = row[i]["barcode_sodium"].ToString();
                     string Citric = row[i]["Citric"].ToString();
                     if (Citric == "")
                         Citric = "0";
                     Tong_citric += Convert.ToDouble(Citric);
-                    string Barcode_Citric = row[i]["barcode_citric"].ToString();
                     string Naoh = row[i]["Naoh"].ToString();
                     if (Naoh == "")
                         Naoh = "0";
                     Tong_naoh += Convert.ToDouble(Naoh);
-                    string Barcode_Naoh = row[i]["barocde_naoh"].ToString();
                     string Solubo = row[i]["solubo"].ToString();
                     if (Solubo == "")
                         Solubo = "0";
                     Tong_solubo += Convert.ToDouble(Solubo);
-                    string Barcode_Solubo = row[i]["barocde_solubo"].ToString();
                     string Edtazn = row[i]["Edta"].ToString();
                     if (Edtazn == "")
                         Edtazn = "0";
                     Tong_edtazn += Convert.ToDouble(Edtazn);
-                    string Barcode_Edta = row[i]["barcode_edta"].ToString();
                     string Red = row[i]["Red"].ToString();
                     if (Red == "")
                         Red = "0";
                     Tong_red += Convert.ToDouble(Red);
-                    string Barcode_red = row[i]["barcode_red"].ToString();
                     string Violet = row[i]["violet"].ToString();
                     if (Violet == "")
                         Violet = "0";
                     Tong_violet += Convert.ToDouble(Violet);
-                    string Barcode_violet = row[i]["barcode_violet"].ToString();
                     string Blue = row[i]["blue"].ToString();
                     if (Blue == "")
                         Blue = "0";
                     Tong_blue += Convert.ToDouble(Blue);
-                    string Barcode_blue = row[i]["barocde_blue"].ToString();
                     string Yellow = row[i]["yellow"].ToString();
                     if (Yellow == "")
                         Yellow = "0";
                     Tong_yellow += Convert.ToDouble(Yellow);
-                    string Barcode_yellow = row[i]["barcode_yellow"].ToString();
                     string Black = row[i]["black"].ToString();
                     if (Black == "")
                         Black = "0";
                     Tong_black += Convert.ToDouble(Black);
-                    string Barcode_black = row[i]["barcode_back"].ToString();
                     string Prev = row[i]["prev"].ToString();
                     if (Prev == "")
                         Prev = "0";
                     Tong_prev += Convert.ToDouble(Prev);
-                    string Barcode_Prev = row[i]["barcode_prev"].ToString();
                     string Than_cam = row[i]["thancam"].ToString();
                     if (Than_cam == "")
                         Than_cam = "0";
@@ -5002,6 +6154,139 @@ namespace NhatKySanXuat
                     if (Nuoc_thuycuc == "")
                         Nuoc_thuycuc = "0";
                     Tong_nuocthuycuc += Convert.ToDouble(Nuoc_thuycuc);
+                }
+                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                "", Math.Round(TONG_KL_LT, 3), Math.Round(Hieu_suat_thu_tb / row.Length, 3), Math.Round(Hieu_suat_release_tb / row.Length, 3),
+                "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
+                "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
+                "", "", Math.Round(tb_do_am / count_doam, 3), Math.Round(tb_coating / count_coating, 3), "",
+                Math.Round(tb_0ngay / count_0, 3), Math.Round(tb_7ngay / count_7, 3), Math.Round(tb_14ngay / count_14, 3),
+                Math.Round(tb_21ngay / count_21, 3), Math.Round(tb_28ngay / count_28, 3), Math.Round(tb_42ngay / count_42, 3),
+                Math.Round(tb_49ngay / count_49, 3), Math.Round(tb_56ngay / count_56, 3), Math.Round(tb_70ngay / count_70, 3),
+                Math.Round(tb_84ngay / count_84, 3), Math.Round(tb_98ngay / count_98, 3), Math.Round(tb_112ngay / count_112, 3),
+                Math.Round(tb_126ngay / count_126, 3), Math.Round(tb_140ngay / count_140, 3));
+                for (int i = 0; i < row.Length; i++)
+                {
+                    string Nguoi_nhap = row[i]["name"].ToString();
+                    string LOT = row[i]["LOT"].ToString();
+                    string Dot_sx = row[i]["dot_sx"].ToString();
+                    string Ngay_sx = row[i]["ngay_sx"].ToString();
+                    string Thiet_bi = row[i]["thiet_bi"].ToString();
+                    string Ma_btp = row[i]["ma_BTP"].ToString();
+                    string Ten_btp = row[i]["ten_BTP"].ToString();
+                    string Me = row[i]["me"].ToString();
+                    string Toc_do_release = row[i]["tocdo_release"].ToString();
+                    string Ngay_release = row[i]["ngay_release"].ToString();
+                    string Loai = row[i]["loai"].ToString();
+                    string Tong_klsp_thuduoc = row[i]["tong_klspsx"].ToString();
+                    if (Tong_klsp_thuduoc == "")
+                        Tong_klsp_thuduoc = "0";
+                    string Kl_dongkhoi = row[i]["kl_dongkhoi"].ToString();
+                    if (Kl_dongkhoi == "")
+                        Kl_dongkhoi = "0";
+                    string Khongdongkhoi = row[i]["kl_khongdongkhoi"].ToString();
+                    if (Khongdongkhoi == "")
+                        Khongdongkhoi = "0";
+                    string Kl_lythuyet = row[i]["kl_lythuyet"].ToString();
+                    if (Kl_lythuyet == "")
+                        Kl_lythuyet = "0";
+                    string Hieusuatthu = row[i]["hieuxuat_thu"].ToString();
+                    if (Hieusuatthu == "")
+                        Hieusuatthu = "0";
+                    string Hieusuatrelease = row[i]["hieuxuat_release"].ToString();
+                    if (Hieusuatrelease == "")
+                        Hieusuatrelease = "0";
+                    string Thoigiancb = row[i]["thoigian_cb"].ToString();
+                    string Thoigiansx = row[i]["thoigian_sx"].ToString();
+                    string Phanbon_nvl = row[i]["phanbon_nvl"].ToString();
+                    string KL_phan_nvl = row[i]["kl_nvl"].ToString();
+                    if (KL_phan_nvl == "")
+                        KL_phan_nvl = "0";
+                    string Barcode_nvl = row[i]["barcode_nvl"].ToString();
+                    string LOT_nvl = row[i]["lot_nvl"].ToString();
+                    string N1_khoiluong = row[i]["N1"].ToString();
+                    if (N1_khoiluong == "")
+                        N1_khoiluong = "0";
+                    string N1_barcode = row[i]["barcode_n1"].ToString();
+                    string N1_LOT = row[i]["lot_n1"].ToString();
+                    string N2_khoiluong = row[i]["N2"].ToString();
+                    if (N2_khoiluong == "")
+                        N2_khoiluong = "0";
+                    string N2_barcode = row[i]["barcode_n2"].ToString();
+                    string N2_LOT = row[i]["lot_n2"].ToString();
+                    string n3_khoiluong = row[i]["N3"].ToString();
+                    if (n3_khoiluong == "")
+                        n3_khoiluong = "0";
+                    string N3_barcode = row[i]["barcode_n3"].ToString();
+                    string N3_LOT = row[i]["lot_n3"].ToString();
+                    string GA3 = row[i]["Ga3"].ToString();
+                    if (GA3 == "")
+                        GA3 = "0";
+                    string GA3_barcode = row[i]["barcode_ga3"].ToString();
+                    string Borax = row[i]["Borax"].ToString();
+                    if (Borax == "")
+                        Borax = "0";
+                    string Borax_barcode = row[i]["bacode_borax"].ToString();
+                    string NAA = row[i]["Naa"].ToString();
+                    if (NAA == "")
+                        NAA = "0";
+                    string NAA_barcode = row[i]["barcode_naa"].ToString();
+                    string Sodium = row[i]["Sodium"].ToString();
+                    if (Sodium == "")
+                        Sodium = "0";
+                    string Sodium_barcode = row[i]["barcode_sodium"].ToString();
+                    string Citric = row[i]["Citric"].ToString();
+                    if (Citric == "")
+                        Citric = "0";
+                    string Barcode_Citric = row[i]["barcode_citric"].ToString();
+                    string Naoh = row[i]["Naoh"].ToString();
+                    if (Naoh == "")
+                        Naoh = "0";
+                    string Barcode_Naoh = row[i]["barocde_naoh"].ToString();
+                    string Solubo = row[i]["solubo"].ToString();
+                    if (Solubo == "")
+                        Solubo = "0";
+                    string Barcode_Solubo = row[i]["barocde_solubo"].ToString();
+                    string Edtazn = row[i]["Edta"].ToString();
+                    if (Edtazn == "")
+                        Edtazn = "0";
+                    string Barcode_Edta = row[i]["barcode_edta"].ToString();
+                    string Red = row[i]["Red"].ToString();
+                    if (Red == "")
+                        Red = "0";
+                    string Barcode_red = row[i]["barcode_red"].ToString();
+                    string Violet = row[i]["violet"].ToString();
+                    if (Violet == "")
+                        Violet = "0";
+                    string Barcode_violet = row[i]["barcode_violet"].ToString();
+                    string Blue = row[i]["blue"].ToString();
+                    if (Blue == "")
+                        Blue = "0";
+                    string Barcode_blue = row[i]["barocde_blue"].ToString();
+                    string Yellow = row[i]["yellow"].ToString();
+                    if (Yellow == "")
+                        Yellow = "0";
+                    string Barcode_yellow = row[i]["barcode_yellow"].ToString();
+                    string Black = row[i]["black"].ToString();
+                    if (Black == "")
+                        Black = "0";
+                    string Barcode_black = row[i]["barcode_back"].ToString();
+                    string Prev = row[i]["prev"].ToString();
+                    if (Prev == "")
+                        Prev = "0";
+                    string Barcode_Prev = row[i]["barcode_prev"].ToString();
+                    string Than_cam = row[i]["thancam"].ToString();
+                    if (Than_cam == "")
+                        Than_cam = "0";
+                    string Dien = row[i]["dien"].ToString();
+                    if (Dien == "")
+                        Dien = "0";
+                    string Nuoc_RO = row[i]["nuocRo"].ToString();
+                    if (Nuoc_RO == "")
+                        Nuoc_RO = "0";
+                    string Nuoc_thuycuc = row[i]["nuocthuycuc"].ToString();
+                    if (Nuoc_thuycuc == "")
+                        Nuoc_thuycuc = "0";
                     string BHLD = row[i]["BHLD"].ToString();
                     string Ghi_chu = row[i]["ghi_chu"].ToString();
                     string Vitri_tongspthuduoc = row[i]["vitri_spthuduoc"].ToString();
@@ -5036,18 +6321,11 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
-                                "", Math.Round(TONG_KL_LT, 4), Math.Round(Hieu_suat_thu_tb / dataGridView1.Rows.Count, 4), Math.Round(Hieu_suat_release_tb / dataGridView1.Rows.Count, 4),
-                                "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
-                                "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
-                                "", "", Math.Round(tb_do_am / count_doam, 4), Math.Round(tb_coating / count_coating, 4), "",
-                                Math.Round(tb_0ngay / count_0, 4), Math.Round(tb_7ngay / count_7, 4), Math.Round(tb_14ngay / count_14, 4),
-                                Math.Round(tb_21ngay / count_21, 4), Math.Round(tb_28ngay / count_28, 4), Math.Round(tb_42ngay / count_42, 4),
-                                Math.Round(tb_49ngay / count_49, 4), Math.Round(tb_56ngay / count_56, 4), Math.Round(tb_70ngay / count_70, 4),
-                                Math.Round(tb_84ngay / count_84, 4), Math.Round(tb_98ngay / count_98, 4), Math.Round(tb_112ngay / count_112, 4),
-                                Math.Round(tb_126ngay / count_126, 4), Math.Round(tb_140ngay / count_140, 4));
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
+                dataGridView1.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dataGridView1.Columns[7].Frozen = true;
+                dataGridView1.Rows[0].Frozen = true;
+                dataGridView1.CurrentCell = dataGridView1.Rows[1].Cells[0];
             }
             catch (Exception ex)
             {
@@ -5066,7 +6344,17 @@ namespace NhatKySanXuat
                 SqlDataAdapter adapter = new SqlDataAdapter();
                 DataTable tb_buff = new DataTable();
                 command = sqlcon.CreateCommand();
-                command.CommandText = "select * from nhatkysanxuat where thiet_bi = '" + cbb_thietbi_search.Text + "' AND loai = '" + cbb_search_loai.Text + "' AND dot_sx = '" + tb_dotsx_search.Text + "' AND ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) ORDER BY me ASC";
+                command.CommandText = "select name,dot_sx,ngay_sx,thiet_bi,ma_BTP,ten_BTP,me,LOT ,tocdo_release," +
+                        "ngay_release,loai,tong_klspsx,kl_dongkhoi,kl_khongdongkhoi,kl_lythuyet,hieuxuat_thu,hieuxuat_release," +
+                        "thoigian_cb,thoigian_sx,phanbon_nvl,kl_nvl,barcode_nvl,lot_nvl,N1,barcode_n1,lot_n1," +
+                        "N2,barcode_n2,lot_n2,N3,barcode_n3,lot_n3,Ga3,barcode_ga3,Borax,bacode_borax,Naa,barcode_naa,solubo,barocde_solubo," +
+                        "Edta,barcode_edta,Red,barcode_red,violet,barcode_violet,blue,barocde_blue,yellow,barcode_yellow,black,barcode_back,prev," +
+                        "barcode_prev,thancam,dien,nuocRO,nuocthuycuc,BHLD,Sodium,barcode_sodium,Citric,barcode_citric,Naoh,barocde_naoh,ghi_chu," +
+                        "vitri_spthuduoc,vitri_spdongkhoi,vitri_spkhongdongkhoi,N1_1,N1_2,N1_3,N1_1_barcode,N1_2_barcode,N1_3_barcode,N1_1_lot," +
+                        "N1_2_lot,N1_3_lot,N2_1,N2_2,N2_1_barcode,N2_2_barcode,N2_1_lot,N2_2_lot,N3_1,N3_1_barcode,N3_1_lot,N1_4,N1_4_barcode," +
+                        "N1_4_lot,N2_3,N2_3_barcode,N2_3_lot,N3_2,N3_2_barcode,N3_2_lot,N3_3,N3_3_barcode,N3_3_lot,thoigian_ondinh,do_am,coating_layer," +
+                        "ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140,NVL_1," +
+                        "barcode_NVL_1,lot_NVL_1,NVL_2,barcode_NVL_2,lot_NVL_2,KL_NVL_1,KL_NVL_2,N1_BD,N1_KT,N2_BD,N2_KT,N3_BD,N3_KT from nhatkysanxuat where thiet_bi = '" + cbb_thietbi_search.Text + "' AND loai = '" + cbb_search_loai.Text + "' AND dot_sx = '" + tb_dotsx_search.Text + "' AND ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) ORDER BY me ASC";
                 adapter.SelectCommand = command;
                 tb_buff.Clear();
                 adapter.Fill(tb_buff);
@@ -5221,18 +6509,6 @@ namespace NhatKySanXuat
                         count_coating++;
                         tb_coating += Convert.ToDouble(row[i]["coating_layer"].ToString());
                     }
-                    string Nguoi_nhap = row[i]["name"].ToString();
-                    string LOT = row[i]["LOT"].ToString();
-                    string Dot_sx = row[i]["dot_sx"].ToString();
-                    string Ngay_sx = row[i]["ngay_sx"].ToString();
-                    string Thiet_bi = row[i]["thiet_bi"].ToString();
-                    string Ma_btp = row[i]["ma_BTP"].ToString();
-                    string Ten_btp = row[i]["ten_BTP"].ToString();
-                    string Me = row[i]["me"].ToString();
-                    string Kl_nvl = row[i]["klnl_sudung"].ToString();
-                    string Toc_do_release = row[i]["tocdo_release"].ToString();
-                    string Ngay_release = row[i]["ngay_release"].ToString();
-                    string Loai = row[i]["loai"].ToString();
                     string Tong_klsp_thuduoc = row[i]["tong_klspsx"].ToString();
                     if (Tong_klsp_thuduoc == "")
                         Tong_klsp_thuduoc = "0";
@@ -5257,103 +6533,78 @@ namespace NhatKySanXuat
                     if (Hieusuatrelease == "")
                         Hieusuatrelease = "0";
                     Hieu_suat_release_tb += Convert.ToDouble(Hieusuatrelease);
-                    string Thoigiancb = row[i]["thoigian_cb"].ToString();
-                    string Thoigiansx = row[i]["thoigian_sx"].ToString();
-                    string Phanbon_nvl = row[i]["phanbon_nvl"].ToString();
                     string KL_phan_nvl = row[i]["kl_nvl"].ToString();
                     if (KL_phan_nvl == "")
                         KL_phan_nvl = "0";
                     KHOI_LUONG_NVL += Convert.ToDouble(KL_phan_nvl);
-                    string Barcode_nvl = row[i]["barcode_nvl"].ToString();
-                    string LOT_nvl = row[i]["lot_nvl"].ToString();
                     string N1_khoiluong = row[i]["N1"].ToString();
                     if (N1_khoiluong == "")
                         N1_khoiluong = "0";
                     Tong_N1_KL += Convert.ToDouble(N1_khoiluong);
-                    string N1_barcode = row[i]["barcode_n1"].ToString();
-                    string N1_LOT = row[i]["lot_n1"].ToString();
                     string N2_khoiluong = row[i]["N2"].ToString();
                     if (N2_khoiluong == "")
                         N2_khoiluong = "0";
                     Tong_N2_KL += Convert.ToDouble(N2_khoiluong);
-                    string N2_barcode = row[i]["barcode_n2"].ToString();
-                    string N2_LOT = row[i]["lot_n2"].ToString();
                     string n3_khoiluong = row[i]["N3"].ToString();
                     if (n3_khoiluong == "")
                         n3_khoiluong = "0";
                     Tong_N3_KL += Convert.ToDouble(n3_khoiluong);
-                    string N3_barcode = row[i]["barcode_n3"].ToString();
-                    string N3_LOT = row[i]["lot_n3"].ToString();
                     string GA3 = row[i]["Ga3"].ToString();
                     if (GA3 == "")
                         GA3 = "0";
                     Tong_ga3 += Convert.ToDouble(GA3);
-                    string GA3_barcode = row[i]["barcode_ga3"].ToString();
                     string Borax = row[i]["Borax"].ToString();
                     if (Borax == "")
                         Borax = "0";
                     Tong_borax += Convert.ToDouble(Borax);
-                    string Borax_barcode = row[i]["bacode_borax"].ToString();
                     string NAA = row[i]["Naa"].ToString();
                     if (NAA == "")
                         NAA = "0";
                     Tong_Naa += Convert.ToDouble(NAA);
-                    string NAA_barcode = row[i]["barcode_naa"].ToString();
                     string Sodium = row[i]["Sodium"].ToString();
                     if (Sodium == "")
                         Sodium = "0";
                     Tong_sodium += Convert.ToDouble(Sodium);
-                    string Sodium_barcode = row[i]["barcode_sodium"].ToString();
                     string Citric = row[i]["Citric"].ToString();
                     if (Citric == "")
                         Citric = "0";
                     Tong_citric += Convert.ToDouble(Citric);
-                    string Barcode_Citric = row[i]["barcode_citric"].ToString();
                     string Naoh = row[i]["Naoh"].ToString();
                     if (Naoh == "")
                         Naoh = "0";
                     Tong_naoh += Convert.ToDouble(Naoh);
-                    string Barcode_Naoh = row[i]["barocde_naoh"].ToString();
                     string Solubo = row[i]["solubo"].ToString();
                     if (Solubo == "")
                         Solubo = "0";
                     Tong_solubo += Convert.ToDouble(Solubo);
-                    string Barcode_Solubo = row[i]["barocde_solubo"].ToString();
                     string Edtazn = row[i]["Edta"].ToString();
                     if (Edtazn == "")
                         Edtazn = "0";
                     Tong_edtazn += Convert.ToDouble(Edtazn);
-                    string Barcode_Edta = row[i]["barcode_edta"].ToString();
                     string Red = row[i]["Red"].ToString();
                     if (Red == "")
                         Red = "0";
                     Tong_red += Convert.ToDouble(Red);
-                    string Barcode_red = row[i]["barcode_red"].ToString();
                     string Violet = row[i]["violet"].ToString();
                     if (Violet == "")
                         Violet = "0";
                     Tong_violet += Convert.ToDouble(Violet);
-                    string Barcode_violet = row[i]["barcode_violet"].ToString();
                     string Blue = row[i]["blue"].ToString();
                     if (Blue == "")
                         Blue = "0";
                     Tong_blue += Convert.ToDouble(Blue);
-                    string Barcode_blue = row[i]["barocde_blue"].ToString();
                     string Yellow = row[i]["yellow"].ToString();
                     if (Yellow == "")
                         Yellow = "0";
                     Tong_yellow += Convert.ToDouble(Yellow);
-                    string Barcode_yellow = row[i]["barcode_yellow"].ToString();
                     string Black = row[i]["black"].ToString();
                     if (Black == "")
                         Black = "0";
                     Tong_black += Convert.ToDouble(Black);
-                    string Barcode_black = row[i]["barcode_back"].ToString();
                     string Prev = row[i]["prev"].ToString();
                     if (Prev == "")
                         Prev = "0";
                     Tong_prev += Convert.ToDouble(Prev);
-                    string Barcode_Prev = row[i]["barcode_prev"].ToString();
                     string Than_cam = row[i]["thancam"].ToString();
                     if (Than_cam == "")
                         Than_cam = "0";
@@ -5370,6 +6621,139 @@ namespace NhatKySanXuat
                     if (Nuoc_thuycuc == "")
                         Nuoc_thuycuc = "0";
                     Tong_nuocthuycuc += Convert.ToDouble(Nuoc_thuycuc);
+                }
+                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                "", Math.Round(TONG_KL_LT, 3), Math.Round(Hieu_suat_thu_tb / row.Length, 3), Math.Round(Hieu_suat_release_tb / row.Length, 3),
+                "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
+                "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
+                "", "", Math.Round(tb_do_am / count_doam, 3), Math.Round(tb_coating / count_coating, 3), "",
+                Math.Round(tb_0ngay / count_0, 3), Math.Round(tb_7ngay / count_7, 3), Math.Round(tb_14ngay / count_14, 3),
+                Math.Round(tb_21ngay / count_21, 3), Math.Round(tb_28ngay / count_28, 3), Math.Round(tb_42ngay / count_42, 3),
+                Math.Round(tb_49ngay / count_49, 3), Math.Round(tb_56ngay / count_56, 3), Math.Round(tb_70ngay / count_70, 3),
+                Math.Round(tb_84ngay / count_84, 3), Math.Round(tb_98ngay / count_98, 3), Math.Round(tb_112ngay / count_112, 3),
+                Math.Round(tb_126ngay / count_126, 3), Math.Round(tb_140ngay / count_140, 3));
+                for (int i = 0; i < row.Length; i++)
+                {
+                    string Nguoi_nhap = row[i]["name"].ToString();
+                    string LOT = row[i]["LOT"].ToString();
+                    string Dot_sx = row[i]["dot_sx"].ToString();
+                    string Ngay_sx = row[i]["ngay_sx"].ToString();
+                    string Thiet_bi = row[i]["thiet_bi"].ToString();
+                    string Ma_btp = row[i]["ma_BTP"].ToString();
+                    string Ten_btp = row[i]["ten_BTP"].ToString();
+                    string Me = row[i]["me"].ToString();
+                    string Toc_do_release = row[i]["tocdo_release"].ToString();
+                    string Ngay_release = row[i]["ngay_release"].ToString();
+                    string Loai = row[i]["loai"].ToString();
+                    string Tong_klsp_thuduoc = row[i]["tong_klspsx"].ToString();
+                    if (Tong_klsp_thuduoc == "")
+                        Tong_klsp_thuduoc = "0";
+                    string Kl_dongkhoi = row[i]["kl_dongkhoi"].ToString();
+                    if (Kl_dongkhoi == "")
+                        Kl_dongkhoi = "0";
+                    string Khongdongkhoi = row[i]["kl_khongdongkhoi"].ToString();
+                    if (Khongdongkhoi == "")
+                        Khongdongkhoi = "0";
+                    string Kl_lythuyet = row[i]["kl_lythuyet"].ToString();
+                    if (Kl_lythuyet == "")
+                        Kl_lythuyet = "0";
+                    string Hieusuatthu = row[i]["hieuxuat_thu"].ToString();
+                    if (Hieusuatthu == "")
+                        Hieusuatthu = "0";
+                    string Hieusuatrelease = row[i]["hieuxuat_release"].ToString();
+                    if (Hieusuatrelease == "")
+                        Hieusuatrelease = "0";
+                    string Thoigiancb = row[i]["thoigian_cb"].ToString();
+                    string Thoigiansx = row[i]["thoigian_sx"].ToString();
+                    string Phanbon_nvl = row[i]["phanbon_nvl"].ToString();
+                    string KL_phan_nvl = row[i]["kl_nvl"].ToString();
+                    if (KL_phan_nvl == "")
+                        KL_phan_nvl = "0";
+                    string Barcode_nvl = row[i]["barcode_nvl"].ToString();
+                    string LOT_nvl = row[i]["lot_nvl"].ToString();
+                    string N1_khoiluong = row[i]["N1"].ToString();
+                    if (N1_khoiluong == "")
+                        N1_khoiluong = "0";
+                    string N1_barcode = row[i]["barcode_n1"].ToString();
+                    string N1_LOT = row[i]["lot_n1"].ToString();
+                    string N2_khoiluong = row[i]["N2"].ToString();
+                    if (N2_khoiluong == "")
+                        N2_khoiluong = "0";
+                    string N2_barcode = row[i]["barcode_n2"].ToString();
+                    string N2_LOT = row[i]["lot_n2"].ToString();
+                    string n3_khoiluong = row[i]["N3"].ToString();
+                    if (n3_khoiluong == "")
+                        n3_khoiluong = "0";
+                    string N3_barcode = row[i]["barcode_n3"].ToString();
+                    string N3_LOT = row[i]["lot_n3"].ToString();
+                    string GA3 = row[i]["Ga3"].ToString();
+                    if (GA3 == "")
+                        GA3 = "0";
+                    string GA3_barcode = row[i]["barcode_ga3"].ToString();
+                    string Borax = row[i]["Borax"].ToString();
+                    if (Borax == "")
+                        Borax = "0";
+                    string Borax_barcode = row[i]["bacode_borax"].ToString();
+                    string NAA = row[i]["Naa"].ToString();
+                    if (NAA == "")
+                        NAA = "0";
+                    string NAA_barcode = row[i]["barcode_naa"].ToString();
+                    string Sodium = row[i]["Sodium"].ToString();
+                    if (Sodium == "")
+                        Sodium = "0";
+                    string Sodium_barcode = row[i]["barcode_sodium"].ToString();
+                    string Citric = row[i]["Citric"].ToString();
+                    if (Citric == "")
+                        Citric = "0";
+                    string Barcode_Citric = row[i]["barcode_citric"].ToString();
+                    string Naoh = row[i]["Naoh"].ToString();
+                    if (Naoh == "")
+                        Naoh = "0";
+                    string Barcode_Naoh = row[i]["barocde_naoh"].ToString();
+                    string Solubo = row[i]["solubo"].ToString();
+                    if (Solubo == "")
+                        Solubo = "0";
+                    string Barcode_Solubo = row[i]["barocde_solubo"].ToString();
+                    string Edtazn = row[i]["Edta"].ToString();
+                    if (Edtazn == "")
+                        Edtazn = "0";
+                    string Barcode_Edta = row[i]["barcode_edta"].ToString();
+                    string Red = row[i]["Red"].ToString();
+                    if (Red == "")
+                        Red = "0";
+                    string Barcode_red = row[i]["barcode_red"].ToString();
+                    string Violet = row[i]["violet"].ToString();
+                    if (Violet == "")
+                        Violet = "0";
+                    string Barcode_violet = row[i]["barcode_violet"].ToString();
+                    string Blue = row[i]["blue"].ToString();
+                    if (Blue == "")
+                        Blue = "0";
+                    string Barcode_blue = row[i]["barocde_blue"].ToString();
+                    string Yellow = row[i]["yellow"].ToString();
+                    if (Yellow == "")
+                        Yellow = "0";
+                    string Barcode_yellow = row[i]["barcode_yellow"].ToString();
+                    string Black = row[i]["black"].ToString();
+                    if (Black == "")
+                        Black = "0";
+                    string Barcode_black = row[i]["barcode_back"].ToString();
+                    string Prev = row[i]["prev"].ToString();
+                    if (Prev == "")
+                        Prev = "0";
+                    string Barcode_Prev = row[i]["barcode_prev"].ToString();
+                    string Than_cam = row[i]["thancam"].ToString();
+                    if (Than_cam == "")
+                        Than_cam = "0";
+                    string Dien = row[i]["dien"].ToString();
+                    if (Dien == "")
+                        Dien = "0";
+                    string Nuoc_RO = row[i]["nuocRo"].ToString();
+                    if (Nuoc_RO == "")
+                        Nuoc_RO = "0";
+                    string Nuoc_thuycuc = row[i]["nuocthuycuc"].ToString();
+                    if (Nuoc_thuycuc == "")
+                        Nuoc_thuycuc = "0";
                     string BHLD = row[i]["BHLD"].ToString();
                     string Ghi_chu = row[i]["ghi_chu"].ToString();
                     string Vitri_tongspthuduoc = row[i]["vitri_spthuduoc"].ToString();
@@ -5404,18 +6788,11 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
-                                "", Math.Round(TONG_KL_LT, 4), Math.Round(Hieu_suat_thu_tb / dataGridView1.Rows.Count, 4), Math.Round(Hieu_suat_release_tb / dataGridView1.Rows.Count, 4),
-                                "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
-                                "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
-                                "", "", Math.Round(tb_do_am / count_doam, 4), Math.Round(tb_coating / count_coating, 4), "",
-                                Math.Round(tb_0ngay / count_0, 4), Math.Round(tb_7ngay / count_7, 4), Math.Round(tb_14ngay / count_14, 4),
-                                Math.Round(tb_21ngay / count_21, 4), Math.Round(tb_28ngay / count_28, 4), Math.Round(tb_42ngay / count_42, 4),
-                                Math.Round(tb_49ngay / count_49, 4), Math.Round(tb_56ngay / count_56, 4), Math.Round(tb_70ngay / count_70, 4),
-                                Math.Round(tb_84ngay / count_84, 4), Math.Round(tb_98ngay / count_98, 4), Math.Round(tb_112ngay / count_112, 4),
-                                Math.Round(tb_126ngay / count_126, 4), Math.Round(tb_140ngay / count_140, 4));
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
+                dataGridView1.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dataGridView1.Columns[7].Frozen = true;
+                dataGridView1.Rows[0].Frozen = true;
+                dataGridView1.CurrentCell = dataGridView1.Rows[1].Cells[0];
             }
             catch (Exception ex)
             {
@@ -5434,7 +6811,17 @@ namespace NhatKySanXuat
                 SqlDataAdapter adapter = new SqlDataAdapter();
                 DataTable tb_buff = new DataTable();
                 command = sqlcon.CreateCommand();
-                command.CommandText = "select * from nhatkysanxuat where ma_BTP LIKE '%" + cbb_ma_BTP_search.Text + "%' AND dot_sx = '" + tb_dotsx_search.Text + "' AND ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) ORDER BY me ASC";
+                command.CommandText = "select name,dot_sx,ngay_sx,thiet_bi,ma_BTP,ten_BTP,me,LOT ,tocdo_release," +
+                        "ngay_release,loai,tong_klspsx,kl_dongkhoi,kl_khongdongkhoi,kl_lythuyet,hieuxuat_thu,hieuxuat_release," +
+                        "thoigian_cb,thoigian_sx,phanbon_nvl,kl_nvl,barcode_nvl,lot_nvl,N1,barcode_n1,lot_n1," +
+                        "N2,barcode_n2,lot_n2,N3,barcode_n3,lot_n3,Ga3,barcode_ga3,Borax,bacode_borax,Naa,barcode_naa,solubo,barocde_solubo," +
+                        "Edta,barcode_edta,Red,barcode_red,violet,barcode_violet,blue,barocde_blue,yellow,barcode_yellow,black,barcode_back,prev," +
+                        "barcode_prev,thancam,dien,nuocRO,nuocthuycuc,BHLD,Sodium,barcode_sodium,Citric,barcode_citric,Naoh,barocde_naoh,ghi_chu," +
+                        "vitri_spthuduoc,vitri_spdongkhoi,vitri_spkhongdongkhoi,N1_1,N1_2,N1_3,N1_1_barcode,N1_2_barcode,N1_3_barcode,N1_1_lot," +
+                        "N1_2_lot,N1_3_lot,N2_1,N2_2,N2_1_barcode,N2_2_barcode,N2_1_lot,N2_2_lot,N3_1,N3_1_barcode,N3_1_lot,N1_4,N1_4_barcode," +
+                        "N1_4_lot,N2_3,N2_3_barcode,N2_3_lot,N3_2,N3_2_barcode,N3_2_lot,N3_3,N3_3_barcode,N3_3_lot,thoigian_ondinh,do_am,coating_layer," +
+                        "ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140,NVL_1," +
+                        "barcode_NVL_1,lot_NVL_1,NVL_2,barcode_NVL_2,lot_NVL_2,KL_NVL_1,KL_NVL_2,N1_BD,N1_KT,N2_BD,N2_KT,N3_BD,N3_KT from nhatkysanxuat where ma_BTP LIKE '%" + cbb_ma_BTP_search.Text + "%' AND dot_sx = '" + tb_dotsx_search.Text + "' AND ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) ORDER BY me ASC";
                 adapter.SelectCommand = command;
                 tb_buff.Clear();
                 adapter.Fill(tb_buff);
@@ -5589,18 +6976,6 @@ namespace NhatKySanXuat
                         count_coating++;
                         tb_coating += Convert.ToDouble(row[i]["coating_layer"].ToString());
                     }
-                    string Nguoi_nhap = row[i]["name"].ToString();
-                    string LOT = row[i]["LOT"].ToString();
-                    string Dot_sx = row[i]["dot_sx"].ToString();
-                    string Ngay_sx = row[i]["ngay_sx"].ToString();
-                    string Thiet_bi = row[i]["thiet_bi"].ToString();
-                    string Ma_btp = row[i]["ma_BTP"].ToString();
-                    string Ten_btp = row[i]["ten_BTP"].ToString();
-                    string Me = row[i]["me"].ToString();
-                    string Kl_nvl = row[i]["klnl_sudung"].ToString();
-                    string Toc_do_release = row[i]["tocdo_release"].ToString();
-                    string Ngay_release = row[i]["ngay_release"].ToString();
-                    string Loai = row[i]["loai"].ToString();
                     string Tong_klsp_thuduoc = row[i]["tong_klspsx"].ToString();
                     if (Tong_klsp_thuduoc == "")
                         Tong_klsp_thuduoc = "0";
@@ -5625,103 +7000,78 @@ namespace NhatKySanXuat
                     if (Hieusuatrelease == "")
                         Hieusuatrelease = "0";
                     Hieu_suat_release_tb += Convert.ToDouble(Hieusuatrelease);
-                    string Thoigiancb = row[i]["thoigian_cb"].ToString();
-                    string Thoigiansx = row[i]["thoigian_sx"].ToString();
-                    string Phanbon_nvl = row[i]["phanbon_nvl"].ToString();
                     string KL_phan_nvl = row[i]["kl_nvl"].ToString();
                     if (KL_phan_nvl == "")
                         KL_phan_nvl = "0";
                     KHOI_LUONG_NVL += Convert.ToDouble(KL_phan_nvl);
-                    string Barcode_nvl = row[i]["barcode_nvl"].ToString();
-                    string LOT_nvl = row[i]["lot_nvl"].ToString();
                     string N1_khoiluong = row[i]["N1"].ToString();
                     if (N1_khoiluong == "")
                         N1_khoiluong = "0";
                     Tong_N1_KL += Convert.ToDouble(N1_khoiluong);
-                    string N1_barcode = row[i]["barcode_n1"].ToString();
-                    string N1_LOT = row[i]["lot_n1"].ToString();
                     string N2_khoiluong = row[i]["N2"].ToString();
                     if (N2_khoiluong == "")
                         N2_khoiluong = "0";
                     Tong_N2_KL += Convert.ToDouble(N2_khoiluong);
-                    string N2_barcode = row[i]["barcode_n2"].ToString();
-                    string N2_LOT = row[i]["lot_n2"].ToString();
                     string n3_khoiluong = row[i]["N3"].ToString();
                     if (n3_khoiluong == "")
                         n3_khoiluong = "0";
                     Tong_N3_KL += Convert.ToDouble(n3_khoiluong);
-                    string N3_barcode = row[i]["barcode_n3"].ToString();
-                    string N3_LOT = row[i]["lot_n3"].ToString();
                     string GA3 = row[i]["Ga3"].ToString();
                     if (GA3 == "")
                         GA3 = "0";
                     Tong_ga3 += Convert.ToDouble(GA3);
-                    string GA3_barcode = row[i]["barcode_ga3"].ToString();
                     string Borax = row[i]["Borax"].ToString();
                     if (Borax == "")
                         Borax = "0";
                     Tong_borax += Convert.ToDouble(Borax);
-                    string Borax_barcode = row[i]["bacode_borax"].ToString();
                     string NAA = row[i]["Naa"].ToString();
                     if (NAA == "")
                         NAA = "0";
                     Tong_Naa += Convert.ToDouble(NAA);
-                    string NAA_barcode = row[i]["barcode_naa"].ToString();
                     string Sodium = row[i]["Sodium"].ToString();
                     if (Sodium == "")
                         Sodium = "0";
                     Tong_sodium += Convert.ToDouble(Sodium);
-                    string Sodium_barcode = row[i]["barcode_sodium"].ToString();
                     string Citric = row[i]["Citric"].ToString();
                     if (Citric == "")
                         Citric = "0";
                     Tong_citric += Convert.ToDouble(Citric);
-                    string Barcode_Citric = row[i]["barcode_citric"].ToString();
                     string Naoh = row[i]["Naoh"].ToString();
                     if (Naoh == "")
                         Naoh = "0";
                     Tong_naoh += Convert.ToDouble(Naoh);
-                    string Barcode_Naoh = row[i]["barocde_naoh"].ToString();
                     string Solubo = row[i]["solubo"].ToString();
                     if (Solubo == "")
                         Solubo = "0";
                     Tong_solubo += Convert.ToDouble(Solubo);
-                    string Barcode_Solubo = row[i]["barocde_solubo"].ToString();
                     string Edtazn = row[i]["Edta"].ToString();
                     if (Edtazn == "")
                         Edtazn = "0";
                     Tong_edtazn += Convert.ToDouble(Edtazn);
-                    string Barcode_Edta = row[i]["barcode_edta"].ToString();
                     string Red = row[i]["Red"].ToString();
                     if (Red == "")
                         Red = "0";
                     Tong_red += Convert.ToDouble(Red);
-                    string Barcode_red = row[i]["barcode_red"].ToString();
                     string Violet = row[i]["violet"].ToString();
                     if (Violet == "")
                         Violet = "0";
                     Tong_violet += Convert.ToDouble(Violet);
-                    string Barcode_violet = row[i]["barcode_violet"].ToString();
                     string Blue = row[i]["blue"].ToString();
                     if (Blue == "")
                         Blue = "0";
                     Tong_blue += Convert.ToDouble(Blue);
-                    string Barcode_blue = row[i]["barocde_blue"].ToString();
                     string Yellow = row[i]["yellow"].ToString();
                     if (Yellow == "")
                         Yellow = "0";
                     Tong_yellow += Convert.ToDouble(Yellow);
-                    string Barcode_yellow = row[i]["barcode_yellow"].ToString();
                     string Black = row[i]["black"].ToString();
                     if (Black == "")
                         Black = "0";
                     Tong_black += Convert.ToDouble(Black);
-                    string Barcode_black = row[i]["barcode_back"].ToString();
                     string Prev = row[i]["prev"].ToString();
                     if (Prev == "")
                         Prev = "0";
                     Tong_prev += Convert.ToDouble(Prev);
-                    string Barcode_Prev = row[i]["barcode_prev"].ToString();
                     string Than_cam = row[i]["thancam"].ToString();
                     if (Than_cam == "")
                         Than_cam = "0";
@@ -5738,6 +7088,139 @@ namespace NhatKySanXuat
                     if (Nuoc_thuycuc == "")
                         Nuoc_thuycuc = "0";
                     Tong_nuocthuycuc += Convert.ToDouble(Nuoc_thuycuc);
+                }
+                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                "", Math.Round(TONG_KL_LT, 3), Math.Round(Hieu_suat_thu_tb / row.Length, 3), Math.Round(Hieu_suat_release_tb / row.Length, 3),
+                "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
+                "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
+                "", "", Math.Round(tb_do_am / count_doam, 3), Math.Round(tb_coating / count_coating, 3), "",
+                Math.Round(tb_0ngay / count_0, 3), Math.Round(tb_7ngay / count_7, 3), Math.Round(tb_14ngay / count_14, 3),
+                Math.Round(tb_21ngay / count_21, 3), Math.Round(tb_28ngay / count_28, 3), Math.Round(tb_42ngay / count_42, 3),
+                Math.Round(tb_49ngay / count_49, 3), Math.Round(tb_56ngay / count_56, 3), Math.Round(tb_70ngay / count_70, 3),
+                Math.Round(tb_84ngay / count_84, 3), Math.Round(tb_98ngay / count_98, 3), Math.Round(tb_112ngay / count_112, 3),
+                Math.Round(tb_126ngay / count_126, 3), Math.Round(tb_140ngay / count_140, 3));
+                for (int i = 0; i < row.Length; i++)
+                {
+                    string Nguoi_nhap = row[i]["name"].ToString();
+                    string LOT = row[i]["LOT"].ToString();
+                    string Dot_sx = row[i]["dot_sx"].ToString();
+                    string Ngay_sx = row[i]["ngay_sx"].ToString();
+                    string Thiet_bi = row[i]["thiet_bi"].ToString();
+                    string Ma_btp = row[i]["ma_BTP"].ToString();
+                    string Ten_btp = row[i]["ten_BTP"].ToString();
+                    string Me = row[i]["me"].ToString();
+                    string Toc_do_release = row[i]["tocdo_release"].ToString();
+                    string Ngay_release = row[i]["ngay_release"].ToString();
+                    string Loai = row[i]["loai"].ToString();
+                    string Tong_klsp_thuduoc = row[i]["tong_klspsx"].ToString();
+                    if (Tong_klsp_thuduoc == "")
+                        Tong_klsp_thuduoc = "0";
+                    string Kl_dongkhoi = row[i]["kl_dongkhoi"].ToString();
+                    if (Kl_dongkhoi == "")
+                        Kl_dongkhoi = "0";
+                    string Khongdongkhoi = row[i]["kl_khongdongkhoi"].ToString();
+                    if (Khongdongkhoi == "")
+                        Khongdongkhoi = "0";
+                    string Kl_lythuyet = row[i]["kl_lythuyet"].ToString();
+                    if (Kl_lythuyet == "")
+                        Kl_lythuyet = "0";
+                    string Hieusuatthu = row[i]["hieuxuat_thu"].ToString();
+                    if (Hieusuatthu == "")
+                        Hieusuatthu = "0";
+                    string Hieusuatrelease = row[i]["hieuxuat_release"].ToString();
+                    if (Hieusuatrelease == "")
+                        Hieusuatrelease = "0";
+                    string Thoigiancb = row[i]["thoigian_cb"].ToString();
+                    string Thoigiansx = row[i]["thoigian_sx"].ToString();
+                    string Phanbon_nvl = row[i]["phanbon_nvl"].ToString();
+                    string KL_phan_nvl = row[i]["kl_nvl"].ToString();
+                    if (KL_phan_nvl == "")
+                        KL_phan_nvl = "0";
+                    string Barcode_nvl = row[i]["barcode_nvl"].ToString();
+                    string LOT_nvl = row[i]["lot_nvl"].ToString();
+                    string N1_khoiluong = row[i]["N1"].ToString();
+                    if (N1_khoiluong == "")
+                        N1_khoiluong = "0";
+                    string N1_barcode = row[i]["barcode_n1"].ToString();
+                    string N1_LOT = row[i]["lot_n1"].ToString();
+                    string N2_khoiluong = row[i]["N2"].ToString();
+                    if (N2_khoiluong == "")
+                        N2_khoiluong = "0";
+                    string N2_barcode = row[i]["barcode_n2"].ToString();
+                    string N2_LOT = row[i]["lot_n2"].ToString();
+                    string n3_khoiluong = row[i]["N3"].ToString();
+                    if (n3_khoiluong == "")
+                        n3_khoiluong = "0";
+                    string N3_barcode = row[i]["barcode_n3"].ToString();
+                    string N3_LOT = row[i]["lot_n3"].ToString();
+                    string GA3 = row[i]["Ga3"].ToString();
+                    if (GA3 == "")
+                        GA3 = "0";
+                    string GA3_barcode = row[i]["barcode_ga3"].ToString();
+                    string Borax = row[i]["Borax"].ToString();
+                    if (Borax == "")
+                        Borax = "0";
+                    string Borax_barcode = row[i]["bacode_borax"].ToString();
+                    string NAA = row[i]["Naa"].ToString();
+                    if (NAA == "")
+                        NAA = "0";
+                    string NAA_barcode = row[i]["barcode_naa"].ToString();
+                    string Sodium = row[i]["Sodium"].ToString();
+                    if (Sodium == "")
+                        Sodium = "0";
+                    string Sodium_barcode = row[i]["barcode_sodium"].ToString();
+                    string Citric = row[i]["Citric"].ToString();
+                    if (Citric == "")
+                        Citric = "0";
+                    string Barcode_Citric = row[i]["barcode_citric"].ToString();
+                    string Naoh = row[i]["Naoh"].ToString();
+                    if (Naoh == "")
+                        Naoh = "0";
+                    string Barcode_Naoh = row[i]["barocde_naoh"].ToString();
+                    string Solubo = row[i]["solubo"].ToString();
+                    if (Solubo == "")
+                        Solubo = "0";
+                    string Barcode_Solubo = row[i]["barocde_solubo"].ToString();
+                    string Edtazn = row[i]["Edta"].ToString();
+                    if (Edtazn == "")
+                        Edtazn = "0";
+                    string Barcode_Edta = row[i]["barcode_edta"].ToString();
+                    string Red = row[i]["Red"].ToString();
+                    if (Red == "")
+                        Red = "0";
+                    string Barcode_red = row[i]["barcode_red"].ToString();
+                    string Violet = row[i]["violet"].ToString();
+                    if (Violet == "")
+                        Violet = "0";
+                    string Barcode_violet = row[i]["barcode_violet"].ToString();
+                    string Blue = row[i]["blue"].ToString();
+                    if (Blue == "")
+                        Blue = "0";
+                    string Barcode_blue = row[i]["barocde_blue"].ToString();
+                    string Yellow = row[i]["yellow"].ToString();
+                    if (Yellow == "")
+                        Yellow = "0";
+                    string Barcode_yellow = row[i]["barcode_yellow"].ToString();
+                    string Black = row[i]["black"].ToString();
+                    if (Black == "")
+                        Black = "0";
+                    string Barcode_black = row[i]["barcode_back"].ToString();
+                    string Prev = row[i]["prev"].ToString();
+                    if (Prev == "")
+                        Prev = "0";
+                    string Barcode_Prev = row[i]["barcode_prev"].ToString();
+                    string Than_cam = row[i]["thancam"].ToString();
+                    if (Than_cam == "")
+                        Than_cam = "0";
+                    string Dien = row[i]["dien"].ToString();
+                    if (Dien == "")
+                        Dien = "0";
+                    string Nuoc_RO = row[i]["nuocRo"].ToString();
+                    if (Nuoc_RO == "")
+                        Nuoc_RO = "0";
+                    string Nuoc_thuycuc = row[i]["nuocthuycuc"].ToString();
+                    if (Nuoc_thuycuc == "")
+                        Nuoc_thuycuc = "0";
                     string BHLD = row[i]["BHLD"].ToString();
                     string Ghi_chu = row[i]["ghi_chu"].ToString();
                     string Vitri_tongspthuduoc = row[i]["vitri_spthuduoc"].ToString();
@@ -5772,18 +7255,11 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
-                                "", Math.Round(TONG_KL_LT, 4), Math.Round(Hieu_suat_thu_tb / dataGridView1.Rows.Count, 4), Math.Round(Hieu_suat_release_tb / dataGridView1.Rows.Count, 4),
-                                "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
-                                "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
-                                "", "", Math.Round(tb_do_am / count_doam, 4), Math.Round(tb_coating / count_coating, 4), "",
-                                Math.Round(tb_0ngay / count_0, 4), Math.Round(tb_7ngay / count_7, 4), Math.Round(tb_14ngay / count_14, 4),
-                                Math.Round(tb_21ngay / count_21, 4), Math.Round(tb_28ngay / count_28, 4), Math.Round(tb_42ngay / count_42, 4),
-                                Math.Round(tb_49ngay / count_49, 4), Math.Round(tb_56ngay / count_56, 4), Math.Round(tb_70ngay / count_70, 4),
-                                Math.Round(tb_84ngay / count_84, 4), Math.Round(tb_98ngay / count_98, 4), Math.Round(tb_112ngay / count_112, 4),
-                                Math.Round(tb_126ngay / count_126, 4), Math.Round(tb_140ngay / count_140, 4));
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
+                dataGridView1.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dataGridView1.Columns[7].Frozen = true;
+                dataGridView1.Rows[0].Frozen = true;
+                dataGridView1.CurrentCell = dataGridView1.Rows[1].Cells[0];
             }
             catch (Exception ex)
             {
@@ -5802,7 +7278,17 @@ namespace NhatKySanXuat
                 SqlDataAdapter adapter = new SqlDataAdapter();
                 DataTable tb_buff = new DataTable();
                 command = sqlcon.CreateCommand();
-                command.CommandText = "select * from nhatkysanxuat where thiet_bi = '" + cbb_thietbi_search.Text + "' AND ma_BTP LIKE '%" + cbb_ma_BTP_search.Text + "%' AND dot_sx = '" + tb_dotsx_search.Text + "' AND ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) ORDER BY me ASC";
+                command.CommandText = "select name,dot_sx,ngay_sx,thiet_bi,ma_BTP,ten_BTP,me,LOT ,tocdo_release," +
+                        "ngay_release,loai,tong_klspsx,kl_dongkhoi,kl_khongdongkhoi,kl_lythuyet,hieuxuat_thu,hieuxuat_release," +
+                        "thoigian_cb,thoigian_sx,phanbon_nvl,kl_nvl,barcode_nvl,lot_nvl,N1,barcode_n1,lot_n1," +
+                        "N2,barcode_n2,lot_n2,N3,barcode_n3,lot_n3,Ga3,barcode_ga3,Borax,bacode_borax,Naa,barcode_naa,solubo,barocde_solubo," +
+                        "Edta,barcode_edta,Red,barcode_red,violet,barcode_violet,blue,barocde_blue,yellow,barcode_yellow,black,barcode_back,prev," +
+                        "barcode_prev,thancam,dien,nuocRO,nuocthuycuc,BHLD,Sodium,barcode_sodium,Citric,barcode_citric,Naoh,barocde_naoh,ghi_chu," +
+                        "vitri_spthuduoc,vitri_spdongkhoi,vitri_spkhongdongkhoi,N1_1,N1_2,N1_3,N1_1_barcode,N1_2_barcode,N1_3_barcode,N1_1_lot," +
+                        "N1_2_lot,N1_3_lot,N2_1,N2_2,N2_1_barcode,N2_2_barcode,N2_1_lot,N2_2_lot,N3_1,N3_1_barcode,N3_1_lot,N1_4,N1_4_barcode," +
+                        "N1_4_lot,N2_3,N2_3_barcode,N2_3_lot,N3_2,N3_2_barcode,N3_2_lot,N3_3,N3_3_barcode,N3_3_lot,thoigian_ondinh,do_am,coating_layer," +
+                        "ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140,NVL_1," +
+                        "barcode_NVL_1,lot_NVL_1,NVL_2,barcode_NVL_2,lot_NVL_2,KL_NVL_1,KL_NVL_2,N1_BD,N1_KT,N2_BD,N2_KT,N3_BD,N3_KT from nhatkysanxuat where thiet_bi = '" + cbb_thietbi_search.Text + "' AND ma_BTP LIKE '%" + cbb_ma_BTP_search.Text + "%' AND dot_sx = '" + tb_dotsx_search.Text + "' AND ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) ORDER BY me ASC";
                 adapter.SelectCommand = command;
                 tb_buff.Clear();
                 adapter.Fill(tb_buff);
@@ -5957,18 +7443,6 @@ namespace NhatKySanXuat
                         count_coating++;
                         tb_coating += Convert.ToDouble(row[i]["coating_layer"].ToString());
                     }
-                    string Nguoi_nhap = row[i]["name"].ToString();
-                    string LOT = row[i]["LOT"].ToString();
-                    string Dot_sx = row[i]["dot_sx"].ToString();
-                    string Ngay_sx = row[i]["ngay_sx"].ToString();
-                    string Thiet_bi = row[i]["thiet_bi"].ToString();
-                    string Ma_btp = row[i]["ma_BTP"].ToString();
-                    string Ten_btp = row[i]["ten_BTP"].ToString();
-                    string Me = row[i]["me"].ToString();
-                    string Kl_nvl = row[i]["klnl_sudung"].ToString();
-                    string Toc_do_release = row[i]["tocdo_release"].ToString();
-                    string Ngay_release = row[i]["ngay_release"].ToString();
-                    string Loai = row[i]["loai"].ToString();
                     string Tong_klsp_thuduoc = row[i]["tong_klspsx"].ToString();
                     if (Tong_klsp_thuduoc == "")
                         Tong_klsp_thuduoc = "0";
@@ -5993,103 +7467,78 @@ namespace NhatKySanXuat
                     if (Hieusuatrelease == "")
                         Hieusuatrelease = "0";
                     Hieu_suat_release_tb += Convert.ToDouble(Hieusuatrelease);
-                    string Thoigiancb = row[i]["thoigian_cb"].ToString();
-                    string Thoigiansx = row[i]["thoigian_sx"].ToString();
-                    string Phanbon_nvl = row[i]["phanbon_nvl"].ToString();
                     string KL_phan_nvl = row[i]["kl_nvl"].ToString();
                     if (KL_phan_nvl == "")
                         KL_phan_nvl = "0";
                     KHOI_LUONG_NVL += Convert.ToDouble(KL_phan_nvl);
-                    string Barcode_nvl = row[i]["barcode_nvl"].ToString();
-                    string LOT_nvl = row[i]["lot_nvl"].ToString();
                     string N1_khoiluong = row[i]["N1"].ToString();
                     if (N1_khoiluong == "")
                         N1_khoiluong = "0";
                     Tong_N1_KL += Convert.ToDouble(N1_khoiluong);
-                    string N1_barcode = row[i]["barcode_n1"].ToString();
-                    string N1_LOT = row[i]["lot_n1"].ToString();
                     string N2_khoiluong = row[i]["N2"].ToString();
                     if (N2_khoiluong == "")
                         N2_khoiluong = "0";
                     Tong_N2_KL += Convert.ToDouble(N2_khoiluong);
-                    string N2_barcode = row[i]["barcode_n2"].ToString();
-                    string N2_LOT = row[i]["lot_n2"].ToString();
                     string n3_khoiluong = row[i]["N3"].ToString();
                     if (n3_khoiluong == "")
                         n3_khoiluong = "0";
                     Tong_N3_KL += Convert.ToDouble(n3_khoiluong);
-                    string N3_barcode = row[i]["barcode_n3"].ToString();
-                    string N3_LOT = row[i]["lot_n3"].ToString();
                     string GA3 = row[i]["Ga3"].ToString();
                     if (GA3 == "")
                         GA3 = "0";
                     Tong_ga3 += Convert.ToDouble(GA3);
-                    string GA3_barcode = row[i]["barcode_ga3"].ToString();
                     string Borax = row[i]["Borax"].ToString();
                     if (Borax == "")
                         Borax = "0";
                     Tong_borax += Convert.ToDouble(Borax);
-                    string Borax_barcode = row[i]["bacode_borax"].ToString();
                     string NAA = row[i]["Naa"].ToString();
                     if (NAA == "")
                         NAA = "0";
                     Tong_Naa += Convert.ToDouble(NAA);
-                    string NAA_barcode = row[i]["barcode_naa"].ToString();
                     string Sodium = row[i]["Sodium"].ToString();
                     if (Sodium == "")
                         Sodium = "0";
                     Tong_sodium += Convert.ToDouble(Sodium);
-                    string Sodium_barcode = row[i]["barcode_sodium"].ToString();
                     string Citric = row[i]["Citric"].ToString();
                     if (Citric == "")
                         Citric = "0";
                     Tong_citric += Convert.ToDouble(Citric);
-                    string Barcode_Citric = row[i]["barcode_citric"].ToString();
                     string Naoh = row[i]["Naoh"].ToString();
                     if (Naoh == "")
                         Naoh = "0";
                     Tong_naoh += Convert.ToDouble(Naoh);
-                    string Barcode_Naoh = row[i]["barocde_naoh"].ToString();
                     string Solubo = row[i]["solubo"].ToString();
                     if (Solubo == "")
                         Solubo = "0";
                     Tong_solubo += Convert.ToDouble(Solubo);
-                    string Barcode_Solubo = row[i]["barocde_solubo"].ToString();
                     string Edtazn = row[i]["Edta"].ToString();
                     if (Edtazn == "")
                         Edtazn = "0";
                     Tong_edtazn += Convert.ToDouble(Edtazn);
-                    string Barcode_Edta = row[i]["barcode_edta"].ToString();
                     string Red = row[i]["Red"].ToString();
                     if (Red == "")
                         Red = "0";
                     Tong_red += Convert.ToDouble(Red);
-                    string Barcode_red = row[i]["barcode_red"].ToString();
                     string Violet = row[i]["violet"].ToString();
                     if (Violet == "")
                         Violet = "0";
                     Tong_violet += Convert.ToDouble(Violet);
-                    string Barcode_violet = row[i]["barcode_violet"].ToString();
                     string Blue = row[i]["blue"].ToString();
                     if (Blue == "")
                         Blue = "0";
                     Tong_blue += Convert.ToDouble(Blue);
-                    string Barcode_blue = row[i]["barocde_blue"].ToString();
                     string Yellow = row[i]["yellow"].ToString();
                     if (Yellow == "")
                         Yellow = "0";
                     Tong_yellow += Convert.ToDouble(Yellow);
-                    string Barcode_yellow = row[i]["barcode_yellow"].ToString();
                     string Black = row[i]["black"].ToString();
                     if (Black == "")
                         Black = "0";
                     Tong_black += Convert.ToDouble(Black);
-                    string Barcode_black = row[i]["barcode_back"].ToString();
                     string Prev = row[i]["prev"].ToString();
                     if (Prev == "")
                         Prev = "0";
                     Tong_prev += Convert.ToDouble(Prev);
-                    string Barcode_Prev = row[i]["barcode_prev"].ToString();
                     string Than_cam = row[i]["thancam"].ToString();
                     if (Than_cam == "")
                         Than_cam = "0";
@@ -6106,6 +7555,139 @@ namespace NhatKySanXuat
                     if (Nuoc_thuycuc == "")
                         Nuoc_thuycuc = "0";
                     Tong_nuocthuycuc += Convert.ToDouble(Nuoc_thuycuc);
+                }
+                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                "", Math.Round(TONG_KL_LT, 3), Math.Round(Hieu_suat_thu_tb / row.Length, 3), Math.Round(Hieu_suat_release_tb / row.Length, 3),
+                "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
+                "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
+                "", "", Math.Round(tb_do_am / count_doam, 3), Math.Round(tb_coating / count_coating, 3), "",
+                Math.Round(tb_0ngay / count_0, 3), Math.Round(tb_7ngay / count_7, 3), Math.Round(tb_14ngay / count_14, 3),
+                Math.Round(tb_21ngay / count_21, 3), Math.Round(tb_28ngay / count_28, 3), Math.Round(tb_42ngay / count_42, 3),
+                Math.Round(tb_49ngay / count_49, 3), Math.Round(tb_56ngay / count_56, 3), Math.Round(tb_70ngay / count_70, 3),
+                Math.Round(tb_84ngay / count_84, 3), Math.Round(tb_98ngay / count_98, 3), Math.Round(tb_112ngay / count_112, 3),
+                Math.Round(tb_126ngay / count_126, 3), Math.Round(tb_140ngay / count_140, 3));
+                for (int i = 0; i < row.Length; i++)
+                {
+                    string Nguoi_nhap = row[i]["name"].ToString();
+                    string LOT = row[i]["LOT"].ToString();
+                    string Dot_sx = row[i]["dot_sx"].ToString();
+                    string Ngay_sx = row[i]["ngay_sx"].ToString();
+                    string Thiet_bi = row[i]["thiet_bi"].ToString();
+                    string Ma_btp = row[i]["ma_BTP"].ToString();
+                    string Ten_btp = row[i]["ten_BTP"].ToString();
+                    string Me = row[i]["me"].ToString();
+                    string Toc_do_release = row[i]["tocdo_release"].ToString();
+                    string Ngay_release = row[i]["ngay_release"].ToString();
+                    string Loai = row[i]["loai"].ToString();
+                    string Tong_klsp_thuduoc = row[i]["tong_klspsx"].ToString();
+                    if (Tong_klsp_thuduoc == "")
+                        Tong_klsp_thuduoc = "0";
+                    string Kl_dongkhoi = row[i]["kl_dongkhoi"].ToString();
+                    if (Kl_dongkhoi == "")
+                        Kl_dongkhoi = "0";
+                    string Khongdongkhoi = row[i]["kl_khongdongkhoi"].ToString();
+                    if (Khongdongkhoi == "")
+                        Khongdongkhoi = "0";
+                    string Kl_lythuyet = row[i]["kl_lythuyet"].ToString();
+                    if (Kl_lythuyet == "")
+                        Kl_lythuyet = "0";
+                    string Hieusuatthu = row[i]["hieuxuat_thu"].ToString();
+                    if (Hieusuatthu == "")
+                        Hieusuatthu = "0";
+                    string Hieusuatrelease = row[i]["hieuxuat_release"].ToString();
+                    if (Hieusuatrelease == "")
+                        Hieusuatrelease = "0";
+                    string Thoigiancb = row[i]["thoigian_cb"].ToString();
+                    string Thoigiansx = row[i]["thoigian_sx"].ToString();
+                    string Phanbon_nvl = row[i]["phanbon_nvl"].ToString();
+                    string KL_phan_nvl = row[i]["kl_nvl"].ToString();
+                    if (KL_phan_nvl == "")
+                        KL_phan_nvl = "0";
+                    string Barcode_nvl = row[i]["barcode_nvl"].ToString();
+                    string LOT_nvl = row[i]["lot_nvl"].ToString();
+                    string N1_khoiluong = row[i]["N1"].ToString();
+                    if (N1_khoiluong == "")
+                        N1_khoiluong = "0";
+                    string N1_barcode = row[i]["barcode_n1"].ToString();
+                    string N1_LOT = row[i]["lot_n1"].ToString();
+                    string N2_khoiluong = row[i]["N2"].ToString();
+                    if (N2_khoiluong == "")
+                        N2_khoiluong = "0";
+                    string N2_barcode = row[i]["barcode_n2"].ToString();
+                    string N2_LOT = row[i]["lot_n2"].ToString();
+                    string n3_khoiluong = row[i]["N3"].ToString();
+                    if (n3_khoiluong == "")
+                        n3_khoiluong = "0";
+                    string N3_barcode = row[i]["barcode_n3"].ToString();
+                    string N3_LOT = row[i]["lot_n3"].ToString();
+                    string GA3 = row[i]["Ga3"].ToString();
+                    if (GA3 == "")
+                        GA3 = "0";
+                    string GA3_barcode = row[i]["barcode_ga3"].ToString();
+                    string Borax = row[i]["Borax"].ToString();
+                    if (Borax == "")
+                        Borax = "0";
+                    string Borax_barcode = row[i]["bacode_borax"].ToString();
+                    string NAA = row[i]["Naa"].ToString();
+                    if (NAA == "")
+                        NAA = "0";
+                    string NAA_barcode = row[i]["barcode_naa"].ToString();
+                    string Sodium = row[i]["Sodium"].ToString();
+                    if (Sodium == "")
+                        Sodium = "0";
+                    string Sodium_barcode = row[i]["barcode_sodium"].ToString();
+                    string Citric = row[i]["Citric"].ToString();
+                    if (Citric == "")
+                        Citric = "0";
+                    string Barcode_Citric = row[i]["barcode_citric"].ToString();
+                    string Naoh = row[i]["Naoh"].ToString();
+                    if (Naoh == "")
+                        Naoh = "0";
+                    string Barcode_Naoh = row[i]["barocde_naoh"].ToString();
+                    string Solubo = row[i]["solubo"].ToString();
+                    if (Solubo == "")
+                        Solubo = "0";
+                    string Barcode_Solubo = row[i]["barocde_solubo"].ToString();
+                    string Edtazn = row[i]["Edta"].ToString();
+                    if (Edtazn == "")
+                        Edtazn = "0";
+                    string Barcode_Edta = row[i]["barcode_edta"].ToString();
+                    string Red = row[i]["Red"].ToString();
+                    if (Red == "")
+                        Red = "0";
+                    string Barcode_red = row[i]["barcode_red"].ToString();
+                    string Violet = row[i]["violet"].ToString();
+                    if (Violet == "")
+                        Violet = "0";
+                    string Barcode_violet = row[i]["barcode_violet"].ToString();
+                    string Blue = row[i]["blue"].ToString();
+                    if (Blue == "")
+                        Blue = "0";
+                    string Barcode_blue = row[i]["barocde_blue"].ToString();
+                    string Yellow = row[i]["yellow"].ToString();
+                    if (Yellow == "")
+                        Yellow = "0";
+                    string Barcode_yellow = row[i]["barcode_yellow"].ToString();
+                    string Black = row[i]["black"].ToString();
+                    if (Black == "")
+                        Black = "0";
+                    string Barcode_black = row[i]["barcode_back"].ToString();
+                    string Prev = row[i]["prev"].ToString();
+                    if (Prev == "")
+                        Prev = "0";
+                    string Barcode_Prev = row[i]["barcode_prev"].ToString();
+                    string Than_cam = row[i]["thancam"].ToString();
+                    if (Than_cam == "")
+                        Than_cam = "0";
+                    string Dien = row[i]["dien"].ToString();
+                    if (Dien == "")
+                        Dien = "0";
+                    string Nuoc_RO = row[i]["nuocRo"].ToString();
+                    if (Nuoc_RO == "")
+                        Nuoc_RO = "0";
+                    string Nuoc_thuycuc = row[i]["nuocthuycuc"].ToString();
+                    if (Nuoc_thuycuc == "")
+                        Nuoc_thuycuc = "0";
                     string BHLD = row[i]["BHLD"].ToString();
                     string Ghi_chu = row[i]["ghi_chu"].ToString();
                     string Vitri_tongspthuduoc = row[i]["vitri_spthuduoc"].ToString();
@@ -6140,18 +7722,11 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
-                                "", Math.Round(TONG_KL_LT, 4), Math.Round(Hieu_suat_thu_tb / dataGridView1.Rows.Count, 4), Math.Round(Hieu_suat_release_tb / dataGridView1.Rows.Count, 4),
-                                "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
-                                "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
-                                "", "", Math.Round(tb_do_am / count_doam, 4), Math.Round(tb_coating / count_coating, 4), "",
-                                Math.Round(tb_0ngay / count_0, 4), Math.Round(tb_7ngay / count_7, 4), Math.Round(tb_14ngay / count_14, 4),
-                                Math.Round(tb_21ngay / count_21, 4), Math.Round(tb_28ngay / count_28, 4), Math.Round(tb_42ngay / count_42, 4),
-                                Math.Round(tb_49ngay / count_49, 4), Math.Round(tb_56ngay / count_56, 4), Math.Round(tb_70ngay / count_70, 4),
-                                Math.Round(tb_84ngay / count_84, 4), Math.Round(tb_98ngay / count_98, 4), Math.Round(tb_112ngay / count_112, 4),
-                                Math.Round(tb_126ngay / count_126, 4), Math.Round(tb_140ngay / count_140, 4));
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
+                dataGridView1.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dataGridView1.Columns[7].Frozen = true;
+                dataGridView1.Rows[0].Frozen = true;
+                dataGridView1.CurrentCell = dataGridView1.Rows[1].Cells[0];
             }
             catch (Exception ex)
             {
@@ -6170,7 +7745,17 @@ namespace NhatKySanXuat
                 SqlDataAdapter adapter = new SqlDataAdapter();
                 DataTable tb_buff = new DataTable();
                 command = sqlcon.CreateCommand();
-                command.CommandText = "select * from nhatkysanxuat where phanbon_nvl LIKE '%" + cbb_phanbonnvl_search.Text + "%' AND dot_sx = '" + tb_dotsx_search.Text + "' AND ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) ORDER BY me ASC";
+                command.CommandText = "select name,dot_sx,ngay_sx,thiet_bi,ma_BTP,ten_BTP,me,LOT ,tocdo_release," +
+                        "ngay_release,loai,tong_klspsx,kl_dongkhoi,kl_khongdongkhoi,kl_lythuyet,hieuxuat_thu,hieuxuat_release," +
+                        "thoigian_cb,thoigian_sx,phanbon_nvl,kl_nvl,barcode_nvl,lot_nvl,N1,barcode_n1,lot_n1," +
+                        "N2,barcode_n2,lot_n2,N3,barcode_n3,lot_n3,Ga3,barcode_ga3,Borax,bacode_borax,Naa,barcode_naa,solubo,barocde_solubo," +
+                        "Edta,barcode_edta,Red,barcode_red,violet,barcode_violet,blue,barocde_blue,yellow,barcode_yellow,black,barcode_back,prev," +
+                        "barcode_prev,thancam,dien,nuocRO,nuocthuycuc,BHLD,Sodium,barcode_sodium,Citric,barcode_citric,Naoh,barocde_naoh,ghi_chu," +
+                        "vitri_spthuduoc,vitri_spdongkhoi,vitri_spkhongdongkhoi,N1_1,N1_2,N1_3,N1_1_barcode,N1_2_barcode,N1_3_barcode,N1_1_lot," +
+                        "N1_2_lot,N1_3_lot,N2_1,N2_2,N2_1_barcode,N2_2_barcode,N2_1_lot,N2_2_lot,N3_1,N3_1_barcode,N3_1_lot,N1_4,N1_4_barcode," +
+                        "N1_4_lot,N2_3,N2_3_barcode,N2_3_lot,N3_2,N3_2_barcode,N3_2_lot,N3_3,N3_3_barcode,N3_3_lot,thoigian_ondinh,do_am,coating_layer," +
+                        "ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140,NVL_1," +
+                        "barcode_NVL_1,lot_NVL_1,NVL_2,barcode_NVL_2,lot_NVL_2,KL_NVL_1,KL_NVL_2,N1_BD,N1_KT,N2_BD,N2_KT,N3_BD,N3_KT from nhatkysanxuat where phanbon_nvl LIKE '%" + cbb_phanbonnvl_search.Text + "%' AND dot_sx = '" + tb_dotsx_search.Text + "' AND ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) ORDER BY me ASC";
                 adapter.SelectCommand = command;
                 tb_buff.Clear();
                 adapter.Fill(tb_buff);
@@ -6325,18 +7910,6 @@ namespace NhatKySanXuat
                         count_coating++;
                         tb_coating += Convert.ToDouble(row[i]["coating_layer"].ToString());
                     }
-                    string Nguoi_nhap = row[i]["name"].ToString();
-                    string LOT = row[i]["LOT"].ToString();
-                    string Dot_sx = row[i]["dot_sx"].ToString();
-                    string Ngay_sx = row[i]["ngay_sx"].ToString();
-                    string Thiet_bi = row[i]["thiet_bi"].ToString();
-                    string Ma_btp = row[i]["ma_BTP"].ToString();
-                    string Ten_btp = row[i]["ten_BTP"].ToString();
-                    string Me = row[i]["me"].ToString();
-                    string Kl_nvl = row[i]["klnl_sudung"].ToString();
-                    string Toc_do_release = row[i]["tocdo_release"].ToString();
-                    string Ngay_release = row[i]["ngay_release"].ToString();
-                    string Loai = row[i]["loai"].ToString();
                     string Tong_klsp_thuduoc = row[i]["tong_klspsx"].ToString();
                     if (Tong_klsp_thuduoc == "")
                         Tong_klsp_thuduoc = "0";
@@ -6361,103 +7934,78 @@ namespace NhatKySanXuat
                     if (Hieusuatrelease == "")
                         Hieusuatrelease = "0";
                     Hieu_suat_release_tb += Convert.ToDouble(Hieusuatrelease);
-                    string Thoigiancb = row[i]["thoigian_cb"].ToString();
-                    string Thoigiansx = row[i]["thoigian_sx"].ToString();
-                    string Phanbon_nvl = row[i]["phanbon_nvl"].ToString();
                     string KL_phan_nvl = row[i]["kl_nvl"].ToString();
                     if (KL_phan_nvl == "")
                         KL_phan_nvl = "0";
                     KHOI_LUONG_NVL += Convert.ToDouble(KL_phan_nvl);
-                    string Barcode_nvl = row[i]["barcode_nvl"].ToString();
-                    string LOT_nvl = row[i]["lot_nvl"].ToString();
                     string N1_khoiluong = row[i]["N1"].ToString();
                     if (N1_khoiluong == "")
                         N1_khoiluong = "0";
                     Tong_N1_KL += Convert.ToDouble(N1_khoiluong);
-                    string N1_barcode = row[i]["barcode_n1"].ToString();
-                    string N1_LOT = row[i]["lot_n1"].ToString();
                     string N2_khoiluong = row[i]["N2"].ToString();
                     if (N2_khoiluong == "")
                         N2_khoiluong = "0";
                     Tong_N2_KL += Convert.ToDouble(N2_khoiluong);
-                    string N2_barcode = row[i]["barcode_n2"].ToString();
-                    string N2_LOT = row[i]["lot_n2"].ToString();
                     string n3_khoiluong = row[i]["N3"].ToString();
                     if (n3_khoiluong == "")
                         n3_khoiluong = "0";
                     Tong_N3_KL += Convert.ToDouble(n3_khoiluong);
-                    string N3_barcode = row[i]["barcode_n3"].ToString();
-                    string N3_LOT = row[i]["lot_n3"].ToString();
                     string GA3 = row[i]["Ga3"].ToString();
                     if (GA3 == "")
                         GA3 = "0";
                     Tong_ga3 += Convert.ToDouble(GA3);
-                    string GA3_barcode = row[i]["barcode_ga3"].ToString();
                     string Borax = row[i]["Borax"].ToString();
                     if (Borax == "")
                         Borax = "0";
                     Tong_borax += Convert.ToDouble(Borax);
-                    string Borax_barcode = row[i]["bacode_borax"].ToString();
                     string NAA = row[i]["Naa"].ToString();
                     if (NAA == "")
                         NAA = "0";
                     Tong_Naa += Convert.ToDouble(NAA);
-                    string NAA_barcode = row[i]["barcode_naa"].ToString();
                     string Sodium = row[i]["Sodium"].ToString();
                     if (Sodium == "")
                         Sodium = "0";
                     Tong_sodium += Convert.ToDouble(Sodium);
-                    string Sodium_barcode = row[i]["barcode_sodium"].ToString();
                     string Citric = row[i]["Citric"].ToString();
                     if (Citric == "")
                         Citric = "0";
                     Tong_citric += Convert.ToDouble(Citric);
-                    string Barcode_Citric = row[i]["barcode_citric"].ToString();
                     string Naoh = row[i]["Naoh"].ToString();
                     if (Naoh == "")
                         Naoh = "0";
                     Tong_naoh += Convert.ToDouble(Naoh);
-                    string Barcode_Naoh = row[i]["barocde_naoh"].ToString();
                     string Solubo = row[i]["solubo"].ToString();
                     if (Solubo == "")
                         Solubo = "0";
                     Tong_solubo += Convert.ToDouble(Solubo);
-                    string Barcode_Solubo = row[i]["barocde_solubo"].ToString();
                     string Edtazn = row[i]["Edta"].ToString();
                     if (Edtazn == "")
                         Edtazn = "0";
                     Tong_edtazn += Convert.ToDouble(Edtazn);
-                    string Barcode_Edta = row[i]["barcode_edta"].ToString();
                     string Red = row[i]["Red"].ToString();
                     if (Red == "")
                         Red = "0";
                     Tong_red += Convert.ToDouble(Red);
-                    string Barcode_red = row[i]["barcode_red"].ToString();
                     string Violet = row[i]["violet"].ToString();
                     if (Violet == "")
                         Violet = "0";
                     Tong_violet += Convert.ToDouble(Violet);
-                    string Barcode_violet = row[i]["barcode_violet"].ToString();
                     string Blue = row[i]["blue"].ToString();
                     if (Blue == "")
                         Blue = "0";
                     Tong_blue += Convert.ToDouble(Blue);
-                    string Barcode_blue = row[i]["barocde_blue"].ToString();
                     string Yellow = row[i]["yellow"].ToString();
                     if (Yellow == "")
                         Yellow = "0";
                     Tong_yellow += Convert.ToDouble(Yellow);
-                    string Barcode_yellow = row[i]["barcode_yellow"].ToString();
                     string Black = row[i]["black"].ToString();
                     if (Black == "")
                         Black = "0";
                     Tong_black += Convert.ToDouble(Black);
-                    string Barcode_black = row[i]["barcode_back"].ToString();
                     string Prev = row[i]["prev"].ToString();
                     if (Prev == "")
                         Prev = "0";
                     Tong_prev += Convert.ToDouble(Prev);
-                    string Barcode_Prev = row[i]["barcode_prev"].ToString();
                     string Than_cam = row[i]["thancam"].ToString();
                     if (Than_cam == "")
                         Than_cam = "0";
@@ -6474,6 +8022,139 @@ namespace NhatKySanXuat
                     if (Nuoc_thuycuc == "")
                         Nuoc_thuycuc = "0";
                     Tong_nuocthuycuc += Convert.ToDouble(Nuoc_thuycuc);
+                }
+                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                "", Math.Round(TONG_KL_LT, 3), Math.Round(Hieu_suat_thu_tb / row.Length, 3), Math.Round(Hieu_suat_release_tb / row.Length, 3),
+                "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
+                "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
+                "", "", Math.Round(tb_do_am / count_doam, 3), Math.Round(tb_coating / count_coating, 3), "",
+                Math.Round(tb_0ngay / count_0, 3), Math.Round(tb_7ngay / count_7, 3), Math.Round(tb_14ngay / count_14, 3),
+                Math.Round(tb_21ngay / count_21, 3), Math.Round(tb_28ngay / count_28, 3), Math.Round(tb_42ngay / count_42, 3),
+                Math.Round(tb_49ngay / count_49, 3), Math.Round(tb_56ngay / count_56, 3), Math.Round(tb_70ngay / count_70, 3),
+                Math.Round(tb_84ngay / count_84, 3), Math.Round(tb_98ngay / count_98, 3), Math.Round(tb_112ngay / count_112, 3),
+                Math.Round(tb_126ngay / count_126, 3), Math.Round(tb_140ngay / count_140, 3));
+                for (int i = 0; i < row.Length; i++)
+                {
+                    string Nguoi_nhap = row[i]["name"].ToString();
+                    string LOT = row[i]["LOT"].ToString();
+                    string Dot_sx = row[i]["dot_sx"].ToString();
+                    string Ngay_sx = row[i]["ngay_sx"].ToString();
+                    string Thiet_bi = row[i]["thiet_bi"].ToString();
+                    string Ma_btp = row[i]["ma_BTP"].ToString();
+                    string Ten_btp = row[i]["ten_BTP"].ToString();
+                    string Me = row[i]["me"].ToString();
+                    string Toc_do_release = row[i]["tocdo_release"].ToString();
+                    string Ngay_release = row[i]["ngay_release"].ToString();
+                    string Loai = row[i]["loai"].ToString();
+                    string Tong_klsp_thuduoc = row[i]["tong_klspsx"].ToString();
+                    if (Tong_klsp_thuduoc == "")
+                        Tong_klsp_thuduoc = "0";
+                    string Kl_dongkhoi = row[i]["kl_dongkhoi"].ToString();
+                    if (Kl_dongkhoi == "")
+                        Kl_dongkhoi = "0";
+                    string Khongdongkhoi = row[i]["kl_khongdongkhoi"].ToString();
+                    if (Khongdongkhoi == "")
+                        Khongdongkhoi = "0";
+                    string Kl_lythuyet = row[i]["kl_lythuyet"].ToString();
+                    if (Kl_lythuyet == "")
+                        Kl_lythuyet = "0";
+                    string Hieusuatthu = row[i]["hieuxuat_thu"].ToString();
+                    if (Hieusuatthu == "")
+                        Hieusuatthu = "0";
+                    string Hieusuatrelease = row[i]["hieuxuat_release"].ToString();
+                    if (Hieusuatrelease == "")
+                        Hieusuatrelease = "0";
+                    string Thoigiancb = row[i]["thoigian_cb"].ToString();
+                    string Thoigiansx = row[i]["thoigian_sx"].ToString();
+                    string Phanbon_nvl = row[i]["phanbon_nvl"].ToString();
+                    string KL_phan_nvl = row[i]["kl_nvl"].ToString();
+                    if (KL_phan_nvl == "")
+                        KL_phan_nvl = "0";
+                    string Barcode_nvl = row[i]["barcode_nvl"].ToString();
+                    string LOT_nvl = row[i]["lot_nvl"].ToString();
+                    string N1_khoiluong = row[i]["N1"].ToString();
+                    if (N1_khoiluong == "")
+                        N1_khoiluong = "0";
+                    string N1_barcode = row[i]["barcode_n1"].ToString();
+                    string N1_LOT = row[i]["lot_n1"].ToString();
+                    string N2_khoiluong = row[i]["N2"].ToString();
+                    if (N2_khoiluong == "")
+                        N2_khoiluong = "0";
+                    string N2_barcode = row[i]["barcode_n2"].ToString();
+                    string N2_LOT = row[i]["lot_n2"].ToString();
+                    string n3_khoiluong = row[i]["N3"].ToString();
+                    if (n3_khoiluong == "")
+                        n3_khoiluong = "0";
+                    string N3_barcode = row[i]["barcode_n3"].ToString();
+                    string N3_LOT = row[i]["lot_n3"].ToString();
+                    string GA3 = row[i]["Ga3"].ToString();
+                    if (GA3 == "")
+                        GA3 = "0";
+                    string GA3_barcode = row[i]["barcode_ga3"].ToString();
+                    string Borax = row[i]["Borax"].ToString();
+                    if (Borax == "")
+                        Borax = "0";
+                    string Borax_barcode = row[i]["bacode_borax"].ToString();
+                    string NAA = row[i]["Naa"].ToString();
+                    if (NAA == "")
+                        NAA = "0";
+                    string NAA_barcode = row[i]["barcode_naa"].ToString();
+                    string Sodium = row[i]["Sodium"].ToString();
+                    if (Sodium == "")
+                        Sodium = "0";
+                    string Sodium_barcode = row[i]["barcode_sodium"].ToString();
+                    string Citric = row[i]["Citric"].ToString();
+                    if (Citric == "")
+                        Citric = "0";
+                    string Barcode_Citric = row[i]["barcode_citric"].ToString();
+                    string Naoh = row[i]["Naoh"].ToString();
+                    if (Naoh == "")
+                        Naoh = "0";
+                    string Barcode_Naoh = row[i]["barocde_naoh"].ToString();
+                    string Solubo = row[i]["solubo"].ToString();
+                    if (Solubo == "")
+                        Solubo = "0";
+                    string Barcode_Solubo = row[i]["barocde_solubo"].ToString();
+                    string Edtazn = row[i]["Edta"].ToString();
+                    if (Edtazn == "")
+                        Edtazn = "0";
+                    string Barcode_Edta = row[i]["barcode_edta"].ToString();
+                    string Red = row[i]["Red"].ToString();
+                    if (Red == "")
+                        Red = "0";
+                    string Barcode_red = row[i]["barcode_red"].ToString();
+                    string Violet = row[i]["violet"].ToString();
+                    if (Violet == "")
+                        Violet = "0";
+                    string Barcode_violet = row[i]["barcode_violet"].ToString();
+                    string Blue = row[i]["blue"].ToString();
+                    if (Blue == "")
+                        Blue = "0";
+                    string Barcode_blue = row[i]["barocde_blue"].ToString();
+                    string Yellow = row[i]["yellow"].ToString();
+                    if (Yellow == "")
+                        Yellow = "0";
+                    string Barcode_yellow = row[i]["barcode_yellow"].ToString();
+                    string Black = row[i]["black"].ToString();
+                    if (Black == "")
+                        Black = "0";
+                    string Barcode_black = row[i]["barcode_back"].ToString();
+                    string Prev = row[i]["prev"].ToString();
+                    if (Prev == "")
+                        Prev = "0";
+                    string Barcode_Prev = row[i]["barcode_prev"].ToString();
+                    string Than_cam = row[i]["thancam"].ToString();
+                    if (Than_cam == "")
+                        Than_cam = "0";
+                    string Dien = row[i]["dien"].ToString();
+                    if (Dien == "")
+                        Dien = "0";
+                    string Nuoc_RO = row[i]["nuocRo"].ToString();
+                    if (Nuoc_RO == "")
+                        Nuoc_RO = "0";
+                    string Nuoc_thuycuc = row[i]["nuocthuycuc"].ToString();
+                    if (Nuoc_thuycuc == "")
+                        Nuoc_thuycuc = "0";
                     string BHLD = row[i]["BHLD"].ToString();
                     string Ghi_chu = row[i]["ghi_chu"].ToString();
                     string Vitri_tongspthuduoc = row[i]["vitri_spthuduoc"].ToString();
@@ -6508,18 +8189,11 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
-                                "", Math.Round(TONG_KL_LT, 4), Math.Round(Hieu_suat_thu_tb / dataGridView1.Rows.Count, 4), Math.Round(Hieu_suat_release_tb / dataGridView1.Rows.Count, 4),
-                                "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
-                                "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
-                                "", "", Math.Round(tb_do_am / count_doam, 4), Math.Round(tb_coating / count_coating, 4), "",
-                                Math.Round(tb_0ngay / count_0, 4), Math.Round(tb_7ngay / count_7, 4), Math.Round(tb_14ngay / count_14, 4),
-                                Math.Round(tb_21ngay / count_21, 4), Math.Round(tb_28ngay / count_28, 4), Math.Round(tb_42ngay / count_42, 4),
-                                Math.Round(tb_49ngay / count_49, 4), Math.Round(tb_56ngay / count_56, 4), Math.Round(tb_70ngay / count_70, 4),
-                                Math.Round(tb_84ngay / count_84, 4), Math.Round(tb_98ngay / count_98, 4), Math.Round(tb_112ngay / count_112, 4),
-                                Math.Round(tb_126ngay / count_126, 4), Math.Round(tb_140ngay / count_140, 4));
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
+                dataGridView1.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dataGridView1.Columns[7].Frozen = true;
+                dataGridView1.Rows[0].Frozen = true;
+                dataGridView1.CurrentCell = dataGridView1.Rows[1].Cells[0];
             }
             catch (Exception ex)
             {
@@ -6538,7 +8212,17 @@ namespace NhatKySanXuat
                 SqlDataAdapter adapter = new SqlDataAdapter();
                 DataTable tb_buff = new DataTable();
                 command = sqlcon.CreateCommand();
-                command.CommandText = "select * from nhatkysanxuat where thiet_bi = '" + cbb_thietbi_search.Text + "' AND phanbon_nvl LIKE '%" + cbb_phanbonnvl_search.Text + "%' AND dot_sx = '" + tb_dotsx_search.Text + "' AND ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) ORDER BY me ASC";
+                command.CommandText = "select name,dot_sx,ngay_sx,thiet_bi,ma_BTP,ten_BTP,me,LOT ,tocdo_release," +
+                        "ngay_release,loai,tong_klspsx,kl_dongkhoi,kl_khongdongkhoi,kl_lythuyet,hieuxuat_thu,hieuxuat_release," +
+                        "thoigian_cb,thoigian_sx,phanbon_nvl,kl_nvl,barcode_nvl,lot_nvl,N1,barcode_n1,lot_n1," +
+                        "N2,barcode_n2,lot_n2,N3,barcode_n3,lot_n3,Ga3,barcode_ga3,Borax,bacode_borax,Naa,barcode_naa,solubo,barocde_solubo," +
+                        "Edta,barcode_edta,Red,barcode_red,violet,barcode_violet,blue,barocde_blue,yellow,barcode_yellow,black,barcode_back,prev," +
+                        "barcode_prev,thancam,dien,nuocRO,nuocthuycuc,BHLD,Sodium,barcode_sodium,Citric,barcode_citric,Naoh,barocde_naoh,ghi_chu," +
+                        "vitri_spthuduoc,vitri_spdongkhoi,vitri_spkhongdongkhoi,N1_1,N1_2,N1_3,N1_1_barcode,N1_2_barcode,N1_3_barcode,N1_1_lot," +
+                        "N1_2_lot,N1_3_lot,N2_1,N2_2,N2_1_barcode,N2_2_barcode,N2_1_lot,N2_2_lot,N3_1,N3_1_barcode,N3_1_lot,N1_4,N1_4_barcode," +
+                        "N1_4_lot,N2_3,N2_3_barcode,N2_3_lot,N3_2,N3_2_barcode,N3_2_lot,N3_3,N3_3_barcode,N3_3_lot,thoigian_ondinh,do_am,coating_layer," +
+                        "ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140,NVL_1," +
+                        "barcode_NVL_1,lot_NVL_1,NVL_2,barcode_NVL_2,lot_NVL_2,KL_NVL_1,KL_NVL_2,N1_BD,N1_KT,N2_BD,N2_KT,N3_BD,N3_KT from nhatkysanxuat where thiet_bi = '" + cbb_thietbi_search.Text + "' AND phanbon_nvl LIKE '%" + cbb_phanbonnvl_search.Text + "%' AND dot_sx = '" + tb_dotsx_search.Text + "' AND ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) ORDER BY me ASC";
                 adapter.SelectCommand = command;
                 tb_buff.Clear();
                 adapter.Fill(tb_buff);
@@ -6693,18 +8377,6 @@ namespace NhatKySanXuat
                         count_coating++;
                         tb_coating += Convert.ToDouble(row[i]["coating_layer"].ToString());
                     }
-                    string Nguoi_nhap = row[i]["name"].ToString();
-                    string LOT = row[i]["LOT"].ToString();
-                    string Dot_sx = row[i]["dot_sx"].ToString();
-                    string Ngay_sx = row[i]["ngay_sx"].ToString();
-                    string Thiet_bi = row[i]["thiet_bi"].ToString();
-                    string Ma_btp = row[i]["ma_BTP"].ToString();
-                    string Ten_btp = row[i]["ten_BTP"].ToString();
-                    string Me = row[i]["me"].ToString();
-                    string Kl_nvl = row[i]["klnl_sudung"].ToString();
-                    string Toc_do_release = row[i]["tocdo_release"].ToString();
-                    string Ngay_release = row[i]["ngay_release"].ToString();
-                    string Loai = row[i]["loai"].ToString();
                     string Tong_klsp_thuduoc = row[i]["tong_klspsx"].ToString();
                     if (Tong_klsp_thuduoc == "")
                         Tong_klsp_thuduoc = "0";
@@ -6729,103 +8401,78 @@ namespace NhatKySanXuat
                     if (Hieusuatrelease == "")
                         Hieusuatrelease = "0";
                     Hieu_suat_release_tb += Convert.ToDouble(Hieusuatrelease);
-                    string Thoigiancb = row[i]["thoigian_cb"].ToString();
-                    string Thoigiansx = row[i]["thoigian_sx"].ToString();
-                    string Phanbon_nvl = row[i]["phanbon_nvl"].ToString();
                     string KL_phan_nvl = row[i]["kl_nvl"].ToString();
                     if (KL_phan_nvl == "")
                         KL_phan_nvl = "0";
                     KHOI_LUONG_NVL += Convert.ToDouble(KL_phan_nvl);
-                    string Barcode_nvl = row[i]["barcode_nvl"].ToString();
-                    string LOT_nvl = row[i]["lot_nvl"].ToString();
                     string N1_khoiluong = row[i]["N1"].ToString();
                     if (N1_khoiluong == "")
                         N1_khoiluong = "0";
                     Tong_N1_KL += Convert.ToDouble(N1_khoiluong);
-                    string N1_barcode = row[i]["barcode_n1"].ToString();
-                    string N1_LOT = row[i]["lot_n1"].ToString();
                     string N2_khoiluong = row[i]["N2"].ToString();
                     if (N2_khoiluong == "")
                         N2_khoiluong = "0";
                     Tong_N2_KL += Convert.ToDouble(N2_khoiluong);
-                    string N2_barcode = row[i]["barcode_n2"].ToString();
-                    string N2_LOT = row[i]["lot_n2"].ToString();
                     string n3_khoiluong = row[i]["N3"].ToString();
                     if (n3_khoiluong == "")
                         n3_khoiluong = "0";
                     Tong_N3_KL += Convert.ToDouble(n3_khoiluong);
-                    string N3_barcode = row[i]["barcode_n3"].ToString();
-                    string N3_LOT = row[i]["lot_n3"].ToString();
                     string GA3 = row[i]["Ga3"].ToString();
                     if (GA3 == "")
                         GA3 = "0";
                     Tong_ga3 += Convert.ToDouble(GA3);
-                    string GA3_barcode = row[i]["barcode_ga3"].ToString();
                     string Borax = row[i]["Borax"].ToString();
                     if (Borax == "")
                         Borax = "0";
                     Tong_borax += Convert.ToDouble(Borax);
-                    string Borax_barcode = row[i]["bacode_borax"].ToString();
                     string NAA = row[i]["Naa"].ToString();
                     if (NAA == "")
                         NAA = "0";
                     Tong_Naa += Convert.ToDouble(NAA);
-                    string NAA_barcode = row[i]["barcode_naa"].ToString();
                     string Sodium = row[i]["Sodium"].ToString();
                     if (Sodium == "")
                         Sodium = "0";
                     Tong_sodium += Convert.ToDouble(Sodium);
-                    string Sodium_barcode = row[i]["barcode_sodium"].ToString();
                     string Citric = row[i]["Citric"].ToString();
                     if (Citric == "")
                         Citric = "0";
                     Tong_citric += Convert.ToDouble(Citric);
-                    string Barcode_Citric = row[i]["barcode_citric"].ToString();
                     string Naoh = row[i]["Naoh"].ToString();
                     if (Naoh == "")
                         Naoh = "0";
                     Tong_naoh += Convert.ToDouble(Naoh);
-                    string Barcode_Naoh = row[i]["barocde_naoh"].ToString();
                     string Solubo = row[i]["solubo"].ToString();
                     if (Solubo == "")
                         Solubo = "0";
                     Tong_solubo += Convert.ToDouble(Solubo);
-                    string Barcode_Solubo = row[i]["barocde_solubo"].ToString();
                     string Edtazn = row[i]["Edta"].ToString();
                     if (Edtazn == "")
                         Edtazn = "0";
                     Tong_edtazn += Convert.ToDouble(Edtazn);
-                    string Barcode_Edta = row[i]["barcode_edta"].ToString();
                     string Red = row[i]["Red"].ToString();
                     if (Red == "")
                         Red = "0";
                     Tong_red += Convert.ToDouble(Red);
-                    string Barcode_red = row[i]["barcode_red"].ToString();
                     string Violet = row[i]["violet"].ToString();
                     if (Violet == "")
                         Violet = "0";
                     Tong_violet += Convert.ToDouble(Violet);
-                    string Barcode_violet = row[i]["barcode_violet"].ToString();
                     string Blue = row[i]["blue"].ToString();
                     if (Blue == "")
                         Blue = "0";
                     Tong_blue += Convert.ToDouble(Blue);
-                    string Barcode_blue = row[i]["barocde_blue"].ToString();
                     string Yellow = row[i]["yellow"].ToString();
                     if (Yellow == "")
                         Yellow = "0";
                     Tong_yellow += Convert.ToDouble(Yellow);
-                    string Barcode_yellow = row[i]["barcode_yellow"].ToString();
                     string Black = row[i]["black"].ToString();
                     if (Black == "")
                         Black = "0";
                     Tong_black += Convert.ToDouble(Black);
-                    string Barcode_black = row[i]["barcode_back"].ToString();
                     string Prev = row[i]["prev"].ToString();
                     if (Prev == "")
                         Prev = "0";
                     Tong_prev += Convert.ToDouble(Prev);
-                    string Barcode_Prev = row[i]["barcode_prev"].ToString();
                     string Than_cam = row[i]["thancam"].ToString();
                     if (Than_cam == "")
                         Than_cam = "0";
@@ -6842,6 +8489,139 @@ namespace NhatKySanXuat
                     if (Nuoc_thuycuc == "")
                         Nuoc_thuycuc = "0";
                     Tong_nuocthuycuc += Convert.ToDouble(Nuoc_thuycuc);
+                }
+                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                "", Math.Round(TONG_KL_LT, 3), Math.Round(Hieu_suat_thu_tb / row.Length, 3), Math.Round(Hieu_suat_release_tb / row.Length, 3),
+                "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
+                "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
+                "", "", Math.Round(tb_do_am / count_doam, 3), Math.Round(tb_coating / count_coating, 3), "",
+                Math.Round(tb_0ngay / count_0, 3), Math.Round(tb_7ngay / count_7, 3), Math.Round(tb_14ngay / count_14, 3),
+                Math.Round(tb_21ngay / count_21, 3), Math.Round(tb_28ngay / count_28, 3), Math.Round(tb_42ngay / count_42, 3),
+                Math.Round(tb_49ngay / count_49, 3), Math.Round(tb_56ngay / count_56, 3), Math.Round(tb_70ngay / count_70, 3),
+                Math.Round(tb_84ngay / count_84, 3), Math.Round(tb_98ngay / count_98, 3), Math.Round(tb_112ngay / count_112, 3),
+                Math.Round(tb_126ngay / count_126, 3), Math.Round(tb_140ngay / count_140, 3));
+                for (int i = 0; i < row.Length; i++)
+                {
+                    string Nguoi_nhap = row[i]["name"].ToString();
+                    string LOT = row[i]["LOT"].ToString();
+                    string Dot_sx = row[i]["dot_sx"].ToString();
+                    string Ngay_sx = row[i]["ngay_sx"].ToString();
+                    string Thiet_bi = row[i]["thiet_bi"].ToString();
+                    string Ma_btp = row[i]["ma_BTP"].ToString();
+                    string Ten_btp = row[i]["ten_BTP"].ToString();
+                    string Me = row[i]["me"].ToString();
+                    string Toc_do_release = row[i]["tocdo_release"].ToString();
+                    string Ngay_release = row[i]["ngay_release"].ToString();
+                    string Loai = row[i]["loai"].ToString();
+                    string Tong_klsp_thuduoc = row[i]["tong_klspsx"].ToString();
+                    if (Tong_klsp_thuduoc == "")
+                        Tong_klsp_thuduoc = "0";
+                    string Kl_dongkhoi = row[i]["kl_dongkhoi"].ToString();
+                    if (Kl_dongkhoi == "")
+                        Kl_dongkhoi = "0";
+                    string Khongdongkhoi = row[i]["kl_khongdongkhoi"].ToString();
+                    if (Khongdongkhoi == "")
+                        Khongdongkhoi = "0";
+                    string Kl_lythuyet = row[i]["kl_lythuyet"].ToString();
+                    if (Kl_lythuyet == "")
+                        Kl_lythuyet = "0";
+                    string Hieusuatthu = row[i]["hieuxuat_thu"].ToString();
+                    if (Hieusuatthu == "")
+                        Hieusuatthu = "0";
+                    string Hieusuatrelease = row[i]["hieuxuat_release"].ToString();
+                    if (Hieusuatrelease == "")
+                        Hieusuatrelease = "0";
+                    string Thoigiancb = row[i]["thoigian_cb"].ToString();
+                    string Thoigiansx = row[i]["thoigian_sx"].ToString();
+                    string Phanbon_nvl = row[i]["phanbon_nvl"].ToString();
+                    string KL_phan_nvl = row[i]["kl_nvl"].ToString();
+                    if (KL_phan_nvl == "")
+                        KL_phan_nvl = "0";
+                    string Barcode_nvl = row[i]["barcode_nvl"].ToString();
+                    string LOT_nvl = row[i]["lot_nvl"].ToString();
+                    string N1_khoiluong = row[i]["N1"].ToString();
+                    if (N1_khoiluong == "")
+                        N1_khoiluong = "0";
+                    string N1_barcode = row[i]["barcode_n1"].ToString();
+                    string N1_LOT = row[i]["lot_n1"].ToString();
+                    string N2_khoiluong = row[i]["N2"].ToString();
+                    if (N2_khoiluong == "")
+                        N2_khoiluong = "0";
+                    string N2_barcode = row[i]["barcode_n2"].ToString();
+                    string N2_LOT = row[i]["lot_n2"].ToString();
+                    string n3_khoiluong = row[i]["N3"].ToString();
+                    if (n3_khoiluong == "")
+                        n3_khoiluong = "0";
+                    string N3_barcode = row[i]["barcode_n3"].ToString();
+                    string N3_LOT = row[i]["lot_n3"].ToString();
+                    string GA3 = row[i]["Ga3"].ToString();
+                    if (GA3 == "")
+                        GA3 = "0";
+                    string GA3_barcode = row[i]["barcode_ga3"].ToString();
+                    string Borax = row[i]["Borax"].ToString();
+                    if (Borax == "")
+                        Borax = "0";
+                    string Borax_barcode = row[i]["bacode_borax"].ToString();
+                    string NAA = row[i]["Naa"].ToString();
+                    if (NAA == "")
+                        NAA = "0";
+                    string NAA_barcode = row[i]["barcode_naa"].ToString();
+                    string Sodium = row[i]["Sodium"].ToString();
+                    if (Sodium == "")
+                        Sodium = "0";
+                    string Sodium_barcode = row[i]["barcode_sodium"].ToString();
+                    string Citric = row[i]["Citric"].ToString();
+                    if (Citric == "")
+                        Citric = "0";
+                    string Barcode_Citric = row[i]["barcode_citric"].ToString();
+                    string Naoh = row[i]["Naoh"].ToString();
+                    if (Naoh == "")
+                        Naoh = "0";
+                    string Barcode_Naoh = row[i]["barocde_naoh"].ToString();
+                    string Solubo = row[i]["solubo"].ToString();
+                    if (Solubo == "")
+                        Solubo = "0";
+                    string Barcode_Solubo = row[i]["barocde_solubo"].ToString();
+                    string Edtazn = row[i]["Edta"].ToString();
+                    if (Edtazn == "")
+                        Edtazn = "0";
+                    string Barcode_Edta = row[i]["barcode_edta"].ToString();
+                    string Red = row[i]["Red"].ToString();
+                    if (Red == "")
+                        Red = "0";
+                    string Barcode_red = row[i]["barcode_red"].ToString();
+                    string Violet = row[i]["violet"].ToString();
+                    if (Violet == "")
+                        Violet = "0";
+                    string Barcode_violet = row[i]["barcode_violet"].ToString();
+                    string Blue = row[i]["blue"].ToString();
+                    if (Blue == "")
+                        Blue = "0";
+                    string Barcode_blue = row[i]["barocde_blue"].ToString();
+                    string Yellow = row[i]["yellow"].ToString();
+                    if (Yellow == "")
+                        Yellow = "0";
+                    string Barcode_yellow = row[i]["barcode_yellow"].ToString();
+                    string Black = row[i]["black"].ToString();
+                    if (Black == "")
+                        Black = "0";
+                    string Barcode_black = row[i]["barcode_back"].ToString();
+                    string Prev = row[i]["prev"].ToString();
+                    if (Prev == "")
+                        Prev = "0";
+                    string Barcode_Prev = row[i]["barcode_prev"].ToString();
+                    string Than_cam = row[i]["thancam"].ToString();
+                    if (Than_cam == "")
+                        Than_cam = "0";
+                    string Dien = row[i]["dien"].ToString();
+                    if (Dien == "")
+                        Dien = "0";
+                    string Nuoc_RO = row[i]["nuocRo"].ToString();
+                    if (Nuoc_RO == "")
+                        Nuoc_RO = "0";
+                    string Nuoc_thuycuc = row[i]["nuocthuycuc"].ToString();
+                    if (Nuoc_thuycuc == "")
+                        Nuoc_thuycuc = "0";
                     string BHLD = row[i]["BHLD"].ToString();
                     string Ghi_chu = row[i]["ghi_chu"].ToString();
                     string Vitri_tongspthuduoc = row[i]["vitri_spthuduoc"].ToString();
@@ -6876,18 +8656,11 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
-                                "", Math.Round(TONG_KL_LT, 4), Math.Round(Hieu_suat_thu_tb / dataGridView1.Rows.Count, 4), Math.Round(Hieu_suat_release_tb / dataGridView1.Rows.Count, 4),
-                                "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
-                                "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
-                                "", "", Math.Round(tb_do_am / count_doam, 4), Math.Round(tb_coating / count_coating, 4), "",
-                                Math.Round(tb_0ngay / count_0, 4), Math.Round(tb_7ngay / count_7, 4), Math.Round(tb_14ngay / count_14, 4),
-                                Math.Round(tb_21ngay / count_21, 4), Math.Round(tb_28ngay / count_28, 4), Math.Round(tb_42ngay / count_42, 4),
-                                Math.Round(tb_49ngay / count_49, 4), Math.Round(tb_56ngay / count_56, 4), Math.Round(tb_70ngay / count_70, 4),
-                                Math.Round(tb_84ngay / count_84, 4), Math.Round(tb_98ngay / count_98, 4), Math.Round(tb_112ngay / count_112, 4),
-                                Math.Round(tb_126ngay / count_126, 4), Math.Round(tb_140ngay / count_140, 4));
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
+                dataGridView1.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dataGridView1.Columns[7].Frozen = true;
+                dataGridView1.Rows[0].Frozen = true;
+                dataGridView1.CurrentCell = dataGridView1.Rows[1].Cells[0];
             }
             catch (Exception ex)
             {
@@ -6906,7 +8679,17 @@ namespace NhatKySanXuat
                 DataTable tb_buff = new DataTable();
                 sqlcon.Open();
                 command = sqlcon.CreateCommand();
-                command.CommandText = "select * from nhatkysanxuat where ma_BTP LIKE '%" + cbb_ma_BTP_search.Text + "%' AND thiet_bi = '" + cbb_thietbi_search.Text + "' AND ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) AND loai = '" + cbb_search_loai.Text + "' ORDER BY dot_sx DESC";
+                command.CommandText = "select name,dot_sx,ngay_sx,thiet_bi,ma_BTP,ten_BTP,me,LOT ,tocdo_release," +
+                        "ngay_release,loai,tong_klspsx,kl_dongkhoi,kl_khongdongkhoi,kl_lythuyet,hieuxuat_thu,hieuxuat_release," +
+                        "thoigian_cb,thoigian_sx,phanbon_nvl,kl_nvl,barcode_nvl,lot_nvl,N1,barcode_n1,lot_n1," +
+                        "N2,barcode_n2,lot_n2,N3,barcode_n3,lot_n3,Ga3,barcode_ga3,Borax,bacode_borax,Naa,barcode_naa,solubo,barocde_solubo," +
+                        "Edta,barcode_edta,Red,barcode_red,violet,barcode_violet,blue,barocde_blue,yellow,barcode_yellow,black,barcode_back,prev," +
+                        "barcode_prev,thancam,dien,nuocRO,nuocthuycuc,BHLD,Sodium,barcode_sodium,Citric,barcode_citric,Naoh,barocde_naoh,ghi_chu," +
+                        "vitri_spthuduoc,vitri_spdongkhoi,vitri_spkhongdongkhoi,N1_1,N1_2,N1_3,N1_1_barcode,N1_2_barcode,N1_3_barcode,N1_1_lot," +
+                        "N1_2_lot,N1_3_lot,N2_1,N2_2,N2_1_barcode,N2_2_barcode,N2_1_lot,N2_2_lot,N3_1,N3_1_barcode,N3_1_lot,N1_4,N1_4_barcode," +
+                        "N1_4_lot,N2_3,N2_3_barcode,N2_3_lot,N3_2,N3_2_barcode,N3_2_lot,N3_3,N3_3_barcode,N3_3_lot,thoigian_ondinh,do_am,coating_layer," +
+                        "ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140,NVL_1," +
+                        "barcode_NVL_1,lot_NVL_1,NVL_2,barcode_NVL_2,lot_NVL_2,KL_NVL_1,KL_NVL_2,N1_BD,N1_KT,N2_BD,N2_KT,N3_BD,N3_KT from nhatkysanxuat where ma_BTP LIKE '%" + cbb_ma_BTP_search.Text + "%' AND thiet_bi = '" + cbb_thietbi_search.Text + "' AND ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) AND loai = '" + cbb_search_loai.Text + "' ORDER BY dot_sx DESC";
                 adapter.SelectCommand = command;
                 tb_buff.Clear();
                 adapter.Fill(tb_buff);
@@ -7061,18 +8844,6 @@ namespace NhatKySanXuat
                         count_coating++;
                         tb_coating += Convert.ToDouble(row[i]["coating_layer"].ToString());
                     }
-                    string Nguoi_nhap = row[i]["name"].ToString();
-                    string LOT = row[i]["LOT"].ToString();
-                    string Dot_sx = row[i]["dot_sx"].ToString();
-                    string Ngay_sx = row[i]["ngay_sx"].ToString();
-                    string Thiet_bi = row[i]["thiet_bi"].ToString();
-                    string Ma_btp = row[i]["ma_BTP"].ToString();
-                    string Ten_btp = row[i]["ten_BTP"].ToString();
-                    string Me = row[i]["me"].ToString();
-                    string Kl_nvl = row[i]["klnl_sudung"].ToString();
-                    string Toc_do_release = row[i]["tocdo_release"].ToString();
-                    string Ngay_release = row[i]["ngay_release"].ToString();
-                    string Loai = row[i]["loai"].ToString();
                     string Tong_klsp_thuduoc = row[i]["tong_klspsx"].ToString();
                     if (Tong_klsp_thuduoc == "")
                         Tong_klsp_thuduoc = "0";
@@ -7097,103 +8868,78 @@ namespace NhatKySanXuat
                     if (Hieusuatrelease == "")
                         Hieusuatrelease = "0";
                     Hieu_suat_release_tb += Convert.ToDouble(Hieusuatrelease);
-                    string Thoigiancb = row[i]["thoigian_cb"].ToString();
-                    string Thoigiansx = row[i]["thoigian_sx"].ToString();
-                    string Phanbon_nvl = row[i]["phanbon_nvl"].ToString();
                     string KL_phan_nvl = row[i]["kl_nvl"].ToString();
                     if (KL_phan_nvl == "")
                         KL_phan_nvl = "0";
                     KHOI_LUONG_NVL += Convert.ToDouble(KL_phan_nvl);
-                    string Barcode_nvl = row[i]["barcode_nvl"].ToString();
-                    string LOT_nvl = row[i]["lot_nvl"].ToString();
                     string N1_khoiluong = row[i]["N1"].ToString();
                     if (N1_khoiluong == "")
                         N1_khoiluong = "0";
                     Tong_N1_KL += Convert.ToDouble(N1_khoiluong);
-                    string N1_barcode = row[i]["barcode_n1"].ToString();
-                    string N1_LOT = row[i]["lot_n1"].ToString();
                     string N2_khoiluong = row[i]["N2"].ToString();
                     if (N2_khoiluong == "")
                         N2_khoiluong = "0";
                     Tong_N2_KL += Convert.ToDouble(N2_khoiluong);
-                    string N2_barcode = row[i]["barcode_n2"].ToString();
-                    string N2_LOT = row[i]["lot_n2"].ToString();
                     string n3_khoiluong = row[i]["N3"].ToString();
                     if (n3_khoiluong == "")
                         n3_khoiluong = "0";
                     Tong_N3_KL += Convert.ToDouble(n3_khoiluong);
-                    string N3_barcode = row[i]["barcode_n3"].ToString();
-                    string N3_LOT = row[i]["lot_n3"].ToString();
                     string GA3 = row[i]["Ga3"].ToString();
                     if (GA3 == "")
                         GA3 = "0";
                     Tong_ga3 += Convert.ToDouble(GA3);
-                    string GA3_barcode = row[i]["barcode_ga3"].ToString();
                     string Borax = row[i]["Borax"].ToString();
                     if (Borax == "")
                         Borax = "0";
                     Tong_borax += Convert.ToDouble(Borax);
-                    string Borax_barcode = row[i]["bacode_borax"].ToString();
                     string NAA = row[i]["Naa"].ToString();
                     if (NAA == "")
                         NAA = "0";
                     Tong_Naa += Convert.ToDouble(NAA);
-                    string NAA_barcode = row[i]["barcode_naa"].ToString();
                     string Sodium = row[i]["Sodium"].ToString();
                     if (Sodium == "")
                         Sodium = "0";
                     Tong_sodium += Convert.ToDouble(Sodium);
-                    string Sodium_barcode = row[i]["barcode_sodium"].ToString();
                     string Citric = row[i]["Citric"].ToString();
                     if (Citric == "")
                         Citric = "0";
                     Tong_citric += Convert.ToDouble(Citric);
-                    string Barcode_Citric = row[i]["barcode_citric"].ToString();
                     string Naoh = row[i]["Naoh"].ToString();
                     if (Naoh == "")
                         Naoh = "0";
                     Tong_naoh += Convert.ToDouble(Naoh);
-                    string Barcode_Naoh = row[i]["barocde_naoh"].ToString();
                     string Solubo = row[i]["solubo"].ToString();
                     if (Solubo == "")
                         Solubo = "0";
                     Tong_solubo += Convert.ToDouble(Solubo);
-                    string Barcode_Solubo = row[i]["barocde_solubo"].ToString();
                     string Edtazn = row[i]["Edta"].ToString();
                     if (Edtazn == "")
                         Edtazn = "0";
                     Tong_edtazn += Convert.ToDouble(Edtazn);
-                    string Barcode_Edta = row[i]["barcode_edta"].ToString();
                     string Red = row[i]["Red"].ToString();
                     if (Red == "")
                         Red = "0";
                     Tong_red += Convert.ToDouble(Red);
-                    string Barcode_red = row[i]["barcode_red"].ToString();
                     string Violet = row[i]["violet"].ToString();
                     if (Violet == "")
                         Violet = "0";
                     Tong_violet += Convert.ToDouble(Violet);
-                    string Barcode_violet = row[i]["barcode_violet"].ToString();
                     string Blue = row[i]["blue"].ToString();
                     if (Blue == "")
                         Blue = "0";
                     Tong_blue += Convert.ToDouble(Blue);
-                    string Barcode_blue = row[i]["barocde_blue"].ToString();
                     string Yellow = row[i]["yellow"].ToString();
                     if (Yellow == "")
                         Yellow = "0";
                     Tong_yellow += Convert.ToDouble(Yellow);
-                    string Barcode_yellow = row[i]["barcode_yellow"].ToString();
                     string Black = row[i]["black"].ToString();
                     if (Black == "")
                         Black = "0";
                     Tong_black += Convert.ToDouble(Black);
-                    string Barcode_black = row[i]["barcode_back"].ToString();
                     string Prev = row[i]["prev"].ToString();
                     if (Prev == "")
                         Prev = "0";
                     Tong_prev += Convert.ToDouble(Prev);
-                    string Barcode_Prev = row[i]["barcode_prev"].ToString();
                     string Than_cam = row[i]["thancam"].ToString();
                     if (Than_cam == "")
                         Than_cam = "0";
@@ -7210,6 +8956,139 @@ namespace NhatKySanXuat
                     if (Nuoc_thuycuc == "")
                         Nuoc_thuycuc = "0";
                     Tong_nuocthuycuc += Convert.ToDouble(Nuoc_thuycuc);
+                }
+                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                "", Math.Round(TONG_KL_LT, 3), Math.Round(Hieu_suat_thu_tb / row.Length, 3), Math.Round(Hieu_suat_release_tb / row.Length, 3),
+                "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
+                "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
+                "", "", Math.Round(tb_do_am / count_doam, 3), Math.Round(tb_coating / count_coating, 3), "",
+                Math.Round(tb_0ngay / count_0, 3), Math.Round(tb_7ngay / count_7, 3), Math.Round(tb_14ngay / count_14, 3),
+                Math.Round(tb_21ngay / count_21, 3), Math.Round(tb_28ngay / count_28, 3), Math.Round(tb_42ngay / count_42, 3),
+                Math.Round(tb_49ngay / count_49, 3), Math.Round(tb_56ngay / count_56, 3), Math.Round(tb_70ngay / count_70, 3),
+                Math.Round(tb_84ngay / count_84, 3), Math.Round(tb_98ngay / count_98, 3), Math.Round(tb_112ngay / count_112, 3),
+                Math.Round(tb_126ngay / count_126, 3), Math.Round(tb_140ngay / count_140, 3));
+                for (int i = 0; i < row.Length; i++)
+                {
+                    string Nguoi_nhap = row[i]["name"].ToString();
+                    string LOT = row[i]["LOT"].ToString();
+                    string Dot_sx = row[i]["dot_sx"].ToString();
+                    string Ngay_sx = row[i]["ngay_sx"].ToString();
+                    string Thiet_bi = row[i]["thiet_bi"].ToString();
+                    string Ma_btp = row[i]["ma_BTP"].ToString();
+                    string Ten_btp = row[i]["ten_BTP"].ToString();
+                    string Me = row[i]["me"].ToString();
+                    string Toc_do_release = row[i]["tocdo_release"].ToString();
+                    string Ngay_release = row[i]["ngay_release"].ToString();
+                    string Loai = row[i]["loai"].ToString();
+                    string Tong_klsp_thuduoc = row[i]["tong_klspsx"].ToString();
+                    if (Tong_klsp_thuduoc == "")
+                        Tong_klsp_thuduoc = "0";
+                    string Kl_dongkhoi = row[i]["kl_dongkhoi"].ToString();
+                    if (Kl_dongkhoi == "")
+                        Kl_dongkhoi = "0";
+                    string Khongdongkhoi = row[i]["kl_khongdongkhoi"].ToString();
+                    if (Khongdongkhoi == "")
+                        Khongdongkhoi = "0";
+                    string Kl_lythuyet = row[i]["kl_lythuyet"].ToString();
+                    if (Kl_lythuyet == "")
+                        Kl_lythuyet = "0";
+                    string Hieusuatthu = row[i]["hieuxuat_thu"].ToString();
+                    if (Hieusuatthu == "")
+                        Hieusuatthu = "0";
+                    string Hieusuatrelease = row[i]["hieuxuat_release"].ToString();
+                    if (Hieusuatrelease == "")
+                        Hieusuatrelease = "0";
+                    string Thoigiancb = row[i]["thoigian_cb"].ToString();
+                    string Thoigiansx = row[i]["thoigian_sx"].ToString();
+                    string Phanbon_nvl = row[i]["phanbon_nvl"].ToString();
+                    string KL_phan_nvl = row[i]["kl_nvl"].ToString();
+                    if (KL_phan_nvl == "")
+                        KL_phan_nvl = "0";
+                    string Barcode_nvl = row[i]["barcode_nvl"].ToString();
+                    string LOT_nvl = row[i]["lot_nvl"].ToString();
+                    string N1_khoiluong = row[i]["N1"].ToString();
+                    if (N1_khoiluong == "")
+                        N1_khoiluong = "0";
+                    string N1_barcode = row[i]["barcode_n1"].ToString();
+                    string N1_LOT = row[i]["lot_n1"].ToString();
+                    string N2_khoiluong = row[i]["N2"].ToString();
+                    if (N2_khoiluong == "")
+                        N2_khoiluong = "0";
+                    string N2_barcode = row[i]["barcode_n2"].ToString();
+                    string N2_LOT = row[i]["lot_n2"].ToString();
+                    string n3_khoiluong = row[i]["N3"].ToString();
+                    if (n3_khoiluong == "")
+                        n3_khoiluong = "0";
+                    string N3_barcode = row[i]["barcode_n3"].ToString();
+                    string N3_LOT = row[i]["lot_n3"].ToString();
+                    string GA3 = row[i]["Ga3"].ToString();
+                    if (GA3 == "")
+                        GA3 = "0";
+                    string GA3_barcode = row[i]["barcode_ga3"].ToString();
+                    string Borax = row[i]["Borax"].ToString();
+                    if (Borax == "")
+                        Borax = "0";
+                    string Borax_barcode = row[i]["bacode_borax"].ToString();
+                    string NAA = row[i]["Naa"].ToString();
+                    if (NAA == "")
+                        NAA = "0";
+                    string NAA_barcode = row[i]["barcode_naa"].ToString();
+                    string Sodium = row[i]["Sodium"].ToString();
+                    if (Sodium == "")
+                        Sodium = "0";
+                    string Sodium_barcode = row[i]["barcode_sodium"].ToString();
+                    string Citric = row[i]["Citric"].ToString();
+                    if (Citric == "")
+                        Citric = "0";
+                    string Barcode_Citric = row[i]["barcode_citric"].ToString();
+                    string Naoh = row[i]["Naoh"].ToString();
+                    if (Naoh == "")
+                        Naoh = "0";
+                    string Barcode_Naoh = row[i]["barocde_naoh"].ToString();
+                    string Solubo = row[i]["solubo"].ToString();
+                    if (Solubo == "")
+                        Solubo = "0";
+                    string Barcode_Solubo = row[i]["barocde_solubo"].ToString();
+                    string Edtazn = row[i]["Edta"].ToString();
+                    if (Edtazn == "")
+                        Edtazn = "0";
+                    string Barcode_Edta = row[i]["barcode_edta"].ToString();
+                    string Red = row[i]["Red"].ToString();
+                    if (Red == "")
+                        Red = "0";
+                    string Barcode_red = row[i]["barcode_red"].ToString();
+                    string Violet = row[i]["violet"].ToString();
+                    if (Violet == "")
+                        Violet = "0";
+                    string Barcode_violet = row[i]["barcode_violet"].ToString();
+                    string Blue = row[i]["blue"].ToString();
+                    if (Blue == "")
+                        Blue = "0";
+                    string Barcode_blue = row[i]["barocde_blue"].ToString();
+                    string Yellow = row[i]["yellow"].ToString();
+                    if (Yellow == "")
+                        Yellow = "0";
+                    string Barcode_yellow = row[i]["barcode_yellow"].ToString();
+                    string Black = row[i]["black"].ToString();
+                    if (Black == "")
+                        Black = "0";
+                    string Barcode_black = row[i]["barcode_back"].ToString();
+                    string Prev = row[i]["prev"].ToString();
+                    if (Prev == "")
+                        Prev = "0";
+                    string Barcode_Prev = row[i]["barcode_prev"].ToString();
+                    string Than_cam = row[i]["thancam"].ToString();
+                    if (Than_cam == "")
+                        Than_cam = "0";
+                    string Dien = row[i]["dien"].ToString();
+                    if (Dien == "")
+                        Dien = "0";
+                    string Nuoc_RO = row[i]["nuocRo"].ToString();
+                    if (Nuoc_RO == "")
+                        Nuoc_RO = "0";
+                    string Nuoc_thuycuc = row[i]["nuocthuycuc"].ToString();
+                    if (Nuoc_thuycuc == "")
+                        Nuoc_thuycuc = "0";
                     string BHLD = row[i]["BHLD"].ToString();
                     string Ghi_chu = row[i]["ghi_chu"].ToString();
                     string Vitri_tongspthuduoc = row[i]["vitri_spthuduoc"].ToString();
@@ -7244,18 +9123,11 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", row.Length.ToString(), "", "", "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
-                                "", Math.Round(TONG_KL_LT, 4), Math.Round(Hieu_suat_thu_tb / dataGridView1.Rows.Count, 4), Math.Round(Hieu_suat_release_tb / dataGridView1.Rows.Count, 4),
-                                "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
-                                "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
-                                "", "", Math.Round(tb_do_am / count_doam, 4), Math.Round(tb_coating / count_coating, 4), "",
-                                Math.Round(tb_0ngay / count_0, 4), Math.Round(tb_7ngay / count_7, 4), Math.Round(tb_14ngay / count_14, 4),
-                                Math.Round(tb_21ngay / count_21, 4), Math.Round(tb_28ngay / count_28, 4), Math.Round(tb_42ngay / count_42, 4),
-                                Math.Round(tb_49ngay / count_49, 4), Math.Round(tb_56ngay / count_56, 4), Math.Round(tb_70ngay / count_70, 4),
-                                Math.Round(tb_84ngay / count_84, 4), Math.Round(tb_98ngay / count_98, 4), Math.Round(tb_112ngay / count_112, 4),
-                                Math.Round(tb_126ngay / count_126, 4), Math.Round(tb_140ngay / count_140, 4));
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
+                dataGridView1.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dataGridView1.Columns[7].Frozen = true;
+                dataGridView1.Rows[0].Frozen = true;
+                dataGridView1.CurrentCell = dataGridView1.Rows[1].Cells[0];
             }
             catch (Exception ex)
             {
@@ -7274,7 +9146,17 @@ namespace NhatKySanXuat
                 DataTable tb_buff = new DataTable();
                 sqlcon.Open();
                 command = sqlcon.CreateCommand();
-                command.CommandText = "select * from nhatkysanxuat where ma_BTP LIKE '%" + cbb_ma_BTP_search.Text + "%' AND loai = '" + cbb_search_loai.Text + "' AND ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) ORDER BY dot_sx DESC";
+                command.CommandText = "select name,dot_sx,ngay_sx,thiet_bi,ma_BTP,ten_BTP,me,LOT ,tocdo_release," +
+                        "ngay_release,loai,tong_klspsx,kl_dongkhoi,kl_khongdongkhoi,kl_lythuyet,hieuxuat_thu,hieuxuat_release," +
+                        "thoigian_cb,thoigian_sx,phanbon_nvl,kl_nvl,barcode_nvl,lot_nvl,N1,barcode_n1,lot_n1," +
+                        "N2,barcode_n2,lot_n2,N3,barcode_n3,lot_n3,Ga3,barcode_ga3,Borax,bacode_borax,Naa,barcode_naa,solubo,barocde_solubo," +
+                        "Edta,barcode_edta,Red,barcode_red,violet,barcode_violet,blue,barocde_blue,yellow,barcode_yellow,black,barcode_back,prev," +
+                        "barcode_prev,thancam,dien,nuocRO,nuocthuycuc,BHLD,Sodium,barcode_sodium,Citric,barcode_citric,Naoh,barocde_naoh,ghi_chu," +
+                        "vitri_spthuduoc,vitri_spdongkhoi,vitri_spkhongdongkhoi,N1_1,N1_2,N1_3,N1_1_barcode,N1_2_barcode,N1_3_barcode,N1_1_lot," +
+                        "N1_2_lot,N1_3_lot,N2_1,N2_2,N2_1_barcode,N2_2_barcode,N2_1_lot,N2_2_lot,N3_1,N3_1_barcode,N3_1_lot,N1_4,N1_4_barcode," +
+                        "N1_4_lot,N2_3,N2_3_barcode,N2_3_lot,N3_2,N3_2_barcode,N3_2_lot,N3_3,N3_3_barcode,N3_3_lot,thoigian_ondinh,do_am,coating_layer," +
+                        "ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140,NVL_1," +
+                        "barcode_NVL_1,lot_NVL_1,NVL_2,barcode_NVL_2,lot_NVL_2,KL_NVL_1,KL_NVL_2,N1_BD,N1_KT,N2_BD,N2_KT,N3_BD,N3_KT from nhatkysanxuat where ma_BTP LIKE '%" + cbb_ma_BTP_search.Text + "%' AND loai = '" + cbb_search_loai.Text + "' AND ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) ORDER BY dot_sx DESC";
                 adapter.SelectCommand = command;
                 tb_buff.Clear();
                 adapter.Fill(tb_buff);
@@ -7429,18 +9311,6 @@ namespace NhatKySanXuat
                         count_coating++;
                         tb_coating += Convert.ToDouble(row[i]["coating_layer"].ToString());
                     }
-                    string Nguoi_nhap = row[i]["name"].ToString();
-                    string LOT = row[i]["LOT"].ToString();
-                    string Dot_sx = row[i]["dot_sx"].ToString();
-                    string Ngay_sx = row[i]["ngay_sx"].ToString();
-                    string Thiet_bi = row[i]["thiet_bi"].ToString();
-                    string Ma_btp = row[i]["ma_BTP"].ToString();
-                    string Ten_btp = row[i]["ten_BTP"].ToString();
-                    string Me = row[i]["me"].ToString();
-                    string Kl_nvl = row[i]["klnl_sudung"].ToString();
-                    string Toc_do_release = row[i]["tocdo_release"].ToString();
-                    string Ngay_release = row[i]["ngay_release"].ToString();
-                    string Loai = row[i]["loai"].ToString();
                     string Tong_klsp_thuduoc = row[i]["tong_klspsx"].ToString();
                     if (Tong_klsp_thuduoc == "")
                         Tong_klsp_thuduoc = "0";
@@ -7465,103 +9335,78 @@ namespace NhatKySanXuat
                     if (Hieusuatrelease == "")
                         Hieusuatrelease = "0";
                     Hieu_suat_release_tb += Convert.ToDouble(Hieusuatrelease);
-                    string Thoigiancb = row[i]["thoigian_cb"].ToString();
-                    string Thoigiansx = row[i]["thoigian_sx"].ToString();
-                    string Phanbon_nvl = row[i]["phanbon_nvl"].ToString();
                     string KL_phan_nvl = row[i]["kl_nvl"].ToString();
                     if (KL_phan_nvl == "")
                         KL_phan_nvl = "0";
                     KHOI_LUONG_NVL += Convert.ToDouble(KL_phan_nvl);
-                    string Barcode_nvl = row[i]["barcode_nvl"].ToString();
-                    string LOT_nvl = row[i]["lot_nvl"].ToString();
                     string N1_khoiluong = row[i]["N1"].ToString();
                     if (N1_khoiluong == "")
                         N1_khoiluong = "0";
                     Tong_N1_KL += Convert.ToDouble(N1_khoiluong);
-                    string N1_barcode = row[i]["barcode_n1"].ToString();
-                    string N1_LOT = row[i]["lot_n1"].ToString();
                     string N2_khoiluong = row[i]["N2"].ToString();
                     if (N2_khoiluong == "")
                         N2_khoiluong = "0";
                     Tong_N2_KL += Convert.ToDouble(N2_khoiluong);
-                    string N2_barcode = row[i]["barcode_n2"].ToString();
-                    string N2_LOT = row[i]["lot_n2"].ToString();
                     string n3_khoiluong = row[i]["N3"].ToString();
                     if (n3_khoiluong == "")
                         n3_khoiluong = "0";
                     Tong_N3_KL += Convert.ToDouble(n3_khoiluong);
-                    string N3_barcode = row[i]["barcode_n3"].ToString();
-                    string N3_LOT = row[i]["lot_n3"].ToString();
                     string GA3 = row[i]["Ga3"].ToString();
                     if (GA3 == "")
                         GA3 = "0";
                     Tong_ga3 += Convert.ToDouble(GA3);
-                    string GA3_barcode = row[i]["barcode_ga3"].ToString();
                     string Borax = row[i]["Borax"].ToString();
                     if (Borax == "")
                         Borax = "0";
                     Tong_borax += Convert.ToDouble(Borax);
-                    string Borax_barcode = row[i]["bacode_borax"].ToString();
                     string NAA = row[i]["Naa"].ToString();
                     if (NAA == "")
                         NAA = "0";
                     Tong_Naa += Convert.ToDouble(NAA);
-                    string NAA_barcode = row[i]["barcode_naa"].ToString();
                     string Sodium = row[i]["Sodium"].ToString();
                     if (Sodium == "")
                         Sodium = "0";
                     Tong_sodium += Convert.ToDouble(Sodium);
-                    string Sodium_barcode = row[i]["barcode_sodium"].ToString();
                     string Citric = row[i]["Citric"].ToString();
                     if (Citric == "")
                         Citric = "0";
                     Tong_citric += Convert.ToDouble(Citric);
-                    string Barcode_Citric = row[i]["barcode_citric"].ToString();
                     string Naoh = row[i]["Naoh"].ToString();
                     if (Naoh == "")
                         Naoh = "0";
                     Tong_naoh += Convert.ToDouble(Naoh);
-                    string Barcode_Naoh = row[i]["barocde_naoh"].ToString();
                     string Solubo = row[i]["solubo"].ToString();
                     if (Solubo == "")
                         Solubo = "0";
                     Tong_solubo += Convert.ToDouble(Solubo);
-                    string Barcode_Solubo = row[i]["barocde_solubo"].ToString();
                     string Edtazn = row[i]["Edta"].ToString();
                     if (Edtazn == "")
                         Edtazn = "0";
                     Tong_edtazn += Convert.ToDouble(Edtazn);
-                    string Barcode_Edta = row[i]["barcode_edta"].ToString();
                     string Red = row[i]["Red"].ToString();
                     if (Red == "")
                         Red = "0";
                     Tong_red += Convert.ToDouble(Red);
-                    string Barcode_red = row[i]["barcode_red"].ToString();
                     string Violet = row[i]["violet"].ToString();
                     if (Violet == "")
                         Violet = "0";
                     Tong_violet += Convert.ToDouble(Violet);
-                    string Barcode_violet = row[i]["barcode_violet"].ToString();
                     string Blue = row[i]["blue"].ToString();
                     if (Blue == "")
                         Blue = "0";
                     Tong_blue += Convert.ToDouble(Blue);
-                    string Barcode_blue = row[i]["barocde_blue"].ToString();
                     string Yellow = row[i]["yellow"].ToString();
                     if (Yellow == "")
                         Yellow = "0";
                     Tong_yellow += Convert.ToDouble(Yellow);
-                    string Barcode_yellow = row[i]["barcode_yellow"].ToString();
                     string Black = row[i]["black"].ToString();
                     if (Black == "")
                         Black = "0";
                     Tong_black += Convert.ToDouble(Black);
-                    string Barcode_black = row[i]["barcode_back"].ToString();
                     string Prev = row[i]["prev"].ToString();
                     if (Prev == "")
                         Prev = "0";
                     Tong_prev += Convert.ToDouble(Prev);
-                    string Barcode_Prev = row[i]["barcode_prev"].ToString();
                     string Than_cam = row[i]["thancam"].ToString();
                     if (Than_cam == "")
                         Than_cam = "0";
@@ -7578,6 +9423,139 @@ namespace NhatKySanXuat
                     if (Nuoc_thuycuc == "")
                         Nuoc_thuycuc = "0";
                     Tong_nuocthuycuc += Convert.ToDouble(Nuoc_thuycuc);
+                }
+                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                "", Math.Round(TONG_KL_LT, 3), Math.Round(Hieu_suat_thu_tb / row.Length, 3), Math.Round(Hieu_suat_release_tb / row.Length, 3),
+                "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
+                "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
+                "", "", Math.Round(tb_do_am / count_doam, 3), Math.Round(tb_coating / count_coating, 3), "",
+                Math.Round(tb_0ngay / count_0, 3), Math.Round(tb_7ngay / count_7, 3), Math.Round(tb_14ngay / count_14, 3),
+                Math.Round(tb_21ngay / count_21, 3), Math.Round(tb_28ngay / count_28, 3), Math.Round(tb_42ngay / count_42, 3),
+                Math.Round(tb_49ngay / count_49, 3), Math.Round(tb_56ngay / count_56, 3), Math.Round(tb_70ngay / count_70, 3),
+                Math.Round(tb_84ngay / count_84, 3), Math.Round(tb_98ngay / count_98, 3), Math.Round(tb_112ngay / count_112, 3),
+                Math.Round(tb_126ngay / count_126, 3), Math.Round(tb_140ngay / count_140, 3));
+                for (int i = 0; i < row.Length; i++)
+                {
+                    string Nguoi_nhap = row[i]["name"].ToString();
+                    string LOT = row[i]["LOT"].ToString();
+                    string Dot_sx = row[i]["dot_sx"].ToString();
+                    string Ngay_sx = row[i]["ngay_sx"].ToString();
+                    string Thiet_bi = row[i]["thiet_bi"].ToString();
+                    string Ma_btp = row[i]["ma_BTP"].ToString();
+                    string Ten_btp = row[i]["ten_BTP"].ToString();
+                    string Me = row[i]["me"].ToString();
+                    string Toc_do_release = row[i]["tocdo_release"].ToString();
+                    string Ngay_release = row[i]["ngay_release"].ToString();
+                    string Loai = row[i]["loai"].ToString();
+                    string Tong_klsp_thuduoc = row[i]["tong_klspsx"].ToString();
+                    if (Tong_klsp_thuduoc == "")
+                        Tong_klsp_thuduoc = "0";
+                    string Kl_dongkhoi = row[i]["kl_dongkhoi"].ToString();
+                    if (Kl_dongkhoi == "")
+                        Kl_dongkhoi = "0";
+                    string Khongdongkhoi = row[i]["kl_khongdongkhoi"].ToString();
+                    if (Khongdongkhoi == "")
+                        Khongdongkhoi = "0";
+                    string Kl_lythuyet = row[i]["kl_lythuyet"].ToString();
+                    if (Kl_lythuyet == "")
+                        Kl_lythuyet = "0";
+                    string Hieusuatthu = row[i]["hieuxuat_thu"].ToString();
+                    if (Hieusuatthu == "")
+                        Hieusuatthu = "0";
+                    string Hieusuatrelease = row[i]["hieuxuat_release"].ToString();
+                    if (Hieusuatrelease == "")
+                        Hieusuatrelease = "0";
+                    string Thoigiancb = row[i]["thoigian_cb"].ToString();
+                    string Thoigiansx = row[i]["thoigian_sx"].ToString();
+                    string Phanbon_nvl = row[i]["phanbon_nvl"].ToString();
+                    string KL_phan_nvl = row[i]["kl_nvl"].ToString();
+                    if (KL_phan_nvl == "")
+                        KL_phan_nvl = "0";
+                    string Barcode_nvl = row[i]["barcode_nvl"].ToString();
+                    string LOT_nvl = row[i]["lot_nvl"].ToString();
+                    string N1_khoiluong = row[i]["N1"].ToString();
+                    if (N1_khoiluong == "")
+                        N1_khoiluong = "0";
+                    string N1_barcode = row[i]["barcode_n1"].ToString();
+                    string N1_LOT = row[i]["lot_n1"].ToString();
+                    string N2_khoiluong = row[i]["N2"].ToString();
+                    if (N2_khoiluong == "")
+                        N2_khoiluong = "0";
+                    string N2_barcode = row[i]["barcode_n2"].ToString();
+                    string N2_LOT = row[i]["lot_n2"].ToString();
+                    string n3_khoiluong = row[i]["N3"].ToString();
+                    if (n3_khoiluong == "")
+                        n3_khoiluong = "0";
+                    string N3_barcode = row[i]["barcode_n3"].ToString();
+                    string N3_LOT = row[i]["lot_n3"].ToString();
+                    string GA3 = row[i]["Ga3"].ToString();
+                    if (GA3 == "")
+                        GA3 = "0";
+                    string GA3_barcode = row[i]["barcode_ga3"].ToString();
+                    string Borax = row[i]["Borax"].ToString();
+                    if (Borax == "")
+                        Borax = "0";
+                    string Borax_barcode = row[i]["bacode_borax"].ToString();
+                    string NAA = row[i]["Naa"].ToString();
+                    if (NAA == "")
+                        NAA = "0";
+                    string NAA_barcode = row[i]["barcode_naa"].ToString();
+                    string Sodium = row[i]["Sodium"].ToString();
+                    if (Sodium == "")
+                        Sodium = "0";
+                    string Sodium_barcode = row[i]["barcode_sodium"].ToString();
+                    string Citric = row[i]["Citric"].ToString();
+                    if (Citric == "")
+                        Citric = "0";
+                    string Barcode_Citric = row[i]["barcode_citric"].ToString();
+                    string Naoh = row[i]["Naoh"].ToString();
+                    if (Naoh == "")
+                        Naoh = "0";
+                    string Barcode_Naoh = row[i]["barocde_naoh"].ToString();
+                    string Solubo = row[i]["solubo"].ToString();
+                    if (Solubo == "")
+                        Solubo = "0";
+                    string Barcode_Solubo = row[i]["barocde_solubo"].ToString();
+                    string Edtazn = row[i]["Edta"].ToString();
+                    if (Edtazn == "")
+                        Edtazn = "0";
+                    string Barcode_Edta = row[i]["barcode_edta"].ToString();
+                    string Red = row[i]["Red"].ToString();
+                    if (Red == "")
+                        Red = "0";
+                    string Barcode_red = row[i]["barcode_red"].ToString();
+                    string Violet = row[i]["violet"].ToString();
+                    if (Violet == "")
+                        Violet = "0";
+                    string Barcode_violet = row[i]["barcode_violet"].ToString();
+                    string Blue = row[i]["blue"].ToString();
+                    if (Blue == "")
+                        Blue = "0";
+                    string Barcode_blue = row[i]["barocde_blue"].ToString();
+                    string Yellow = row[i]["yellow"].ToString();
+                    if (Yellow == "")
+                        Yellow = "0";
+                    string Barcode_yellow = row[i]["barcode_yellow"].ToString();
+                    string Black = row[i]["black"].ToString();
+                    if (Black == "")
+                        Black = "0";
+                    string Barcode_black = row[i]["barcode_back"].ToString();
+                    string Prev = row[i]["prev"].ToString();
+                    if (Prev == "")
+                        Prev = "0";
+                    string Barcode_Prev = row[i]["barcode_prev"].ToString();
+                    string Than_cam = row[i]["thancam"].ToString();
+                    if (Than_cam == "")
+                        Than_cam = "0";
+                    string Dien = row[i]["dien"].ToString();
+                    if (Dien == "")
+                        Dien = "0";
+                    string Nuoc_RO = row[i]["nuocRo"].ToString();
+                    if (Nuoc_RO == "")
+                        Nuoc_RO = "0";
+                    string Nuoc_thuycuc = row[i]["nuocthuycuc"].ToString();
+                    if (Nuoc_thuycuc == "")
+                        Nuoc_thuycuc = "0";
                     string BHLD = row[i]["BHLD"].ToString();
                     string Ghi_chu = row[i]["ghi_chu"].ToString();
                     string Vitri_tongspthuduoc = row[i]["vitri_spthuduoc"].ToString();
@@ -7612,18 +9590,11 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
-                                "", Math.Round(TONG_KL_LT, 4), Math.Round(Hieu_suat_thu_tb / dataGridView1.Rows.Count, 4), Math.Round(Hieu_suat_release_tb / dataGridView1.Rows.Count, 4),
-                                "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
-                                "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
-                                "", "", Math.Round(tb_do_am / count_doam, 4), Math.Round(tb_coating / count_coating, 4), "",
-                                Math.Round(tb_0ngay / count_0, 4), Math.Round(tb_7ngay / count_7, 4), Math.Round(tb_14ngay / count_14, 4),
-                                Math.Round(tb_21ngay / count_21, 4), Math.Round(tb_28ngay / count_28, 4), Math.Round(tb_42ngay / count_42, 4),
-                                Math.Round(tb_49ngay / count_49, 4), Math.Round(tb_56ngay / count_56, 4), Math.Round(tb_70ngay / count_70, 4),
-                                Math.Round(tb_84ngay / count_84, 4), Math.Round(tb_98ngay / count_98, 4), Math.Round(tb_112ngay / count_112, 4),
-                                Math.Round(tb_126ngay / count_126, 4), Math.Round(tb_140ngay / count_140, 4));
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
+                dataGridView1.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dataGridView1.Columns[7].Frozen = true;
+                dataGridView1.Rows[0].Frozen = true;
+                dataGridView1.CurrentCell = dataGridView1.Rows[1].Cells[0];
             }
             catch (Exception ex)
             {
@@ -7642,7 +9613,17 @@ namespace NhatKySanXuat
                 DataTable tb_buff = new DataTable();
                 sqlcon.Open();
                 command = sqlcon.CreateCommand();
-                command.CommandText = "select * from nhatkysanxuat where phanbon_nvl LIKE '%" + cbb_phanbonnvl_search.Text + "%' AND thiet_bi = '" + cbb_thietbi_search.Text + "' AND ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) AND loai = '" + cbb_search_loai.Text + "' ORDER BY dot_sx DESC";
+                command.CommandText = "select name,dot_sx,ngay_sx,thiet_bi,ma_BTP,ten_BTP,me,LOT ,tocdo_release," +
+                        "ngay_release,loai,tong_klspsx,kl_dongkhoi,kl_khongdongkhoi,kl_lythuyet,hieuxuat_thu,hieuxuat_release," +
+                        "thoigian_cb,thoigian_sx,phanbon_nvl,kl_nvl,barcode_nvl,lot_nvl,N1,barcode_n1,lot_n1," +
+                        "N2,barcode_n2,lot_n2,N3,barcode_n3,lot_n3,Ga3,barcode_ga3,Borax,bacode_borax,Naa,barcode_naa,solubo,barocde_solubo," +
+                        "Edta,barcode_edta,Red,barcode_red,violet,barcode_violet,blue,barocde_blue,yellow,barcode_yellow,black,barcode_back,prev," +
+                        "barcode_prev,thancam,dien,nuocRO,nuocthuycuc,BHLD,Sodium,barcode_sodium,Citric,barcode_citric,Naoh,barocde_naoh,ghi_chu," +
+                        "vitri_spthuduoc,vitri_spdongkhoi,vitri_spkhongdongkhoi,N1_1,N1_2,N1_3,N1_1_barcode,N1_2_barcode,N1_3_barcode,N1_1_lot," +
+                        "N1_2_lot,N1_3_lot,N2_1,N2_2,N2_1_barcode,N2_2_barcode,N2_1_lot,N2_2_lot,N3_1,N3_1_barcode,N3_1_lot,N1_4,N1_4_barcode," +
+                        "N1_4_lot,N2_3,N2_3_barcode,N2_3_lot,N3_2,N3_2_barcode,N3_2_lot,N3_3,N3_3_barcode,N3_3_lot,thoigian_ondinh,do_am,coating_layer," +
+                        "ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140,NVL_1," +
+                        "barcode_NVL_1,lot_NVL_1,NVL_2,barcode_NVL_2,lot_NVL_2,KL_NVL_1,KL_NVL_2,N1_BD,N1_KT,N2_BD,N2_KT,N3_BD,N3_KT from nhatkysanxuat where phanbon_nvl LIKE '%" + cbb_phanbonnvl_search.Text + "%' AND thiet_bi = '" + cbb_thietbi_search.Text + "' AND ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) AND loai = '" + cbb_search_loai.Text + "' ORDER BY dot_sx DESC";
                 adapter.SelectCommand = command;
                 tb_buff.Clear();
                 adapter.Fill(tb_buff);
@@ -7797,18 +9778,6 @@ namespace NhatKySanXuat
                         count_coating++;
                         tb_coating += Convert.ToDouble(row[i]["coating_layer"].ToString());
                     }
-                    string Nguoi_nhap = row[i]["name"].ToString();
-                    string LOT = row[i]["LOT"].ToString();
-                    string Dot_sx = row[i]["dot_sx"].ToString();
-                    string Ngay_sx = row[i]["ngay_sx"].ToString();
-                    string Thiet_bi = row[i]["thiet_bi"].ToString();
-                    string Ma_btp = row[i]["ma_BTP"].ToString();
-                    string Ten_btp = row[i]["ten_BTP"].ToString();
-                    string Me = row[i]["me"].ToString();
-                    string Kl_nvl = row[i]["klnl_sudung"].ToString();
-                    string Toc_do_release = row[i]["tocdo_release"].ToString();
-                    string Ngay_release = row[i]["ngay_release"].ToString();
-                    string Loai = row[i]["loai"].ToString();
                     string Tong_klsp_thuduoc = row[i]["tong_klspsx"].ToString();
                     if (Tong_klsp_thuduoc == "")
                         Tong_klsp_thuduoc = "0";
@@ -7833,103 +9802,78 @@ namespace NhatKySanXuat
                     if (Hieusuatrelease == "")
                         Hieusuatrelease = "0";
                     Hieu_suat_release_tb += Convert.ToDouble(Hieusuatrelease);
-                    string Thoigiancb = row[i]["thoigian_cb"].ToString();
-                    string Thoigiansx = row[i]["thoigian_sx"].ToString();
-                    string Phanbon_nvl = row[i]["phanbon_nvl"].ToString();
                     string KL_phan_nvl = row[i]["kl_nvl"].ToString();
                     if (KL_phan_nvl == "")
                         KL_phan_nvl = "0";
                     KHOI_LUONG_NVL += Convert.ToDouble(KL_phan_nvl);
-                    string Barcode_nvl = row[i]["barcode_nvl"].ToString();
-                    string LOT_nvl = row[i]["lot_nvl"].ToString();
                     string N1_khoiluong = row[i]["N1"].ToString();
                     if (N1_khoiluong == "")
                         N1_khoiluong = "0";
                     Tong_N1_KL += Convert.ToDouble(N1_khoiluong);
-                    string N1_barcode = row[i]["barcode_n1"].ToString();
-                    string N1_LOT = row[i]["lot_n1"].ToString();
                     string N2_khoiluong = row[i]["N2"].ToString();
                     if (N2_khoiluong == "")
                         N2_khoiluong = "0";
                     Tong_N2_KL += Convert.ToDouble(N2_khoiluong);
-                    string N2_barcode = row[i]["barcode_n2"].ToString();
-                    string N2_LOT = row[i]["lot_n2"].ToString();
                     string n3_khoiluong = row[i]["N3"].ToString();
                     if (n3_khoiluong == "")
                         n3_khoiluong = "0";
                     Tong_N3_KL += Convert.ToDouble(n3_khoiluong);
-                    string N3_barcode = row[i]["barcode_n3"].ToString();
-                    string N3_LOT = row[i]["lot_n3"].ToString();
                     string GA3 = row[i]["Ga3"].ToString();
                     if (GA3 == "")
                         GA3 = "0";
                     Tong_ga3 += Convert.ToDouble(GA3);
-                    string GA3_barcode = row[i]["barcode_ga3"].ToString();
                     string Borax = row[i]["Borax"].ToString();
                     if (Borax == "")
                         Borax = "0";
                     Tong_borax += Convert.ToDouble(Borax);
-                    string Borax_barcode = row[i]["bacode_borax"].ToString();
                     string NAA = row[i]["Naa"].ToString();
                     if (NAA == "")
                         NAA = "0";
                     Tong_Naa += Convert.ToDouble(NAA);
-                    string NAA_barcode = row[i]["barcode_naa"].ToString();
                     string Sodium = row[i]["Sodium"].ToString();
                     if (Sodium == "")
                         Sodium = "0";
                     Tong_sodium += Convert.ToDouble(Sodium);
-                    string Sodium_barcode = row[i]["barcode_sodium"].ToString();
                     string Citric = row[i]["Citric"].ToString();
                     if (Citric == "")
                         Citric = "0";
                     Tong_citric += Convert.ToDouble(Citric);
-                    string Barcode_Citric = row[i]["barcode_citric"].ToString();
                     string Naoh = row[i]["Naoh"].ToString();
                     if (Naoh == "")
                         Naoh = "0";
                     Tong_naoh += Convert.ToDouble(Naoh);
-                    string Barcode_Naoh = row[i]["barocde_naoh"].ToString();
                     string Solubo = row[i]["solubo"].ToString();
                     if (Solubo == "")
                         Solubo = "0";
                     Tong_solubo += Convert.ToDouble(Solubo);
-                    string Barcode_Solubo = row[i]["barocde_solubo"].ToString();
                     string Edtazn = row[i]["Edta"].ToString();
                     if (Edtazn == "")
                         Edtazn = "0";
                     Tong_edtazn += Convert.ToDouble(Edtazn);
-                    string Barcode_Edta = row[i]["barcode_edta"].ToString();
                     string Red = row[i]["Red"].ToString();
                     if (Red == "")
                         Red = "0";
                     Tong_red += Convert.ToDouble(Red);
-                    string Barcode_red = row[i]["barcode_red"].ToString();
                     string Violet = row[i]["violet"].ToString();
                     if (Violet == "")
                         Violet = "0";
                     Tong_violet += Convert.ToDouble(Violet);
-                    string Barcode_violet = row[i]["barcode_violet"].ToString();
                     string Blue = row[i]["blue"].ToString();
                     if (Blue == "")
                         Blue = "0";
                     Tong_blue += Convert.ToDouble(Blue);
-                    string Barcode_blue = row[i]["barocde_blue"].ToString();
                     string Yellow = row[i]["yellow"].ToString();
                     if (Yellow == "")
                         Yellow = "0";
                     Tong_yellow += Convert.ToDouble(Yellow);
-                    string Barcode_yellow = row[i]["barcode_yellow"].ToString();
                     string Black = row[i]["black"].ToString();
                     if (Black == "")
                         Black = "0";
                     Tong_black += Convert.ToDouble(Black);
-                    string Barcode_black = row[i]["barcode_back"].ToString();
                     string Prev = row[i]["prev"].ToString();
                     if (Prev == "")
                         Prev = "0";
                     Tong_prev += Convert.ToDouble(Prev);
-                    string Barcode_Prev = row[i]["barcode_prev"].ToString();
                     string Than_cam = row[i]["thancam"].ToString();
                     if (Than_cam == "")
                         Than_cam = "0";
@@ -7946,6 +9890,139 @@ namespace NhatKySanXuat
                     if (Nuoc_thuycuc == "")
                         Nuoc_thuycuc = "0";
                     Tong_nuocthuycuc += Convert.ToDouble(Nuoc_thuycuc);
+                }
+                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                "", Math.Round(TONG_KL_LT, 3), Math.Round(Hieu_suat_thu_tb / row.Length, 3), Math.Round(Hieu_suat_release_tb / row.Length, 3),
+                "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
+                "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
+                "", "", Math.Round(tb_do_am / count_doam, 3), Math.Round(tb_coating / count_coating, 3), "",
+                Math.Round(tb_0ngay / count_0, 3), Math.Round(tb_7ngay / count_7, 3), Math.Round(tb_14ngay / count_14, 3),
+                Math.Round(tb_21ngay / count_21, 3), Math.Round(tb_28ngay / count_28, 3), Math.Round(tb_42ngay / count_42, 3),
+                Math.Round(tb_49ngay / count_49, 3), Math.Round(tb_56ngay / count_56, 3), Math.Round(tb_70ngay / count_70, 3),
+                Math.Round(tb_84ngay / count_84, 3), Math.Round(tb_98ngay / count_98, 3), Math.Round(tb_112ngay / count_112, 3),
+                Math.Round(tb_126ngay / count_126, 3), Math.Round(tb_140ngay / count_140, 3));
+                for (int i = 0; i < row.Length; i++)
+                {
+                    string Nguoi_nhap = row[i]["name"].ToString();
+                    string LOT = row[i]["LOT"].ToString();
+                    string Dot_sx = row[i]["dot_sx"].ToString();
+                    string Ngay_sx = row[i]["ngay_sx"].ToString();
+                    string Thiet_bi = row[i]["thiet_bi"].ToString();
+                    string Ma_btp = row[i]["ma_BTP"].ToString();
+                    string Ten_btp = row[i]["ten_BTP"].ToString();
+                    string Me = row[i]["me"].ToString();
+                    string Toc_do_release = row[i]["tocdo_release"].ToString();
+                    string Ngay_release = row[i]["ngay_release"].ToString();
+                    string Loai = row[i]["loai"].ToString();
+                    string Tong_klsp_thuduoc = row[i]["tong_klspsx"].ToString();
+                    if (Tong_klsp_thuduoc == "")
+                        Tong_klsp_thuduoc = "0";
+                    string Kl_dongkhoi = row[i]["kl_dongkhoi"].ToString();
+                    if (Kl_dongkhoi == "")
+                        Kl_dongkhoi = "0";
+                    string Khongdongkhoi = row[i]["kl_khongdongkhoi"].ToString();
+                    if (Khongdongkhoi == "")
+                        Khongdongkhoi = "0";
+                    string Kl_lythuyet = row[i]["kl_lythuyet"].ToString();
+                    if (Kl_lythuyet == "")
+                        Kl_lythuyet = "0";
+                    string Hieusuatthu = row[i]["hieuxuat_thu"].ToString();
+                    if (Hieusuatthu == "")
+                        Hieusuatthu = "0";
+                    string Hieusuatrelease = row[i]["hieuxuat_release"].ToString();
+                    if (Hieusuatrelease == "")
+                        Hieusuatrelease = "0";
+                    string Thoigiancb = row[i]["thoigian_cb"].ToString();
+                    string Thoigiansx = row[i]["thoigian_sx"].ToString();
+                    string Phanbon_nvl = row[i]["phanbon_nvl"].ToString();
+                    string KL_phan_nvl = row[i]["kl_nvl"].ToString();
+                    if (KL_phan_nvl == "")
+                        KL_phan_nvl = "0";
+                    string Barcode_nvl = row[i]["barcode_nvl"].ToString();
+                    string LOT_nvl = row[i]["lot_nvl"].ToString();
+                    string N1_khoiluong = row[i]["N1"].ToString();
+                    if (N1_khoiluong == "")
+                        N1_khoiluong = "0";
+                    string N1_barcode = row[i]["barcode_n1"].ToString();
+                    string N1_LOT = row[i]["lot_n1"].ToString();
+                    string N2_khoiluong = row[i]["N2"].ToString();
+                    if (N2_khoiluong == "")
+                        N2_khoiluong = "0";
+                    string N2_barcode = row[i]["barcode_n2"].ToString();
+                    string N2_LOT = row[i]["lot_n2"].ToString();
+                    string n3_khoiluong = row[i]["N3"].ToString();
+                    if (n3_khoiluong == "")
+                        n3_khoiluong = "0";
+                    string N3_barcode = row[i]["barcode_n3"].ToString();
+                    string N3_LOT = row[i]["lot_n3"].ToString();
+                    string GA3 = row[i]["Ga3"].ToString();
+                    if (GA3 == "")
+                        GA3 = "0";
+                    string GA3_barcode = row[i]["barcode_ga3"].ToString();
+                    string Borax = row[i]["Borax"].ToString();
+                    if (Borax == "")
+                        Borax = "0";
+                    string Borax_barcode = row[i]["bacode_borax"].ToString();
+                    string NAA = row[i]["Naa"].ToString();
+                    if (NAA == "")
+                        NAA = "0";
+                    string NAA_barcode = row[i]["barcode_naa"].ToString();
+                    string Sodium = row[i]["Sodium"].ToString();
+                    if (Sodium == "")
+                        Sodium = "0";
+                    string Sodium_barcode = row[i]["barcode_sodium"].ToString();
+                    string Citric = row[i]["Citric"].ToString();
+                    if (Citric == "")
+                        Citric = "0";
+                    string Barcode_Citric = row[i]["barcode_citric"].ToString();
+                    string Naoh = row[i]["Naoh"].ToString();
+                    if (Naoh == "")
+                        Naoh = "0";
+                    string Barcode_Naoh = row[i]["barocde_naoh"].ToString();
+                    string Solubo = row[i]["solubo"].ToString();
+                    if (Solubo == "")
+                        Solubo = "0";
+                    string Barcode_Solubo = row[i]["barocde_solubo"].ToString();
+                    string Edtazn = row[i]["Edta"].ToString();
+                    if (Edtazn == "")
+                        Edtazn = "0";
+                    string Barcode_Edta = row[i]["barcode_edta"].ToString();
+                    string Red = row[i]["Red"].ToString();
+                    if (Red == "")
+                        Red = "0";
+                    string Barcode_red = row[i]["barcode_red"].ToString();
+                    string Violet = row[i]["violet"].ToString();
+                    if (Violet == "")
+                        Violet = "0";
+                    string Barcode_violet = row[i]["barcode_violet"].ToString();
+                    string Blue = row[i]["blue"].ToString();
+                    if (Blue == "")
+                        Blue = "0";
+                    string Barcode_blue = row[i]["barocde_blue"].ToString();
+                    string Yellow = row[i]["yellow"].ToString();
+                    if (Yellow == "")
+                        Yellow = "0";
+                    string Barcode_yellow = row[i]["barcode_yellow"].ToString();
+                    string Black = row[i]["black"].ToString();
+                    if (Black == "")
+                        Black = "0";
+                    string Barcode_black = row[i]["barcode_back"].ToString();
+                    string Prev = row[i]["prev"].ToString();
+                    if (Prev == "")
+                        Prev = "0";
+                    string Barcode_Prev = row[i]["barcode_prev"].ToString();
+                    string Than_cam = row[i]["thancam"].ToString();
+                    if (Than_cam == "")
+                        Than_cam = "0";
+                    string Dien = row[i]["dien"].ToString();
+                    if (Dien == "")
+                        Dien = "0";
+                    string Nuoc_RO = row[i]["nuocRo"].ToString();
+                    if (Nuoc_RO == "")
+                        Nuoc_RO = "0";
+                    string Nuoc_thuycuc = row[i]["nuocthuycuc"].ToString();
+                    if (Nuoc_thuycuc == "")
+                        Nuoc_thuycuc = "0";
                     string BHLD = row[i]["BHLD"].ToString();
                     string Ghi_chu = row[i]["ghi_chu"].ToString();
                     string Vitri_tongspthuduoc = row[i]["vitri_spthuduoc"].ToString();
@@ -7980,18 +10057,11 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
-                                "", Math.Round(TONG_KL_LT, 4), Math.Round(Hieu_suat_thu_tb / dataGridView1.Rows.Count, 4), Math.Round(Hieu_suat_release_tb / dataGridView1.Rows.Count, 4),
-                                "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
-                                "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
-                                "", "", Math.Round(tb_do_am / count_doam, 4), Math.Round(tb_coating / count_coating, 4), "",
-                                Math.Round(tb_0ngay / count_0, 4), Math.Round(tb_7ngay / count_7, 4), Math.Round(tb_14ngay / count_14, 4),
-                                Math.Round(tb_21ngay / count_21, 4), Math.Round(tb_28ngay / count_28, 4), Math.Round(tb_42ngay / count_42, 4),
-                                Math.Round(tb_49ngay / count_49, 4), Math.Round(tb_56ngay / count_56, 4), Math.Round(tb_70ngay / count_70, 4),
-                                Math.Round(tb_84ngay / count_84, 4), Math.Round(tb_98ngay / count_98, 4), Math.Round(tb_112ngay / count_112, 4),
-                                Math.Round(tb_126ngay / count_126, 4), Math.Round(tb_140ngay / count_140, 4));
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
+                dataGridView1.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dataGridView1.Columns[7].Frozen = true;
+                dataGridView1.Rows[0].Frozen = true;
+                dataGridView1.CurrentCell = dataGridView1.Rows[1].Cells[0];
             }
             catch (Exception ex)
             {
@@ -8010,7 +10080,17 @@ namespace NhatKySanXuat
                 DataTable tb_buff = new DataTable();
                 sqlcon.Open();
                 command = sqlcon.CreateCommand();
-                command.CommandText = "select * from nhatkysanxuat where phanbon_nvl LIKE '%" + cbb_phanbonnvl_search.Text + "%' AND loai = '" + cbb_search_loai.Text + "' AND ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) ORDER BY dot_sx DESC";
+                command.CommandText = "select name,dot_sx,ngay_sx,thiet_bi,ma_BTP,ten_BTP,me,LOT ,tocdo_release," +
+                        "ngay_release,loai,tong_klspsx,kl_dongkhoi,kl_khongdongkhoi,kl_lythuyet,hieuxuat_thu,hieuxuat_release," +
+                        "thoigian_cb,thoigian_sx,phanbon_nvl,kl_nvl,barcode_nvl,lot_nvl,N1,barcode_n1,lot_n1," +
+                        "N2,barcode_n2,lot_n2,N3,barcode_n3,lot_n3,Ga3,barcode_ga3,Borax,bacode_borax,Naa,barcode_naa,solubo,barocde_solubo," +
+                        "Edta,barcode_edta,Red,barcode_red,violet,barcode_violet,blue,barocde_blue,yellow,barcode_yellow,black,barcode_back,prev," +
+                        "barcode_prev,thancam,dien,nuocRO,nuocthuycuc,BHLD,Sodium,barcode_sodium,Citric,barcode_citric,Naoh,barocde_naoh,ghi_chu," +
+                        "vitri_spthuduoc,vitri_spdongkhoi,vitri_spkhongdongkhoi,N1_1,N1_2,N1_3,N1_1_barcode,N1_2_barcode,N1_3_barcode,N1_1_lot," +
+                        "N1_2_lot,N1_3_lot,N2_1,N2_2,N2_1_barcode,N2_2_barcode,N2_1_lot,N2_2_lot,N3_1,N3_1_barcode,N3_1_lot,N1_4,N1_4_barcode," +
+                        "N1_4_lot,N2_3,N2_3_barcode,N2_3_lot,N3_2,N3_2_barcode,N3_2_lot,N3_3,N3_3_barcode,N3_3_lot,thoigian_ondinh,do_am,coating_layer," +
+                        "ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140,NVL_1," +
+                        "barcode_NVL_1,lot_NVL_1,NVL_2,barcode_NVL_2,lot_NVL_2,KL_NVL_1,KL_NVL_2,N1_BD,N1_KT,N2_BD,N2_KT,N3_BD,N3_KT from nhatkysanxuat where phanbon_nvl LIKE '%" + cbb_phanbonnvl_search.Text + "%' AND loai = '" + cbb_search_loai.Text + "' AND ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) ORDER BY dot_sx DESC";
                 adapter.SelectCommand = command;
                 tb_buff.Clear();
                 adapter.Fill(tb_buff);
@@ -8165,18 +10245,6 @@ namespace NhatKySanXuat
                         count_coating++;
                         tb_coating += Convert.ToDouble(row[i]["coating_layer"].ToString());
                     }
-                    string Nguoi_nhap = row[i]["name"].ToString();
-                    string LOT = row[i]["LOT"].ToString();
-                    string Dot_sx = row[i]["dot_sx"].ToString();
-                    string Ngay_sx = row[i]["ngay_sx"].ToString();
-                    string Thiet_bi = row[i]["thiet_bi"].ToString();
-                    string Ma_btp = row[i]["ma_BTP"].ToString();
-                    string Ten_btp = row[i]["ten_BTP"].ToString();
-                    string Me = row[i]["me"].ToString();
-                    string Kl_nvl = row[i]["klnl_sudung"].ToString();
-                    string Toc_do_release = row[i]["tocdo_release"].ToString();
-                    string Ngay_release = row[i]["ngay_release"].ToString();
-                    string Loai = row[i]["loai"].ToString();
                     string Tong_klsp_thuduoc = row[i]["tong_klspsx"].ToString();
                     if (Tong_klsp_thuduoc == "")
                         Tong_klsp_thuduoc = "0";
@@ -8201,103 +10269,78 @@ namespace NhatKySanXuat
                     if (Hieusuatrelease == "")
                         Hieusuatrelease = "0";
                     Hieu_suat_release_tb += Convert.ToDouble(Hieusuatrelease);
-                    string Thoigiancb = row[i]["thoigian_cb"].ToString();
-                    string Thoigiansx = row[i]["thoigian_sx"].ToString();
-                    string Phanbon_nvl = row[i]["phanbon_nvl"].ToString();
                     string KL_phan_nvl = row[i]["kl_nvl"].ToString();
                     if (KL_phan_nvl == "")
                         KL_phan_nvl = "0";
                     KHOI_LUONG_NVL += Convert.ToDouble(KL_phan_nvl);
-                    string Barcode_nvl = row[i]["barcode_nvl"].ToString();
-                    string LOT_nvl = row[i]["lot_nvl"].ToString();
                     string N1_khoiluong = row[i]["N1"].ToString();
                     if (N1_khoiluong == "")
                         N1_khoiluong = "0";
                     Tong_N1_KL += Convert.ToDouble(N1_khoiluong);
-                    string N1_barcode = row[i]["barcode_n1"].ToString();
-                    string N1_LOT = row[i]["lot_n1"].ToString();
                     string N2_khoiluong = row[i]["N2"].ToString();
                     if (N2_khoiluong == "")
                         N2_khoiluong = "0";
                     Tong_N2_KL += Convert.ToDouble(N2_khoiluong);
-                    string N2_barcode = row[i]["barcode_n2"].ToString();
-                    string N2_LOT = row[i]["lot_n2"].ToString();
                     string n3_khoiluong = row[i]["N3"].ToString();
                     if (n3_khoiluong == "")
                         n3_khoiluong = "0";
                     Tong_N3_KL += Convert.ToDouble(n3_khoiluong);
-                    string N3_barcode = row[i]["barcode_n3"].ToString();
-                    string N3_LOT = row[i]["lot_n3"].ToString();
                     string GA3 = row[i]["Ga3"].ToString();
                     if (GA3 == "")
                         GA3 = "0";
                     Tong_ga3 += Convert.ToDouble(GA3);
-                    string GA3_barcode = row[i]["barcode_ga3"].ToString();
                     string Borax = row[i]["Borax"].ToString();
                     if (Borax == "")
                         Borax = "0";
                     Tong_borax += Convert.ToDouble(Borax);
-                    string Borax_barcode = row[i]["bacode_borax"].ToString();
                     string NAA = row[i]["Naa"].ToString();
                     if (NAA == "")
                         NAA = "0";
                     Tong_Naa += Convert.ToDouble(NAA);
-                    string NAA_barcode = row[i]["barcode_naa"].ToString();
                     string Sodium = row[i]["Sodium"].ToString();
                     if (Sodium == "")
                         Sodium = "0";
                     Tong_sodium += Convert.ToDouble(Sodium);
-                    string Sodium_barcode = row[i]["barcode_sodium"].ToString();
                     string Citric = row[i]["Citric"].ToString();
                     if (Citric == "")
                         Citric = "0";
                     Tong_citric += Convert.ToDouble(Citric);
-                    string Barcode_Citric = row[i]["barcode_citric"].ToString();
                     string Naoh = row[i]["Naoh"].ToString();
                     if (Naoh == "")
                         Naoh = "0";
                     Tong_naoh += Convert.ToDouble(Naoh);
-                    string Barcode_Naoh = row[i]["barocde_naoh"].ToString();
                     string Solubo = row[i]["solubo"].ToString();
                     if (Solubo == "")
                         Solubo = "0";
                     Tong_solubo += Convert.ToDouble(Solubo);
-                    string Barcode_Solubo = row[i]["barocde_solubo"].ToString();
                     string Edtazn = row[i]["Edta"].ToString();
                     if (Edtazn == "")
                         Edtazn = "0";
                     Tong_edtazn += Convert.ToDouble(Edtazn);
-                    string Barcode_Edta = row[i]["barcode_edta"].ToString();
                     string Red = row[i]["Red"].ToString();
                     if (Red == "")
                         Red = "0";
                     Tong_red += Convert.ToDouble(Red);
-                    string Barcode_red = row[i]["barcode_red"].ToString();
                     string Violet = row[i]["violet"].ToString();
                     if (Violet == "")
                         Violet = "0";
                     Tong_violet += Convert.ToDouble(Violet);
-                    string Barcode_violet = row[i]["barcode_violet"].ToString();
                     string Blue = row[i]["blue"].ToString();
                     if (Blue == "")
                         Blue = "0";
                     Tong_blue += Convert.ToDouble(Blue);
-                    string Barcode_blue = row[i]["barocde_blue"].ToString();
                     string Yellow = row[i]["yellow"].ToString();
                     if (Yellow == "")
                         Yellow = "0";
                     Tong_yellow += Convert.ToDouble(Yellow);
-                    string Barcode_yellow = row[i]["barcode_yellow"].ToString();
                     string Black = row[i]["black"].ToString();
                     if (Black == "")
                         Black = "0";
                     Tong_black += Convert.ToDouble(Black);
-                    string Barcode_black = row[i]["barcode_back"].ToString();
                     string Prev = row[i]["prev"].ToString();
                     if (Prev == "")
                         Prev = "0";
                     Tong_prev += Convert.ToDouble(Prev);
-                    string Barcode_Prev = row[i]["barcode_prev"].ToString();
                     string Than_cam = row[i]["thancam"].ToString();
                     if (Than_cam == "")
                         Than_cam = "0";
@@ -8314,6 +10357,139 @@ namespace NhatKySanXuat
                     if (Nuoc_thuycuc == "")
                         Nuoc_thuycuc = "0";
                     Tong_nuocthuycuc += Convert.ToDouble(Nuoc_thuycuc);
+                }
+                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                "", Math.Round(TONG_KL_LT, 3), Math.Round(Hieu_suat_thu_tb / row.Length, 3), Math.Round(Hieu_suat_release_tb / row.Length, 3),
+                "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
+                "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
+                "", "", Math.Round(tb_do_am / count_doam, 3), Math.Round(tb_coating / count_coating, 3), "",
+                Math.Round(tb_0ngay / count_0, 3), Math.Round(tb_7ngay / count_7, 3), Math.Round(tb_14ngay / count_14, 3),
+                Math.Round(tb_21ngay / count_21, 3), Math.Round(tb_28ngay / count_28, 3), Math.Round(tb_42ngay / count_42, 3),
+                Math.Round(tb_49ngay / count_49, 3), Math.Round(tb_56ngay / count_56, 3), Math.Round(tb_70ngay / count_70, 3),
+                Math.Round(tb_84ngay / count_84, 3), Math.Round(tb_98ngay / count_98, 3), Math.Round(tb_112ngay / count_112, 3),
+                Math.Round(tb_126ngay / count_126, 3), Math.Round(tb_140ngay / count_140, 3));
+                for (int i = 0; i < row.Length; i++)
+                {
+                    string Nguoi_nhap = row[i]["name"].ToString();
+                    string LOT = row[i]["LOT"].ToString();
+                    string Dot_sx = row[i]["dot_sx"].ToString();
+                    string Ngay_sx = row[i]["ngay_sx"].ToString();
+                    string Thiet_bi = row[i]["thiet_bi"].ToString();
+                    string Ma_btp = row[i]["ma_BTP"].ToString();
+                    string Ten_btp = row[i]["ten_BTP"].ToString();
+                    string Me = row[i]["me"].ToString();
+                    string Toc_do_release = row[i]["tocdo_release"].ToString();
+                    string Ngay_release = row[i]["ngay_release"].ToString();
+                    string Loai = row[i]["loai"].ToString();
+                    string Tong_klsp_thuduoc = row[i]["tong_klspsx"].ToString();
+                    if (Tong_klsp_thuduoc == "")
+                        Tong_klsp_thuduoc = "0";
+                    string Kl_dongkhoi = row[i]["kl_dongkhoi"].ToString();
+                    if (Kl_dongkhoi == "")
+                        Kl_dongkhoi = "0";
+                    string Khongdongkhoi = row[i]["kl_khongdongkhoi"].ToString();
+                    if (Khongdongkhoi == "")
+                        Khongdongkhoi = "0";
+                    string Kl_lythuyet = row[i]["kl_lythuyet"].ToString();
+                    if (Kl_lythuyet == "")
+                        Kl_lythuyet = "0";
+                    string Hieusuatthu = row[i]["hieuxuat_thu"].ToString();
+                    if (Hieusuatthu == "")
+                        Hieusuatthu = "0";
+                    string Hieusuatrelease = row[i]["hieuxuat_release"].ToString();
+                    if (Hieusuatrelease == "")
+                        Hieusuatrelease = "0";
+                    string Thoigiancb = row[i]["thoigian_cb"].ToString();
+                    string Thoigiansx = row[i]["thoigian_sx"].ToString();
+                    string Phanbon_nvl = row[i]["phanbon_nvl"].ToString();
+                    string KL_phan_nvl = row[i]["kl_nvl"].ToString();
+                    if (KL_phan_nvl == "")
+                        KL_phan_nvl = "0";
+                    string Barcode_nvl = row[i]["barcode_nvl"].ToString();
+                    string LOT_nvl = row[i]["lot_nvl"].ToString();
+                    string N1_khoiluong = row[i]["N1"].ToString();
+                    if (N1_khoiluong == "")
+                        N1_khoiluong = "0";
+                    string N1_barcode = row[i]["barcode_n1"].ToString();
+                    string N1_LOT = row[i]["lot_n1"].ToString();
+                    string N2_khoiluong = row[i]["N2"].ToString();
+                    if (N2_khoiluong == "")
+                        N2_khoiluong = "0";
+                    string N2_barcode = row[i]["barcode_n2"].ToString();
+                    string N2_LOT = row[i]["lot_n2"].ToString();
+                    string n3_khoiluong = row[i]["N3"].ToString();
+                    if (n3_khoiluong == "")
+                        n3_khoiluong = "0";
+                    string N3_barcode = row[i]["barcode_n3"].ToString();
+                    string N3_LOT = row[i]["lot_n3"].ToString();
+                    string GA3 = row[i]["Ga3"].ToString();
+                    if (GA3 == "")
+                        GA3 = "0";
+                    string GA3_barcode = row[i]["barcode_ga3"].ToString();
+                    string Borax = row[i]["Borax"].ToString();
+                    if (Borax == "")
+                        Borax = "0";
+                    string Borax_barcode = row[i]["bacode_borax"].ToString();
+                    string NAA = row[i]["Naa"].ToString();
+                    if (NAA == "")
+                        NAA = "0";
+                    string NAA_barcode = row[i]["barcode_naa"].ToString();
+                    string Sodium = row[i]["Sodium"].ToString();
+                    if (Sodium == "")
+                        Sodium = "0";
+                    string Sodium_barcode = row[i]["barcode_sodium"].ToString();
+                    string Citric = row[i]["Citric"].ToString();
+                    if (Citric == "")
+                        Citric = "0";
+                    string Barcode_Citric = row[i]["barcode_citric"].ToString();
+                    string Naoh = row[i]["Naoh"].ToString();
+                    if (Naoh == "")
+                        Naoh = "0";
+                    string Barcode_Naoh = row[i]["barocde_naoh"].ToString();
+                    string Solubo = row[i]["solubo"].ToString();
+                    if (Solubo == "")
+                        Solubo = "0";
+                    string Barcode_Solubo = row[i]["barocde_solubo"].ToString();
+                    string Edtazn = row[i]["Edta"].ToString();
+                    if (Edtazn == "")
+                        Edtazn = "0";
+                    string Barcode_Edta = row[i]["barcode_edta"].ToString();
+                    string Red = row[i]["Red"].ToString();
+                    if (Red == "")
+                        Red = "0";
+                    string Barcode_red = row[i]["barcode_red"].ToString();
+                    string Violet = row[i]["violet"].ToString();
+                    if (Violet == "")
+                        Violet = "0";
+                    string Barcode_violet = row[i]["barcode_violet"].ToString();
+                    string Blue = row[i]["blue"].ToString();
+                    if (Blue == "")
+                        Blue = "0";
+                    string Barcode_blue = row[i]["barocde_blue"].ToString();
+                    string Yellow = row[i]["yellow"].ToString();
+                    if (Yellow == "")
+                        Yellow = "0";
+                    string Barcode_yellow = row[i]["barcode_yellow"].ToString();
+                    string Black = row[i]["black"].ToString();
+                    if (Black == "")
+                        Black = "0";
+                    string Barcode_black = row[i]["barcode_back"].ToString();
+                    string Prev = row[i]["prev"].ToString();
+                    if (Prev == "")
+                        Prev = "0";
+                    string Barcode_Prev = row[i]["barcode_prev"].ToString();
+                    string Than_cam = row[i]["thancam"].ToString();
+                    if (Than_cam == "")
+                        Than_cam = "0";
+                    string Dien = row[i]["dien"].ToString();
+                    if (Dien == "")
+                        Dien = "0";
+                    string Nuoc_RO = row[i]["nuocRo"].ToString();
+                    if (Nuoc_RO == "")
+                        Nuoc_RO = "0";
+                    string Nuoc_thuycuc = row[i]["nuocthuycuc"].ToString();
+                    if (Nuoc_thuycuc == "")
+                        Nuoc_thuycuc = "0";
                     string BHLD = row[i]["BHLD"].ToString();
                     string Ghi_chu = row[i]["ghi_chu"].ToString();
                     string Vitri_tongspthuduoc = row[i]["vitri_spthuduoc"].ToString();
@@ -8348,18 +10524,11 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
-                                "", Math.Round(TONG_KL_LT, 4), Math.Round(Hieu_suat_thu_tb / dataGridView1.Rows.Count, 4), Math.Round(Hieu_suat_release_tb / dataGridView1.Rows.Count, 4),
-                                "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
-                                "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
-                                "", "", Math.Round(tb_do_am / count_doam, 4), Math.Round(tb_coating / count_coating, 4), "",
-                                Math.Round(tb_0ngay / count_0, 4), Math.Round(tb_7ngay / count_7, 4), Math.Round(tb_14ngay / count_14, 4),
-                                Math.Round(tb_21ngay / count_21, 4), Math.Round(tb_28ngay / count_28, 4), Math.Round(tb_42ngay / count_42, 4),
-                                Math.Round(tb_49ngay / count_49, 4), Math.Round(tb_56ngay / count_56, 4), Math.Round(tb_70ngay / count_70, 4),
-                                Math.Round(tb_84ngay / count_84, 4), Math.Round(tb_98ngay / count_98, 4), Math.Round(tb_112ngay / count_112, 4),
-                                Math.Round(tb_126ngay / count_126, 4), Math.Round(tb_140ngay / count_140, 4));
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
+                dataGridView1.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dataGridView1.Columns[7].Frozen = true;
+                dataGridView1.Rows[0].Frozen = true;
+                dataGridView1.CurrentCell = dataGridView1.Rows[1].Cells[0];
             }
             catch (Exception ex)
             {
@@ -8378,7 +10547,17 @@ namespace NhatKySanXuat
                 DataTable tb_buff = new DataTable();
                 sqlcon.Open();
                 command = sqlcon.CreateCommand();
-                command.CommandText = "select * from nhatkysanxuat where phanbon_nvl LIKE '%" + cbb_phanbonnvl_search.Text + "%' AND thiet_bi = '" + cbb_thietbi_search.Text + "' AND ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) AND ma_BTP LIKE '%" + cbb_ma_BTP_search.Text + "%' ORDER BY dot_sx DESC";
+                command.CommandText = "select name,dot_sx,ngay_sx,thiet_bi,ma_BTP,ten_BTP,me,LOT ,tocdo_release," +
+                        "ngay_release,loai,tong_klspsx,kl_dongkhoi,kl_khongdongkhoi,kl_lythuyet,hieuxuat_thu,hieuxuat_release," +
+                        "thoigian_cb,thoigian_sx,phanbon_nvl,kl_nvl,barcode_nvl,lot_nvl,N1,barcode_n1,lot_n1," +
+                        "N2,barcode_n2,lot_n2,N3,barcode_n3,lot_n3,Ga3,barcode_ga3,Borax,bacode_borax,Naa,barcode_naa,solubo,barocde_solubo," +
+                        "Edta,barcode_edta,Red,barcode_red,violet,barcode_violet,blue,barocde_blue,yellow,barcode_yellow,black,barcode_back,prev," +
+                        "barcode_prev,thancam,dien,nuocRO,nuocthuycuc,BHLD,Sodium,barcode_sodium,Citric,barcode_citric,Naoh,barocde_naoh,ghi_chu," +
+                        "vitri_spthuduoc,vitri_spdongkhoi,vitri_spkhongdongkhoi,N1_1,N1_2,N1_3,N1_1_barcode,N1_2_barcode,N1_3_barcode,N1_1_lot," +
+                        "N1_2_lot,N1_3_lot,N2_1,N2_2,N2_1_barcode,N2_2_barcode,N2_1_lot,N2_2_lot,N3_1,N3_1_barcode,N3_1_lot,N1_4,N1_4_barcode," +
+                        "N1_4_lot,N2_3,N2_3_barcode,N2_3_lot,N3_2,N3_2_barcode,N3_2_lot,N3_3,N3_3_barcode,N3_3_lot,thoigian_ondinh,do_am,coating_layer," +
+                        "ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140,NVL_1," +
+                        "barcode_NVL_1,lot_NVL_1,NVL_2,barcode_NVL_2,lot_NVL_2,KL_NVL_1,KL_NVL_2,N1_BD,N1_KT,N2_BD,N2_KT,N3_BD,N3_KT from nhatkysanxuat where phanbon_nvl LIKE '%" + cbb_phanbonnvl_search.Text + "%' AND thiet_bi = '" + cbb_thietbi_search.Text + "' AND ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) AND ma_BTP LIKE '%" + cbb_ma_BTP_search.Text + "%' ORDER BY dot_sx DESC";
                 adapter.SelectCommand = command;
                 tb_buff.Clear();
                 adapter.Fill(tb_buff);
@@ -8533,18 +10712,6 @@ namespace NhatKySanXuat
                         count_coating++;
                         tb_coating += Convert.ToDouble(row[i]["coating_layer"].ToString());
                     }
-                    string Nguoi_nhap = row[i]["name"].ToString();
-                    string LOT = row[i]["LOT"].ToString();
-                    string Dot_sx = row[i]["dot_sx"].ToString();
-                    string Ngay_sx = row[i]["ngay_sx"].ToString();
-                    string Thiet_bi = row[i]["thiet_bi"].ToString();
-                    string Ma_btp = row[i]["ma_BTP"].ToString();
-                    string Ten_btp = row[i]["ten_BTP"].ToString();
-                    string Me = row[i]["me"].ToString();
-                    string Kl_nvl = row[i]["klnl_sudung"].ToString();
-                    string Toc_do_release = row[i]["tocdo_release"].ToString();
-                    string Ngay_release = row[i]["ngay_release"].ToString();
-                    string Loai = row[i]["loai"].ToString();
                     string Tong_klsp_thuduoc = row[i]["tong_klspsx"].ToString();
                     if (Tong_klsp_thuduoc == "")
                         Tong_klsp_thuduoc = "0";
@@ -8569,103 +10736,78 @@ namespace NhatKySanXuat
                     if (Hieusuatrelease == "")
                         Hieusuatrelease = "0";
                     Hieu_suat_release_tb += Convert.ToDouble(Hieusuatrelease);
-                    string Thoigiancb = row[i]["thoigian_cb"].ToString();
-                    string Thoigiansx = row[i]["thoigian_sx"].ToString();
-                    string Phanbon_nvl = row[i]["phanbon_nvl"].ToString();
                     string KL_phan_nvl = row[i]["kl_nvl"].ToString();
                     if (KL_phan_nvl == "")
                         KL_phan_nvl = "0";
                     KHOI_LUONG_NVL += Convert.ToDouble(KL_phan_nvl);
-                    string Barcode_nvl = row[i]["barcode_nvl"].ToString();
-                    string LOT_nvl = row[i]["lot_nvl"].ToString();
                     string N1_khoiluong = row[i]["N1"].ToString();
                     if (N1_khoiluong == "")
                         N1_khoiluong = "0";
                     Tong_N1_KL += Convert.ToDouble(N1_khoiluong);
-                    string N1_barcode = row[i]["barcode_n1"].ToString();
-                    string N1_LOT = row[i]["lot_n1"].ToString();
                     string N2_khoiluong = row[i]["N2"].ToString();
                     if (N2_khoiluong == "")
                         N2_khoiluong = "0";
                     Tong_N2_KL += Convert.ToDouble(N2_khoiluong);
-                    string N2_barcode = row[i]["barcode_n2"].ToString();
-                    string N2_LOT = row[i]["lot_n2"].ToString();
                     string n3_khoiluong = row[i]["N3"].ToString();
                     if (n3_khoiluong == "")
                         n3_khoiluong = "0";
                     Tong_N3_KL += Convert.ToDouble(n3_khoiluong);
-                    string N3_barcode = row[i]["barcode_n3"].ToString();
-                    string N3_LOT = row[i]["lot_n3"].ToString();
                     string GA3 = row[i]["Ga3"].ToString();
                     if (GA3 == "")
                         GA3 = "0";
                     Tong_ga3 += Convert.ToDouble(GA3);
-                    string GA3_barcode = row[i]["barcode_ga3"].ToString();
                     string Borax = row[i]["Borax"].ToString();
                     if (Borax == "")
                         Borax = "0";
                     Tong_borax += Convert.ToDouble(Borax);
-                    string Borax_barcode = row[i]["bacode_borax"].ToString();
                     string NAA = row[i]["Naa"].ToString();
                     if (NAA == "")
                         NAA = "0";
                     Tong_Naa += Convert.ToDouble(NAA);
-                    string NAA_barcode = row[i]["barcode_naa"].ToString();
                     string Sodium = row[i]["Sodium"].ToString();
                     if (Sodium == "")
                         Sodium = "0";
                     Tong_sodium += Convert.ToDouble(Sodium);
-                    string Sodium_barcode = row[i]["barcode_sodium"].ToString();
                     string Citric = row[i]["Citric"].ToString();
                     if (Citric == "")
                         Citric = "0";
                     Tong_citric += Convert.ToDouble(Citric);
-                    string Barcode_Citric = row[i]["barcode_citric"].ToString();
                     string Naoh = row[i]["Naoh"].ToString();
                     if (Naoh == "")
                         Naoh = "0";
                     Tong_naoh += Convert.ToDouble(Naoh);
-                    string Barcode_Naoh = row[i]["barocde_naoh"].ToString();
                     string Solubo = row[i]["solubo"].ToString();
                     if (Solubo == "")
                         Solubo = "0";
                     Tong_solubo += Convert.ToDouble(Solubo);
-                    string Barcode_Solubo = row[i]["barocde_solubo"].ToString();
                     string Edtazn = row[i]["Edta"].ToString();
                     if (Edtazn == "")
                         Edtazn = "0";
                     Tong_edtazn += Convert.ToDouble(Edtazn);
-                    string Barcode_Edta = row[i]["barcode_edta"].ToString();
                     string Red = row[i]["Red"].ToString();
                     if (Red == "")
                         Red = "0";
                     Tong_red += Convert.ToDouble(Red);
-                    string Barcode_red = row[i]["barcode_red"].ToString();
                     string Violet = row[i]["violet"].ToString();
                     if (Violet == "")
                         Violet = "0";
                     Tong_violet += Convert.ToDouble(Violet);
-                    string Barcode_violet = row[i]["barcode_violet"].ToString();
                     string Blue = row[i]["blue"].ToString();
                     if (Blue == "")
                         Blue = "0";
                     Tong_blue += Convert.ToDouble(Blue);
-                    string Barcode_blue = row[i]["barocde_blue"].ToString();
                     string Yellow = row[i]["yellow"].ToString();
                     if (Yellow == "")
                         Yellow = "0";
                     Tong_yellow += Convert.ToDouble(Yellow);
-                    string Barcode_yellow = row[i]["barcode_yellow"].ToString();
                     string Black = row[i]["black"].ToString();
                     if (Black == "")
                         Black = "0";
                     Tong_black += Convert.ToDouble(Black);
-                    string Barcode_black = row[i]["barcode_back"].ToString();
                     string Prev = row[i]["prev"].ToString();
                     if (Prev == "")
                         Prev = "0";
                     Tong_prev += Convert.ToDouble(Prev);
-                    string Barcode_Prev = row[i]["barcode_prev"].ToString();
                     string Than_cam = row[i]["thancam"].ToString();
                     if (Than_cam == "")
                         Than_cam = "0";
@@ -8682,6 +10824,139 @@ namespace NhatKySanXuat
                     if (Nuoc_thuycuc == "")
                         Nuoc_thuycuc = "0";
                     Tong_nuocthuycuc += Convert.ToDouble(Nuoc_thuycuc);
+                }
+                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                "", Math.Round(TONG_KL_LT, 3), Math.Round(Hieu_suat_thu_tb / row.Length, 3), Math.Round(Hieu_suat_release_tb / row.Length, 3),
+                "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
+                "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
+                "", "", Math.Round(tb_do_am / count_doam, 3), Math.Round(tb_coating / count_coating, 3), "",
+                Math.Round(tb_0ngay / count_0, 3), Math.Round(tb_7ngay / count_7, 3), Math.Round(tb_14ngay / count_14, 3),
+                Math.Round(tb_21ngay / count_21, 3), Math.Round(tb_28ngay / count_28, 3), Math.Round(tb_42ngay / count_42, 3),
+                Math.Round(tb_49ngay / count_49, 3), Math.Round(tb_56ngay / count_56, 3), Math.Round(tb_70ngay / count_70, 3),
+                Math.Round(tb_84ngay / count_84, 3), Math.Round(tb_98ngay / count_98, 3), Math.Round(tb_112ngay / count_112, 3),
+                Math.Round(tb_126ngay / count_126, 3), Math.Round(tb_140ngay / count_140, 3));
+                for (int i = 0; i < row.Length; i++)
+                {
+                    string Nguoi_nhap = row[i]["name"].ToString();
+                    string LOT = row[i]["LOT"].ToString();
+                    string Dot_sx = row[i]["dot_sx"].ToString();
+                    string Ngay_sx = row[i]["ngay_sx"].ToString();
+                    string Thiet_bi = row[i]["thiet_bi"].ToString();
+                    string Ma_btp = row[i]["ma_BTP"].ToString();
+                    string Ten_btp = row[i]["ten_BTP"].ToString();
+                    string Me = row[i]["me"].ToString();
+                    string Toc_do_release = row[i]["tocdo_release"].ToString();
+                    string Ngay_release = row[i]["ngay_release"].ToString();
+                    string Loai = row[i]["loai"].ToString();
+                    string Tong_klsp_thuduoc = row[i]["tong_klspsx"].ToString();
+                    if (Tong_klsp_thuduoc == "")
+                        Tong_klsp_thuduoc = "0";
+                    string Kl_dongkhoi = row[i]["kl_dongkhoi"].ToString();
+                    if (Kl_dongkhoi == "")
+                        Kl_dongkhoi = "0";
+                    string Khongdongkhoi = row[i]["kl_khongdongkhoi"].ToString();
+                    if (Khongdongkhoi == "")
+                        Khongdongkhoi = "0";
+                    string Kl_lythuyet = row[i]["kl_lythuyet"].ToString();
+                    if (Kl_lythuyet == "")
+                        Kl_lythuyet = "0";
+                    string Hieusuatthu = row[i]["hieuxuat_thu"].ToString();
+                    if (Hieusuatthu == "")
+                        Hieusuatthu = "0";
+                    string Hieusuatrelease = row[i]["hieuxuat_release"].ToString();
+                    if (Hieusuatrelease == "")
+                        Hieusuatrelease = "0";
+                    string Thoigiancb = row[i]["thoigian_cb"].ToString();
+                    string Thoigiansx = row[i]["thoigian_sx"].ToString();
+                    string Phanbon_nvl = row[i]["phanbon_nvl"].ToString();
+                    string KL_phan_nvl = row[i]["kl_nvl"].ToString();
+                    if (KL_phan_nvl == "")
+                        KL_phan_nvl = "0";
+                    string Barcode_nvl = row[i]["barcode_nvl"].ToString();
+                    string LOT_nvl = row[i]["lot_nvl"].ToString();
+                    string N1_khoiluong = row[i]["N1"].ToString();
+                    if (N1_khoiluong == "")
+                        N1_khoiluong = "0";
+                    string N1_barcode = row[i]["barcode_n1"].ToString();
+                    string N1_LOT = row[i]["lot_n1"].ToString();
+                    string N2_khoiluong = row[i]["N2"].ToString();
+                    if (N2_khoiluong == "")
+                        N2_khoiluong = "0";
+                    string N2_barcode = row[i]["barcode_n2"].ToString();
+                    string N2_LOT = row[i]["lot_n2"].ToString();
+                    string n3_khoiluong = row[i]["N3"].ToString();
+                    if (n3_khoiluong == "")
+                        n3_khoiluong = "0";
+                    string N3_barcode = row[i]["barcode_n3"].ToString();
+                    string N3_LOT = row[i]["lot_n3"].ToString();
+                    string GA3 = row[i]["Ga3"].ToString();
+                    if (GA3 == "")
+                        GA3 = "0";
+                    string GA3_barcode = row[i]["barcode_ga3"].ToString();
+                    string Borax = row[i]["Borax"].ToString();
+                    if (Borax == "")
+                        Borax = "0";
+                    string Borax_barcode = row[i]["bacode_borax"].ToString();
+                    string NAA = row[i]["Naa"].ToString();
+                    if (NAA == "")
+                        NAA = "0";
+                    string NAA_barcode = row[i]["barcode_naa"].ToString();
+                    string Sodium = row[i]["Sodium"].ToString();
+                    if (Sodium == "")
+                        Sodium = "0";
+                    string Sodium_barcode = row[i]["barcode_sodium"].ToString();
+                    string Citric = row[i]["Citric"].ToString();
+                    if (Citric == "")
+                        Citric = "0";
+                    string Barcode_Citric = row[i]["barcode_citric"].ToString();
+                    string Naoh = row[i]["Naoh"].ToString();
+                    if (Naoh == "")
+                        Naoh = "0";
+                    string Barcode_Naoh = row[i]["barocde_naoh"].ToString();
+                    string Solubo = row[i]["solubo"].ToString();
+                    if (Solubo == "")
+                        Solubo = "0";
+                    string Barcode_Solubo = row[i]["barocde_solubo"].ToString();
+                    string Edtazn = row[i]["Edta"].ToString();
+                    if (Edtazn == "")
+                        Edtazn = "0";
+                    string Barcode_Edta = row[i]["barcode_edta"].ToString();
+                    string Red = row[i]["Red"].ToString();
+                    if (Red == "")
+                        Red = "0";
+                    string Barcode_red = row[i]["barcode_red"].ToString();
+                    string Violet = row[i]["violet"].ToString();
+                    if (Violet == "")
+                        Violet = "0";
+                    string Barcode_violet = row[i]["barcode_violet"].ToString();
+                    string Blue = row[i]["blue"].ToString();
+                    if (Blue == "")
+                        Blue = "0";
+                    string Barcode_blue = row[i]["barocde_blue"].ToString();
+                    string Yellow = row[i]["yellow"].ToString();
+                    if (Yellow == "")
+                        Yellow = "0";
+                    string Barcode_yellow = row[i]["barcode_yellow"].ToString();
+                    string Black = row[i]["black"].ToString();
+                    if (Black == "")
+                        Black = "0";
+                    string Barcode_black = row[i]["barcode_back"].ToString();
+                    string Prev = row[i]["prev"].ToString();
+                    if (Prev == "")
+                        Prev = "0";
+                    string Barcode_Prev = row[i]["barcode_prev"].ToString();
+                    string Than_cam = row[i]["thancam"].ToString();
+                    if (Than_cam == "")
+                        Than_cam = "0";
+                    string Dien = row[i]["dien"].ToString();
+                    if (Dien == "")
+                        Dien = "0";
+                    string Nuoc_RO = row[i]["nuocRo"].ToString();
+                    if (Nuoc_RO == "")
+                        Nuoc_RO = "0";
+                    string Nuoc_thuycuc = row[i]["nuocthuycuc"].ToString();
+                    if (Nuoc_thuycuc == "")
+                        Nuoc_thuycuc = "0";
                     string BHLD = row[i]["BHLD"].ToString();
                     string Ghi_chu = row[i]["ghi_chu"].ToString();
                     string Vitri_tongspthuduoc = row[i]["vitri_spthuduoc"].ToString();
@@ -8716,18 +10991,11 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
-                                "", Math.Round(TONG_KL_LT, 4), Math.Round(Hieu_suat_thu_tb / dataGridView1.Rows.Count, 4), Math.Round(Hieu_suat_release_tb / dataGridView1.Rows.Count, 4),
-                                "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
-                                "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
-                                "", "", Math.Round(tb_do_am / count_doam, 4), Math.Round(tb_coating / count_coating, 4), "",
-                                Math.Round(tb_0ngay / count_0, 4), Math.Round(tb_7ngay / count_7, 4), Math.Round(tb_14ngay / count_14, 4),
-                                Math.Round(tb_21ngay / count_21, 4), Math.Round(tb_28ngay / count_28, 4), Math.Round(tb_42ngay / count_42, 4),
-                                Math.Round(tb_49ngay / count_49, 4), Math.Round(tb_56ngay / count_56, 4), Math.Round(tb_70ngay / count_70, 4),
-                                Math.Round(tb_84ngay / count_84, 4), Math.Round(tb_98ngay / count_98, 4), Math.Round(tb_112ngay / count_112, 4),
-                                Math.Round(tb_126ngay / count_126, 4), Math.Round(tb_140ngay / count_140, 4));
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
+                dataGridView1.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dataGridView1.Columns[7].Frozen = true;
+                dataGridView1.Rows[0].Frozen = true;
+                dataGridView1.CurrentCell = dataGridView1.Rows[1].Cells[0];
             }
             catch (Exception ex)
             {
@@ -8746,7 +11014,17 @@ namespace NhatKySanXuat
                 DataTable tb_buff = new DataTable();
                 sqlcon.Open();
                 command = sqlcon.CreateCommand();
-                command.CommandText = "select * from nhatkysanxuat where phanbon_nvl LIKE '%" + cbb_phanbonnvl_search.Text + "%' AND ma_BTP LIKE '%" + cbb_ma_BTP_search.Text + "%' AND ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) ORDER BY dot_sx DESC";
+                command.CommandText = "select name,dot_sx,ngay_sx,thiet_bi,ma_BTP,ten_BTP,me,LOT ,tocdo_release," +
+                        "ngay_release,loai,tong_klspsx,kl_dongkhoi,kl_khongdongkhoi,kl_lythuyet,hieuxuat_thu,hieuxuat_release," +
+                        "thoigian_cb,thoigian_sx,phanbon_nvl,kl_nvl,barcode_nvl,lot_nvl,N1,barcode_n1,lot_n1," +
+                        "N2,barcode_n2,lot_n2,N3,barcode_n3,lot_n3,Ga3,barcode_ga3,Borax,bacode_borax,Naa,barcode_naa,solubo,barocde_solubo," +
+                        "Edta,barcode_edta,Red,barcode_red,violet,barcode_violet,blue,barocde_blue,yellow,barcode_yellow,black,barcode_back,prev," +
+                        "barcode_prev,thancam,dien,nuocRO,nuocthuycuc,BHLD,Sodium,barcode_sodium,Citric,barcode_citric,Naoh,barocde_naoh,ghi_chu," +
+                        "vitri_spthuduoc,vitri_spdongkhoi,vitri_spkhongdongkhoi,N1_1,N1_2,N1_3,N1_1_barcode,N1_2_barcode,N1_3_barcode,N1_1_lot," +
+                        "N1_2_lot,N1_3_lot,N2_1,N2_2,N2_1_barcode,N2_2_barcode,N2_1_lot,N2_2_lot,N3_1,N3_1_barcode,N3_1_lot,N1_4,N1_4_barcode," +
+                        "N1_4_lot,N2_3,N2_3_barcode,N2_3_lot,N3_2,N3_2_barcode,N3_2_lot,N3_3,N3_3_barcode,N3_3_lot,thoigian_ondinh,do_am,coating_layer," +
+                        "ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140,NVL_1," +
+                        "barcode_NVL_1,lot_NVL_1,NVL_2,barcode_NVL_2,lot_NVL_2,KL_NVL_1,KL_NVL_2,N1_BD,N1_KT,N2_BD,N2_KT,N3_BD,N3_KT from nhatkysanxuat where phanbon_nvl LIKE '%" + cbb_phanbonnvl_search.Text + "%' AND ma_BTP LIKE '%" + cbb_ma_BTP_search.Text + "%' AND ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) ORDER BY dot_sx DESC";
                 adapter.SelectCommand = command;
                 tb_buff.Clear();
                 adapter.Fill(tb_buff);
@@ -8901,18 +11179,6 @@ namespace NhatKySanXuat
                         count_coating++;
                         tb_coating += Convert.ToDouble(row[i]["coating_layer"].ToString());
                     }
-                    string Nguoi_nhap = row[i]["name"].ToString();
-                    string LOT = row[i]["LOT"].ToString();
-                    string Dot_sx = row[i]["dot_sx"].ToString();
-                    string Ngay_sx = row[i]["ngay_sx"].ToString();
-                    string Thiet_bi = row[i]["thiet_bi"].ToString();
-                    string Ma_btp = row[i]["ma_BTP"].ToString();
-                    string Ten_btp = row[i]["ten_BTP"].ToString();
-                    string Me = row[i]["me"].ToString();
-                    string Kl_nvl = row[i]["klnl_sudung"].ToString();
-                    string Toc_do_release = row[i]["tocdo_release"].ToString();
-                    string Ngay_release = row[i]["ngay_release"].ToString();
-                    string Loai = row[i]["loai"].ToString();
                     string Tong_klsp_thuduoc = row[i]["tong_klspsx"].ToString();
                     if (Tong_klsp_thuduoc == "")
                         Tong_klsp_thuduoc = "0";
@@ -8937,103 +11203,78 @@ namespace NhatKySanXuat
                     if (Hieusuatrelease == "")
                         Hieusuatrelease = "0";
                     Hieu_suat_release_tb += Convert.ToDouble(Hieusuatrelease);
-                    string Thoigiancb = row[i]["thoigian_cb"].ToString();
-                    string Thoigiansx = row[i]["thoigian_sx"].ToString();
-                    string Phanbon_nvl = row[i]["phanbon_nvl"].ToString();
                     string KL_phan_nvl = row[i]["kl_nvl"].ToString();
                     if (KL_phan_nvl == "")
                         KL_phan_nvl = "0";
                     KHOI_LUONG_NVL += Convert.ToDouble(KL_phan_nvl);
-                    string Barcode_nvl = row[i]["barcode_nvl"].ToString();
-                    string LOT_nvl = row[i]["lot_nvl"].ToString();
                     string N1_khoiluong = row[i]["N1"].ToString();
                     if (N1_khoiluong == "")
                         N1_khoiluong = "0";
                     Tong_N1_KL += Convert.ToDouble(N1_khoiluong);
-                    string N1_barcode = row[i]["barcode_n1"].ToString();
-                    string N1_LOT = row[i]["lot_n1"].ToString();
                     string N2_khoiluong = row[i]["N2"].ToString();
                     if (N2_khoiluong == "")
                         N2_khoiluong = "0";
                     Tong_N2_KL += Convert.ToDouble(N2_khoiluong);
-                    string N2_barcode = row[i]["barcode_n2"].ToString();
-                    string N2_LOT = row[i]["lot_n2"].ToString();
                     string n3_khoiluong = row[i]["N3"].ToString();
                     if (n3_khoiluong == "")
                         n3_khoiluong = "0";
                     Tong_N3_KL += Convert.ToDouble(n3_khoiluong);
-                    string N3_barcode = row[i]["barcode_n3"].ToString();
-                    string N3_LOT = row[i]["lot_n3"].ToString();
                     string GA3 = row[i]["Ga3"].ToString();
                     if (GA3 == "")
                         GA3 = "0";
                     Tong_ga3 += Convert.ToDouble(GA3);
-                    string GA3_barcode = row[i]["barcode_ga3"].ToString();
                     string Borax = row[i]["Borax"].ToString();
                     if (Borax == "")
                         Borax = "0";
                     Tong_borax += Convert.ToDouble(Borax);
-                    string Borax_barcode = row[i]["bacode_borax"].ToString();
                     string NAA = row[i]["Naa"].ToString();
                     if (NAA == "")
                         NAA = "0";
                     Tong_Naa += Convert.ToDouble(NAA);
-                    string NAA_barcode = row[i]["barcode_naa"].ToString();
                     string Sodium = row[i]["Sodium"].ToString();
                     if (Sodium == "")
                         Sodium = "0";
                     Tong_sodium += Convert.ToDouble(Sodium);
-                    string Sodium_barcode = row[i]["barcode_sodium"].ToString();
                     string Citric = row[i]["Citric"].ToString();
                     if (Citric == "")
                         Citric = "0";
                     Tong_citric += Convert.ToDouble(Citric);
-                    string Barcode_Citric = row[i]["barcode_citric"].ToString();
                     string Naoh = row[i]["Naoh"].ToString();
                     if (Naoh == "")
                         Naoh = "0";
                     Tong_naoh += Convert.ToDouble(Naoh);
-                    string Barcode_Naoh = row[i]["barocde_naoh"].ToString();
                     string Solubo = row[i]["solubo"].ToString();
                     if (Solubo == "")
                         Solubo = "0";
                     Tong_solubo += Convert.ToDouble(Solubo);
-                    string Barcode_Solubo = row[i]["barocde_solubo"].ToString();
                     string Edtazn = row[i]["Edta"].ToString();
                     if (Edtazn == "")
                         Edtazn = "0";
                     Tong_edtazn += Convert.ToDouble(Edtazn);
-                    string Barcode_Edta = row[i]["barcode_edta"].ToString();
                     string Red = row[i]["Red"].ToString();
                     if (Red == "")
                         Red = "0";
                     Tong_red += Convert.ToDouble(Red);
-                    string Barcode_red = row[i]["barcode_red"].ToString();
                     string Violet = row[i]["violet"].ToString();
                     if (Violet == "")
                         Violet = "0";
                     Tong_violet += Convert.ToDouble(Violet);
-                    string Barcode_violet = row[i]["barcode_violet"].ToString();
                     string Blue = row[i]["blue"].ToString();
                     if (Blue == "")
                         Blue = "0";
                     Tong_blue += Convert.ToDouble(Blue);
-                    string Barcode_blue = row[i]["barocde_blue"].ToString();
                     string Yellow = row[i]["yellow"].ToString();
                     if (Yellow == "")
                         Yellow = "0";
                     Tong_yellow += Convert.ToDouble(Yellow);
-                    string Barcode_yellow = row[i]["barcode_yellow"].ToString();
                     string Black = row[i]["black"].ToString();
                     if (Black == "")
                         Black = "0";
                     Tong_black += Convert.ToDouble(Black);
-                    string Barcode_black = row[i]["barcode_back"].ToString();
                     string Prev = row[i]["prev"].ToString();
                     if (Prev == "")
                         Prev = "0";
                     Tong_prev += Convert.ToDouble(Prev);
-                    string Barcode_Prev = row[i]["barcode_prev"].ToString();
                     string Than_cam = row[i]["thancam"].ToString();
                     if (Than_cam == "")
                         Than_cam = "0";
@@ -9050,6 +11291,139 @@ namespace NhatKySanXuat
                     if (Nuoc_thuycuc == "")
                         Nuoc_thuycuc = "0";
                     Tong_nuocthuycuc += Convert.ToDouble(Nuoc_thuycuc);
+                }
+                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                "", Math.Round(TONG_KL_LT, 3), Math.Round(Hieu_suat_thu_tb / row.Length, 3), Math.Round(Hieu_suat_release_tb / row.Length, 3),
+                "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
+                "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
+                "", "", Math.Round(tb_do_am / count_doam, 3), Math.Round(tb_coating / count_coating, 3), "",
+                Math.Round(tb_0ngay / count_0, 3), Math.Round(tb_7ngay / count_7, 3), Math.Round(tb_14ngay / count_14, 3),
+                Math.Round(tb_21ngay / count_21, 3), Math.Round(tb_28ngay / count_28, 3), Math.Round(tb_42ngay / count_42, 3),
+                Math.Round(tb_49ngay / count_49, 3), Math.Round(tb_56ngay / count_56, 3), Math.Round(tb_70ngay / count_70, 3),
+                Math.Round(tb_84ngay / count_84, 3), Math.Round(tb_98ngay / count_98, 3), Math.Round(tb_112ngay / count_112, 3),
+                Math.Round(tb_126ngay / count_126, 3), Math.Round(tb_140ngay / count_140, 3));
+                for (int i = 0; i < row.Length; i++)
+                {
+                    string Nguoi_nhap = row[i]["name"].ToString();
+                    string LOT = row[i]["LOT"].ToString();
+                    string Dot_sx = row[i]["dot_sx"].ToString();
+                    string Ngay_sx = row[i]["ngay_sx"].ToString();
+                    string Thiet_bi = row[i]["thiet_bi"].ToString();
+                    string Ma_btp = row[i]["ma_BTP"].ToString();
+                    string Ten_btp = row[i]["ten_BTP"].ToString();
+                    string Me = row[i]["me"].ToString();
+                    string Toc_do_release = row[i]["tocdo_release"].ToString();
+                    string Ngay_release = row[i]["ngay_release"].ToString();
+                    string Loai = row[i]["loai"].ToString();
+                    string Tong_klsp_thuduoc = row[i]["tong_klspsx"].ToString();
+                    if (Tong_klsp_thuduoc == "")
+                        Tong_klsp_thuduoc = "0";
+                    string Kl_dongkhoi = row[i]["kl_dongkhoi"].ToString();
+                    if (Kl_dongkhoi == "")
+                        Kl_dongkhoi = "0";
+                    string Khongdongkhoi = row[i]["kl_khongdongkhoi"].ToString();
+                    if (Khongdongkhoi == "")
+                        Khongdongkhoi = "0";
+                    string Kl_lythuyet = row[i]["kl_lythuyet"].ToString();
+                    if (Kl_lythuyet == "")
+                        Kl_lythuyet = "0";
+                    string Hieusuatthu = row[i]["hieuxuat_thu"].ToString();
+                    if (Hieusuatthu == "")
+                        Hieusuatthu = "0";
+                    string Hieusuatrelease = row[i]["hieuxuat_release"].ToString();
+                    if (Hieusuatrelease == "")
+                        Hieusuatrelease = "0";
+                    string Thoigiancb = row[i]["thoigian_cb"].ToString();
+                    string Thoigiansx = row[i]["thoigian_sx"].ToString();
+                    string Phanbon_nvl = row[i]["phanbon_nvl"].ToString();
+                    string KL_phan_nvl = row[i]["kl_nvl"].ToString();
+                    if (KL_phan_nvl == "")
+                        KL_phan_nvl = "0";
+                    string Barcode_nvl = row[i]["barcode_nvl"].ToString();
+                    string LOT_nvl = row[i]["lot_nvl"].ToString();
+                    string N1_khoiluong = row[i]["N1"].ToString();
+                    if (N1_khoiluong == "")
+                        N1_khoiluong = "0";
+                    string N1_barcode = row[i]["barcode_n1"].ToString();
+                    string N1_LOT = row[i]["lot_n1"].ToString();
+                    string N2_khoiluong = row[i]["N2"].ToString();
+                    if (N2_khoiluong == "")
+                        N2_khoiluong = "0";
+                    string N2_barcode = row[i]["barcode_n2"].ToString();
+                    string N2_LOT = row[i]["lot_n2"].ToString();
+                    string n3_khoiluong = row[i]["N3"].ToString();
+                    if (n3_khoiluong == "")
+                        n3_khoiluong = "0";
+                    string N3_barcode = row[i]["barcode_n3"].ToString();
+                    string N3_LOT = row[i]["lot_n3"].ToString();
+                    string GA3 = row[i]["Ga3"].ToString();
+                    if (GA3 == "")
+                        GA3 = "0";
+                    string GA3_barcode = row[i]["barcode_ga3"].ToString();
+                    string Borax = row[i]["Borax"].ToString();
+                    if (Borax == "")
+                        Borax = "0";
+                    string Borax_barcode = row[i]["bacode_borax"].ToString();
+                    string NAA = row[i]["Naa"].ToString();
+                    if (NAA == "")
+                        NAA = "0";
+                    string NAA_barcode = row[i]["barcode_naa"].ToString();
+                    string Sodium = row[i]["Sodium"].ToString();
+                    if (Sodium == "")
+                        Sodium = "0";
+                    string Sodium_barcode = row[i]["barcode_sodium"].ToString();
+                    string Citric = row[i]["Citric"].ToString();
+                    if (Citric == "")
+                        Citric = "0";
+                    string Barcode_Citric = row[i]["barcode_citric"].ToString();
+                    string Naoh = row[i]["Naoh"].ToString();
+                    if (Naoh == "")
+                        Naoh = "0";
+                    string Barcode_Naoh = row[i]["barocde_naoh"].ToString();
+                    string Solubo = row[i]["solubo"].ToString();
+                    if (Solubo == "")
+                        Solubo = "0";
+                    string Barcode_Solubo = row[i]["barocde_solubo"].ToString();
+                    string Edtazn = row[i]["Edta"].ToString();
+                    if (Edtazn == "")
+                        Edtazn = "0";
+                    string Barcode_Edta = row[i]["barcode_edta"].ToString();
+                    string Red = row[i]["Red"].ToString();
+                    if (Red == "")
+                        Red = "0";
+                    string Barcode_red = row[i]["barcode_red"].ToString();
+                    string Violet = row[i]["violet"].ToString();
+                    if (Violet == "")
+                        Violet = "0";
+                    string Barcode_violet = row[i]["barcode_violet"].ToString();
+                    string Blue = row[i]["blue"].ToString();
+                    if (Blue == "")
+                        Blue = "0";
+                    string Barcode_blue = row[i]["barocde_blue"].ToString();
+                    string Yellow = row[i]["yellow"].ToString();
+                    if (Yellow == "")
+                        Yellow = "0";
+                    string Barcode_yellow = row[i]["barcode_yellow"].ToString();
+                    string Black = row[i]["black"].ToString();
+                    if (Black == "")
+                        Black = "0";
+                    string Barcode_black = row[i]["barcode_back"].ToString();
+                    string Prev = row[i]["prev"].ToString();
+                    if (Prev == "")
+                        Prev = "0";
+                    string Barcode_Prev = row[i]["barcode_prev"].ToString();
+                    string Than_cam = row[i]["thancam"].ToString();
+                    if (Than_cam == "")
+                        Than_cam = "0";
+                    string Dien = row[i]["dien"].ToString();
+                    if (Dien == "")
+                        Dien = "0";
+                    string Nuoc_RO = row[i]["nuocRo"].ToString();
+                    if (Nuoc_RO == "")
+                        Nuoc_RO = "0";
+                    string Nuoc_thuycuc = row[i]["nuocthuycuc"].ToString();
+                    if (Nuoc_thuycuc == "")
+                        Nuoc_thuycuc = "0";
                     string BHLD = row[i]["BHLD"].ToString();
                     string Ghi_chu = row[i]["ghi_chu"].ToString();
                     string Vitri_tongspthuduoc = row[i]["vitri_spthuduoc"].ToString();
@@ -9084,18 +11458,11 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
-                                "", Math.Round(TONG_KL_LT, 4), Math.Round(Hieu_suat_thu_tb / dataGridView1.Rows.Count, 4), Math.Round(Hieu_suat_release_tb / dataGridView1.Rows.Count, 4),
-                                "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
-                                "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
-                                "", "", Math.Round(tb_do_am / count_doam, 4), Math.Round(tb_coating / count_coating, 4), "",
-                                Math.Round(tb_0ngay / count_0, 4), Math.Round(tb_7ngay / count_7, 4), Math.Round(tb_14ngay / count_14, 4),
-                                Math.Round(tb_21ngay / count_21, 4), Math.Round(tb_28ngay / count_28, 4), Math.Round(tb_42ngay / count_42, 4),
-                                Math.Round(tb_49ngay / count_49, 4), Math.Round(tb_56ngay / count_56, 4), Math.Round(tb_70ngay / count_70, 4),
-                                Math.Round(tb_84ngay / count_84, 4), Math.Round(tb_98ngay / count_98, 4), Math.Round(tb_112ngay / count_112, 4),
-                                Math.Round(tb_126ngay / count_126, 4), Math.Round(tb_140ngay / count_140, 4));
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
+                dataGridView1.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dataGridView1.Columns[7].Frozen = true;
+                dataGridView1.Rows[0].Frozen = true;
+                dataGridView1.CurrentCell = dataGridView1.Rows[1].Cells[0];
             }
             catch (Exception ex)
             {
@@ -9114,7 +11481,17 @@ namespace NhatKySanXuat
                 DataTable tb_buff = new DataTable();
                 sqlcon.Open();
                 command = sqlcon.CreateCommand();
-                command.CommandText = "select * from nhatkysanxuat where dot_sx = '" + tb_dotsx_search.Text + "' AND loai = '" + cbb_search_loai.Text + "' AND thiet_bi = '" + cbb_thietbi_search.Text + "' AND ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) AND ma_BTP LIKE '%" + cbb_ma_BTP_search.Text + "%' ORDER BY me DESC";
+                command.CommandText = "select name,dot_sx,ngay_sx,thiet_bi,ma_BTP,ten_BTP,me,LOT ,tocdo_release," +
+                        "ngay_release,loai,tong_klspsx,kl_dongkhoi,kl_khongdongkhoi,kl_lythuyet,hieuxuat_thu,hieuxuat_release," +
+                        "thoigian_cb,thoigian_sx,phanbon_nvl,kl_nvl,barcode_nvl,lot_nvl,N1,barcode_n1,lot_n1," +
+                        "N2,barcode_n2,lot_n2,N3,barcode_n3,lot_n3,Ga3,barcode_ga3,Borax,bacode_borax,Naa,barcode_naa,solubo,barocde_solubo," +
+                        "Edta,barcode_edta,Red,barcode_red,violet,barcode_violet,blue,barocde_blue,yellow,barcode_yellow,black,barcode_back,prev," +
+                        "barcode_prev,thancam,dien,nuocRO,nuocthuycuc,BHLD,Sodium,barcode_sodium,Citric,barcode_citric,Naoh,barocde_naoh,ghi_chu," +
+                        "vitri_spthuduoc,vitri_spdongkhoi,vitri_spkhongdongkhoi,N1_1,N1_2,N1_3,N1_1_barcode,N1_2_barcode,N1_3_barcode,N1_1_lot," +
+                        "N1_2_lot,N1_3_lot,N2_1,N2_2,N2_1_barcode,N2_2_barcode,N2_1_lot,N2_2_lot,N3_1,N3_1_barcode,N3_1_lot,N1_4,N1_4_barcode," +
+                        "N1_4_lot,N2_3,N2_3_barcode,N2_3_lot,N3_2,N3_2_barcode,N3_2_lot,N3_3,N3_3_barcode,N3_3_lot,thoigian_ondinh,do_am,coating_layer," +
+                        "ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140,NVL_1," +
+                        "barcode_NVL_1,lot_NVL_1,NVL_2,barcode_NVL_2,lot_NVL_2,KL_NVL_1,KL_NVL_2,N1_BD,N1_KT,N2_BD,N2_KT,N3_BD,N3_KT from nhatkysanxuat where dot_sx = '" + tb_dotsx_search.Text + "' AND loai = '" + cbb_search_loai.Text + "' AND thiet_bi = '" + cbb_thietbi_search.Text + "' AND ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) AND ma_BTP LIKE '%" + cbb_ma_BTP_search.Text + "%' ORDER BY me DESC";
                 adapter.SelectCommand = command;
                 tb_buff.Clear();
                 adapter.Fill(tb_buff);
@@ -9269,18 +11646,6 @@ namespace NhatKySanXuat
                         count_coating++;
                         tb_coating += Convert.ToDouble(row[i]["coating_layer"].ToString());
                     }
-                    string Nguoi_nhap = row[i]["name"].ToString();
-                    string LOT = row[i]["LOT"].ToString();
-                    string Dot_sx = row[i]["dot_sx"].ToString();
-                    string Ngay_sx = row[i]["ngay_sx"].ToString();
-                    string Thiet_bi = row[i]["thiet_bi"].ToString();
-                    string Ma_btp = row[i]["ma_BTP"].ToString();
-                    string Ten_btp = row[i]["ten_BTP"].ToString();
-                    string Me = row[i]["me"].ToString();
-                    string Kl_nvl = row[i]["klnl_sudung"].ToString();
-                    string Toc_do_release = row[i]["tocdo_release"].ToString();
-                    string Ngay_release = row[i]["ngay_release"].ToString();
-                    string Loai = row[i]["loai"].ToString();
                     string Tong_klsp_thuduoc = row[i]["tong_klspsx"].ToString();
                     if (Tong_klsp_thuduoc == "")
                         Tong_klsp_thuduoc = "0";
@@ -9305,103 +11670,78 @@ namespace NhatKySanXuat
                     if (Hieusuatrelease == "")
                         Hieusuatrelease = "0";
                     Hieu_suat_release_tb += Convert.ToDouble(Hieusuatrelease);
-                    string Thoigiancb = row[i]["thoigian_cb"].ToString();
-                    string Thoigiansx = row[i]["thoigian_sx"].ToString();
-                    string Phanbon_nvl = row[i]["phanbon_nvl"].ToString();
                     string KL_phan_nvl = row[i]["kl_nvl"].ToString();
                     if (KL_phan_nvl == "")
                         KL_phan_nvl = "0";
                     KHOI_LUONG_NVL += Convert.ToDouble(KL_phan_nvl);
-                    string Barcode_nvl = row[i]["barcode_nvl"].ToString();
-                    string LOT_nvl = row[i]["lot_nvl"].ToString();
                     string N1_khoiluong = row[i]["N1"].ToString();
                     if (N1_khoiluong == "")
                         N1_khoiluong = "0";
                     Tong_N1_KL += Convert.ToDouble(N1_khoiluong);
-                    string N1_barcode = row[i]["barcode_n1"].ToString();
-                    string N1_LOT = row[i]["lot_n1"].ToString();
                     string N2_khoiluong = row[i]["N2"].ToString();
                     if (N2_khoiluong == "")
                         N2_khoiluong = "0";
                     Tong_N2_KL += Convert.ToDouble(N2_khoiluong);
-                    string N2_barcode = row[i]["barcode_n2"].ToString();
-                    string N2_LOT = row[i]["lot_n2"].ToString();
                     string n3_khoiluong = row[i]["N3"].ToString();
                     if (n3_khoiluong == "")
                         n3_khoiluong = "0";
                     Tong_N3_KL += Convert.ToDouble(n3_khoiluong);
-                    string N3_barcode = row[i]["barcode_n3"].ToString();
-                    string N3_LOT = row[i]["lot_n3"].ToString();
                     string GA3 = row[i]["Ga3"].ToString();
                     if (GA3 == "")
                         GA3 = "0";
                     Tong_ga3 += Convert.ToDouble(GA3);
-                    string GA3_barcode = row[i]["barcode_ga3"].ToString();
                     string Borax = row[i]["Borax"].ToString();
                     if (Borax == "")
                         Borax = "0";
                     Tong_borax += Convert.ToDouble(Borax);
-                    string Borax_barcode = row[i]["bacode_borax"].ToString();
                     string NAA = row[i]["Naa"].ToString();
                     if (NAA == "")
                         NAA = "0";
                     Tong_Naa += Convert.ToDouble(NAA);
-                    string NAA_barcode = row[i]["barcode_naa"].ToString();
                     string Sodium = row[i]["Sodium"].ToString();
                     if (Sodium == "")
                         Sodium = "0";
                     Tong_sodium += Convert.ToDouble(Sodium);
-                    string Sodium_barcode = row[i]["barcode_sodium"].ToString();
                     string Citric = row[i]["Citric"].ToString();
                     if (Citric == "")
                         Citric = "0";
                     Tong_citric += Convert.ToDouble(Citric);
-                    string Barcode_Citric = row[i]["barcode_citric"].ToString();
                     string Naoh = row[i]["Naoh"].ToString();
                     if (Naoh == "")
                         Naoh = "0";
                     Tong_naoh += Convert.ToDouble(Naoh);
-                    string Barcode_Naoh = row[i]["barocde_naoh"].ToString();
                     string Solubo = row[i]["solubo"].ToString();
                     if (Solubo == "")
                         Solubo = "0";
                     Tong_solubo += Convert.ToDouble(Solubo);
-                    string Barcode_Solubo = row[i]["barocde_solubo"].ToString();
                     string Edtazn = row[i]["Edta"].ToString();
                     if (Edtazn == "")
                         Edtazn = "0";
                     Tong_edtazn += Convert.ToDouble(Edtazn);
-                    string Barcode_Edta = row[i]["barcode_edta"].ToString();
                     string Red = row[i]["Red"].ToString();
                     if (Red == "")
                         Red = "0";
                     Tong_red += Convert.ToDouble(Red);
-                    string Barcode_red = row[i]["barcode_red"].ToString();
                     string Violet = row[i]["violet"].ToString();
                     if (Violet == "")
                         Violet = "0";
                     Tong_violet += Convert.ToDouble(Violet);
-                    string Barcode_violet = row[i]["barcode_violet"].ToString();
                     string Blue = row[i]["blue"].ToString();
                     if (Blue == "")
                         Blue = "0";
                     Tong_blue += Convert.ToDouble(Blue);
-                    string Barcode_blue = row[i]["barocde_blue"].ToString();
                     string Yellow = row[i]["yellow"].ToString();
                     if (Yellow == "")
                         Yellow = "0";
                     Tong_yellow += Convert.ToDouble(Yellow);
-                    string Barcode_yellow = row[i]["barcode_yellow"].ToString();
                     string Black = row[i]["black"].ToString();
                     if (Black == "")
                         Black = "0";
                     Tong_black += Convert.ToDouble(Black);
-                    string Barcode_black = row[i]["barcode_back"].ToString();
                     string Prev = row[i]["prev"].ToString();
                     if (Prev == "")
                         Prev = "0";
                     Tong_prev += Convert.ToDouble(Prev);
-                    string Barcode_Prev = row[i]["barcode_prev"].ToString();
                     string Than_cam = row[i]["thancam"].ToString();
                     if (Than_cam == "")
                         Than_cam = "0";
@@ -9418,6 +11758,139 @@ namespace NhatKySanXuat
                     if (Nuoc_thuycuc == "")
                         Nuoc_thuycuc = "0";
                     Tong_nuocthuycuc += Convert.ToDouble(Nuoc_thuycuc);
+                }
+                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                "", Math.Round(TONG_KL_LT, 3), Math.Round(Hieu_suat_thu_tb / row.Length, 3), Math.Round(Hieu_suat_release_tb / row.Length, 3),
+                "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
+                "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
+                "", "", Math.Round(tb_do_am / count_doam, 3), Math.Round(tb_coating / count_coating, 3), "",
+                Math.Round(tb_0ngay / count_0, 3), Math.Round(tb_7ngay / count_7, 3), Math.Round(tb_14ngay / count_14, 3),
+                Math.Round(tb_21ngay / count_21, 3), Math.Round(tb_28ngay / count_28, 3), Math.Round(tb_42ngay / count_42, 3),
+                Math.Round(tb_49ngay / count_49, 3), Math.Round(tb_56ngay / count_56, 3), Math.Round(tb_70ngay / count_70, 3),
+                Math.Round(tb_84ngay / count_84, 3), Math.Round(tb_98ngay / count_98, 3), Math.Round(tb_112ngay / count_112, 3),
+                Math.Round(tb_126ngay / count_126, 3), Math.Round(tb_140ngay / count_140, 3));
+                for (int i = 0; i < row.Length; i++)
+                {
+                    string Nguoi_nhap = row[i]["name"].ToString();
+                    string LOT = row[i]["LOT"].ToString();
+                    string Dot_sx = row[i]["dot_sx"].ToString();
+                    string Ngay_sx = row[i]["ngay_sx"].ToString();
+                    string Thiet_bi = row[i]["thiet_bi"].ToString();
+                    string Ma_btp = row[i]["ma_BTP"].ToString();
+                    string Ten_btp = row[i]["ten_BTP"].ToString();
+                    string Me = row[i]["me"].ToString();
+                    string Toc_do_release = row[i]["tocdo_release"].ToString();
+                    string Ngay_release = row[i]["ngay_release"].ToString();
+                    string Loai = row[i]["loai"].ToString();
+                    string Tong_klsp_thuduoc = row[i]["tong_klspsx"].ToString();
+                    if (Tong_klsp_thuduoc == "")
+                        Tong_klsp_thuduoc = "0";
+                    string Kl_dongkhoi = row[i]["kl_dongkhoi"].ToString();
+                    if (Kl_dongkhoi == "")
+                        Kl_dongkhoi = "0";
+                    string Khongdongkhoi = row[i]["kl_khongdongkhoi"].ToString();
+                    if (Khongdongkhoi == "")
+                        Khongdongkhoi = "0";
+                    string Kl_lythuyet = row[i]["kl_lythuyet"].ToString();
+                    if (Kl_lythuyet == "")
+                        Kl_lythuyet = "0";
+                    string Hieusuatthu = row[i]["hieuxuat_thu"].ToString();
+                    if (Hieusuatthu == "")
+                        Hieusuatthu = "0";
+                    string Hieusuatrelease = row[i]["hieuxuat_release"].ToString();
+                    if (Hieusuatrelease == "")
+                        Hieusuatrelease = "0";
+                    string Thoigiancb = row[i]["thoigian_cb"].ToString();
+                    string Thoigiansx = row[i]["thoigian_sx"].ToString();
+                    string Phanbon_nvl = row[i]["phanbon_nvl"].ToString();
+                    string KL_phan_nvl = row[i]["kl_nvl"].ToString();
+                    if (KL_phan_nvl == "")
+                        KL_phan_nvl = "0";
+                    string Barcode_nvl = row[i]["barcode_nvl"].ToString();
+                    string LOT_nvl = row[i]["lot_nvl"].ToString();
+                    string N1_khoiluong = row[i]["N1"].ToString();
+                    if (N1_khoiluong == "")
+                        N1_khoiluong = "0";
+                    string N1_barcode = row[i]["barcode_n1"].ToString();
+                    string N1_LOT = row[i]["lot_n1"].ToString();
+                    string N2_khoiluong = row[i]["N2"].ToString();
+                    if (N2_khoiluong == "")
+                        N2_khoiluong = "0";
+                    string N2_barcode = row[i]["barcode_n2"].ToString();
+                    string N2_LOT = row[i]["lot_n2"].ToString();
+                    string n3_khoiluong = row[i]["N3"].ToString();
+                    if (n3_khoiluong == "")
+                        n3_khoiluong = "0";
+                    string N3_barcode = row[i]["barcode_n3"].ToString();
+                    string N3_LOT = row[i]["lot_n3"].ToString();
+                    string GA3 = row[i]["Ga3"].ToString();
+                    if (GA3 == "")
+                        GA3 = "0";
+                    string GA3_barcode = row[i]["barcode_ga3"].ToString();
+                    string Borax = row[i]["Borax"].ToString();
+                    if (Borax == "")
+                        Borax = "0";
+                    string Borax_barcode = row[i]["bacode_borax"].ToString();
+                    string NAA = row[i]["Naa"].ToString();
+                    if (NAA == "")
+                        NAA = "0";
+                    string NAA_barcode = row[i]["barcode_naa"].ToString();
+                    string Sodium = row[i]["Sodium"].ToString();
+                    if (Sodium == "")
+                        Sodium = "0";
+                    string Sodium_barcode = row[i]["barcode_sodium"].ToString();
+                    string Citric = row[i]["Citric"].ToString();
+                    if (Citric == "")
+                        Citric = "0";
+                    string Barcode_Citric = row[i]["barcode_citric"].ToString();
+                    string Naoh = row[i]["Naoh"].ToString();
+                    if (Naoh == "")
+                        Naoh = "0";
+                    string Barcode_Naoh = row[i]["barocde_naoh"].ToString();
+                    string Solubo = row[i]["solubo"].ToString();
+                    if (Solubo == "")
+                        Solubo = "0";
+                    string Barcode_Solubo = row[i]["barocde_solubo"].ToString();
+                    string Edtazn = row[i]["Edta"].ToString();
+                    if (Edtazn == "")
+                        Edtazn = "0";
+                    string Barcode_Edta = row[i]["barcode_edta"].ToString();
+                    string Red = row[i]["Red"].ToString();
+                    if (Red == "")
+                        Red = "0";
+                    string Barcode_red = row[i]["barcode_red"].ToString();
+                    string Violet = row[i]["violet"].ToString();
+                    if (Violet == "")
+                        Violet = "0";
+                    string Barcode_violet = row[i]["barcode_violet"].ToString();
+                    string Blue = row[i]["blue"].ToString();
+                    if (Blue == "")
+                        Blue = "0";
+                    string Barcode_blue = row[i]["barocde_blue"].ToString();
+                    string Yellow = row[i]["yellow"].ToString();
+                    if (Yellow == "")
+                        Yellow = "0";
+                    string Barcode_yellow = row[i]["barcode_yellow"].ToString();
+                    string Black = row[i]["black"].ToString();
+                    if (Black == "")
+                        Black = "0";
+                    string Barcode_black = row[i]["barcode_back"].ToString();
+                    string Prev = row[i]["prev"].ToString();
+                    if (Prev == "")
+                        Prev = "0";
+                    string Barcode_Prev = row[i]["barcode_prev"].ToString();
+                    string Than_cam = row[i]["thancam"].ToString();
+                    if (Than_cam == "")
+                        Than_cam = "0";
+                    string Dien = row[i]["dien"].ToString();
+                    if (Dien == "")
+                        Dien = "0";
+                    string Nuoc_RO = row[i]["nuocRo"].ToString();
+                    if (Nuoc_RO == "")
+                        Nuoc_RO = "0";
+                    string Nuoc_thuycuc = row[i]["nuocthuycuc"].ToString();
+                    if (Nuoc_thuycuc == "")
+                        Nuoc_thuycuc = "0";
                     string BHLD = row[i]["BHLD"].ToString();
                     string Ghi_chu = row[i]["ghi_chu"].ToString();
                     string Vitri_tongspthuduoc = row[i]["vitri_spthuduoc"].ToString();
@@ -9452,18 +11925,11 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
-                                "", Math.Round(TONG_KL_LT, 4), Math.Round(Hieu_suat_thu_tb / dataGridView1.Rows.Count, 4), Math.Round(Hieu_suat_release_tb / dataGridView1.Rows.Count, 4),
-                                "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
-                                "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
-                                "", "", Math.Round(tb_do_am / count_doam, 4), Math.Round(tb_coating / count_coating, 4), "",
-                                Math.Round(tb_0ngay / count_0, 4), Math.Round(tb_7ngay / count_7, 4), Math.Round(tb_14ngay / count_14, 4),
-                                Math.Round(tb_21ngay / count_21, 4), Math.Round(tb_28ngay / count_28, 4), Math.Round(tb_42ngay / count_42, 4),
-                                Math.Round(tb_49ngay / count_49, 4), Math.Round(tb_56ngay / count_56, 4), Math.Round(tb_70ngay / count_70, 4),
-                                Math.Round(tb_84ngay / count_84, 4), Math.Round(tb_98ngay / count_98, 4), Math.Round(tb_112ngay / count_112, 4),
-                                Math.Round(tb_126ngay / count_126, 4), Math.Round(tb_140ngay / count_140, 4));
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
+                dataGridView1.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dataGridView1.Columns[7].Frozen = true;
+                dataGridView1.Rows[0].Frozen = true;
+                dataGridView1.CurrentCell = dataGridView1.Rows[1].Cells[0];
             }
             catch (Exception ex)
             {
@@ -9482,7 +11948,17 @@ namespace NhatKySanXuat
                 DataTable tb_buff = new DataTable();
                 sqlcon.Open();
                 command = sqlcon.CreateCommand();
-                command.CommandText = "select * from nhatkysanxuat where dot_sx = '" + tb_dotsx_search.Text + "' AND loai = '" + cbb_search_loai.Text + "' AND ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) AND ma_BTP LIKE '%" + cbb_ma_BTP_search.Text + "%' ORDER BY me DESC";
+                command.CommandText = "select name,dot_sx,ngay_sx,thiet_bi,ma_BTP,ten_BTP,me,LOT ,tocdo_release," +
+                        "ngay_release,loai,tong_klspsx,kl_dongkhoi,kl_khongdongkhoi,kl_lythuyet,hieuxuat_thu,hieuxuat_release," +
+                        "thoigian_cb,thoigian_sx,phanbon_nvl,kl_nvl,barcode_nvl,lot_nvl,N1,barcode_n1,lot_n1," +
+                        "N2,barcode_n2,lot_n2,N3,barcode_n3,lot_n3,Ga3,barcode_ga3,Borax,bacode_borax,Naa,barcode_naa,solubo,barocde_solubo," +
+                        "Edta,barcode_edta,Red,barcode_red,violet,barcode_violet,blue,barocde_blue,yellow,barcode_yellow,black,barcode_back,prev," +
+                        "barcode_prev,thancam,dien,nuocRO,nuocthuycuc,BHLD,Sodium,barcode_sodium,Citric,barcode_citric,Naoh,barocde_naoh,ghi_chu," +
+                        "vitri_spthuduoc,vitri_spdongkhoi,vitri_spkhongdongkhoi,N1_1,N1_2,N1_3,N1_1_barcode,N1_2_barcode,N1_3_barcode,N1_1_lot," +
+                        "N1_2_lot,N1_3_lot,N2_1,N2_2,N2_1_barcode,N2_2_barcode,N2_1_lot,N2_2_lot,N3_1,N3_1_barcode,N3_1_lot,N1_4,N1_4_barcode," +
+                        "N1_4_lot,N2_3,N2_3_barcode,N2_3_lot,N3_2,N3_2_barcode,N3_2_lot,N3_3,N3_3_barcode,N3_3_lot,thoigian_ondinh,do_am,coating_layer," +
+                        "ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140,NVL_1," +
+                        "barcode_NVL_1,lot_NVL_1,NVL_2,barcode_NVL_2,lot_NVL_2,KL_NVL_1,KL_NVL_2,N1_BD,N1_KT,N2_BD,N2_KT,N3_BD,N3_KT from nhatkysanxuat where dot_sx = '" + tb_dotsx_search.Text + "' AND loai = '" + cbb_search_loai.Text + "' AND ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) AND ma_BTP LIKE '%" + cbb_ma_BTP_search.Text + "%' ORDER BY me DESC";
                 adapter.SelectCommand = command;
                 tb_buff.Clear();
                 adapter.Fill(tb_buff);
@@ -9637,18 +12113,6 @@ namespace NhatKySanXuat
                         count_coating++;
                         tb_coating += Convert.ToDouble(row[i]["coating_layer"].ToString());
                     }
-                    string Nguoi_nhap = row[i]["name"].ToString();
-                    string LOT = row[i]["LOT"].ToString();
-                    string Dot_sx = row[i]["dot_sx"].ToString();
-                    string Ngay_sx = row[i]["ngay_sx"].ToString();
-                    string Thiet_bi = row[i]["thiet_bi"].ToString();
-                    string Ma_btp = row[i]["ma_BTP"].ToString();
-                    string Ten_btp = row[i]["ten_BTP"].ToString();
-                    string Me = row[i]["me"].ToString();
-                    string Kl_nvl = row[i]["klnl_sudung"].ToString();
-                    string Toc_do_release = row[i]["tocdo_release"].ToString();
-                    string Ngay_release = row[i]["ngay_release"].ToString();
-                    string Loai = row[i]["loai"].ToString();
                     string Tong_klsp_thuduoc = row[i]["tong_klspsx"].ToString();
                     if (Tong_klsp_thuduoc == "")
                         Tong_klsp_thuduoc = "0";
@@ -9673,103 +12137,78 @@ namespace NhatKySanXuat
                     if (Hieusuatrelease == "")
                         Hieusuatrelease = "0";
                     Hieu_suat_release_tb += Convert.ToDouble(Hieusuatrelease);
-                    string Thoigiancb = row[i]["thoigian_cb"].ToString();
-                    string Thoigiansx = row[i]["thoigian_sx"].ToString();
-                    string Phanbon_nvl = row[i]["phanbon_nvl"].ToString();
                     string KL_phan_nvl = row[i]["kl_nvl"].ToString();
                     if (KL_phan_nvl == "")
                         KL_phan_nvl = "0";
                     KHOI_LUONG_NVL += Convert.ToDouble(KL_phan_nvl);
-                    string Barcode_nvl = row[i]["barcode_nvl"].ToString();
-                    string LOT_nvl = row[i]["lot_nvl"].ToString();
                     string N1_khoiluong = row[i]["N1"].ToString();
                     if (N1_khoiluong == "")
                         N1_khoiluong = "0";
                     Tong_N1_KL += Convert.ToDouble(N1_khoiluong);
-                    string N1_barcode = row[i]["barcode_n1"].ToString();
-                    string N1_LOT = row[i]["lot_n1"].ToString();
                     string N2_khoiluong = row[i]["N2"].ToString();
                     if (N2_khoiluong == "")
                         N2_khoiluong = "0";
                     Tong_N2_KL += Convert.ToDouble(N2_khoiluong);
-                    string N2_barcode = row[i]["barcode_n2"].ToString();
-                    string N2_LOT = row[i]["lot_n2"].ToString();
                     string n3_khoiluong = row[i]["N3"].ToString();
                     if (n3_khoiluong == "")
                         n3_khoiluong = "0";
                     Tong_N3_KL += Convert.ToDouble(n3_khoiluong);
-                    string N3_barcode = row[i]["barcode_n3"].ToString();
-                    string N3_LOT = row[i]["lot_n3"].ToString();
                     string GA3 = row[i]["Ga3"].ToString();
                     if (GA3 == "")
                         GA3 = "0";
                     Tong_ga3 += Convert.ToDouble(GA3);
-                    string GA3_barcode = row[i]["barcode_ga3"].ToString();
                     string Borax = row[i]["Borax"].ToString();
                     if (Borax == "")
                         Borax = "0";
                     Tong_borax += Convert.ToDouble(Borax);
-                    string Borax_barcode = row[i]["bacode_borax"].ToString();
                     string NAA = row[i]["Naa"].ToString();
                     if (NAA == "")
                         NAA = "0";
                     Tong_Naa += Convert.ToDouble(NAA);
-                    string NAA_barcode = row[i]["barcode_naa"].ToString();
                     string Sodium = row[i]["Sodium"].ToString();
                     if (Sodium == "")
                         Sodium = "0";
                     Tong_sodium += Convert.ToDouble(Sodium);
-                    string Sodium_barcode = row[i]["barcode_sodium"].ToString();
                     string Citric = row[i]["Citric"].ToString();
                     if (Citric == "")
                         Citric = "0";
                     Tong_citric += Convert.ToDouble(Citric);
-                    string Barcode_Citric = row[i]["barcode_citric"].ToString();
                     string Naoh = row[i]["Naoh"].ToString();
                     if (Naoh == "")
                         Naoh = "0";
                     Tong_naoh += Convert.ToDouble(Naoh);
-                    string Barcode_Naoh = row[i]["barocde_naoh"].ToString();
                     string Solubo = row[i]["solubo"].ToString();
                     if (Solubo == "")
                         Solubo = "0";
                     Tong_solubo += Convert.ToDouble(Solubo);
-                    string Barcode_Solubo = row[i]["barocde_solubo"].ToString();
                     string Edtazn = row[i]["Edta"].ToString();
                     if (Edtazn == "")
                         Edtazn = "0";
                     Tong_edtazn += Convert.ToDouble(Edtazn);
-                    string Barcode_Edta = row[i]["barcode_edta"].ToString();
                     string Red = row[i]["Red"].ToString();
                     if (Red == "")
                         Red = "0";
                     Tong_red += Convert.ToDouble(Red);
-                    string Barcode_red = row[i]["barcode_red"].ToString();
                     string Violet = row[i]["violet"].ToString();
                     if (Violet == "")
                         Violet = "0";
                     Tong_violet += Convert.ToDouble(Violet);
-                    string Barcode_violet = row[i]["barcode_violet"].ToString();
                     string Blue = row[i]["blue"].ToString();
                     if (Blue == "")
                         Blue = "0";
                     Tong_blue += Convert.ToDouble(Blue);
-                    string Barcode_blue = row[i]["barocde_blue"].ToString();
                     string Yellow = row[i]["yellow"].ToString();
                     if (Yellow == "")
                         Yellow = "0";
                     Tong_yellow += Convert.ToDouble(Yellow);
-                    string Barcode_yellow = row[i]["barcode_yellow"].ToString();
                     string Black = row[i]["black"].ToString();
                     if (Black == "")
                         Black = "0";
                     Tong_black += Convert.ToDouble(Black);
-                    string Barcode_black = row[i]["barcode_back"].ToString();
                     string Prev = row[i]["prev"].ToString();
                     if (Prev == "")
                         Prev = "0";
                     Tong_prev += Convert.ToDouble(Prev);
-                    string Barcode_Prev = row[i]["barcode_prev"].ToString();
                     string Than_cam = row[i]["thancam"].ToString();
                     if (Than_cam == "")
                         Than_cam = "0";
@@ -9786,6 +12225,139 @@ namespace NhatKySanXuat
                     if (Nuoc_thuycuc == "")
                         Nuoc_thuycuc = "0";
                     Tong_nuocthuycuc += Convert.ToDouble(Nuoc_thuycuc);
+                }
+                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                "", Math.Round(TONG_KL_LT, 3), Math.Round(Hieu_suat_thu_tb / row.Length, 3), Math.Round(Hieu_suat_release_tb / row.Length, 3),
+                "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
+                "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
+                "", "", Math.Round(tb_do_am / count_doam, 3), Math.Round(tb_coating / count_coating, 3), "",
+                Math.Round(tb_0ngay / count_0, 3), Math.Round(tb_7ngay / count_7, 3), Math.Round(tb_14ngay / count_14, 3),
+                Math.Round(tb_21ngay / count_21, 3), Math.Round(tb_28ngay / count_28, 3), Math.Round(tb_42ngay / count_42, 3),
+                Math.Round(tb_49ngay / count_49, 3), Math.Round(tb_56ngay / count_56, 3), Math.Round(tb_70ngay / count_70, 3),
+                Math.Round(tb_84ngay / count_84, 3), Math.Round(tb_98ngay / count_98, 3), Math.Round(tb_112ngay / count_112, 3),
+                Math.Round(tb_126ngay / count_126, 3), Math.Round(tb_140ngay / count_140, 3));
+                for (int i = 0; i < row.Length; i++)
+                {
+                    string Nguoi_nhap = row[i]["name"].ToString();
+                    string LOT = row[i]["LOT"].ToString();
+                    string Dot_sx = row[i]["dot_sx"].ToString();
+                    string Ngay_sx = row[i]["ngay_sx"].ToString();
+                    string Thiet_bi = row[i]["thiet_bi"].ToString();
+                    string Ma_btp = row[i]["ma_BTP"].ToString();
+                    string Ten_btp = row[i]["ten_BTP"].ToString();
+                    string Me = row[i]["me"].ToString();
+                    string Toc_do_release = row[i]["tocdo_release"].ToString();
+                    string Ngay_release = row[i]["ngay_release"].ToString();
+                    string Loai = row[i]["loai"].ToString();
+                    string Tong_klsp_thuduoc = row[i]["tong_klspsx"].ToString();
+                    if (Tong_klsp_thuduoc == "")
+                        Tong_klsp_thuduoc = "0";
+                    string Kl_dongkhoi = row[i]["kl_dongkhoi"].ToString();
+                    if (Kl_dongkhoi == "")
+                        Kl_dongkhoi = "0";
+                    string Khongdongkhoi = row[i]["kl_khongdongkhoi"].ToString();
+                    if (Khongdongkhoi == "")
+                        Khongdongkhoi = "0";
+                    string Kl_lythuyet = row[i]["kl_lythuyet"].ToString();
+                    if (Kl_lythuyet == "")
+                        Kl_lythuyet = "0";
+                    string Hieusuatthu = row[i]["hieuxuat_thu"].ToString();
+                    if (Hieusuatthu == "")
+                        Hieusuatthu = "0";
+                    string Hieusuatrelease = row[i]["hieuxuat_release"].ToString();
+                    if (Hieusuatrelease == "")
+                        Hieusuatrelease = "0";
+                    string Thoigiancb = row[i]["thoigian_cb"].ToString();
+                    string Thoigiansx = row[i]["thoigian_sx"].ToString();
+                    string Phanbon_nvl = row[i]["phanbon_nvl"].ToString();
+                    string KL_phan_nvl = row[i]["kl_nvl"].ToString();
+                    if (KL_phan_nvl == "")
+                        KL_phan_nvl = "0";
+                    string Barcode_nvl = row[i]["barcode_nvl"].ToString();
+                    string LOT_nvl = row[i]["lot_nvl"].ToString();
+                    string N1_khoiluong = row[i]["N1"].ToString();
+                    if (N1_khoiluong == "")
+                        N1_khoiluong = "0";
+                    string N1_barcode = row[i]["barcode_n1"].ToString();
+                    string N1_LOT = row[i]["lot_n1"].ToString();
+                    string N2_khoiluong = row[i]["N2"].ToString();
+                    if (N2_khoiluong == "")
+                        N2_khoiluong = "0";
+                    string N2_barcode = row[i]["barcode_n2"].ToString();
+                    string N2_LOT = row[i]["lot_n2"].ToString();
+                    string n3_khoiluong = row[i]["N3"].ToString();
+                    if (n3_khoiluong == "")
+                        n3_khoiluong = "0";
+                    string N3_barcode = row[i]["barcode_n3"].ToString();
+                    string N3_LOT = row[i]["lot_n3"].ToString();
+                    string GA3 = row[i]["Ga3"].ToString();
+                    if (GA3 == "")
+                        GA3 = "0";
+                    string GA3_barcode = row[i]["barcode_ga3"].ToString();
+                    string Borax = row[i]["Borax"].ToString();
+                    if (Borax == "")
+                        Borax = "0";
+                    string Borax_barcode = row[i]["bacode_borax"].ToString();
+                    string NAA = row[i]["Naa"].ToString();
+                    if (NAA == "")
+                        NAA = "0";
+                    string NAA_barcode = row[i]["barcode_naa"].ToString();
+                    string Sodium = row[i]["Sodium"].ToString();
+                    if (Sodium == "")
+                        Sodium = "0";
+                    string Sodium_barcode = row[i]["barcode_sodium"].ToString();
+                    string Citric = row[i]["Citric"].ToString();
+                    if (Citric == "")
+                        Citric = "0";
+                    string Barcode_Citric = row[i]["barcode_citric"].ToString();
+                    string Naoh = row[i]["Naoh"].ToString();
+                    if (Naoh == "")
+                        Naoh = "0";
+                    string Barcode_Naoh = row[i]["barocde_naoh"].ToString();
+                    string Solubo = row[i]["solubo"].ToString();
+                    if (Solubo == "")
+                        Solubo = "0";
+                    string Barcode_Solubo = row[i]["barocde_solubo"].ToString();
+                    string Edtazn = row[i]["Edta"].ToString();
+                    if (Edtazn == "")
+                        Edtazn = "0";
+                    string Barcode_Edta = row[i]["barcode_edta"].ToString();
+                    string Red = row[i]["Red"].ToString();
+                    if (Red == "")
+                        Red = "0";
+                    string Barcode_red = row[i]["barcode_red"].ToString();
+                    string Violet = row[i]["violet"].ToString();
+                    if (Violet == "")
+                        Violet = "0";
+                    string Barcode_violet = row[i]["barcode_violet"].ToString();
+                    string Blue = row[i]["blue"].ToString();
+                    if (Blue == "")
+                        Blue = "0";
+                    string Barcode_blue = row[i]["barocde_blue"].ToString();
+                    string Yellow = row[i]["yellow"].ToString();
+                    if (Yellow == "")
+                        Yellow = "0";
+                    string Barcode_yellow = row[i]["barcode_yellow"].ToString();
+                    string Black = row[i]["black"].ToString();
+                    if (Black == "")
+                        Black = "0";
+                    string Barcode_black = row[i]["barcode_back"].ToString();
+                    string Prev = row[i]["prev"].ToString();
+                    if (Prev == "")
+                        Prev = "0";
+                    string Barcode_Prev = row[i]["barcode_prev"].ToString();
+                    string Than_cam = row[i]["thancam"].ToString();
+                    if (Than_cam == "")
+                        Than_cam = "0";
+                    string Dien = row[i]["dien"].ToString();
+                    if (Dien == "")
+                        Dien = "0";
+                    string Nuoc_RO = row[i]["nuocRo"].ToString();
+                    if (Nuoc_RO == "")
+                        Nuoc_RO = "0";
+                    string Nuoc_thuycuc = row[i]["nuocthuycuc"].ToString();
+                    if (Nuoc_thuycuc == "")
+                        Nuoc_thuycuc = "0";
                     string BHLD = row[i]["BHLD"].ToString();
                     string Ghi_chu = row[i]["ghi_chu"].ToString();
                     string Vitri_tongspthuduoc = row[i]["vitri_spthuduoc"].ToString();
@@ -9820,18 +12392,11 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
-                                "", Math.Round(TONG_KL_LT, 4), Math.Round(Hieu_suat_thu_tb / dataGridView1.Rows.Count, 4), Math.Round(Hieu_suat_release_tb / dataGridView1.Rows.Count, 4),
-                                "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
-                                "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
-                                "", "", Math.Round(tb_do_am / count_doam, 4), Math.Round(tb_coating / count_coating, 4), "",
-                                Math.Round(tb_0ngay / count_0, 4), Math.Round(tb_7ngay / count_7, 4), Math.Round(tb_14ngay / count_14, 4),
-                                Math.Round(tb_21ngay / count_21, 4), Math.Round(tb_28ngay / count_28, 4), Math.Round(tb_42ngay / count_42, 4),
-                                Math.Round(tb_49ngay / count_49, 4), Math.Round(tb_56ngay / count_56, 4), Math.Round(tb_70ngay / count_70, 4),
-                                Math.Round(tb_84ngay / count_84, 4), Math.Round(tb_98ngay / count_98, 4), Math.Round(tb_112ngay / count_112, 4),
-                                Math.Round(tb_126ngay / count_126, 4), Math.Round(tb_140ngay / count_140, 4));
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
+                dataGridView1.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dataGridView1.Columns[7].Frozen = true;
+                dataGridView1.Rows[0].Frozen = true;
+                dataGridView1.CurrentCell = dataGridView1.Rows[1].Cells[0];
             }
             catch (Exception ex)
             {
@@ -9850,7 +12415,17 @@ namespace NhatKySanXuat
                 DataTable tb_buff = new DataTable();
                 sqlcon.Open();
                 command = sqlcon.CreateCommand();
-                command.CommandText = "select * from nhatkysanxuat where dot_sx = '" + tb_dotsx_search.Text + "' AND loai = '" + cbb_search_loai.Text + "' AND thiet_bi = '" + cbb_thietbi_search.Text + "' AND ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) AND phanbon_nvl LIKE '%" + cbb_phanbonnvl_search.Text + "%' ORDER BY me DESC";
+                command.CommandText = "select name,dot_sx,ngay_sx,thiet_bi,ma_BTP,ten_BTP,me,LOT ,tocdo_release," +
+                        "ngay_release,loai,tong_klspsx,kl_dongkhoi,kl_khongdongkhoi,kl_lythuyet,hieuxuat_thu,hieuxuat_release," +
+                        "thoigian_cb,thoigian_sx,phanbon_nvl,kl_nvl,barcode_nvl,lot_nvl,N1,barcode_n1,lot_n1," +
+                        "N2,barcode_n2,lot_n2,N3,barcode_n3,lot_n3,Ga3,barcode_ga3,Borax,bacode_borax,Naa,barcode_naa,solubo,barocde_solubo," +
+                        "Edta,barcode_edta,Red,barcode_red,violet,barcode_violet,blue,barocde_blue,yellow,barcode_yellow,black,barcode_back,prev," +
+                        "barcode_prev,thancam,dien,nuocRO,nuocthuycuc,BHLD,Sodium,barcode_sodium,Citric,barcode_citric,Naoh,barocde_naoh,ghi_chu," +
+                        "vitri_spthuduoc,vitri_spdongkhoi,vitri_spkhongdongkhoi,N1_1,N1_2,N1_3,N1_1_barcode,N1_2_barcode,N1_3_barcode,N1_1_lot," +
+                        "N1_2_lot,N1_3_lot,N2_1,N2_2,N2_1_barcode,N2_2_barcode,N2_1_lot,N2_2_lot,N3_1,N3_1_barcode,N3_1_lot,N1_4,N1_4_barcode," +
+                        "N1_4_lot,N2_3,N2_3_barcode,N2_3_lot,N3_2,N3_2_barcode,N3_2_lot,N3_3,N3_3_barcode,N3_3_lot,thoigian_ondinh,do_am,coating_layer," +
+                        "ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140,NVL_1," +
+                        "barcode_NVL_1,lot_NVL_1,NVL_2,barcode_NVL_2,lot_NVL_2,KL_NVL_1,KL_NVL_2,N1_BD,N1_KT,N2_BD,N2_KT,N3_BD,N3_KT from nhatkysanxuat where dot_sx = '" + tb_dotsx_search.Text + "' AND loai = '" + cbb_search_loai.Text + "' AND thiet_bi = '" + cbb_thietbi_search.Text + "' AND ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) AND phanbon_nvl LIKE '%" + cbb_phanbonnvl_search.Text + "%' ORDER BY me DESC";
                 adapter.SelectCommand = command;
                 tb_buff.Clear();
                 adapter.Fill(tb_buff);
@@ -10005,18 +12580,6 @@ namespace NhatKySanXuat
                         count_coating++;
                         tb_coating += Convert.ToDouble(row[i]["coating_layer"].ToString());
                     }
-                    string Nguoi_nhap = row[i]["name"].ToString();
-                    string LOT = row[i]["LOT"].ToString();
-                    string Dot_sx = row[i]["dot_sx"].ToString();
-                    string Ngay_sx = row[i]["ngay_sx"].ToString();
-                    string Thiet_bi = row[i]["thiet_bi"].ToString();
-                    string Ma_btp = row[i]["ma_BTP"].ToString();
-                    string Ten_btp = row[i]["ten_BTP"].ToString();
-                    string Me = row[i]["me"].ToString();
-                    string Kl_nvl = row[i]["klnl_sudung"].ToString();
-                    string Toc_do_release = row[i]["tocdo_release"].ToString();
-                    string Ngay_release = row[i]["ngay_release"].ToString();
-                    string Loai = row[i]["loai"].ToString();
                     string Tong_klsp_thuduoc = row[i]["tong_klspsx"].ToString();
                     if (Tong_klsp_thuduoc == "")
                         Tong_klsp_thuduoc = "0";
@@ -10041,103 +12604,78 @@ namespace NhatKySanXuat
                     if (Hieusuatrelease == "")
                         Hieusuatrelease = "0";
                     Hieu_suat_release_tb += Convert.ToDouble(Hieusuatrelease);
-                    string Thoigiancb = row[i]["thoigian_cb"].ToString();
-                    string Thoigiansx = row[i]["thoigian_sx"].ToString();
-                    string Phanbon_nvl = row[i]["phanbon_nvl"].ToString();
                     string KL_phan_nvl = row[i]["kl_nvl"].ToString();
                     if (KL_phan_nvl == "")
                         KL_phan_nvl = "0";
                     KHOI_LUONG_NVL += Convert.ToDouble(KL_phan_nvl);
-                    string Barcode_nvl = row[i]["barcode_nvl"].ToString();
-                    string LOT_nvl = row[i]["lot_nvl"].ToString();
                     string N1_khoiluong = row[i]["N1"].ToString();
                     if (N1_khoiluong == "")
                         N1_khoiluong = "0";
                     Tong_N1_KL += Convert.ToDouble(N1_khoiluong);
-                    string N1_barcode = row[i]["barcode_n1"].ToString();
-                    string N1_LOT = row[i]["lot_n1"].ToString();
                     string N2_khoiluong = row[i]["N2"].ToString();
                     if (N2_khoiluong == "")
                         N2_khoiluong = "0";
                     Tong_N2_KL += Convert.ToDouble(N2_khoiluong);
-                    string N2_barcode = row[i]["barcode_n2"].ToString();
-                    string N2_LOT = row[i]["lot_n2"].ToString();
                     string n3_khoiluong = row[i]["N3"].ToString();
                     if (n3_khoiluong == "")
                         n3_khoiluong = "0";
                     Tong_N3_KL += Convert.ToDouble(n3_khoiluong);
-                    string N3_barcode = row[i]["barcode_n3"].ToString();
-                    string N3_LOT = row[i]["lot_n3"].ToString();
                     string GA3 = row[i]["Ga3"].ToString();
                     if (GA3 == "")
                         GA3 = "0";
                     Tong_ga3 += Convert.ToDouble(GA3);
-                    string GA3_barcode = row[i]["barcode_ga3"].ToString();
                     string Borax = row[i]["Borax"].ToString();
                     if (Borax == "")
                         Borax = "0";
                     Tong_borax += Convert.ToDouble(Borax);
-                    string Borax_barcode = row[i]["bacode_borax"].ToString();
                     string NAA = row[i]["Naa"].ToString();
                     if (NAA == "")
                         NAA = "0";
                     Tong_Naa += Convert.ToDouble(NAA);
-                    string NAA_barcode = row[i]["barcode_naa"].ToString();
                     string Sodium = row[i]["Sodium"].ToString();
                     if (Sodium == "")
                         Sodium = "0";
                     Tong_sodium += Convert.ToDouble(Sodium);
-                    string Sodium_barcode = row[i]["barcode_sodium"].ToString();
                     string Citric = row[i]["Citric"].ToString();
                     if (Citric == "")
                         Citric = "0";
                     Tong_citric += Convert.ToDouble(Citric);
-                    string Barcode_Citric = row[i]["barcode_citric"].ToString();
                     string Naoh = row[i]["Naoh"].ToString();
                     if (Naoh == "")
                         Naoh = "0";
                     Tong_naoh += Convert.ToDouble(Naoh);
-                    string Barcode_Naoh = row[i]["barocde_naoh"].ToString();
                     string Solubo = row[i]["solubo"].ToString();
                     if (Solubo == "")
                         Solubo = "0";
                     Tong_solubo += Convert.ToDouble(Solubo);
-                    string Barcode_Solubo = row[i]["barocde_solubo"].ToString();
                     string Edtazn = row[i]["Edta"].ToString();
                     if (Edtazn == "")
                         Edtazn = "0";
                     Tong_edtazn += Convert.ToDouble(Edtazn);
-                    string Barcode_Edta = row[i]["barcode_edta"].ToString();
                     string Red = row[i]["Red"].ToString();
                     if (Red == "")
                         Red = "0";
                     Tong_red += Convert.ToDouble(Red);
-                    string Barcode_red = row[i]["barcode_red"].ToString();
                     string Violet = row[i]["violet"].ToString();
                     if (Violet == "")
                         Violet = "0";
                     Tong_violet += Convert.ToDouble(Violet);
-                    string Barcode_violet = row[i]["barcode_violet"].ToString();
                     string Blue = row[i]["blue"].ToString();
                     if (Blue == "")
                         Blue = "0";
                     Tong_blue += Convert.ToDouble(Blue);
-                    string Barcode_blue = row[i]["barocde_blue"].ToString();
                     string Yellow = row[i]["yellow"].ToString();
                     if (Yellow == "")
                         Yellow = "0";
                     Tong_yellow += Convert.ToDouble(Yellow);
-                    string Barcode_yellow = row[i]["barcode_yellow"].ToString();
                     string Black = row[i]["black"].ToString();
                     if (Black == "")
                         Black = "0";
                     Tong_black += Convert.ToDouble(Black);
-                    string Barcode_black = row[i]["barcode_back"].ToString();
                     string Prev = row[i]["prev"].ToString();
                     if (Prev == "")
                         Prev = "0";
                     Tong_prev += Convert.ToDouble(Prev);
-                    string Barcode_Prev = row[i]["barcode_prev"].ToString();
                     string Than_cam = row[i]["thancam"].ToString();
                     if (Than_cam == "")
                         Than_cam = "0";
@@ -10154,6 +12692,139 @@ namespace NhatKySanXuat
                     if (Nuoc_thuycuc == "")
                         Nuoc_thuycuc = "0";
                     Tong_nuocthuycuc += Convert.ToDouble(Nuoc_thuycuc);
+                }
+                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                "", Math.Round(TONG_KL_LT, 3), Math.Round(Hieu_suat_thu_tb / row.Length, 3), Math.Round(Hieu_suat_release_tb / row.Length, 3),
+                "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
+                "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
+                "", "", Math.Round(tb_do_am / count_doam, 3), Math.Round(tb_coating / count_coating, 3), "",
+                Math.Round(tb_0ngay / count_0, 3), Math.Round(tb_7ngay / count_7, 3), Math.Round(tb_14ngay / count_14, 3),
+                Math.Round(tb_21ngay / count_21, 3), Math.Round(tb_28ngay / count_28, 3), Math.Round(tb_42ngay / count_42, 3),
+                Math.Round(tb_49ngay / count_49, 3), Math.Round(tb_56ngay / count_56, 3), Math.Round(tb_70ngay / count_70, 3),
+                Math.Round(tb_84ngay / count_84, 3), Math.Round(tb_98ngay / count_98, 3), Math.Round(tb_112ngay / count_112, 3),
+                Math.Round(tb_126ngay / count_126, 3), Math.Round(tb_140ngay / count_140, 3));
+                for (int i = 0; i < row.Length; i++)
+                {
+                    string Nguoi_nhap = row[i]["name"].ToString();
+                    string LOT = row[i]["LOT"].ToString();
+                    string Dot_sx = row[i]["dot_sx"].ToString();
+                    string Ngay_sx = row[i]["ngay_sx"].ToString();
+                    string Thiet_bi = row[i]["thiet_bi"].ToString();
+                    string Ma_btp = row[i]["ma_BTP"].ToString();
+                    string Ten_btp = row[i]["ten_BTP"].ToString();
+                    string Me = row[i]["me"].ToString();
+                    string Toc_do_release = row[i]["tocdo_release"].ToString();
+                    string Ngay_release = row[i]["ngay_release"].ToString();
+                    string Loai = row[i]["loai"].ToString();
+                    string Tong_klsp_thuduoc = row[i]["tong_klspsx"].ToString();
+                    if (Tong_klsp_thuduoc == "")
+                        Tong_klsp_thuduoc = "0";
+                    string Kl_dongkhoi = row[i]["kl_dongkhoi"].ToString();
+                    if (Kl_dongkhoi == "")
+                        Kl_dongkhoi = "0";
+                    string Khongdongkhoi = row[i]["kl_khongdongkhoi"].ToString();
+                    if (Khongdongkhoi == "")
+                        Khongdongkhoi = "0";
+                    string Kl_lythuyet = row[i]["kl_lythuyet"].ToString();
+                    if (Kl_lythuyet == "")
+                        Kl_lythuyet = "0";
+                    string Hieusuatthu = row[i]["hieuxuat_thu"].ToString();
+                    if (Hieusuatthu == "")
+                        Hieusuatthu = "0";
+                    string Hieusuatrelease = row[i]["hieuxuat_release"].ToString();
+                    if (Hieusuatrelease == "")
+                        Hieusuatrelease = "0";
+                    string Thoigiancb = row[i]["thoigian_cb"].ToString();
+                    string Thoigiansx = row[i]["thoigian_sx"].ToString();
+                    string Phanbon_nvl = row[i]["phanbon_nvl"].ToString();
+                    string KL_phan_nvl = row[i]["kl_nvl"].ToString();
+                    if (KL_phan_nvl == "")
+                        KL_phan_nvl = "0";
+                    string Barcode_nvl = row[i]["barcode_nvl"].ToString();
+                    string LOT_nvl = row[i]["lot_nvl"].ToString();
+                    string N1_khoiluong = row[i]["N1"].ToString();
+                    if (N1_khoiluong == "")
+                        N1_khoiluong = "0";
+                    string N1_barcode = row[i]["barcode_n1"].ToString();
+                    string N1_LOT = row[i]["lot_n1"].ToString();
+                    string N2_khoiluong = row[i]["N2"].ToString();
+                    if (N2_khoiluong == "")
+                        N2_khoiluong = "0";
+                    string N2_barcode = row[i]["barcode_n2"].ToString();
+                    string N2_LOT = row[i]["lot_n2"].ToString();
+                    string n3_khoiluong = row[i]["N3"].ToString();
+                    if (n3_khoiluong == "")
+                        n3_khoiluong = "0";
+                    string N3_barcode = row[i]["barcode_n3"].ToString();
+                    string N3_LOT = row[i]["lot_n3"].ToString();
+                    string GA3 = row[i]["Ga3"].ToString();
+                    if (GA3 == "")
+                        GA3 = "0";
+                    string GA3_barcode = row[i]["barcode_ga3"].ToString();
+                    string Borax = row[i]["Borax"].ToString();
+                    if (Borax == "")
+                        Borax = "0";
+                    string Borax_barcode = row[i]["bacode_borax"].ToString();
+                    string NAA = row[i]["Naa"].ToString();
+                    if (NAA == "")
+                        NAA = "0";
+                    string NAA_barcode = row[i]["barcode_naa"].ToString();
+                    string Sodium = row[i]["Sodium"].ToString();
+                    if (Sodium == "")
+                        Sodium = "0";
+                    string Sodium_barcode = row[i]["barcode_sodium"].ToString();
+                    string Citric = row[i]["Citric"].ToString();
+                    if (Citric == "")
+                        Citric = "0";
+                    string Barcode_Citric = row[i]["barcode_citric"].ToString();
+                    string Naoh = row[i]["Naoh"].ToString();
+                    if (Naoh == "")
+                        Naoh = "0";
+                    string Barcode_Naoh = row[i]["barocde_naoh"].ToString();
+                    string Solubo = row[i]["solubo"].ToString();
+                    if (Solubo == "")
+                        Solubo = "0";
+                    string Barcode_Solubo = row[i]["barocde_solubo"].ToString();
+                    string Edtazn = row[i]["Edta"].ToString();
+                    if (Edtazn == "")
+                        Edtazn = "0";
+                    string Barcode_Edta = row[i]["barcode_edta"].ToString();
+                    string Red = row[i]["Red"].ToString();
+                    if (Red == "")
+                        Red = "0";
+                    string Barcode_red = row[i]["barcode_red"].ToString();
+                    string Violet = row[i]["violet"].ToString();
+                    if (Violet == "")
+                        Violet = "0";
+                    string Barcode_violet = row[i]["barcode_violet"].ToString();
+                    string Blue = row[i]["blue"].ToString();
+                    if (Blue == "")
+                        Blue = "0";
+                    string Barcode_blue = row[i]["barocde_blue"].ToString();
+                    string Yellow = row[i]["yellow"].ToString();
+                    if (Yellow == "")
+                        Yellow = "0";
+                    string Barcode_yellow = row[i]["barcode_yellow"].ToString();
+                    string Black = row[i]["black"].ToString();
+                    if (Black == "")
+                        Black = "0";
+                    string Barcode_black = row[i]["barcode_back"].ToString();
+                    string Prev = row[i]["prev"].ToString();
+                    if (Prev == "")
+                        Prev = "0";
+                    string Barcode_Prev = row[i]["barcode_prev"].ToString();
+                    string Than_cam = row[i]["thancam"].ToString();
+                    if (Than_cam == "")
+                        Than_cam = "0";
+                    string Dien = row[i]["dien"].ToString();
+                    if (Dien == "")
+                        Dien = "0";
+                    string Nuoc_RO = row[i]["nuocRo"].ToString();
+                    if (Nuoc_RO == "")
+                        Nuoc_RO = "0";
+                    string Nuoc_thuycuc = row[i]["nuocthuycuc"].ToString();
+                    if (Nuoc_thuycuc == "")
+                        Nuoc_thuycuc = "0";
                     string BHLD = row[i]["BHLD"].ToString();
                     string Ghi_chu = row[i]["ghi_chu"].ToString();
                     string Vitri_tongspthuduoc = row[i]["vitri_spthuduoc"].ToString();
@@ -10188,18 +12859,11 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
-                                "", Math.Round(TONG_KL_LT, 4), Math.Round(Hieu_suat_thu_tb / dataGridView1.Rows.Count, 4), Math.Round(Hieu_suat_release_tb / dataGridView1.Rows.Count, 4),
-                                "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
-                                "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
-                                "", "", Math.Round(tb_do_am / count_doam, 4), Math.Round(tb_coating / count_coating, 4), "",
-                                Math.Round(tb_0ngay / count_0, 4), Math.Round(tb_7ngay / count_7, 4), Math.Round(tb_14ngay / count_14, 4),
-                                Math.Round(tb_21ngay / count_21, 4), Math.Round(tb_28ngay / count_28, 4), Math.Round(tb_42ngay / count_42, 4),
-                                Math.Round(tb_49ngay / count_49, 4), Math.Round(tb_56ngay / count_56, 4), Math.Round(tb_70ngay / count_70, 4),
-                                Math.Round(tb_84ngay / count_84, 4), Math.Round(tb_98ngay / count_98, 4), Math.Round(tb_112ngay / count_112, 4),
-                                Math.Round(tb_126ngay / count_126, 4), Math.Round(tb_140ngay / count_140, 4));
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
+                dataGridView1.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dataGridView1.Columns[7].Frozen = true;
+                dataGridView1.Rows[0].Frozen = true;
+                dataGridView1.CurrentCell = dataGridView1.Rows[1].Cells[0];
             }
             catch (Exception ex)
             {
@@ -10218,7 +12882,17 @@ namespace NhatKySanXuat
                 DataTable tb_buff = new DataTable();
                 sqlcon.Open();
                 command = sqlcon.CreateCommand();
-                command.CommandText = "select * from nhatkysanxuat where dot_sx = '" + tb_dotsx_search.Text + "' AND loai = '" + cbb_search_loai.Text + "' AND ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) AND phanbon_nvl LIKE '%" + cbb_phanbonnvl_search.Text + "%' ORDER BY me DESC";
+                command.CommandText = "select name,dot_sx,ngay_sx,thiet_bi,ma_BTP,ten_BTP,me,LOT ,tocdo_release," +
+                        "ngay_release,loai,tong_klspsx,kl_dongkhoi,kl_khongdongkhoi,kl_lythuyet,hieuxuat_thu,hieuxuat_release," +
+                        "thoigian_cb,thoigian_sx,phanbon_nvl,kl_nvl,barcode_nvl,lot_nvl,N1,barcode_n1,lot_n1," +
+                        "N2,barcode_n2,lot_n2,N3,barcode_n3,lot_n3,Ga3,barcode_ga3,Borax,bacode_borax,Naa,barcode_naa,solubo,barocde_solubo," +
+                        "Edta,barcode_edta,Red,barcode_red,violet,barcode_violet,blue,barocde_blue,yellow,barcode_yellow,black,barcode_back,prev," +
+                        "barcode_prev,thancam,dien,nuocRO,nuocthuycuc,BHLD,Sodium,barcode_sodium,Citric,barcode_citric,Naoh,barocde_naoh,ghi_chu," +
+                        "vitri_spthuduoc,vitri_spdongkhoi,vitri_spkhongdongkhoi,N1_1,N1_2,N1_3,N1_1_barcode,N1_2_barcode,N1_3_barcode,N1_1_lot," +
+                        "N1_2_lot,N1_3_lot,N2_1,N2_2,N2_1_barcode,N2_2_barcode,N2_1_lot,N2_2_lot,N3_1,N3_1_barcode,N3_1_lot,N1_4,N1_4_barcode," +
+                        "N1_4_lot,N2_3,N2_3_barcode,N2_3_lot,N3_2,N3_2_barcode,N3_2_lot,N3_3,N3_3_barcode,N3_3_lot,thoigian_ondinh,do_am,coating_layer," +
+                        "ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140,NVL_1," +
+                        "barcode_NVL_1,lot_NVL_1,NVL_2,barcode_NVL_2,lot_NVL_2,KL_NVL_1,KL_NVL_2,N1_BD,N1_KT,N2_BD,N2_KT,N3_BD,N3_KT from nhatkysanxuat where dot_sx = '" + tb_dotsx_search.Text + "' AND loai = '" + cbb_search_loai.Text + "' AND ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) AND phanbon_nvl LIKE '%" + cbb_phanbonnvl_search.Text + "%' ORDER BY me DESC";
                 adapter.SelectCommand = command;
                 tb_buff.Clear();
                 adapter.Fill(tb_buff);
@@ -10373,18 +13047,6 @@ namespace NhatKySanXuat
                         count_coating++;
                         tb_coating += Convert.ToDouble(row[i]["coating_layer"].ToString());
                     }
-                    string Nguoi_nhap = row[i]["name"].ToString();
-                    string LOT = row[i]["LOT"].ToString();
-                    string Dot_sx = row[i]["dot_sx"].ToString();
-                    string Ngay_sx = row[i]["ngay_sx"].ToString();
-                    string Thiet_bi = row[i]["thiet_bi"].ToString();
-                    string Ma_btp = row[i]["ma_BTP"].ToString();
-                    string Ten_btp = row[i]["ten_BTP"].ToString();
-                    string Me = row[i]["me"].ToString();
-                    string Kl_nvl = row[i]["klnl_sudung"].ToString();
-                    string Toc_do_release = row[i]["tocdo_release"].ToString();
-                    string Ngay_release = row[i]["ngay_release"].ToString();
-                    string Loai = row[i]["loai"].ToString();
                     string Tong_klsp_thuduoc = row[i]["tong_klspsx"].ToString();
                     if (Tong_klsp_thuduoc == "")
                         Tong_klsp_thuduoc = "0";
@@ -10409,103 +13071,78 @@ namespace NhatKySanXuat
                     if (Hieusuatrelease == "")
                         Hieusuatrelease = "0";
                     Hieu_suat_release_tb += Convert.ToDouble(Hieusuatrelease);
-                    string Thoigiancb = row[i]["thoigian_cb"].ToString();
-                    string Thoigiansx = row[i]["thoigian_sx"].ToString();
-                    string Phanbon_nvl = row[i]["phanbon_nvl"].ToString();
                     string KL_phan_nvl = row[i]["kl_nvl"].ToString();
                     if (KL_phan_nvl == "")
                         KL_phan_nvl = "0";
                     KHOI_LUONG_NVL += Convert.ToDouble(KL_phan_nvl);
-                    string Barcode_nvl = row[i]["barcode_nvl"].ToString();
-                    string LOT_nvl = row[i]["lot_nvl"].ToString();
                     string N1_khoiluong = row[i]["N1"].ToString();
                     if (N1_khoiluong == "")
                         N1_khoiluong = "0";
                     Tong_N1_KL += Convert.ToDouble(N1_khoiluong);
-                    string N1_barcode = row[i]["barcode_n1"].ToString();
-                    string N1_LOT = row[i]["lot_n1"].ToString();
                     string N2_khoiluong = row[i]["N2"].ToString();
                     if (N2_khoiluong == "")
                         N2_khoiluong = "0";
                     Tong_N2_KL += Convert.ToDouble(N2_khoiluong);
-                    string N2_barcode = row[i]["barcode_n2"].ToString();
-                    string N2_LOT = row[i]["lot_n2"].ToString();
                     string n3_khoiluong = row[i]["N3"].ToString();
                     if (n3_khoiluong == "")
                         n3_khoiluong = "0";
                     Tong_N3_KL += Convert.ToDouble(n3_khoiluong);
-                    string N3_barcode = row[i]["barcode_n3"].ToString();
-                    string N3_LOT = row[i]["lot_n3"].ToString();
                     string GA3 = row[i]["Ga3"].ToString();
                     if (GA3 == "")
                         GA3 = "0";
                     Tong_ga3 += Convert.ToDouble(GA3);
-                    string GA3_barcode = row[i]["barcode_ga3"].ToString();
                     string Borax = row[i]["Borax"].ToString();
                     if (Borax == "")
                         Borax = "0";
                     Tong_borax += Convert.ToDouble(Borax);
-                    string Borax_barcode = row[i]["bacode_borax"].ToString();
                     string NAA = row[i]["Naa"].ToString();
                     if (NAA == "")
                         NAA = "0";
                     Tong_Naa += Convert.ToDouble(NAA);
-                    string NAA_barcode = row[i]["barcode_naa"].ToString();
                     string Sodium = row[i]["Sodium"].ToString();
                     if (Sodium == "")
                         Sodium = "0";
                     Tong_sodium += Convert.ToDouble(Sodium);
-                    string Sodium_barcode = row[i]["barcode_sodium"].ToString();
                     string Citric = row[i]["Citric"].ToString();
                     if (Citric == "")
                         Citric = "0";
                     Tong_citric += Convert.ToDouble(Citric);
-                    string Barcode_Citric = row[i]["barcode_citric"].ToString();
                     string Naoh = row[i]["Naoh"].ToString();
                     if (Naoh == "")
                         Naoh = "0";
                     Tong_naoh += Convert.ToDouble(Naoh);
-                    string Barcode_Naoh = row[i]["barocde_naoh"].ToString();
                     string Solubo = row[i]["solubo"].ToString();
                     if (Solubo == "")
                         Solubo = "0";
                     Tong_solubo += Convert.ToDouble(Solubo);
-                    string Barcode_Solubo = row[i]["barocde_solubo"].ToString();
                     string Edtazn = row[i]["Edta"].ToString();
                     if (Edtazn == "")
                         Edtazn = "0";
                     Tong_edtazn += Convert.ToDouble(Edtazn);
-                    string Barcode_Edta = row[i]["barcode_edta"].ToString();
                     string Red = row[i]["Red"].ToString();
                     if (Red == "")
                         Red = "0";
                     Tong_red += Convert.ToDouble(Red);
-                    string Barcode_red = row[i]["barcode_red"].ToString();
                     string Violet = row[i]["violet"].ToString();
                     if (Violet == "")
                         Violet = "0";
                     Tong_violet += Convert.ToDouble(Violet);
-                    string Barcode_violet = row[i]["barcode_violet"].ToString();
                     string Blue = row[i]["blue"].ToString();
                     if (Blue == "")
                         Blue = "0";
                     Tong_blue += Convert.ToDouble(Blue);
-                    string Barcode_blue = row[i]["barocde_blue"].ToString();
                     string Yellow = row[i]["yellow"].ToString();
                     if (Yellow == "")
                         Yellow = "0";
                     Tong_yellow += Convert.ToDouble(Yellow);
-                    string Barcode_yellow = row[i]["barcode_yellow"].ToString();
                     string Black = row[i]["black"].ToString();
                     if (Black == "")
                         Black = "0";
                     Tong_black += Convert.ToDouble(Black);
-                    string Barcode_black = row[i]["barcode_back"].ToString();
                     string Prev = row[i]["prev"].ToString();
                     if (Prev == "")
                         Prev = "0";
                     Tong_prev += Convert.ToDouble(Prev);
-                    string Barcode_Prev = row[i]["barcode_prev"].ToString();
                     string Than_cam = row[i]["thancam"].ToString();
                     if (Than_cam == "")
                         Than_cam = "0";
@@ -10522,6 +13159,139 @@ namespace NhatKySanXuat
                     if (Nuoc_thuycuc == "")
                         Nuoc_thuycuc = "0";
                     Tong_nuocthuycuc += Convert.ToDouble(Nuoc_thuycuc);
+                }
+                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                "", Math.Round(TONG_KL_LT, 3), Math.Round(Hieu_suat_thu_tb / row.Length, 3), Math.Round(Hieu_suat_release_tb / row.Length, 3),
+                "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
+                "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
+                "", "", Math.Round(tb_do_am / count_doam, 3), Math.Round(tb_coating / count_coating, 3), "",
+                Math.Round(tb_0ngay / count_0, 3), Math.Round(tb_7ngay / count_7, 3), Math.Round(tb_14ngay / count_14, 3),
+                Math.Round(tb_21ngay / count_21, 3), Math.Round(tb_28ngay / count_28, 3), Math.Round(tb_42ngay / count_42, 3),
+                Math.Round(tb_49ngay / count_49, 3), Math.Round(tb_56ngay / count_56, 3), Math.Round(tb_70ngay / count_70, 3),
+                Math.Round(tb_84ngay / count_84, 3), Math.Round(tb_98ngay / count_98, 3), Math.Round(tb_112ngay / count_112, 3),
+                Math.Round(tb_126ngay / count_126, 3), Math.Round(tb_140ngay / count_140, 3));
+                for (int i = 0; i < row.Length; i++)
+                {
+                    string Nguoi_nhap = row[i]["name"].ToString();
+                    string LOT = row[i]["LOT"].ToString();
+                    string Dot_sx = row[i]["dot_sx"].ToString();
+                    string Ngay_sx = row[i]["ngay_sx"].ToString();
+                    string Thiet_bi = row[i]["thiet_bi"].ToString();
+                    string Ma_btp = row[i]["ma_BTP"].ToString();
+                    string Ten_btp = row[i]["ten_BTP"].ToString();
+                    string Me = row[i]["me"].ToString();
+                    string Toc_do_release = row[i]["tocdo_release"].ToString();
+                    string Ngay_release = row[i]["ngay_release"].ToString();
+                    string Loai = row[i]["loai"].ToString();
+                    string Tong_klsp_thuduoc = row[i]["tong_klspsx"].ToString();
+                    if (Tong_klsp_thuduoc == "")
+                        Tong_klsp_thuduoc = "0";
+                    string Kl_dongkhoi = row[i]["kl_dongkhoi"].ToString();
+                    if (Kl_dongkhoi == "")
+                        Kl_dongkhoi = "0";
+                    string Khongdongkhoi = row[i]["kl_khongdongkhoi"].ToString();
+                    if (Khongdongkhoi == "")
+                        Khongdongkhoi = "0";
+                    string Kl_lythuyet = row[i]["kl_lythuyet"].ToString();
+                    if (Kl_lythuyet == "")
+                        Kl_lythuyet = "0";
+                    string Hieusuatthu = row[i]["hieuxuat_thu"].ToString();
+                    if (Hieusuatthu == "")
+                        Hieusuatthu = "0";
+                    string Hieusuatrelease = row[i]["hieuxuat_release"].ToString();
+                    if (Hieusuatrelease == "")
+                        Hieusuatrelease = "0";
+                    string Thoigiancb = row[i]["thoigian_cb"].ToString();
+                    string Thoigiansx = row[i]["thoigian_sx"].ToString();
+                    string Phanbon_nvl = row[i]["phanbon_nvl"].ToString();
+                    string KL_phan_nvl = row[i]["kl_nvl"].ToString();
+                    if (KL_phan_nvl == "")
+                        KL_phan_nvl = "0";
+                    string Barcode_nvl = row[i]["barcode_nvl"].ToString();
+                    string LOT_nvl = row[i]["lot_nvl"].ToString();
+                    string N1_khoiluong = row[i]["N1"].ToString();
+                    if (N1_khoiluong == "")
+                        N1_khoiluong = "0";
+                    string N1_barcode = row[i]["barcode_n1"].ToString();
+                    string N1_LOT = row[i]["lot_n1"].ToString();
+                    string N2_khoiluong = row[i]["N2"].ToString();
+                    if (N2_khoiluong == "")
+                        N2_khoiluong = "0";
+                    string N2_barcode = row[i]["barcode_n2"].ToString();
+                    string N2_LOT = row[i]["lot_n2"].ToString();
+                    string n3_khoiluong = row[i]["N3"].ToString();
+                    if (n3_khoiluong == "")
+                        n3_khoiluong = "0";
+                    string N3_barcode = row[i]["barcode_n3"].ToString();
+                    string N3_LOT = row[i]["lot_n3"].ToString();
+                    string GA3 = row[i]["Ga3"].ToString();
+                    if (GA3 == "")
+                        GA3 = "0";
+                    string GA3_barcode = row[i]["barcode_ga3"].ToString();
+                    string Borax = row[i]["Borax"].ToString();
+                    if (Borax == "")
+                        Borax = "0";
+                    string Borax_barcode = row[i]["bacode_borax"].ToString();
+                    string NAA = row[i]["Naa"].ToString();
+                    if (NAA == "")
+                        NAA = "0";
+                    string NAA_barcode = row[i]["barcode_naa"].ToString();
+                    string Sodium = row[i]["Sodium"].ToString();
+                    if (Sodium == "")
+                        Sodium = "0";
+                    string Sodium_barcode = row[i]["barcode_sodium"].ToString();
+                    string Citric = row[i]["Citric"].ToString();
+                    if (Citric == "")
+                        Citric = "0";
+                    string Barcode_Citric = row[i]["barcode_citric"].ToString();
+                    string Naoh = row[i]["Naoh"].ToString();
+                    if (Naoh == "")
+                        Naoh = "0";
+                    string Barcode_Naoh = row[i]["barocde_naoh"].ToString();
+                    string Solubo = row[i]["solubo"].ToString();
+                    if (Solubo == "")
+                        Solubo = "0";
+                    string Barcode_Solubo = row[i]["barocde_solubo"].ToString();
+                    string Edtazn = row[i]["Edta"].ToString();
+                    if (Edtazn == "")
+                        Edtazn = "0";
+                    string Barcode_Edta = row[i]["barcode_edta"].ToString();
+                    string Red = row[i]["Red"].ToString();
+                    if (Red == "")
+                        Red = "0";
+                    string Barcode_red = row[i]["barcode_red"].ToString();
+                    string Violet = row[i]["violet"].ToString();
+                    if (Violet == "")
+                        Violet = "0";
+                    string Barcode_violet = row[i]["barcode_violet"].ToString();
+                    string Blue = row[i]["blue"].ToString();
+                    if (Blue == "")
+                        Blue = "0";
+                    string Barcode_blue = row[i]["barocde_blue"].ToString();
+                    string Yellow = row[i]["yellow"].ToString();
+                    if (Yellow == "")
+                        Yellow = "0";
+                    string Barcode_yellow = row[i]["barcode_yellow"].ToString();
+                    string Black = row[i]["black"].ToString();
+                    if (Black == "")
+                        Black = "0";
+                    string Barcode_black = row[i]["barcode_back"].ToString();
+                    string Prev = row[i]["prev"].ToString();
+                    if (Prev == "")
+                        Prev = "0";
+                    string Barcode_Prev = row[i]["barcode_prev"].ToString();
+                    string Than_cam = row[i]["thancam"].ToString();
+                    if (Than_cam == "")
+                        Than_cam = "0";
+                    string Dien = row[i]["dien"].ToString();
+                    if (Dien == "")
+                        Dien = "0";
+                    string Nuoc_RO = row[i]["nuocRo"].ToString();
+                    if (Nuoc_RO == "")
+                        Nuoc_RO = "0";
+                    string Nuoc_thuycuc = row[i]["nuocthuycuc"].ToString();
+                    if (Nuoc_thuycuc == "")
+                        Nuoc_thuycuc = "0";
                     string BHLD = row[i]["BHLD"].ToString();
                     string Ghi_chu = row[i]["ghi_chu"].ToString();
                     string Vitri_tongspthuduoc = row[i]["vitri_spthuduoc"].ToString();
@@ -10556,18 +13326,11 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
-                                "", Math.Round(TONG_KL_LT, 4), Math.Round(Hieu_suat_thu_tb / dataGridView1.Rows.Count, 4), Math.Round(Hieu_suat_release_tb / dataGridView1.Rows.Count, 4),
-                                "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
-                                "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
-                                "", "", Math.Round(tb_do_am / count_doam, 4), Math.Round(tb_coating / count_coating, 4), "",
-                                Math.Round(tb_0ngay / count_0, 4), Math.Round(tb_7ngay / count_7, 4), Math.Round(tb_14ngay / count_14, 4),
-                                Math.Round(tb_21ngay / count_21, 4), Math.Round(tb_28ngay / count_28, 4), Math.Round(tb_42ngay / count_42, 4),
-                                Math.Round(tb_49ngay / count_49, 4), Math.Round(tb_56ngay / count_56, 4), Math.Round(tb_70ngay / count_70, 4),
-                                Math.Round(tb_84ngay / count_84, 4), Math.Round(tb_98ngay / count_98, 4), Math.Round(tb_112ngay / count_112, 4),
-                                Math.Round(tb_126ngay / count_126, 4), Math.Round(tb_140ngay / count_140, 4));
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
+                dataGridView1.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dataGridView1.Columns[7].Frozen = true;
+                dataGridView1.Rows[0].Frozen = true;
+                dataGridView1.CurrentCell = dataGridView1.Rows[1].Cells[0];
             }
             catch (Exception ex)
             {
@@ -10586,7 +13349,17 @@ namespace NhatKySanXuat
                 DataTable tb_buff = new DataTable();
                 sqlcon.Open();
                 command = sqlcon.CreateCommand();
-                command.CommandText = "select * from nhatkysanxuat where ma_BTP LIKE '%" + cbb_ma_BTP_search.Text + "%' AND loai = '" + cbb_search_loai.Text + "' AND thiet_bi = '" + cbb_thietbi_search.Text + "' AND ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) AND phanbon_nvl LIKE '%" + cbb_phanbonnvl_search.Text + "%' ORDER BY dot_sx DESC";
+                command.CommandText = "select name,dot_sx,ngay_sx,thiet_bi,ma_BTP,ten_BTP,me,LOT ,tocdo_release," +
+                        "ngay_release,loai,tong_klspsx,kl_dongkhoi,kl_khongdongkhoi,kl_lythuyet,hieuxuat_thu,hieuxuat_release," +
+                        "thoigian_cb,thoigian_sx,phanbon_nvl,kl_nvl,barcode_nvl,lot_nvl,N1,barcode_n1,lot_n1," +
+                        "N2,barcode_n2,lot_n2,N3,barcode_n3,lot_n3,Ga3,barcode_ga3,Borax,bacode_borax,Naa,barcode_naa,solubo,barocde_solubo," +
+                        "Edta,barcode_edta,Red,barcode_red,violet,barcode_violet,blue,barocde_blue,yellow,barcode_yellow,black,barcode_back,prev," +
+                        "barcode_prev,thancam,dien,nuocRO,nuocthuycuc,BHLD,Sodium,barcode_sodium,Citric,barcode_citric,Naoh,barocde_naoh,ghi_chu," +
+                        "vitri_spthuduoc,vitri_spdongkhoi,vitri_spkhongdongkhoi,N1_1,N1_2,N1_3,N1_1_barcode,N1_2_barcode,N1_3_barcode,N1_1_lot," +
+                        "N1_2_lot,N1_3_lot,N2_1,N2_2,N2_1_barcode,N2_2_barcode,N2_1_lot,N2_2_lot,N3_1,N3_1_barcode,N3_1_lot,N1_4,N1_4_barcode," +
+                        "N1_4_lot,N2_3,N2_3_barcode,N2_3_lot,N3_2,N3_2_barcode,N3_2_lot,N3_3,N3_3_barcode,N3_3_lot,thoigian_ondinh,do_am,coating_layer," +
+                        "ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140,NVL_1," +
+                        "barcode_NVL_1,lot_NVL_1,NVL_2,barcode_NVL_2,lot_NVL_2,KL_NVL_1,KL_NVL_2,N1_BD,N1_KT,N2_BD,N2_KT,N3_BD,N3_KT from nhatkysanxuat where ma_BTP LIKE '%" + cbb_ma_BTP_search.Text + "%' AND loai = '" + cbb_search_loai.Text + "' AND thiet_bi = '" + cbb_thietbi_search.Text + "' AND ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) AND phanbon_nvl LIKE '%" + cbb_phanbonnvl_search.Text + "%' ORDER BY dot_sx DESC";
                 adapter.SelectCommand = command;
                 tb_buff.Clear();
                 adapter.Fill(tb_buff);
@@ -10741,18 +13514,6 @@ namespace NhatKySanXuat
                         count_coating++;
                         tb_coating += Convert.ToDouble(row[i]["coating_layer"].ToString());
                     }
-                    string Nguoi_nhap = row[i]["name"].ToString();
-                    string LOT = row[i]["LOT"].ToString();
-                    string Dot_sx = row[i]["dot_sx"].ToString();
-                    string Ngay_sx = row[i]["ngay_sx"].ToString();
-                    string Thiet_bi = row[i]["thiet_bi"].ToString();
-                    string Ma_btp = row[i]["ma_BTP"].ToString();
-                    string Ten_btp = row[i]["ten_BTP"].ToString();
-                    string Me = row[i]["me"].ToString();
-                    string Kl_nvl = row[i]["klnl_sudung"].ToString();
-                    string Toc_do_release = row[i]["tocdo_release"].ToString();
-                    string Ngay_release = row[i]["ngay_release"].ToString();
-                    string Loai = row[i]["loai"].ToString();
                     string Tong_klsp_thuduoc = row[i]["tong_klspsx"].ToString();
                     if (Tong_klsp_thuduoc == "")
                         Tong_klsp_thuduoc = "0";
@@ -10777,103 +13538,78 @@ namespace NhatKySanXuat
                     if (Hieusuatrelease == "")
                         Hieusuatrelease = "0";
                     Hieu_suat_release_tb += Convert.ToDouble(Hieusuatrelease);
-                    string Thoigiancb = row[i]["thoigian_cb"].ToString();
-                    string Thoigiansx = row[i]["thoigian_sx"].ToString();
-                    string Phanbon_nvl = row[i]["phanbon_nvl"].ToString();
                     string KL_phan_nvl = row[i]["kl_nvl"].ToString();
                     if (KL_phan_nvl == "")
                         KL_phan_nvl = "0";
                     KHOI_LUONG_NVL += Convert.ToDouble(KL_phan_nvl);
-                    string Barcode_nvl = row[i]["barcode_nvl"].ToString();
-                    string LOT_nvl = row[i]["lot_nvl"].ToString();
                     string N1_khoiluong = row[i]["N1"].ToString();
                     if (N1_khoiluong == "")
                         N1_khoiluong = "0";
                     Tong_N1_KL += Convert.ToDouble(N1_khoiluong);
-                    string N1_barcode = row[i]["barcode_n1"].ToString();
-                    string N1_LOT = row[i]["lot_n1"].ToString();
                     string N2_khoiluong = row[i]["N2"].ToString();
                     if (N2_khoiluong == "")
                         N2_khoiluong = "0";
                     Tong_N2_KL += Convert.ToDouble(N2_khoiluong);
-                    string N2_barcode = row[i]["barcode_n2"].ToString();
-                    string N2_LOT = row[i]["lot_n2"].ToString();
                     string n3_khoiluong = row[i]["N3"].ToString();
                     if (n3_khoiluong == "")
                         n3_khoiluong = "0";
                     Tong_N3_KL += Convert.ToDouble(n3_khoiluong);
-                    string N3_barcode = row[i]["barcode_n3"].ToString();
-                    string N3_LOT = row[i]["lot_n3"].ToString();
                     string GA3 = row[i]["Ga3"].ToString();
                     if (GA3 == "")
                         GA3 = "0";
                     Tong_ga3 += Convert.ToDouble(GA3);
-                    string GA3_barcode = row[i]["barcode_ga3"].ToString();
                     string Borax = row[i]["Borax"].ToString();
                     if (Borax == "")
                         Borax = "0";
                     Tong_borax += Convert.ToDouble(Borax);
-                    string Borax_barcode = row[i]["bacode_borax"].ToString();
                     string NAA = row[i]["Naa"].ToString();
                     if (NAA == "")
                         NAA = "0";
                     Tong_Naa += Convert.ToDouble(NAA);
-                    string NAA_barcode = row[i]["barcode_naa"].ToString();
                     string Sodium = row[i]["Sodium"].ToString();
                     if (Sodium == "")
                         Sodium = "0";
                     Tong_sodium += Convert.ToDouble(Sodium);
-                    string Sodium_barcode = row[i]["barcode_sodium"].ToString();
                     string Citric = row[i]["Citric"].ToString();
                     if (Citric == "")
                         Citric = "0";
                     Tong_citric += Convert.ToDouble(Citric);
-                    string Barcode_Citric = row[i]["barcode_citric"].ToString();
                     string Naoh = row[i]["Naoh"].ToString();
                     if (Naoh == "")
                         Naoh = "0";
                     Tong_naoh += Convert.ToDouble(Naoh);
-                    string Barcode_Naoh = row[i]["barocde_naoh"].ToString();
                     string Solubo = row[i]["solubo"].ToString();
                     if (Solubo == "")
                         Solubo = "0";
                     Tong_solubo += Convert.ToDouble(Solubo);
-                    string Barcode_Solubo = row[i]["barocde_solubo"].ToString();
                     string Edtazn = row[i]["Edta"].ToString();
                     if (Edtazn == "")
                         Edtazn = "0";
                     Tong_edtazn += Convert.ToDouble(Edtazn);
-                    string Barcode_Edta = row[i]["barcode_edta"].ToString();
                     string Red = row[i]["Red"].ToString();
                     if (Red == "")
                         Red = "0";
                     Tong_red += Convert.ToDouble(Red);
-                    string Barcode_red = row[i]["barcode_red"].ToString();
                     string Violet = row[i]["violet"].ToString();
                     if (Violet == "")
                         Violet = "0";
                     Tong_violet += Convert.ToDouble(Violet);
-                    string Barcode_violet = row[i]["barcode_violet"].ToString();
                     string Blue = row[i]["blue"].ToString();
                     if (Blue == "")
                         Blue = "0";
                     Tong_blue += Convert.ToDouble(Blue);
-                    string Barcode_blue = row[i]["barocde_blue"].ToString();
                     string Yellow = row[i]["yellow"].ToString();
                     if (Yellow == "")
                         Yellow = "0";
                     Tong_yellow += Convert.ToDouble(Yellow);
-                    string Barcode_yellow = row[i]["barcode_yellow"].ToString();
                     string Black = row[i]["black"].ToString();
                     if (Black == "")
                         Black = "0";
                     Tong_black += Convert.ToDouble(Black);
-                    string Barcode_black = row[i]["barcode_back"].ToString();
                     string Prev = row[i]["prev"].ToString();
                     if (Prev == "")
                         Prev = "0";
                     Tong_prev += Convert.ToDouble(Prev);
-                    string Barcode_Prev = row[i]["barcode_prev"].ToString();
                     string Than_cam = row[i]["thancam"].ToString();
                     if (Than_cam == "")
                         Than_cam = "0";
@@ -10890,6 +13626,139 @@ namespace NhatKySanXuat
                     if (Nuoc_thuycuc == "")
                         Nuoc_thuycuc = "0";
                     Tong_nuocthuycuc += Convert.ToDouble(Nuoc_thuycuc);
+                }
+                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                "", Math.Round(TONG_KL_LT, 3), Math.Round(Hieu_suat_thu_tb / row.Length, 3), Math.Round(Hieu_suat_release_tb / row.Length, 3),
+                "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
+                "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
+                "", "", Math.Round(tb_do_am / count_doam, 3), Math.Round(tb_coating / count_coating, 3), "",
+                Math.Round(tb_0ngay / count_0, 3), Math.Round(tb_7ngay / count_7, 3), Math.Round(tb_14ngay / count_14, 3),
+                Math.Round(tb_21ngay / count_21, 3), Math.Round(tb_28ngay / count_28, 3), Math.Round(tb_42ngay / count_42, 3),
+                Math.Round(tb_49ngay / count_49, 3), Math.Round(tb_56ngay / count_56, 3), Math.Round(tb_70ngay / count_70, 3),
+                Math.Round(tb_84ngay / count_84, 3), Math.Round(tb_98ngay / count_98, 3), Math.Round(tb_112ngay / count_112, 3),
+                Math.Round(tb_126ngay / count_126, 3), Math.Round(tb_140ngay / count_140, 3));
+                for (int i = 0; i < row.Length; i++)
+                {
+                    string Nguoi_nhap = row[i]["name"].ToString();
+                    string LOT = row[i]["LOT"].ToString();
+                    string Dot_sx = row[i]["dot_sx"].ToString();
+                    string Ngay_sx = row[i]["ngay_sx"].ToString();
+                    string Thiet_bi = row[i]["thiet_bi"].ToString();
+                    string Ma_btp = row[i]["ma_BTP"].ToString();
+                    string Ten_btp = row[i]["ten_BTP"].ToString();
+                    string Me = row[i]["me"].ToString();
+                    string Toc_do_release = row[i]["tocdo_release"].ToString();
+                    string Ngay_release = row[i]["ngay_release"].ToString();
+                    string Loai = row[i]["loai"].ToString();
+                    string Tong_klsp_thuduoc = row[i]["tong_klspsx"].ToString();
+                    if (Tong_klsp_thuduoc == "")
+                        Tong_klsp_thuduoc = "0";
+                    string Kl_dongkhoi = row[i]["kl_dongkhoi"].ToString();
+                    if (Kl_dongkhoi == "")
+                        Kl_dongkhoi = "0";
+                    string Khongdongkhoi = row[i]["kl_khongdongkhoi"].ToString();
+                    if (Khongdongkhoi == "")
+                        Khongdongkhoi = "0";
+                    string Kl_lythuyet = row[i]["kl_lythuyet"].ToString();
+                    if (Kl_lythuyet == "")
+                        Kl_lythuyet = "0";
+                    string Hieusuatthu = row[i]["hieuxuat_thu"].ToString();
+                    if (Hieusuatthu == "")
+                        Hieusuatthu = "0";
+                    string Hieusuatrelease = row[i]["hieuxuat_release"].ToString();
+                    if (Hieusuatrelease == "")
+                        Hieusuatrelease = "0";
+                    string Thoigiancb = row[i]["thoigian_cb"].ToString();
+                    string Thoigiansx = row[i]["thoigian_sx"].ToString();
+                    string Phanbon_nvl = row[i]["phanbon_nvl"].ToString();
+                    string KL_phan_nvl = row[i]["kl_nvl"].ToString();
+                    if (KL_phan_nvl == "")
+                        KL_phan_nvl = "0";
+                    string Barcode_nvl = row[i]["barcode_nvl"].ToString();
+                    string LOT_nvl = row[i]["lot_nvl"].ToString();
+                    string N1_khoiluong = row[i]["N1"].ToString();
+                    if (N1_khoiluong == "")
+                        N1_khoiluong = "0";
+                    string N1_barcode = row[i]["barcode_n1"].ToString();
+                    string N1_LOT = row[i]["lot_n1"].ToString();
+                    string N2_khoiluong = row[i]["N2"].ToString();
+                    if (N2_khoiluong == "")
+                        N2_khoiluong = "0";
+                    string N2_barcode = row[i]["barcode_n2"].ToString();
+                    string N2_LOT = row[i]["lot_n2"].ToString();
+                    string n3_khoiluong = row[i]["N3"].ToString();
+                    if (n3_khoiluong == "")
+                        n3_khoiluong = "0";
+                    string N3_barcode = row[i]["barcode_n3"].ToString();
+                    string N3_LOT = row[i]["lot_n3"].ToString();
+                    string GA3 = row[i]["Ga3"].ToString();
+                    if (GA3 == "")
+                        GA3 = "0";
+                    string GA3_barcode = row[i]["barcode_ga3"].ToString();
+                    string Borax = row[i]["Borax"].ToString();
+                    if (Borax == "")
+                        Borax = "0";
+                    string Borax_barcode = row[i]["bacode_borax"].ToString();
+                    string NAA = row[i]["Naa"].ToString();
+                    if (NAA == "")
+                        NAA = "0";
+                    string NAA_barcode = row[i]["barcode_naa"].ToString();
+                    string Sodium = row[i]["Sodium"].ToString();
+                    if (Sodium == "")
+                        Sodium = "0";
+                    string Sodium_barcode = row[i]["barcode_sodium"].ToString();
+                    string Citric = row[i]["Citric"].ToString();
+                    if (Citric == "")
+                        Citric = "0";
+                    string Barcode_Citric = row[i]["barcode_citric"].ToString();
+                    string Naoh = row[i]["Naoh"].ToString();
+                    if (Naoh == "")
+                        Naoh = "0";
+                    string Barcode_Naoh = row[i]["barocde_naoh"].ToString();
+                    string Solubo = row[i]["solubo"].ToString();
+                    if (Solubo == "")
+                        Solubo = "0";
+                    string Barcode_Solubo = row[i]["barocde_solubo"].ToString();
+                    string Edtazn = row[i]["Edta"].ToString();
+                    if (Edtazn == "")
+                        Edtazn = "0";
+                    string Barcode_Edta = row[i]["barcode_edta"].ToString();
+                    string Red = row[i]["Red"].ToString();
+                    if (Red == "")
+                        Red = "0";
+                    string Barcode_red = row[i]["barcode_red"].ToString();
+                    string Violet = row[i]["violet"].ToString();
+                    if (Violet == "")
+                        Violet = "0";
+                    string Barcode_violet = row[i]["barcode_violet"].ToString();
+                    string Blue = row[i]["blue"].ToString();
+                    if (Blue == "")
+                        Blue = "0";
+                    string Barcode_blue = row[i]["barocde_blue"].ToString();
+                    string Yellow = row[i]["yellow"].ToString();
+                    if (Yellow == "")
+                        Yellow = "0";
+                    string Barcode_yellow = row[i]["barcode_yellow"].ToString();
+                    string Black = row[i]["black"].ToString();
+                    if (Black == "")
+                        Black = "0";
+                    string Barcode_black = row[i]["barcode_back"].ToString();
+                    string Prev = row[i]["prev"].ToString();
+                    if (Prev == "")
+                        Prev = "0";
+                    string Barcode_Prev = row[i]["barcode_prev"].ToString();
+                    string Than_cam = row[i]["thancam"].ToString();
+                    if (Than_cam == "")
+                        Than_cam = "0";
+                    string Dien = row[i]["dien"].ToString();
+                    if (Dien == "")
+                        Dien = "0";
+                    string Nuoc_RO = row[i]["nuocRo"].ToString();
+                    if (Nuoc_RO == "")
+                        Nuoc_RO = "0";
+                    string Nuoc_thuycuc = row[i]["nuocthuycuc"].ToString();
+                    if (Nuoc_thuycuc == "")
+                        Nuoc_thuycuc = "0";
                     string BHLD = row[i]["BHLD"].ToString();
                     string Ghi_chu = row[i]["ghi_chu"].ToString();
                     string Vitri_tongspthuduoc = row[i]["vitri_spthuduoc"].ToString();
@@ -10924,18 +13793,11 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
-                                "", Math.Round(TONG_KL_LT, 4), Math.Round(Hieu_suat_thu_tb / dataGridView1.Rows.Count, 4), Math.Round(Hieu_suat_release_tb / dataGridView1.Rows.Count, 4),
-                                "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
-                                "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
-                                "", "", Math.Round(tb_do_am / count_doam, 4), Math.Round(tb_coating / count_coating, 4), "",
-                                Math.Round(tb_0ngay / count_0, 4), Math.Round(tb_7ngay / count_7, 4), Math.Round(tb_14ngay / count_14, 4),
-                                Math.Round(tb_21ngay / count_21, 4), Math.Round(tb_28ngay / count_28, 4), Math.Round(tb_42ngay / count_42, 4),
-                                Math.Round(tb_49ngay / count_49, 4), Math.Round(tb_56ngay / count_56, 4), Math.Round(tb_70ngay / count_70, 4),
-                                Math.Round(tb_84ngay / count_84, 4), Math.Round(tb_98ngay / count_98, 4), Math.Round(tb_112ngay / count_112, 4),
-                                Math.Round(tb_126ngay / count_126, 4), Math.Round(tb_140ngay / count_140, 4));
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
+                dataGridView1.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dataGridView1.Columns[7].Frozen = true;
+                dataGridView1.Rows[0].Frozen = true;
+                dataGridView1.CurrentCell = dataGridView1.Rows[1].Cells[0];
             }
             catch (Exception ex)
             {
@@ -10954,7 +13816,17 @@ namespace NhatKySanXuat
                 DataTable tb_buff = new DataTable();
                 sqlcon.Open();
                 command = sqlcon.CreateCommand();
-                command.CommandText = "select * from nhatkysanxuat where ma_BTP LIKE '%" + cbb_ma_BTP_search.Text + "%' AND loai = '" + cbb_search_loai.Text + "' AND ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) AND phanbon_nvl LIKE '%" + cbb_phanbonnvl_search.Text + "%' ORDER BY dot_sx DESC";
+                command.CommandText = "select name,dot_sx,ngay_sx,thiet_bi,ma_BTP,ten_BTP,me,LOT ,tocdo_release," +
+                        "ngay_release,loai,tong_klspsx,kl_dongkhoi,kl_khongdongkhoi,kl_lythuyet,hieuxuat_thu,hieuxuat_release," +
+                        "thoigian_cb,thoigian_sx,phanbon_nvl,kl_nvl,barcode_nvl,lot_nvl,N1,barcode_n1,lot_n1," +
+                        "N2,barcode_n2,lot_n2,N3,barcode_n3,lot_n3,Ga3,barcode_ga3,Borax,bacode_borax,Naa,barcode_naa,solubo,barocde_solubo," +
+                        "Edta,barcode_edta,Red,barcode_red,violet,barcode_violet,blue,barocde_blue,yellow,barcode_yellow,black,barcode_back,prev," +
+                        "barcode_prev,thancam,dien,nuocRO,nuocthuycuc,BHLD,Sodium,barcode_sodium,Citric,barcode_citric,Naoh,barocde_naoh,ghi_chu," +
+                        "vitri_spthuduoc,vitri_spdongkhoi,vitri_spkhongdongkhoi,N1_1,N1_2,N1_3,N1_1_barcode,N1_2_barcode,N1_3_barcode,N1_1_lot," +
+                        "N1_2_lot,N1_3_lot,N2_1,N2_2,N2_1_barcode,N2_2_barcode,N2_1_lot,N2_2_lot,N3_1,N3_1_barcode,N3_1_lot,N1_4,N1_4_barcode," +
+                        "N1_4_lot,N2_3,N2_3_barcode,N2_3_lot,N3_2,N3_2_barcode,N3_2_lot,N3_3,N3_3_barcode,N3_3_lot,thoigian_ondinh,do_am,coating_layer," +
+                        "ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140,NVL_1," +
+                        "barcode_NVL_1,lot_NVL_1,NVL_2,barcode_NVL_2,lot_NVL_2,KL_NVL_1,KL_NVL_2,N1_BD,N1_KT,N2_BD,N2_KT,N3_BD,N3_KT from nhatkysanxuat where ma_BTP LIKE '%" + cbb_ma_BTP_search.Text + "%' AND loai = '" + cbb_search_loai.Text + "' AND ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) AND phanbon_nvl LIKE '%" + cbb_phanbonnvl_search.Text + "%' ORDER BY dot_sx DESC";
                 adapter.SelectCommand = command;
                 tb_buff.Clear();
                 adapter.Fill(tb_buff);
@@ -11109,18 +13981,6 @@ namespace NhatKySanXuat
                         count_coating++;
                         tb_coating += Convert.ToDouble(row[i]["coating_layer"].ToString());
                     }
-                    string Nguoi_nhap = row[i]["name"].ToString();
-                    string LOT = row[i]["LOT"].ToString();
-                    string Dot_sx = row[i]["dot_sx"].ToString();
-                    string Ngay_sx = row[i]["ngay_sx"].ToString();
-                    string Thiet_bi = row[i]["thiet_bi"].ToString();
-                    string Ma_btp = row[i]["ma_BTP"].ToString();
-                    string Ten_btp = row[i]["ten_BTP"].ToString();
-                    string Me = row[i]["me"].ToString();
-                    string Kl_nvl = row[i]["klnl_sudung"].ToString();
-                    string Toc_do_release = row[i]["tocdo_release"].ToString();
-                    string Ngay_release = row[i]["ngay_release"].ToString();
-                    string Loai = row[i]["loai"].ToString();
                     string Tong_klsp_thuduoc = row[i]["tong_klspsx"].ToString();
                     if (Tong_klsp_thuduoc == "")
                         Tong_klsp_thuduoc = "0";
@@ -11145,103 +14005,78 @@ namespace NhatKySanXuat
                     if (Hieusuatrelease == "")
                         Hieusuatrelease = "0";
                     Hieu_suat_release_tb += Convert.ToDouble(Hieusuatrelease);
-                    string Thoigiancb = row[i]["thoigian_cb"].ToString();
-                    string Thoigiansx = row[i]["thoigian_sx"].ToString();
-                    string Phanbon_nvl = row[i]["phanbon_nvl"].ToString();
                     string KL_phan_nvl = row[i]["kl_nvl"].ToString();
                     if (KL_phan_nvl == "")
                         KL_phan_nvl = "0";
                     KHOI_LUONG_NVL += Convert.ToDouble(KL_phan_nvl);
-                    string Barcode_nvl = row[i]["barcode_nvl"].ToString();
-                    string LOT_nvl = row[i]["lot_nvl"].ToString();
                     string N1_khoiluong = row[i]["N1"].ToString();
                     if (N1_khoiluong == "")
                         N1_khoiluong = "0";
                     Tong_N1_KL += Convert.ToDouble(N1_khoiluong);
-                    string N1_barcode = row[i]["barcode_n1"].ToString();
-                    string N1_LOT = row[i]["lot_n1"].ToString();
                     string N2_khoiluong = row[i]["N2"].ToString();
                     if (N2_khoiluong == "")
                         N2_khoiluong = "0";
                     Tong_N2_KL += Convert.ToDouble(N2_khoiluong);
-                    string N2_barcode = row[i]["barcode_n2"].ToString();
-                    string N2_LOT = row[i]["lot_n2"].ToString();
                     string n3_khoiluong = row[i]["N3"].ToString();
                     if (n3_khoiluong == "")
                         n3_khoiluong = "0";
                     Tong_N3_KL += Convert.ToDouble(n3_khoiluong);
-                    string N3_barcode = row[i]["barcode_n3"].ToString();
-                    string N3_LOT = row[i]["lot_n3"].ToString();
                     string GA3 = row[i]["Ga3"].ToString();
                     if (GA3 == "")
                         GA3 = "0";
                     Tong_ga3 += Convert.ToDouble(GA3);
-                    string GA3_barcode = row[i]["barcode_ga3"].ToString();
                     string Borax = row[i]["Borax"].ToString();
                     if (Borax == "")
                         Borax = "0";
                     Tong_borax += Convert.ToDouble(Borax);
-                    string Borax_barcode = row[i]["bacode_borax"].ToString();
                     string NAA = row[i]["Naa"].ToString();
                     if (NAA == "")
                         NAA = "0";
                     Tong_Naa += Convert.ToDouble(NAA);
-                    string NAA_barcode = row[i]["barcode_naa"].ToString();
                     string Sodium = row[i]["Sodium"].ToString();
                     if (Sodium == "")
                         Sodium = "0";
                     Tong_sodium += Convert.ToDouble(Sodium);
-                    string Sodium_barcode = row[i]["barcode_sodium"].ToString();
                     string Citric = row[i]["Citric"].ToString();
                     if (Citric == "")
                         Citric = "0";
                     Tong_citric += Convert.ToDouble(Citric);
-                    string Barcode_Citric = row[i]["barcode_citric"].ToString();
                     string Naoh = row[i]["Naoh"].ToString();
                     if (Naoh == "")
                         Naoh = "0";
                     Tong_naoh += Convert.ToDouble(Naoh);
-                    string Barcode_Naoh = row[i]["barocde_naoh"].ToString();
                     string Solubo = row[i]["solubo"].ToString();
                     if (Solubo == "")
                         Solubo = "0";
                     Tong_solubo += Convert.ToDouble(Solubo);
-                    string Barcode_Solubo = row[i]["barocde_solubo"].ToString();
                     string Edtazn = row[i]["Edta"].ToString();
                     if (Edtazn == "")
                         Edtazn = "0";
                     Tong_edtazn += Convert.ToDouble(Edtazn);
-                    string Barcode_Edta = row[i]["barcode_edta"].ToString();
                     string Red = row[i]["Red"].ToString();
                     if (Red == "")
                         Red = "0";
                     Tong_red += Convert.ToDouble(Red);
-                    string Barcode_red = row[i]["barcode_red"].ToString();
                     string Violet = row[i]["violet"].ToString();
                     if (Violet == "")
                         Violet = "0";
                     Tong_violet += Convert.ToDouble(Violet);
-                    string Barcode_violet = row[i]["barcode_violet"].ToString();
                     string Blue = row[i]["blue"].ToString();
                     if (Blue == "")
                         Blue = "0";
                     Tong_blue += Convert.ToDouble(Blue);
-                    string Barcode_blue = row[i]["barocde_blue"].ToString();
                     string Yellow = row[i]["yellow"].ToString();
                     if (Yellow == "")
                         Yellow = "0";
                     Tong_yellow += Convert.ToDouble(Yellow);
-                    string Barcode_yellow = row[i]["barcode_yellow"].ToString();
                     string Black = row[i]["black"].ToString();
                     if (Black == "")
                         Black = "0";
                     Tong_black += Convert.ToDouble(Black);
-                    string Barcode_black = row[i]["barcode_back"].ToString();
                     string Prev = row[i]["prev"].ToString();
                     if (Prev == "")
                         Prev = "0";
                     Tong_prev += Convert.ToDouble(Prev);
-                    string Barcode_Prev = row[i]["barcode_prev"].ToString();
                     string Than_cam = row[i]["thancam"].ToString();
                     if (Than_cam == "")
                         Than_cam = "0";
@@ -11258,6 +14093,139 @@ namespace NhatKySanXuat
                     if (Nuoc_thuycuc == "")
                         Nuoc_thuycuc = "0";
                     Tong_nuocthuycuc += Convert.ToDouble(Nuoc_thuycuc);
+                }
+                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                "", Math.Round(TONG_KL_LT, 3), Math.Round(Hieu_suat_thu_tb / row.Length, 3), Math.Round(Hieu_suat_release_tb / row.Length, 3),
+                "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
+                "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
+                "", "", Math.Round(tb_do_am / count_doam, 3), Math.Round(tb_coating / count_coating, 3), "",
+                Math.Round(tb_0ngay / count_0, 3), Math.Round(tb_7ngay / count_7, 3), Math.Round(tb_14ngay / count_14, 3),
+                Math.Round(tb_21ngay / count_21, 3), Math.Round(tb_28ngay / count_28, 3), Math.Round(tb_42ngay / count_42, 3),
+                Math.Round(tb_49ngay / count_49, 3), Math.Round(tb_56ngay / count_56, 3), Math.Round(tb_70ngay / count_70, 3),
+                Math.Round(tb_84ngay / count_84, 3), Math.Round(tb_98ngay / count_98, 3), Math.Round(tb_112ngay / count_112, 3),
+                Math.Round(tb_126ngay / count_126, 3), Math.Round(tb_140ngay / count_140, 3));
+                for (int i = 0; i < row.Length; i++)
+                {
+                    string Nguoi_nhap = row[i]["name"].ToString();
+                    string LOT = row[i]["LOT"].ToString();
+                    string Dot_sx = row[i]["dot_sx"].ToString();
+                    string Ngay_sx = row[i]["ngay_sx"].ToString();
+                    string Thiet_bi = row[i]["thiet_bi"].ToString();
+                    string Ma_btp = row[i]["ma_BTP"].ToString();
+                    string Ten_btp = row[i]["ten_BTP"].ToString();
+                    string Me = row[i]["me"].ToString();
+                    string Toc_do_release = row[i]["tocdo_release"].ToString();
+                    string Ngay_release = row[i]["ngay_release"].ToString();
+                    string Loai = row[i]["loai"].ToString();
+                    string Tong_klsp_thuduoc = row[i]["tong_klspsx"].ToString();
+                    if (Tong_klsp_thuduoc == "")
+                        Tong_klsp_thuduoc = "0";
+                    string Kl_dongkhoi = row[i]["kl_dongkhoi"].ToString();
+                    if (Kl_dongkhoi == "")
+                        Kl_dongkhoi = "0";
+                    string Khongdongkhoi = row[i]["kl_khongdongkhoi"].ToString();
+                    if (Khongdongkhoi == "")
+                        Khongdongkhoi = "0";
+                    string Kl_lythuyet = row[i]["kl_lythuyet"].ToString();
+                    if (Kl_lythuyet == "")
+                        Kl_lythuyet = "0";
+                    string Hieusuatthu = row[i]["hieuxuat_thu"].ToString();
+                    if (Hieusuatthu == "")
+                        Hieusuatthu = "0";
+                    string Hieusuatrelease = row[i]["hieuxuat_release"].ToString();
+                    if (Hieusuatrelease == "")
+                        Hieusuatrelease = "0";
+                    string Thoigiancb = row[i]["thoigian_cb"].ToString();
+                    string Thoigiansx = row[i]["thoigian_sx"].ToString();
+                    string Phanbon_nvl = row[i]["phanbon_nvl"].ToString();
+                    string KL_phan_nvl = row[i]["kl_nvl"].ToString();
+                    if (KL_phan_nvl == "")
+                        KL_phan_nvl = "0";
+                    string Barcode_nvl = row[i]["barcode_nvl"].ToString();
+                    string LOT_nvl = row[i]["lot_nvl"].ToString();
+                    string N1_khoiluong = row[i]["N1"].ToString();
+                    if (N1_khoiluong == "")
+                        N1_khoiluong = "0";
+                    string N1_barcode = row[i]["barcode_n1"].ToString();
+                    string N1_LOT = row[i]["lot_n1"].ToString();
+                    string N2_khoiluong = row[i]["N2"].ToString();
+                    if (N2_khoiluong == "")
+                        N2_khoiluong = "0";
+                    string N2_barcode = row[i]["barcode_n2"].ToString();
+                    string N2_LOT = row[i]["lot_n2"].ToString();
+                    string n3_khoiluong = row[i]["N3"].ToString();
+                    if (n3_khoiluong == "")
+                        n3_khoiluong = "0";
+                    string N3_barcode = row[i]["barcode_n3"].ToString();
+                    string N3_LOT = row[i]["lot_n3"].ToString();
+                    string GA3 = row[i]["Ga3"].ToString();
+                    if (GA3 == "")
+                        GA3 = "0";
+                    string GA3_barcode = row[i]["barcode_ga3"].ToString();
+                    string Borax = row[i]["Borax"].ToString();
+                    if (Borax == "")
+                        Borax = "0";
+                    string Borax_barcode = row[i]["bacode_borax"].ToString();
+                    string NAA = row[i]["Naa"].ToString();
+                    if (NAA == "")
+                        NAA = "0";
+                    string NAA_barcode = row[i]["barcode_naa"].ToString();
+                    string Sodium = row[i]["Sodium"].ToString();
+                    if (Sodium == "")
+                        Sodium = "0";
+                    string Sodium_barcode = row[i]["barcode_sodium"].ToString();
+                    string Citric = row[i]["Citric"].ToString();
+                    if (Citric == "")
+                        Citric = "0";
+                    string Barcode_Citric = row[i]["barcode_citric"].ToString();
+                    string Naoh = row[i]["Naoh"].ToString();
+                    if (Naoh == "")
+                        Naoh = "0";
+                    string Barcode_Naoh = row[i]["barocde_naoh"].ToString();
+                    string Solubo = row[i]["solubo"].ToString();
+                    if (Solubo == "")
+                        Solubo = "0";
+                    string Barcode_Solubo = row[i]["barocde_solubo"].ToString();
+                    string Edtazn = row[i]["Edta"].ToString();
+                    if (Edtazn == "")
+                        Edtazn = "0";
+                    string Barcode_Edta = row[i]["barcode_edta"].ToString();
+                    string Red = row[i]["Red"].ToString();
+                    if (Red == "")
+                        Red = "0";
+                    string Barcode_red = row[i]["barcode_red"].ToString();
+                    string Violet = row[i]["violet"].ToString();
+                    if (Violet == "")
+                        Violet = "0";
+                    string Barcode_violet = row[i]["barcode_violet"].ToString();
+                    string Blue = row[i]["blue"].ToString();
+                    if (Blue == "")
+                        Blue = "0";
+                    string Barcode_blue = row[i]["barocde_blue"].ToString();
+                    string Yellow = row[i]["yellow"].ToString();
+                    if (Yellow == "")
+                        Yellow = "0";
+                    string Barcode_yellow = row[i]["barcode_yellow"].ToString();
+                    string Black = row[i]["black"].ToString();
+                    if (Black == "")
+                        Black = "0";
+                    string Barcode_black = row[i]["barcode_back"].ToString();
+                    string Prev = row[i]["prev"].ToString();
+                    if (Prev == "")
+                        Prev = "0";
+                    string Barcode_Prev = row[i]["barcode_prev"].ToString();
+                    string Than_cam = row[i]["thancam"].ToString();
+                    if (Than_cam == "")
+                        Than_cam = "0";
+                    string Dien = row[i]["dien"].ToString();
+                    if (Dien == "")
+                        Dien = "0";
+                    string Nuoc_RO = row[i]["nuocRo"].ToString();
+                    if (Nuoc_RO == "")
+                        Nuoc_RO = "0";
+                    string Nuoc_thuycuc = row[i]["nuocthuycuc"].ToString();
+                    if (Nuoc_thuycuc == "")
+                        Nuoc_thuycuc = "0";
                     string BHLD = row[i]["BHLD"].ToString();
                     string Ghi_chu = row[i]["ghi_chu"].ToString();
                     string Vitri_tongspthuduoc = row[i]["vitri_spthuduoc"].ToString();
@@ -11292,18 +14260,11 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
-                                "", Math.Round(TONG_KL_LT, 4), Math.Round(Hieu_suat_thu_tb / dataGridView1.Rows.Count, 4), Math.Round(Hieu_suat_release_tb / dataGridView1.Rows.Count, 4),
-                                "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
-                                "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
-                                "", "", Math.Round(tb_do_am / count_doam, 4), Math.Round(tb_coating / count_coating, 4), "",
-                                Math.Round(tb_0ngay / count_0, 4), Math.Round(tb_7ngay / count_7, 4), Math.Round(tb_14ngay / count_14, 4),
-                                Math.Round(tb_21ngay / count_21, 4), Math.Round(tb_28ngay / count_28, 4), Math.Round(tb_42ngay / count_42, 4),
-                                Math.Round(tb_49ngay / count_49, 4), Math.Round(tb_56ngay / count_56, 4), Math.Round(tb_70ngay / count_70, 4),
-                                Math.Round(tb_84ngay / count_84, 4), Math.Round(tb_98ngay / count_98, 4), Math.Round(tb_112ngay / count_112, 4),
-                                Math.Round(tb_126ngay / count_126, 4), Math.Round(tb_140ngay / count_140, 4));
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
+                dataGridView1.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dataGridView1.Columns[7].Frozen = true;
+                dataGridView1.Rows[0].Frozen = true;
+                dataGridView1.CurrentCell = dataGridView1.Rows[1].Cells[0];
             }
             catch (Exception ex)
             {
@@ -11322,7 +14283,17 @@ namespace NhatKySanXuat
                 DataTable tb_buff = new DataTable();
                 sqlcon.Open();
                 command = sqlcon.CreateCommand();
-                command.CommandText = "select * from nhatkysanxuat where ma_BTP LIKE '%" + cbb_ma_BTP_search.Text + "%' AND dot_sx = '" + tb_dotsx_search.Text + "' AND thiet_bi = '" + cbb_thietbi_search.Text + "' AND ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) AND phanbon_nvl LIKE '%" + cbb_phanbonnvl_search.Text + "%' ORDER BY me DESC";
+                command.CommandText = "select name,dot_sx,ngay_sx,thiet_bi,ma_BTP,ten_BTP,me,LOT ,tocdo_release," +
+                        "ngay_release,loai,tong_klspsx,kl_dongkhoi,kl_khongdongkhoi,kl_lythuyet,hieuxuat_thu,hieuxuat_release," +
+                        "thoigian_cb,thoigian_sx,phanbon_nvl,kl_nvl,barcode_nvl,lot_nvl,N1,barcode_n1,lot_n1," +
+                        "N2,barcode_n2,lot_n2,N3,barcode_n3,lot_n3,Ga3,barcode_ga3,Borax,bacode_borax,Naa,barcode_naa,solubo,barocde_solubo," +
+                        "Edta,barcode_edta,Red,barcode_red,violet,barcode_violet,blue,barocde_blue,yellow,barcode_yellow,black,barcode_back,prev," +
+                        "barcode_prev,thancam,dien,nuocRO,nuocthuycuc,BHLD,Sodium,barcode_sodium,Citric,barcode_citric,Naoh,barocde_naoh,ghi_chu," +
+                        "vitri_spthuduoc,vitri_spdongkhoi,vitri_spkhongdongkhoi,N1_1,N1_2,N1_3,N1_1_barcode,N1_2_barcode,N1_3_barcode,N1_1_lot," +
+                        "N1_2_lot,N1_3_lot,N2_1,N2_2,N2_1_barcode,N2_2_barcode,N2_1_lot,N2_2_lot,N3_1,N3_1_barcode,N3_1_lot,N1_4,N1_4_barcode," +
+                        "N1_4_lot,N2_3,N2_3_barcode,N2_3_lot,N3_2,N3_2_barcode,N3_2_lot,N3_3,N3_3_barcode,N3_3_lot,thoigian_ondinh,do_am,coating_layer," +
+                        "ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140,NVL_1," +
+                        "barcode_NVL_1,lot_NVL_1,NVL_2,barcode_NVL_2,lot_NVL_2,KL_NVL_1,KL_NVL_2,N1_BD,N1_KT,N2_BD,N2_KT,N3_BD,N3_KT from nhatkysanxuat where ma_BTP LIKE '%" + cbb_ma_BTP_search.Text + "%' AND dot_sx = '" + tb_dotsx_search.Text + "' AND thiet_bi = '" + cbb_thietbi_search.Text + "' AND ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) AND phanbon_nvl LIKE '%" + cbb_phanbonnvl_search.Text + "%' ORDER BY me DESC";
                 adapter.SelectCommand = command;
                 tb_buff.Clear();
                 adapter.Fill(tb_buff);
@@ -11477,18 +14448,6 @@ namespace NhatKySanXuat
                         count_coating++;
                         tb_coating += Convert.ToDouble(row[i]["coating_layer"].ToString());
                     }
-                    string Nguoi_nhap = row[i]["name"].ToString();
-                    string LOT = row[i]["LOT"].ToString();
-                    string Dot_sx = row[i]["dot_sx"].ToString();
-                    string Ngay_sx = row[i]["ngay_sx"].ToString();
-                    string Thiet_bi = row[i]["thiet_bi"].ToString();
-                    string Ma_btp = row[i]["ma_BTP"].ToString();
-                    string Ten_btp = row[i]["ten_BTP"].ToString();
-                    string Me = row[i]["me"].ToString();
-                    string Kl_nvl = row[i]["klnl_sudung"].ToString();
-                    string Toc_do_release = row[i]["tocdo_release"].ToString();
-                    string Ngay_release = row[i]["ngay_release"].ToString();
-                    string Loai = row[i]["loai"].ToString();
                     string Tong_klsp_thuduoc = row[i]["tong_klspsx"].ToString();
                     if (Tong_klsp_thuduoc == "")
                         Tong_klsp_thuduoc = "0";
@@ -11513,103 +14472,78 @@ namespace NhatKySanXuat
                     if (Hieusuatrelease == "")
                         Hieusuatrelease = "0";
                     Hieu_suat_release_tb += Convert.ToDouble(Hieusuatrelease);
-                    string Thoigiancb = row[i]["thoigian_cb"].ToString();
-                    string Thoigiansx = row[i]["thoigian_sx"].ToString();
-                    string Phanbon_nvl = row[i]["phanbon_nvl"].ToString();
                     string KL_phan_nvl = row[i]["kl_nvl"].ToString();
                     if (KL_phan_nvl == "")
                         KL_phan_nvl = "0";
                     KHOI_LUONG_NVL += Convert.ToDouble(KL_phan_nvl);
-                    string Barcode_nvl = row[i]["barcode_nvl"].ToString();
-                    string LOT_nvl = row[i]["lot_nvl"].ToString();
                     string N1_khoiluong = row[i]["N1"].ToString();
                     if (N1_khoiluong == "")
                         N1_khoiluong = "0";
                     Tong_N1_KL += Convert.ToDouble(N1_khoiluong);
-                    string N1_barcode = row[i]["barcode_n1"].ToString();
-                    string N1_LOT = row[i]["lot_n1"].ToString();
                     string N2_khoiluong = row[i]["N2"].ToString();
                     if (N2_khoiluong == "")
                         N2_khoiluong = "0";
                     Tong_N2_KL += Convert.ToDouble(N2_khoiluong);
-                    string N2_barcode = row[i]["barcode_n2"].ToString();
-                    string N2_LOT = row[i]["lot_n2"].ToString();
                     string n3_khoiluong = row[i]["N3"].ToString();
                     if (n3_khoiluong == "")
                         n3_khoiluong = "0";
                     Tong_N3_KL += Convert.ToDouble(n3_khoiluong);
-                    string N3_barcode = row[i]["barcode_n3"].ToString();
-                    string N3_LOT = row[i]["lot_n3"].ToString();
                     string GA3 = row[i]["Ga3"].ToString();
                     if (GA3 == "")
                         GA3 = "0";
                     Tong_ga3 += Convert.ToDouble(GA3);
-                    string GA3_barcode = row[i]["barcode_ga3"].ToString();
                     string Borax = row[i]["Borax"].ToString();
                     if (Borax == "")
                         Borax = "0";
                     Tong_borax += Convert.ToDouble(Borax);
-                    string Borax_barcode = row[i]["bacode_borax"].ToString();
                     string NAA = row[i]["Naa"].ToString();
                     if (NAA == "")
                         NAA = "0";
                     Tong_Naa += Convert.ToDouble(NAA);
-                    string NAA_barcode = row[i]["barcode_naa"].ToString();
                     string Sodium = row[i]["Sodium"].ToString();
                     if (Sodium == "")
                         Sodium = "0";
                     Tong_sodium += Convert.ToDouble(Sodium);
-                    string Sodium_barcode = row[i]["barcode_sodium"].ToString();
                     string Citric = row[i]["Citric"].ToString();
                     if (Citric == "")
                         Citric = "0";
                     Tong_citric += Convert.ToDouble(Citric);
-                    string Barcode_Citric = row[i]["barcode_citric"].ToString();
                     string Naoh = row[i]["Naoh"].ToString();
                     if (Naoh == "")
                         Naoh = "0";
                     Tong_naoh += Convert.ToDouble(Naoh);
-                    string Barcode_Naoh = row[i]["barocde_naoh"].ToString();
                     string Solubo = row[i]["solubo"].ToString();
                     if (Solubo == "")
                         Solubo = "0";
                     Tong_solubo += Convert.ToDouble(Solubo);
-                    string Barcode_Solubo = row[i]["barocde_solubo"].ToString();
                     string Edtazn = row[i]["Edta"].ToString();
                     if (Edtazn == "")
                         Edtazn = "0";
                     Tong_edtazn += Convert.ToDouble(Edtazn);
-                    string Barcode_Edta = row[i]["barcode_edta"].ToString();
                     string Red = row[i]["Red"].ToString();
                     if (Red == "")
                         Red = "0";
                     Tong_red += Convert.ToDouble(Red);
-                    string Barcode_red = row[i]["barcode_red"].ToString();
                     string Violet = row[i]["violet"].ToString();
                     if (Violet == "")
                         Violet = "0";
                     Tong_violet += Convert.ToDouble(Violet);
-                    string Barcode_violet = row[i]["barcode_violet"].ToString();
                     string Blue = row[i]["blue"].ToString();
                     if (Blue == "")
                         Blue = "0";
                     Tong_blue += Convert.ToDouble(Blue);
-                    string Barcode_blue = row[i]["barocde_blue"].ToString();
                     string Yellow = row[i]["yellow"].ToString();
                     if (Yellow == "")
                         Yellow = "0";
                     Tong_yellow += Convert.ToDouble(Yellow);
-                    string Barcode_yellow = row[i]["barcode_yellow"].ToString();
                     string Black = row[i]["black"].ToString();
                     if (Black == "")
                         Black = "0";
                     Tong_black += Convert.ToDouble(Black);
-                    string Barcode_black = row[i]["barcode_back"].ToString();
                     string Prev = row[i]["prev"].ToString();
                     if (Prev == "")
                         Prev = "0";
                     Tong_prev += Convert.ToDouble(Prev);
-                    string Barcode_Prev = row[i]["barcode_prev"].ToString();
                     string Than_cam = row[i]["thancam"].ToString();
                     if (Than_cam == "")
                         Than_cam = "0";
@@ -11626,6 +14560,139 @@ namespace NhatKySanXuat
                     if (Nuoc_thuycuc == "")
                         Nuoc_thuycuc = "0";
                     Tong_nuocthuycuc += Convert.ToDouble(Nuoc_thuycuc);
+                }
+                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                "", Math.Round(TONG_KL_LT, 3), Math.Round(Hieu_suat_thu_tb / row.Length, 3), Math.Round(Hieu_suat_release_tb / row.Length, 3),
+                "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
+                "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
+                "", "", Math.Round(tb_do_am / count_doam, 3), Math.Round(tb_coating / count_coating, 3), "",
+                Math.Round(tb_0ngay / count_0, 3), Math.Round(tb_7ngay / count_7, 3), Math.Round(tb_14ngay / count_14, 3),
+                Math.Round(tb_21ngay / count_21, 3), Math.Round(tb_28ngay / count_28, 3), Math.Round(tb_42ngay / count_42, 3),
+                Math.Round(tb_49ngay / count_49, 3), Math.Round(tb_56ngay / count_56, 3), Math.Round(tb_70ngay / count_70, 3),
+                Math.Round(tb_84ngay / count_84, 3), Math.Round(tb_98ngay / count_98, 3), Math.Round(tb_112ngay / count_112, 3),
+                Math.Round(tb_126ngay / count_126, 3), Math.Round(tb_140ngay / count_140, 3));
+                for (int i = 0; i < row.Length; i++)
+                {
+                    string Nguoi_nhap = row[i]["name"].ToString();
+                    string LOT = row[i]["LOT"].ToString();
+                    string Dot_sx = row[i]["dot_sx"].ToString();
+                    string Ngay_sx = row[i]["ngay_sx"].ToString();
+                    string Thiet_bi = row[i]["thiet_bi"].ToString();
+                    string Ma_btp = row[i]["ma_BTP"].ToString();
+                    string Ten_btp = row[i]["ten_BTP"].ToString();
+                    string Me = row[i]["me"].ToString();
+                    string Toc_do_release = row[i]["tocdo_release"].ToString();
+                    string Ngay_release = row[i]["ngay_release"].ToString();
+                    string Loai = row[i]["loai"].ToString();
+                    string Tong_klsp_thuduoc = row[i]["tong_klspsx"].ToString();
+                    if (Tong_klsp_thuduoc == "")
+                        Tong_klsp_thuduoc = "0";
+                    string Kl_dongkhoi = row[i]["kl_dongkhoi"].ToString();
+                    if (Kl_dongkhoi == "")
+                        Kl_dongkhoi = "0";
+                    string Khongdongkhoi = row[i]["kl_khongdongkhoi"].ToString();
+                    if (Khongdongkhoi == "")
+                        Khongdongkhoi = "0";
+                    string Kl_lythuyet = row[i]["kl_lythuyet"].ToString();
+                    if (Kl_lythuyet == "")
+                        Kl_lythuyet = "0";
+                    string Hieusuatthu = row[i]["hieuxuat_thu"].ToString();
+                    if (Hieusuatthu == "")
+                        Hieusuatthu = "0";
+                    string Hieusuatrelease = row[i]["hieuxuat_release"].ToString();
+                    if (Hieusuatrelease == "")
+                        Hieusuatrelease = "0";
+                    string Thoigiancb = row[i]["thoigian_cb"].ToString();
+                    string Thoigiansx = row[i]["thoigian_sx"].ToString();
+                    string Phanbon_nvl = row[i]["phanbon_nvl"].ToString();
+                    string KL_phan_nvl = row[i]["kl_nvl"].ToString();
+                    if (KL_phan_nvl == "")
+                        KL_phan_nvl = "0";
+                    string Barcode_nvl = row[i]["barcode_nvl"].ToString();
+                    string LOT_nvl = row[i]["lot_nvl"].ToString();
+                    string N1_khoiluong = row[i]["N1"].ToString();
+                    if (N1_khoiluong == "")
+                        N1_khoiluong = "0";
+                    string N1_barcode = row[i]["barcode_n1"].ToString();
+                    string N1_LOT = row[i]["lot_n1"].ToString();
+                    string N2_khoiluong = row[i]["N2"].ToString();
+                    if (N2_khoiluong == "")
+                        N2_khoiluong = "0";
+                    string N2_barcode = row[i]["barcode_n2"].ToString();
+                    string N2_LOT = row[i]["lot_n2"].ToString();
+                    string n3_khoiluong = row[i]["N3"].ToString();
+                    if (n3_khoiluong == "")
+                        n3_khoiluong = "0";
+                    string N3_barcode = row[i]["barcode_n3"].ToString();
+                    string N3_LOT = row[i]["lot_n3"].ToString();
+                    string GA3 = row[i]["Ga3"].ToString();
+                    if (GA3 == "")
+                        GA3 = "0";
+                    string GA3_barcode = row[i]["barcode_ga3"].ToString();
+                    string Borax = row[i]["Borax"].ToString();
+                    if (Borax == "")
+                        Borax = "0";
+                    string Borax_barcode = row[i]["bacode_borax"].ToString();
+                    string NAA = row[i]["Naa"].ToString();
+                    if (NAA == "")
+                        NAA = "0";
+                    string NAA_barcode = row[i]["barcode_naa"].ToString();
+                    string Sodium = row[i]["Sodium"].ToString();
+                    if (Sodium == "")
+                        Sodium = "0";
+                    string Sodium_barcode = row[i]["barcode_sodium"].ToString();
+                    string Citric = row[i]["Citric"].ToString();
+                    if (Citric == "")
+                        Citric = "0";
+                    string Barcode_Citric = row[i]["barcode_citric"].ToString();
+                    string Naoh = row[i]["Naoh"].ToString();
+                    if (Naoh == "")
+                        Naoh = "0";
+                    string Barcode_Naoh = row[i]["barocde_naoh"].ToString();
+                    string Solubo = row[i]["solubo"].ToString();
+                    if (Solubo == "")
+                        Solubo = "0";
+                    string Barcode_Solubo = row[i]["barocde_solubo"].ToString();
+                    string Edtazn = row[i]["Edta"].ToString();
+                    if (Edtazn == "")
+                        Edtazn = "0";
+                    string Barcode_Edta = row[i]["barcode_edta"].ToString();
+                    string Red = row[i]["Red"].ToString();
+                    if (Red == "")
+                        Red = "0";
+                    string Barcode_red = row[i]["barcode_red"].ToString();
+                    string Violet = row[i]["violet"].ToString();
+                    if (Violet == "")
+                        Violet = "0";
+                    string Barcode_violet = row[i]["barcode_violet"].ToString();
+                    string Blue = row[i]["blue"].ToString();
+                    if (Blue == "")
+                        Blue = "0";
+                    string Barcode_blue = row[i]["barocde_blue"].ToString();
+                    string Yellow = row[i]["yellow"].ToString();
+                    if (Yellow == "")
+                        Yellow = "0";
+                    string Barcode_yellow = row[i]["barcode_yellow"].ToString();
+                    string Black = row[i]["black"].ToString();
+                    if (Black == "")
+                        Black = "0";
+                    string Barcode_black = row[i]["barcode_back"].ToString();
+                    string Prev = row[i]["prev"].ToString();
+                    if (Prev == "")
+                        Prev = "0";
+                    string Barcode_Prev = row[i]["barcode_prev"].ToString();
+                    string Than_cam = row[i]["thancam"].ToString();
+                    if (Than_cam == "")
+                        Than_cam = "0";
+                    string Dien = row[i]["dien"].ToString();
+                    if (Dien == "")
+                        Dien = "0";
+                    string Nuoc_RO = row[i]["nuocRo"].ToString();
+                    if (Nuoc_RO == "")
+                        Nuoc_RO = "0";
+                    string Nuoc_thuycuc = row[i]["nuocthuycuc"].ToString();
+                    if (Nuoc_thuycuc == "")
+                        Nuoc_thuycuc = "0";
                     string BHLD = row[i]["BHLD"].ToString();
                     string Ghi_chu = row[i]["ghi_chu"].ToString();
                     string Vitri_tongspthuduoc = row[i]["vitri_spthuduoc"].ToString();
@@ -11660,18 +14727,11 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
-                                "", Math.Round(TONG_KL_LT, 4), Math.Round(Hieu_suat_thu_tb / dataGridView1.Rows.Count, 4), Math.Round(Hieu_suat_release_tb / dataGridView1.Rows.Count, 4),
-                                "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
-                                "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
-                                "", "", Math.Round(tb_do_am / count_doam, 4), Math.Round(tb_coating / count_coating, 4), "",
-                                Math.Round(tb_0ngay / count_0, 4), Math.Round(tb_7ngay / count_7, 4), Math.Round(tb_14ngay / count_14, 4),
-                                Math.Round(tb_21ngay / count_21, 4), Math.Round(tb_28ngay / count_28, 4), Math.Round(tb_42ngay / count_42, 4),
-                                Math.Round(tb_49ngay / count_49, 4), Math.Round(tb_56ngay / count_56, 4), Math.Round(tb_70ngay / count_70, 4),
-                                Math.Round(tb_84ngay / count_84, 4), Math.Round(tb_98ngay / count_98, 4), Math.Round(tb_112ngay / count_112, 4),
-                                Math.Round(tb_126ngay / count_126, 4), Math.Round(tb_140ngay / count_140, 4));
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
+                dataGridView1.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dataGridView1.Columns[7].Frozen = true;
+                dataGridView1.Rows[0].Frozen = true;
+                dataGridView1.CurrentCell = dataGridView1.Rows[1].Cells[0];
             }
             catch (Exception ex)
             {
@@ -11690,7 +14750,17 @@ namespace NhatKySanXuat
                 DataTable tb_buff = new DataTable();
                 sqlcon.Open();
                 command = sqlcon.CreateCommand();
-                command.CommandText = "select * from nhatkysanxuat where ma_BTP LIKE '%" + cbb_ma_BTP_search.Text + "%' AND dot_sx = '" + tb_dotsx_search.Text + "' AND ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) AND phanbon_nvl LIKE '%" + cbb_phanbonnvl_search.Text + "%' ORDER BY me DESC";
+                command.CommandText = "select name,dot_sx,ngay_sx,thiet_bi,ma_BTP,ten_BTP,me,LOT ,tocdo_release," +
+                        "ngay_release,loai,tong_klspsx,kl_dongkhoi,kl_khongdongkhoi,kl_lythuyet,hieuxuat_thu,hieuxuat_release," +
+                        "thoigian_cb,thoigian_sx,phanbon_nvl,kl_nvl,barcode_nvl,lot_nvl,N1,barcode_n1,lot_n1," +
+                        "N2,barcode_n2,lot_n2,N3,barcode_n3,lot_n3,Ga3,barcode_ga3,Borax,bacode_borax,Naa,barcode_naa,solubo,barocde_solubo," +
+                        "Edta,barcode_edta,Red,barcode_red,violet,barcode_violet,blue,barocde_blue,yellow,barcode_yellow,black,barcode_back,prev," +
+                        "barcode_prev,thancam,dien,nuocRO,nuocthuycuc,BHLD,Sodium,barcode_sodium,Citric,barcode_citric,Naoh,barocde_naoh,ghi_chu," +
+                        "vitri_spthuduoc,vitri_spdongkhoi,vitri_spkhongdongkhoi,N1_1,N1_2,N1_3,N1_1_barcode,N1_2_barcode,N1_3_barcode,N1_1_lot," +
+                        "N1_2_lot,N1_3_lot,N2_1,N2_2,N2_1_barcode,N2_2_barcode,N2_1_lot,N2_2_lot,N3_1,N3_1_barcode,N3_1_lot,N1_4,N1_4_barcode," +
+                        "N1_4_lot,N2_3,N2_3_barcode,N2_3_lot,N3_2,N3_2_barcode,N3_2_lot,N3_3,N3_3_barcode,N3_3_lot,thoigian_ondinh,do_am,coating_layer," +
+                        "ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140,NVL_1," +
+                        "barcode_NVL_1,lot_NVL_1,NVL_2,barcode_NVL_2,lot_NVL_2,KL_NVL_1,KL_NVL_2,N1_BD,N1_KT,N2_BD,N2_KT,N3_BD,N3_KT from nhatkysanxuat where ma_BTP LIKE '%" + cbb_ma_BTP_search.Text + "%' AND dot_sx = '" + tb_dotsx_search.Text + "' AND ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) AND phanbon_nvl LIKE '%" + cbb_phanbonnvl_search.Text + "%' ORDER BY me DESC";
                 adapter.SelectCommand = command;
                 tb_buff.Clear();
                 adapter.Fill(tb_buff);
@@ -11845,18 +14915,6 @@ namespace NhatKySanXuat
                         count_coating++;
                         tb_coating += Convert.ToDouble(row[i]["coating_layer"].ToString());
                     }
-                    string Nguoi_nhap = row[i]["name"].ToString();
-                    string LOT = row[i]["LOT"].ToString();
-                    string Dot_sx = row[i]["dot_sx"].ToString();
-                    string Ngay_sx = row[i]["ngay_sx"].ToString();
-                    string Thiet_bi = row[i]["thiet_bi"].ToString();
-                    string Ma_btp = row[i]["ma_BTP"].ToString();
-                    string Ten_btp = row[i]["ten_BTP"].ToString();
-                    string Me = row[i]["me"].ToString();
-                    string Kl_nvl = row[i]["klnl_sudung"].ToString();
-                    string Toc_do_release = row[i]["tocdo_release"].ToString();
-                    string Ngay_release = row[i]["ngay_release"].ToString();
-                    string Loai = row[i]["loai"].ToString();
                     string Tong_klsp_thuduoc = row[i]["tong_klspsx"].ToString();
                     if (Tong_klsp_thuduoc == "")
                         Tong_klsp_thuduoc = "0";
@@ -11881,103 +14939,78 @@ namespace NhatKySanXuat
                     if (Hieusuatrelease == "")
                         Hieusuatrelease = "0";
                     Hieu_suat_release_tb += Convert.ToDouble(Hieusuatrelease);
-                    string Thoigiancb = row[i]["thoigian_cb"].ToString();
-                    string Thoigiansx = row[i]["thoigian_sx"].ToString();
-                    string Phanbon_nvl = row[i]["phanbon_nvl"].ToString();
                     string KL_phan_nvl = row[i]["kl_nvl"].ToString();
                     if (KL_phan_nvl == "")
                         KL_phan_nvl = "0";
                     KHOI_LUONG_NVL += Convert.ToDouble(KL_phan_nvl);
-                    string Barcode_nvl = row[i]["barcode_nvl"].ToString();
-                    string LOT_nvl = row[i]["lot_nvl"].ToString();
                     string N1_khoiluong = row[i]["N1"].ToString();
                     if (N1_khoiluong == "")
                         N1_khoiluong = "0";
                     Tong_N1_KL += Convert.ToDouble(N1_khoiluong);
-                    string N1_barcode = row[i]["barcode_n1"].ToString();
-                    string N1_LOT = row[i]["lot_n1"].ToString();
                     string N2_khoiluong = row[i]["N2"].ToString();
                     if (N2_khoiluong == "")
                         N2_khoiluong = "0";
                     Tong_N2_KL += Convert.ToDouble(N2_khoiluong);
-                    string N2_barcode = row[i]["barcode_n2"].ToString();
-                    string N2_LOT = row[i]["lot_n2"].ToString();
                     string n3_khoiluong = row[i]["N3"].ToString();
                     if (n3_khoiluong == "")
                         n3_khoiluong = "0";
                     Tong_N3_KL += Convert.ToDouble(n3_khoiluong);
-                    string N3_barcode = row[i]["barcode_n3"].ToString();
-                    string N3_LOT = row[i]["lot_n3"].ToString();
                     string GA3 = row[i]["Ga3"].ToString();
                     if (GA3 == "")
                         GA3 = "0";
                     Tong_ga3 += Convert.ToDouble(GA3);
-                    string GA3_barcode = row[i]["barcode_ga3"].ToString();
                     string Borax = row[i]["Borax"].ToString();
                     if (Borax == "")
                         Borax = "0";
                     Tong_borax += Convert.ToDouble(Borax);
-                    string Borax_barcode = row[i]["bacode_borax"].ToString();
                     string NAA = row[i]["Naa"].ToString();
                     if (NAA == "")
                         NAA = "0";
                     Tong_Naa += Convert.ToDouble(NAA);
-                    string NAA_barcode = row[i]["barcode_naa"].ToString();
                     string Sodium = row[i]["Sodium"].ToString();
                     if (Sodium == "")
                         Sodium = "0";
                     Tong_sodium += Convert.ToDouble(Sodium);
-                    string Sodium_barcode = row[i]["barcode_sodium"].ToString();
                     string Citric = row[i]["Citric"].ToString();
                     if (Citric == "")
                         Citric = "0";
                     Tong_citric += Convert.ToDouble(Citric);
-                    string Barcode_Citric = row[i]["barcode_citric"].ToString();
                     string Naoh = row[i]["Naoh"].ToString();
                     if (Naoh == "")
                         Naoh = "0";
                     Tong_naoh += Convert.ToDouble(Naoh);
-                    string Barcode_Naoh = row[i]["barocde_naoh"].ToString();
                     string Solubo = row[i]["solubo"].ToString();
                     if (Solubo == "")
                         Solubo = "0";
                     Tong_solubo += Convert.ToDouble(Solubo);
-                    string Barcode_Solubo = row[i]["barocde_solubo"].ToString();
                     string Edtazn = row[i]["Edta"].ToString();
                     if (Edtazn == "")
                         Edtazn = "0";
                     Tong_edtazn += Convert.ToDouble(Edtazn);
-                    string Barcode_Edta = row[i]["barcode_edta"].ToString();
                     string Red = row[i]["Red"].ToString();
                     if (Red == "")
                         Red = "0";
                     Tong_red += Convert.ToDouble(Red);
-                    string Barcode_red = row[i]["barcode_red"].ToString();
                     string Violet = row[i]["violet"].ToString();
                     if (Violet == "")
                         Violet = "0";
                     Tong_violet += Convert.ToDouble(Violet);
-                    string Barcode_violet = row[i]["barcode_violet"].ToString();
                     string Blue = row[i]["blue"].ToString();
                     if (Blue == "")
                         Blue = "0";
                     Tong_blue += Convert.ToDouble(Blue);
-                    string Barcode_blue = row[i]["barocde_blue"].ToString();
                     string Yellow = row[i]["yellow"].ToString();
                     if (Yellow == "")
                         Yellow = "0";
                     Tong_yellow += Convert.ToDouble(Yellow);
-                    string Barcode_yellow = row[i]["barcode_yellow"].ToString();
                     string Black = row[i]["black"].ToString();
                     if (Black == "")
                         Black = "0";
                     Tong_black += Convert.ToDouble(Black);
-                    string Barcode_black = row[i]["barcode_back"].ToString();
                     string Prev = row[i]["prev"].ToString();
                     if (Prev == "")
                         Prev = "0";
                     Tong_prev += Convert.ToDouble(Prev);
-                    string Barcode_Prev = row[i]["barcode_prev"].ToString();
                     string Than_cam = row[i]["thancam"].ToString();
                     if (Than_cam == "")
                         Than_cam = "0";
@@ -11994,6 +15027,139 @@ namespace NhatKySanXuat
                     if (Nuoc_thuycuc == "")
                         Nuoc_thuycuc = "0";
                     Tong_nuocthuycuc += Convert.ToDouble(Nuoc_thuycuc);
+                }
+                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                "", Math.Round(TONG_KL_LT, 3), Math.Round(Hieu_suat_thu_tb / row.Length, 3), Math.Round(Hieu_suat_release_tb / row.Length, 3),
+                "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
+                "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
+                "", "", Math.Round(tb_do_am / count_doam, 3), Math.Round(tb_coating / count_coating, 3), "",
+                Math.Round(tb_0ngay / count_0, 3), Math.Round(tb_7ngay / count_7, 3), Math.Round(tb_14ngay / count_14, 3),
+                Math.Round(tb_21ngay / count_21, 3), Math.Round(tb_28ngay / count_28, 3), Math.Round(tb_42ngay / count_42, 3),
+                Math.Round(tb_49ngay / count_49, 3), Math.Round(tb_56ngay / count_56, 3), Math.Round(tb_70ngay / count_70, 3),
+                Math.Round(tb_84ngay / count_84, 3), Math.Round(tb_98ngay / count_98, 3), Math.Round(tb_112ngay / count_112, 3),
+                Math.Round(tb_126ngay / count_126, 3), Math.Round(tb_140ngay / count_140, 3));
+                for (int i = 0; i < row.Length; i++)
+                {
+                    string Nguoi_nhap = row[i]["name"].ToString();
+                    string LOT = row[i]["LOT"].ToString();
+                    string Dot_sx = row[i]["dot_sx"].ToString();
+                    string Ngay_sx = row[i]["ngay_sx"].ToString();
+                    string Thiet_bi = row[i]["thiet_bi"].ToString();
+                    string Ma_btp = row[i]["ma_BTP"].ToString();
+                    string Ten_btp = row[i]["ten_BTP"].ToString();
+                    string Me = row[i]["me"].ToString();
+                    string Toc_do_release = row[i]["tocdo_release"].ToString();
+                    string Ngay_release = row[i]["ngay_release"].ToString();
+                    string Loai = row[i]["loai"].ToString();
+                    string Tong_klsp_thuduoc = row[i]["tong_klspsx"].ToString();
+                    if (Tong_klsp_thuduoc == "")
+                        Tong_klsp_thuduoc = "0";
+                    string Kl_dongkhoi = row[i]["kl_dongkhoi"].ToString();
+                    if (Kl_dongkhoi == "")
+                        Kl_dongkhoi = "0";
+                    string Khongdongkhoi = row[i]["kl_khongdongkhoi"].ToString();
+                    if (Khongdongkhoi == "")
+                        Khongdongkhoi = "0";
+                    string Kl_lythuyet = row[i]["kl_lythuyet"].ToString();
+                    if (Kl_lythuyet == "")
+                        Kl_lythuyet = "0";
+                    string Hieusuatthu = row[i]["hieuxuat_thu"].ToString();
+                    if (Hieusuatthu == "")
+                        Hieusuatthu = "0";
+                    string Hieusuatrelease = row[i]["hieuxuat_release"].ToString();
+                    if (Hieusuatrelease == "")
+                        Hieusuatrelease = "0";
+                    string Thoigiancb = row[i]["thoigian_cb"].ToString();
+                    string Thoigiansx = row[i]["thoigian_sx"].ToString();
+                    string Phanbon_nvl = row[i]["phanbon_nvl"].ToString();
+                    string KL_phan_nvl = row[i]["kl_nvl"].ToString();
+                    if (KL_phan_nvl == "")
+                        KL_phan_nvl = "0";
+                    string Barcode_nvl = row[i]["barcode_nvl"].ToString();
+                    string LOT_nvl = row[i]["lot_nvl"].ToString();
+                    string N1_khoiluong = row[i]["N1"].ToString();
+                    if (N1_khoiluong == "")
+                        N1_khoiluong = "0";
+                    string N1_barcode = row[i]["barcode_n1"].ToString();
+                    string N1_LOT = row[i]["lot_n1"].ToString();
+                    string N2_khoiluong = row[i]["N2"].ToString();
+                    if (N2_khoiluong == "")
+                        N2_khoiluong = "0";
+                    string N2_barcode = row[i]["barcode_n2"].ToString();
+                    string N2_LOT = row[i]["lot_n2"].ToString();
+                    string n3_khoiluong = row[i]["N3"].ToString();
+                    if (n3_khoiluong == "")
+                        n3_khoiluong = "0";
+                    string N3_barcode = row[i]["barcode_n3"].ToString();
+                    string N3_LOT = row[i]["lot_n3"].ToString();
+                    string GA3 = row[i]["Ga3"].ToString();
+                    if (GA3 == "")
+                        GA3 = "0";
+                    string GA3_barcode = row[i]["barcode_ga3"].ToString();
+                    string Borax = row[i]["Borax"].ToString();
+                    if (Borax == "")
+                        Borax = "0";
+                    string Borax_barcode = row[i]["bacode_borax"].ToString();
+                    string NAA = row[i]["Naa"].ToString();
+                    if (NAA == "")
+                        NAA = "0";
+                    string NAA_barcode = row[i]["barcode_naa"].ToString();
+                    string Sodium = row[i]["Sodium"].ToString();
+                    if (Sodium == "")
+                        Sodium = "0";
+                    string Sodium_barcode = row[i]["barcode_sodium"].ToString();
+                    string Citric = row[i]["Citric"].ToString();
+                    if (Citric == "")
+                        Citric = "0";
+                    string Barcode_Citric = row[i]["barcode_citric"].ToString();
+                    string Naoh = row[i]["Naoh"].ToString();
+                    if (Naoh == "")
+                        Naoh = "0";
+                    string Barcode_Naoh = row[i]["barocde_naoh"].ToString();
+                    string Solubo = row[i]["solubo"].ToString();
+                    if (Solubo == "")
+                        Solubo = "0";
+                    string Barcode_Solubo = row[i]["barocde_solubo"].ToString();
+                    string Edtazn = row[i]["Edta"].ToString();
+                    if (Edtazn == "")
+                        Edtazn = "0";
+                    string Barcode_Edta = row[i]["barcode_edta"].ToString();
+                    string Red = row[i]["Red"].ToString();
+                    if (Red == "")
+                        Red = "0";
+                    string Barcode_red = row[i]["barcode_red"].ToString();
+                    string Violet = row[i]["violet"].ToString();
+                    if (Violet == "")
+                        Violet = "0";
+                    string Barcode_violet = row[i]["barcode_violet"].ToString();
+                    string Blue = row[i]["blue"].ToString();
+                    if (Blue == "")
+                        Blue = "0";
+                    string Barcode_blue = row[i]["barocde_blue"].ToString();
+                    string Yellow = row[i]["yellow"].ToString();
+                    if (Yellow == "")
+                        Yellow = "0";
+                    string Barcode_yellow = row[i]["barcode_yellow"].ToString();
+                    string Black = row[i]["black"].ToString();
+                    if (Black == "")
+                        Black = "0";
+                    string Barcode_black = row[i]["barcode_back"].ToString();
+                    string Prev = row[i]["prev"].ToString();
+                    if (Prev == "")
+                        Prev = "0";
+                    string Barcode_Prev = row[i]["barcode_prev"].ToString();
+                    string Than_cam = row[i]["thancam"].ToString();
+                    if (Than_cam == "")
+                        Than_cam = "0";
+                    string Dien = row[i]["dien"].ToString();
+                    if (Dien == "")
+                        Dien = "0";
+                    string Nuoc_RO = row[i]["nuocRo"].ToString();
+                    if (Nuoc_RO == "")
+                        Nuoc_RO = "0";
+                    string Nuoc_thuycuc = row[i]["nuocthuycuc"].ToString();
+                    if (Nuoc_thuycuc == "")
+                        Nuoc_thuycuc = "0";
                     string BHLD = row[i]["BHLD"].ToString();
                     string Ghi_chu = row[i]["ghi_chu"].ToString();
                     string Vitri_tongspthuduoc = row[i]["vitri_spthuduoc"].ToString();
@@ -12028,18 +15194,11 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
-                                "", Math.Round(TONG_KL_LT, 4), Math.Round(Hieu_suat_thu_tb / dataGridView1.Rows.Count, 4), Math.Round(Hieu_suat_release_tb / dataGridView1.Rows.Count, 4),
-                                "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
-                                "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
-                                "", "", Math.Round(tb_do_am / count_doam, 4), Math.Round(tb_coating / count_coating, 4), "",
-                                Math.Round(tb_0ngay / count_0, 4), Math.Round(tb_7ngay / count_7, 4), Math.Round(tb_14ngay / count_14, 4),
-                                Math.Round(tb_21ngay / count_21, 4), Math.Round(tb_28ngay / count_28, 4), Math.Round(tb_42ngay / count_42, 4),
-                                Math.Round(tb_49ngay / count_49, 4), Math.Round(tb_56ngay / count_56, 4), Math.Round(tb_70ngay / count_70, 4),
-                                Math.Round(tb_84ngay / count_84, 4), Math.Round(tb_98ngay / count_98, 4), Math.Round(tb_112ngay / count_112, 4),
-                                Math.Round(tb_126ngay / count_126, 4), Math.Round(tb_140ngay / count_140, 4));
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
+                dataGridView1.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dataGridView1.Columns[7].Frozen = true;
+                dataGridView1.Rows[0].Frozen = true;
+                dataGridView1.CurrentCell = dataGridView1.Rows[1].Cells[0];
             }
             catch (Exception ex)
             {
@@ -12084,7 +15243,17 @@ namespace NhatKySanXuat
                 SqlDataAdapter adapter = new SqlDataAdapter();
                 DataTable tb_buff = new DataTable();
                 command = sqlcon.CreateCommand();
-                command.CommandText = "select * from nhatkysanxuat where LOT LIKE '%" + cbb_search_lot.Text + "%' AND ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) ORDER BY dot_sx DESC";
+                command.CommandText = "select name,dot_sx,ngay_sx,thiet_bi,ma_BTP,ten_BTP,me,LOT ,tocdo_release," +
+                        "ngay_release,loai,tong_klspsx,kl_dongkhoi,kl_khongdongkhoi,kl_lythuyet,hieuxuat_thu,hieuxuat_release," +
+                        "thoigian_cb,thoigian_sx,phanbon_nvl,kl_nvl,barcode_nvl,lot_nvl,N1,barcode_n1,lot_n1," +
+                        "N2,barcode_n2,lot_n2,N3,barcode_n3,lot_n3,Ga3,barcode_ga3,Borax,bacode_borax,Naa,barcode_naa,solubo,barocde_solubo," +
+                        "Edta,barcode_edta,Red,barcode_red,violet,barcode_violet,blue,barocde_blue,yellow,barcode_yellow,black,barcode_back,prev," +
+                        "barcode_prev,thancam,dien,nuocRO,nuocthuycuc,BHLD,Sodium,barcode_sodium,Citric,barcode_citric,Naoh,barocde_naoh,ghi_chu," +
+                        "vitri_spthuduoc,vitri_spdongkhoi,vitri_spkhongdongkhoi,N1_1,N1_2,N1_3,N1_1_barcode,N1_2_barcode,N1_3_barcode,N1_1_lot," +
+                        "N1_2_lot,N1_3_lot,N2_1,N2_2,N2_1_barcode,N2_2_barcode,N2_1_lot,N2_2_lot,N3_1,N3_1_barcode,N3_1_lot,N1_4,N1_4_barcode," +
+                        "N1_4_lot,N2_3,N2_3_barcode,N2_3_lot,N3_2,N3_2_barcode,N3_2_lot,N3_3,N3_3_barcode,N3_3_lot,thoigian_ondinh,do_am,coating_layer," +
+                        "ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140,NVL_1," +
+                        "barcode_NVL_1,lot_NVL_1,NVL_2,barcode_NVL_2,lot_NVL_2,KL_NVL_1,KL_NVL_2,N1_BD,N1_KT,N2_BD,N2_KT,N3_BD,N3_KT from nhatkysanxuat where LOT LIKE '%" + cbb_search_lot.Text + "%' AND ngay_sx between cast('" + dateTimePickerFrom.Text + "' as date) and cast('" + dateTimePickerTo.Text + "' as date) ORDER BY dot_sx DESC";
                 adapter.SelectCommand = command;
                 tb_buff.Clear();
                 adapter.Fill(tb_buff);
@@ -12239,18 +15408,6 @@ namespace NhatKySanXuat
                         count_coating++;
                         tb_coating += Convert.ToDouble(row[i]["coating_layer"].ToString());
                     }
-                    string Nguoi_nhap = row[i]["name"].ToString();
-                    string LOT = row[i]["LOT"].ToString();
-                    string Dot_sx = row[i]["dot_sx"].ToString();
-                    string Ngay_sx = row[i]["ngay_sx"].ToString();
-                    string Thiet_bi = row[i]["thiet_bi"].ToString();
-                    string Ma_btp = row[i]["ma_BTP"].ToString();
-                    string Ten_btp = row[i]["ten_BTP"].ToString();
-                    string Me = row[i]["me"].ToString();
-                    string Kl_nvl = row[i]["klnl_sudung"].ToString();
-                    string Toc_do_release = row[i]["tocdo_release"].ToString();
-                    string Ngay_release = row[i]["ngay_release"].ToString();
-                    string Loai = row[i]["loai"].ToString();
                     string Tong_klsp_thuduoc = row[i]["tong_klspsx"].ToString();
                     if (Tong_klsp_thuduoc == "")
                         Tong_klsp_thuduoc = "0";
@@ -12275,103 +15432,78 @@ namespace NhatKySanXuat
                     if (Hieusuatrelease == "")
                         Hieusuatrelease = "0";
                     Hieu_suat_release_tb += Convert.ToDouble(Hieusuatrelease);
-                    string Thoigiancb = row[i]["thoigian_cb"].ToString();
-                    string Thoigiansx = row[i]["thoigian_sx"].ToString();
-                    string Phanbon_nvl = row[i]["phanbon_nvl"].ToString();
                     string KL_phan_nvl = row[i]["kl_nvl"].ToString();
                     if (KL_phan_nvl == "")
                         KL_phan_nvl = "0";
                     KHOI_LUONG_NVL += Convert.ToDouble(KL_phan_nvl);
-                    string Barcode_nvl = row[i]["barcode_nvl"].ToString();
-                    string LOT_nvl = row[i]["lot_nvl"].ToString();
                     string N1_khoiluong = row[i]["N1"].ToString();
                     if (N1_khoiluong == "")
                         N1_khoiluong = "0";
                     Tong_N1_KL += Convert.ToDouble(N1_khoiluong);
-                    string N1_barcode = row[i]["barcode_n1"].ToString();
-                    string N1_LOT = row[i]["lot_n1"].ToString();
                     string N2_khoiluong = row[i]["N2"].ToString();
                     if (N2_khoiluong == "")
                         N2_khoiluong = "0";
                     Tong_N2_KL += Convert.ToDouble(N2_khoiluong);
-                    string N2_barcode = row[i]["barcode_n2"].ToString();
-                    string N2_LOT = row[i]["lot_n2"].ToString();
                     string n3_khoiluong = row[i]["N3"].ToString();
                     if (n3_khoiluong == "")
                         n3_khoiluong = "0";
                     Tong_N3_KL += Convert.ToDouble(n3_khoiluong);
-                    string N3_barcode = row[i]["barcode_n3"].ToString();
-                    string N3_LOT = row[i]["lot_n3"].ToString();
                     string GA3 = row[i]["Ga3"].ToString();
                     if (GA3 == "")
                         GA3 = "0";
                     Tong_ga3 += Convert.ToDouble(GA3);
-                    string GA3_barcode = row[i]["barcode_ga3"].ToString();
                     string Borax = row[i]["Borax"].ToString();
                     if (Borax == "")
                         Borax = "0";
                     Tong_borax += Convert.ToDouble(Borax);
-                    string Borax_barcode = row[i]["bacode_borax"].ToString();
                     string NAA = row[i]["Naa"].ToString();
                     if (NAA == "")
                         NAA = "0";
                     Tong_Naa += Convert.ToDouble(NAA);
-                    string NAA_barcode = row[i]["barcode_naa"].ToString();
                     string Sodium = row[i]["Sodium"].ToString();
                     if (Sodium == "")
                         Sodium = "0";
                     Tong_sodium += Convert.ToDouble(Sodium);
-                    string Sodium_barcode = row[i]["barcode_sodium"].ToString();
                     string Citric = row[i]["Citric"].ToString();
                     if (Citric == "")
                         Citric = "0";
                     Tong_citric += Convert.ToDouble(Citric);
-                    string Barcode_Citric = row[i]["barcode_citric"].ToString();
                     string Naoh = row[i]["Naoh"].ToString();
                     if (Naoh == "")
                         Naoh = "0";
                     Tong_naoh += Convert.ToDouble(Naoh);
-                    string Barcode_Naoh = row[i]["barocde_naoh"].ToString();
                     string Solubo = row[i]["solubo"].ToString();
                     if (Solubo == "")
                         Solubo = "0";
                     Tong_solubo += Convert.ToDouble(Solubo);
-                    string Barcode_Solubo = row[i]["barocde_solubo"].ToString();
                     string Edtazn = row[i]["Edta"].ToString();
                     if (Edtazn == "")
                         Edtazn = "0";
                     Tong_edtazn += Convert.ToDouble(Edtazn);
-                    string Barcode_Edta = row[i]["barcode_edta"].ToString();
                     string Red = row[i]["Red"].ToString();
                     if (Red == "")
                         Red = "0";
                     Tong_red += Convert.ToDouble(Red);
-                    string Barcode_red = row[i]["barcode_red"].ToString();
                     string Violet = row[i]["violet"].ToString();
                     if (Violet == "")
                         Violet = "0";
                     Tong_violet += Convert.ToDouble(Violet);
-                    string Barcode_violet = row[i]["barcode_violet"].ToString();
                     string Blue = row[i]["blue"].ToString();
                     if (Blue == "")
                         Blue = "0";
                     Tong_blue += Convert.ToDouble(Blue);
-                    string Barcode_blue = row[i]["barocde_blue"].ToString();
                     string Yellow = row[i]["yellow"].ToString();
                     if (Yellow == "")
                         Yellow = "0";
                     Tong_yellow += Convert.ToDouble(Yellow);
-                    string Barcode_yellow = row[i]["barcode_yellow"].ToString();
                     string Black = row[i]["black"].ToString();
                     if (Black == "")
                         Black = "0";
                     Tong_black += Convert.ToDouble(Black);
-                    string Barcode_black = row[i]["barcode_back"].ToString();
                     string Prev = row[i]["prev"].ToString();
                     if (Prev == "")
                         Prev = "0";
                     Tong_prev += Convert.ToDouble(Prev);
-                    string Barcode_Prev = row[i]["barcode_prev"].ToString();
                     string Than_cam = row[i]["thancam"].ToString();
                     if (Than_cam == "")
                         Than_cam = "0";
@@ -12388,6 +15520,139 @@ namespace NhatKySanXuat
                     if (Nuoc_thuycuc == "")
                         Nuoc_thuycuc = "0";
                     Tong_nuocthuycuc += Convert.ToDouble(Nuoc_thuycuc);
+                }
+                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                "", Math.Round(TONG_KL_LT, 3), Math.Round(Hieu_suat_thu_tb / row.Length, 3), Math.Round(Hieu_suat_release_tb / row.Length, 3),
+                "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
+                "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
+                "", "", Math.Round(tb_do_am / count_doam, 3), Math.Round(tb_coating / count_coating, 3), "",
+                Math.Round(tb_0ngay / count_0, 3), Math.Round(tb_7ngay / count_7, 3), Math.Round(tb_14ngay / count_14, 3),
+                Math.Round(tb_21ngay / count_21, 3), Math.Round(tb_28ngay / count_28, 3), Math.Round(tb_42ngay / count_42, 3),
+                Math.Round(tb_49ngay / count_49, 3), Math.Round(tb_56ngay / count_56, 3), Math.Round(tb_70ngay / count_70, 3),
+                Math.Round(tb_84ngay / count_84, 3), Math.Round(tb_98ngay / count_98, 3), Math.Round(tb_112ngay / count_112, 3),
+                Math.Round(tb_126ngay / count_126, 3), Math.Round(tb_140ngay / count_140, 3));
+                for (int i = 0; i < row.Length; i++)
+                {
+                    string Nguoi_nhap = row[i]["name"].ToString();
+                    string LOT = row[i]["LOT"].ToString();
+                    string Dot_sx = row[i]["dot_sx"].ToString();
+                    string Ngay_sx = row[i]["ngay_sx"].ToString();
+                    string Thiet_bi = row[i]["thiet_bi"].ToString();
+                    string Ma_btp = row[i]["ma_BTP"].ToString();
+                    string Ten_btp = row[i]["ten_BTP"].ToString();
+                    string Me = row[i]["me"].ToString();
+                    string Toc_do_release = row[i]["tocdo_release"].ToString();
+                    string Ngay_release = row[i]["ngay_release"].ToString();
+                    string Loai = row[i]["loai"].ToString();
+                    string Tong_klsp_thuduoc = row[i]["tong_klspsx"].ToString();
+                    if (Tong_klsp_thuduoc == "")
+                        Tong_klsp_thuduoc = "0";
+                    string Kl_dongkhoi = row[i]["kl_dongkhoi"].ToString();
+                    if (Kl_dongkhoi == "")
+                        Kl_dongkhoi = "0";
+                    string Khongdongkhoi = row[i]["kl_khongdongkhoi"].ToString();
+                    if (Khongdongkhoi == "")
+                        Khongdongkhoi = "0";
+                    string Kl_lythuyet = row[i]["kl_lythuyet"].ToString();
+                    if (Kl_lythuyet == "")
+                        Kl_lythuyet = "0";
+                    string Hieusuatthu = row[i]["hieuxuat_thu"].ToString();
+                    if (Hieusuatthu == "")
+                        Hieusuatthu = "0";
+                    string Hieusuatrelease = row[i]["hieuxuat_release"].ToString();
+                    if (Hieusuatrelease == "")
+                        Hieusuatrelease = "0";
+                    string Thoigiancb = row[i]["thoigian_cb"].ToString();
+                    string Thoigiansx = row[i]["thoigian_sx"].ToString();
+                    string Phanbon_nvl = row[i]["phanbon_nvl"].ToString();
+                    string KL_phan_nvl = row[i]["kl_nvl"].ToString();
+                    if (KL_phan_nvl == "")
+                        KL_phan_nvl = "0";
+                    string Barcode_nvl = row[i]["barcode_nvl"].ToString();
+                    string LOT_nvl = row[i]["lot_nvl"].ToString();
+                    string N1_khoiluong = row[i]["N1"].ToString();
+                    if (N1_khoiluong == "")
+                        N1_khoiluong = "0";
+                    string N1_barcode = row[i]["barcode_n1"].ToString();
+                    string N1_LOT = row[i]["lot_n1"].ToString();
+                    string N2_khoiluong = row[i]["N2"].ToString();
+                    if (N2_khoiluong == "")
+                        N2_khoiluong = "0";
+                    string N2_barcode = row[i]["barcode_n2"].ToString();
+                    string N2_LOT = row[i]["lot_n2"].ToString();
+                    string n3_khoiluong = row[i]["N3"].ToString();
+                    if (n3_khoiluong == "")
+                        n3_khoiluong = "0";
+                    string N3_barcode = row[i]["barcode_n3"].ToString();
+                    string N3_LOT = row[i]["lot_n3"].ToString();
+                    string GA3 = row[i]["Ga3"].ToString();
+                    if (GA3 == "")
+                        GA3 = "0";
+                    string GA3_barcode = row[i]["barcode_ga3"].ToString();
+                    string Borax = row[i]["Borax"].ToString();
+                    if (Borax == "")
+                        Borax = "0";
+                    string Borax_barcode = row[i]["bacode_borax"].ToString();
+                    string NAA = row[i]["Naa"].ToString();
+                    if (NAA == "")
+                        NAA = "0";
+                    string NAA_barcode = row[i]["barcode_naa"].ToString();
+                    string Sodium = row[i]["Sodium"].ToString();
+                    if (Sodium == "")
+                        Sodium = "0";
+                    string Sodium_barcode = row[i]["barcode_sodium"].ToString();
+                    string Citric = row[i]["Citric"].ToString();
+                    if (Citric == "")
+                        Citric = "0";
+                    string Barcode_Citric = row[i]["barcode_citric"].ToString();
+                    string Naoh = row[i]["Naoh"].ToString();
+                    if (Naoh == "")
+                        Naoh = "0";
+                    string Barcode_Naoh = row[i]["barocde_naoh"].ToString();
+                    string Solubo = row[i]["solubo"].ToString();
+                    if (Solubo == "")
+                        Solubo = "0";
+                    string Barcode_Solubo = row[i]["barocde_solubo"].ToString();
+                    string Edtazn = row[i]["Edta"].ToString();
+                    if (Edtazn == "")
+                        Edtazn = "0";
+                    string Barcode_Edta = row[i]["barcode_edta"].ToString();
+                    string Red = row[i]["Red"].ToString();
+                    if (Red == "")
+                        Red = "0";
+                    string Barcode_red = row[i]["barcode_red"].ToString();
+                    string Violet = row[i]["violet"].ToString();
+                    if (Violet == "")
+                        Violet = "0";
+                    string Barcode_violet = row[i]["barcode_violet"].ToString();
+                    string Blue = row[i]["blue"].ToString();
+                    if (Blue == "")
+                        Blue = "0";
+                    string Barcode_blue = row[i]["barocde_blue"].ToString();
+                    string Yellow = row[i]["yellow"].ToString();
+                    if (Yellow == "")
+                        Yellow = "0";
+                    string Barcode_yellow = row[i]["barcode_yellow"].ToString();
+                    string Black = row[i]["black"].ToString();
+                    if (Black == "")
+                        Black = "0";
+                    string Barcode_black = row[i]["barcode_back"].ToString();
+                    string Prev = row[i]["prev"].ToString();
+                    if (Prev == "")
+                        Prev = "0";
+                    string Barcode_Prev = row[i]["barcode_prev"].ToString();
+                    string Than_cam = row[i]["thancam"].ToString();
+                    if (Than_cam == "")
+                        Than_cam = "0";
+                    string Dien = row[i]["dien"].ToString();
+                    if (Dien == "")
+                        Dien = "0";
+                    string Nuoc_RO = row[i]["nuocRo"].ToString();
+                    if (Nuoc_RO == "")
+                        Nuoc_RO = "0";
+                    string Nuoc_thuycuc = row[i]["nuocthuycuc"].ToString();
+                    if (Nuoc_thuycuc == "")
+                        Nuoc_thuycuc = "0";
                     string BHLD = row[i]["BHLD"].ToString();
                     string Ghi_chu = row[i]["ghi_chu"].ToString();
                     string Vitri_tongspthuduoc = row[i]["vitri_spthuduoc"].ToString();
@@ -12422,18 +15687,11 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
-                                "", Math.Round(TONG_KL_LT, 4), Math.Round(Hieu_suat_thu_tb / dataGridView1.Rows.Count, 4), Math.Round(Hieu_suat_release_tb / dataGridView1.Rows.Count, 4),
-                                "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
-                                "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
-                                "", "", Math.Round(tb_do_am / count_doam, 4), Math.Round(tb_coating / count_coating, 4), "",
-                                Math.Round(tb_0ngay / count_0, 4), Math.Round(tb_7ngay / count_7, 4), Math.Round(tb_14ngay / count_14, 4),
-                                Math.Round(tb_21ngay / count_21, 4), Math.Round(tb_28ngay / count_28, 4), Math.Round(tb_42ngay / count_42, 4),
-                                Math.Round(tb_49ngay / count_49, 4), Math.Round(tb_56ngay / count_56, 4), Math.Round(tb_70ngay / count_70, 4),
-                                Math.Round(tb_84ngay / count_84, 4), Math.Round(tb_98ngay / count_98, 4), Math.Round(tb_112ngay / count_112, 4),
-                                Math.Round(tb_126ngay / count_126, 4), Math.Round(tb_140ngay / count_140, 4));
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[dataGridView1.Rows.Count - 1].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
+                dataGridView1.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dataGridView1.Columns[7].Frozen = true;
+                dataGridView1.Rows[0].Frozen = true;
+                dataGridView1.CurrentCell = dataGridView1.Rows[1].Cells[0];
             }
             catch (Exception ex)
             {
@@ -13719,6 +16977,7 @@ namespace NhatKySanXuat
                 adapter.Fill(tb_buff);
                 dgv_select_lot.DataSource = tb_buff;
                 sqlcon.Close();
+                dgv_select_lot.Columns[1].Frozen = true;
             }
             catch (Exception ex)
             {
@@ -13741,6 +17000,7 @@ namespace NhatKySanXuat
                 adapter.Fill(tb_buff);
                 dgv_select_lot.DataSource = tb_buff;
                 sqlcon.Close();
+                dgv_select_lot.Columns[1].Frozen = true;
             }
             catch (Exception ex)
             {
@@ -13763,6 +17023,7 @@ namespace NhatKySanXuat
                 adapter.Fill(tb_buff);
                 dgv_select_lot.DataSource = tb_buff;
                 sqlcon.Close();
+                dgv_select_lot.Columns[1].Frozen = true;
             }
             catch (Exception ex)
             {
@@ -13785,6 +17046,7 @@ namespace NhatKySanXuat
                 adapter.Fill(tb_buff);
                 dgv_select_lot.DataSource = tb_buff;
                 sqlcon.Close();
+                dgv_select_lot.Columns[1].Frozen = true;
             }
             catch (Exception ex)
             {
@@ -13807,6 +17069,7 @@ namespace NhatKySanXuat
                 adapter.Fill(tb_buff);
                 dgv_select_lot.DataSource = tb_buff;
                 sqlcon.Close();
+                dgv_select_lot.Columns[1].Frozen = true;
             }
             catch (Exception ex)
             {
@@ -13829,6 +17092,7 @@ namespace NhatKySanXuat
                 adapter.Fill(tb_buff);
                 dgv_select_lot.DataSource = tb_buff;
                 sqlcon.Close();
+                dgv_select_lot.Columns[1].Frozen = true;
             }
             catch (Exception ex)
             {
@@ -13851,6 +17115,7 @@ namespace NhatKySanXuat
                 adapter.Fill(tb_buff);
                 dgv_select_lot.DataSource = tb_buff;
                 sqlcon.Close();
+                dgv_select_lot.Columns[1].Frozen = true;
             }
             catch (Exception ex)
             {
@@ -13873,6 +17138,7 @@ namespace NhatKySanXuat
                 adapter.Fill(tb_buff);
                 dgv_select_lot.DataSource = tb_buff;
                 sqlcon.Close();
+                dgv_select_lot.Columns[1].Frozen = true;
             }
             catch (Exception ex)
             {
@@ -13895,6 +17161,7 @@ namespace NhatKySanXuat
                 adapter.Fill(tb_buff);
                 dgv_select_lot.DataSource = tb_buff;
                 sqlcon.Close();
+                dgv_select_lot.Columns[1].Frozen = true;
             }
             catch (Exception ex)
             {
@@ -13917,6 +17184,7 @@ namespace NhatKySanXuat
                 adapter.Fill(tb_buff);
                 dgv_select_lot.DataSource = tb_buff;
                 sqlcon.Close();
+                dgv_select_lot.Columns[1].Frozen = true;
             }
             catch (Exception ex)
             {
@@ -13939,6 +17207,7 @@ namespace NhatKySanXuat
                 adapter.Fill(tb_buff);
                 dgv_select_lot.DataSource = tb_buff;
                 sqlcon.Close();
+                dgv_select_lot.Columns[1].Frozen = true;
             }
             catch (Exception ex)
             {
@@ -13961,6 +17230,7 @@ namespace NhatKySanXuat
                 adapter.Fill(tb_buff);
                 dgv_select_lot.DataSource = tb_buff;
                 sqlcon.Close();
+                dgv_select_lot.Columns[1].Frozen = true;
             }
             catch (Exception ex)
             {
@@ -13983,6 +17253,7 @@ namespace NhatKySanXuat
                 adapter.Fill(tb_buff);
                 dgv_select_lot.DataSource = tb_buff;
                 sqlcon.Close();
+                dgv_select_lot.Columns[1].Frozen = true;
             }
             catch (Exception ex)
             {
@@ -14005,6 +17276,7 @@ namespace NhatKySanXuat
                 adapter.Fill(tb_buff);
                 dgv_select_lot.DataSource = tb_buff;
                 sqlcon.Close();
+                dgv_select_lot.Columns[1].Frozen = true;
             }
             catch (Exception ex)
             {
@@ -14027,6 +17299,7 @@ namespace NhatKySanXuat
                 adapter.Fill(tb_buff);
                 dgv_select_lot.DataSource = tb_buff;
                 sqlcon.Close();
+                dgv_select_lot.Columns[1].Frozen = true;
             }
             catch (Exception ex)
             {
@@ -14049,6 +17322,7 @@ namespace NhatKySanXuat
                 adapter.Fill(tb_buff);
                 dgv_select_lot.DataSource = tb_buff;
                 sqlcon.Close();
+                dgv_select_lot.Columns[1].Frozen = true;
             }
             catch (Exception ex)
             {
@@ -14071,6 +17345,7 @@ namespace NhatKySanXuat
                 adapter.Fill(tb_buff);
                 dgv_select_lot.DataSource = tb_buff;
                 sqlcon.Close();
+                dgv_select_lot.Columns[1].Frozen = true;
             }
             catch (Exception ex)
             {
@@ -14093,6 +17368,7 @@ namespace NhatKySanXuat
                 adapter.Fill(tb_buff);
                 dgv_select_lot.DataSource = tb_buff;
                 sqlcon.Close();
+                dgv_select_lot.Columns[1].Frozen = true;
             }
             catch (Exception ex)
             {
@@ -14115,6 +17391,7 @@ namespace NhatKySanXuat
                 adapter.Fill(tb_buff);
                 dgv_select_lot.DataSource = tb_buff;
                 sqlcon.Close();
+                dgv_select_lot.Columns[1].Frozen = true;
             }
             catch (Exception ex)
             {
@@ -14137,6 +17414,7 @@ namespace NhatKySanXuat
                 adapter.Fill(tb_buff);
                 dgv_select_lot.DataSource = tb_buff;
                 sqlcon.Close();
+                dgv_select_lot.Columns[1].Frozen = true;
             }
             catch (Exception ex)
             {
@@ -14159,6 +17437,7 @@ namespace NhatKySanXuat
                 adapter.Fill(tb_buff);
                 dgv_select_lot.DataSource = tb_buff;
                 sqlcon.Close();
+                dgv_select_lot.Columns[1].Frozen = true;
             }
             catch (Exception ex)
             {
@@ -14181,6 +17460,7 @@ namespace NhatKySanXuat
                 adapter.Fill(tb_buff);
                 dgv_select_lot.DataSource = tb_buff;
                 sqlcon.Close();
+                dgv_select_lot.Columns[1].Frozen = true;
             }
             catch (Exception ex)
             {
@@ -14203,6 +17483,7 @@ namespace NhatKySanXuat
                 adapter.Fill(tb_buff);
                 dgv_select_lot.DataSource = tb_buff;
                 sqlcon.Close();
+                dgv_select_lot.Columns[1].Frozen = true;
             }
             catch (Exception ex)
             {
@@ -14225,6 +17506,7 @@ namespace NhatKySanXuat
                 adapter.Fill(tb_buff);
                 dgv_select_lot.DataSource = tb_buff;
                 sqlcon.Close();
+                dgv_select_lot.Columns[1].Frozen = true;
             }
             catch (Exception ex)
             {
@@ -14247,6 +17529,7 @@ namespace NhatKySanXuat
                 adapter.Fill(tb_buff);
                 dgv_select_lot.DataSource = tb_buff;
                 sqlcon.Close();
+                dgv_select_lot.Columns[1].Frozen = true;
             }
             catch (Exception ex)
             {
@@ -14269,6 +17552,7 @@ namespace NhatKySanXuat
                 adapter.Fill(tb_buff);
                 dgv_select_lot.DataSource = tb_buff;
                 sqlcon.Close();
+                dgv_select_lot.Columns[1].Frozen = true;
             }
             catch (Exception ex)
             {
@@ -14291,6 +17575,7 @@ namespace NhatKySanXuat
                 adapter.Fill(tb_buff);
                 dgv_select_lot.DataSource = tb_buff;
                 sqlcon.Close();
+                dgv_select_lot.Columns[1].Frozen = true;
             }
             catch (Exception ex)
             {
@@ -14313,6 +17598,7 @@ namespace NhatKySanXuat
                 adapter.Fill(tb_buff);
                 dgv_select_lot.DataSource = tb_buff;
                 sqlcon.Close();
+                dgv_select_lot.Columns[1].Frozen = true;
             }
             catch (Exception ex)
             {
@@ -14335,6 +17621,7 @@ namespace NhatKySanXuat
                 adapter.Fill(tb_buff);
                 dgv_select_lot.DataSource = tb_buff;
                 sqlcon.Close();
+                dgv_select_lot.Columns[1].Frozen = true;
             }
             catch (Exception ex)
             {
@@ -14357,6 +17644,7 @@ namespace NhatKySanXuat
                 adapter.Fill(tb_buff);
                 dgv_select_lot.DataSource = tb_buff;
                 sqlcon.Close();
+                dgv_select_lot.Columns[1].Frozen = true;
             }
             catch (Exception ex)
             {
@@ -14379,6 +17667,7 @@ namespace NhatKySanXuat
                 adapter.Fill(tb_buff);
                 dgv_select_lot.DataSource = tb_buff;
                 sqlcon.Close();
+                dgv_select_lot.Columns[1].Frozen = true;
             }
             catch (Exception ex)
             {
@@ -14391,7 +17680,7 @@ namespace NhatKySanXuat
             {
                 load_data_for_chart_with_lot();
             }
-            if (cbb_thietbi_tabchart.Text == "" && tb_dotsx_tabchart.Text == "" && cbb_loai_chart.Text == "" && cbb_mabtp_chart.Text == "" && cbb_nvl_chart.Text == ""&& cbb_lot_chart.Text == "")
+            if (cbb_thietbi_tabchart.Text == "" && tb_dotsx_tabchart.Text == "" && cbb_loai_chart.Text == "" && cbb_mabtp_chart.Text == "" && cbb_nvl_chart.Text == "" && cbb_lot_chart.Text == "")
             {
                 load_data_for_chart_with_date();
             }
@@ -14641,7 +17930,7 @@ namespace NhatKySanXuat
                 chart1.Series[LOT + "-" + ma_btp].IsValueShownAsLabel = true;
                 chart1.Series[LOT + "-" + ma_btp].IsVisibleInLegend = true;
                 chart1.Series[LOT + "-" + ma_btp].BorderWidth = 2;
-                chart1.Series[LOT + "-" + ma_btp].MarkerSize = 8;
+                chart1.Series[LOT + "-" + ma_btp].MarkerSize = 7;
             }
             catch (Exception ex)
             {
@@ -14658,6 +17947,7 @@ namespace NhatKySanXuat
                     check.Cells[6].Value.ToString(), check.Cells[7].Value.ToString(), check.Cells[8].Value.ToString(), check.Cells[9].Value.ToString(), check.Cells[10].Value.ToString(),
                     check.Cells[11].Value.ToString(), check.Cells[12].Value.ToString(), check.Cells[13].Value.ToString(), check.Cells[14].Value.ToString(), check.Cells[15].Value.ToString(),
                     check.Cells[16].Value.ToString(), check.Cells[17].Value.ToString(), check.Cells[18].Value.ToString(), check.Cells[19].Value.ToString(), check.Cells[20].Value.ToString(), check.Cells[21].Value.ToString());
+                    dgv_draw_chart.Columns[0].Frozen = true;
                 }
             }
         }
