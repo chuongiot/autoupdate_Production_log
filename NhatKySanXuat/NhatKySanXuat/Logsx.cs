@@ -15,6 +15,9 @@ using System.Threading;
 using System.Runtime.InteropServices;
 using System.Data.OleDb;
 using System.Windows.Forms.DataVisualization.Charting;
+using DevExpress.XtraCharts;
+using System.Drawing;
+using Series = DevExpress.XtraCharts.Series;
 
 namespace NhatKySanXuat
 {
@@ -31,6 +34,9 @@ namespace NhatKySanXuat
         }
         private void Form1_Load(object sender, EventArgs e)
         {
+            // TODO: This line of code loads data into the 'rSFLOGSANXUATDataSet2.nhatkysanxuat' table. You can move, or remove it, as needed.
+            this.nhatkysanxuatTableAdapter.Fill(this.rSFLOGSANXUATDataSet2.nhatkysanxuat);
+            this.du_tru_btpTableAdapter.Fill(this.rSFLOGSANXUATDataSet1.du_tru_btp);
             tabControl1.SelectedTab = tabPageblogsx;
             pnloading.Visible = false;
             button_search.Enabled = false;
@@ -62,6 +68,14 @@ namespace NhatKySanXuat
             foreach (DataGridViewColumn column in dataGridView1.Columns)
             {
                 column.SortMode = DataGridViewColumnSortMode.NotSortable;
+            }
+            if (lbuser.Text == "admin")
+            {
+                button_updatelot.Visible = true;
+            }
+            else
+            {
+                button_updatelot.Visible = false;
             }
         }
         private void btthem_Click(object sender, EventArgs e)
@@ -219,18 +233,6 @@ namespace NhatKySanXuat
                         MessageBox.Show(ex.Message);
                     }
                 }
-            }
-        }
-        private void dgv_coater_s1_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            try
-            {
-                Form3 form3 = new Form3(dgv_coater_s1.SelectedRows[0].Cells[2].Value.ToString());
-                form3.ShowDialog();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
             }
         }
         private void pn_history_Click(object sender, EventArgs e)
@@ -17957,10 +17959,12 @@ namespace NhatKySanXuat
         }
         private void btt_draw_Click(object sender, EventArgs e)
         {
-            chart1.Series.Clear();
+            //chart1.Series.Clear();
+            line_chart.Series.Clear();
             for (int i = 0; i <= dgv_draw_chart.Rows.Count - 1; i++)
             {
-                draw_chart(dgv_draw_chart.Rows[i].Cells[0].Value.ToString());
+                //draw_chart(dgv_draw_chart.Rows[i].Cells[0].Value.ToString());
+                draw(dgv_draw_chart.Rows[i].Cells[0].Value.ToString());
             }
         }
         private void btt_delete_Click(object sender, EventArgs e)
@@ -17992,6 +17996,180 @@ namespace NhatKySanXuat
                 {
                     row.Cells[0].Value = false;
                 }
+            }
+        }
+
+        private void button_updatelot_Click(object sender, EventArgs e)
+        {
+            Change_LOT form_change = new Change_LOT();
+            form_change.ShowDialog();
+        }
+        public void draw(string LOT)
+        {
+            try
+            {
+                double ngay0 = 0;
+                double ngay7 = 0;
+                double ngay14 = 0;
+                double ngay21 = 0;
+                double ngay28 = 0;
+                double ngay42 = 0;
+                double ngay49 = 0;
+                double ngay56 = 0;
+                double ngay70 = 0;
+                double ngay84 = 0;
+                double ngay98 = 0;
+                double ngay112 = 0;
+                double ngay126 = 0;
+                double ngay140 = 0;
+                SqlConnection sqlcon = new SqlConnection(@"Data Source = 192.168.21.244,1433; Initial Catalog= RSFLOGSANXUAT ;User ID = sa; Password =mylan@2016");
+                SqlCommand command = new SqlCommand();
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                DataTable tb_buff = new DataTable();
+                sqlcon.Open();
+                command = sqlcon.CreateCommand();
+                command.CommandText = "select ma_BTP,ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140 from nhatkysanxuat where LOT='" + LOT + "'";
+                adapter.SelectCommand = command;
+                tb_buff.Clear();
+                adapter.Fill(tb_buff);
+                sqlcon.Close();
+                DataRow[] row = tb_buff.Select();
+                string BTP = row[0]["ma_BTP"].ToString();
+                Series series1 = new Series(LOT+'-'+BTP, ViewType.Line);
+                if (row[0]["ngay_0"].ToString() != "")
+                {
+                    ngay0 = Convert.ToDouble(row[0]["ngay_0"].ToString());
+                    series1.Points.Add(new SeriesPoint(0, ngay0));
+                }
+                if (row[0]["ngay_7"].ToString() != "")
+                {
+                    ngay7 = Convert.ToDouble(row[0]["ngay_7"].ToString());
+                    series1.Points.Add(new SeriesPoint(7, ngay7));
+                }
+                if (row[0]["ngay_14"].ToString() != "")
+                {
+                    ngay14 = Convert.ToDouble(row[0]["ngay_14"].ToString());
+                    series1.Points.Add(new SeriesPoint(14, ngay14));
+                }
+                if (row[0]["ngay_21"].ToString() != "")
+                {
+                    ngay21 = Convert.ToDouble(row[0]["ngay_21"].ToString());
+                    series1.Points.Add(new SeriesPoint(21, ngay21));
+                }
+                if (row[0]["ngay_28"].ToString() != "")
+                {
+                    ngay28 = Convert.ToDouble(row[0]["ngay_28"].ToString());
+                    series1.Points.Add(new SeriesPoint(28, ngay28));
+                }
+                if (row[0]["ngay_42"].ToString() != "")
+                {
+                    ngay42 = Convert.ToDouble(row[0]["ngay_42"].ToString());
+                    series1.Points.Add(new SeriesPoint(42, ngay42));
+                }
+                if (row[0]["ngay_49"].ToString() != "")
+                {
+                    ngay49 = Convert.ToDouble(row[0]["ngay_49"].ToString());
+                    series1.Points.Add(new SeriesPoint(49, ngay49));
+                }
+                if (row[0]["ngay_56"].ToString() != "")
+                {
+                    ngay56 = Convert.ToDouble(row[0]["ngay_56"].ToString());
+                    series1.Points.Add(new SeriesPoint(56, ngay56));
+                }
+                if (row[0]["ngay_70"].ToString() != "")
+                {
+                    ngay70 = Convert.ToDouble(row[0]["ngay_70"].ToString());
+                    series1.Points.Add(new SeriesPoint(70, ngay70));
+                }
+                if (row[0]["ngay_84"].ToString() != "")
+                {
+                    ngay84 = Convert.ToDouble(row[0]["ngay_84"].ToString());
+                    series1.Points.Add(new SeriesPoint(84, ngay84));
+                }
+                if (row[0]["ngay_98"].ToString() != "")
+                {
+                    ngay98 = Convert.ToDouble(row[0]["ngay_98"].ToString());
+                    series1.Points.Add(new SeriesPoint(65, ngay98));
+                }
+                if (row[0]["ngay_112"].ToString() != "")
+                {
+                    ngay112 = Convert.ToDouble(row[0]["ngay_112"].ToString());
+                    series1.Points.Add(new SeriesPoint(112, ngay112));
+                }
+                if (row[0]["ngay_126"].ToString() != "")
+                {
+                    ngay126 = Convert.ToDouble(row[0]["ngay_126"].ToString());
+                    series1.Points.Add(new SeriesPoint(126, ngay126));
+                }
+                if (row[0]["ngay_140"].ToString() != "")
+                {
+                    ngay140 = Convert.ToDouble(row[0]["ngay_140"].ToString());
+                    series1.Points.Add(new SeriesPoint(140, ngay140));
+                }
+                // Add the series to the chart
+                //line_chart.Series[LOT].ArgumentDataMember = "12";
+                line_chart.Series.Add(series1);
+                line_chart.Series[LOT + '-' + BTP].LabelsVisibility = DevExpress.Utils.DefaultBoolean.True;
+                // Set the numerical argument scale types for the series,
+                // as it is qualitative, by default.
+                //series1.ArgumentScaleType = ScaleType.Numerical;
+
+                // Access the view-type-specific options of the series.
+                ((LineSeriesView)series1.View).MarkerVisibility = DevExpress.Utils.DefaultBoolean.True;
+                ((LineSeriesView)series1.View).LineMarkerOptions.Size = 5;
+                ((LineSeriesView)series1.View).LineMarkerOptions.Kind = MarkerKind.Circle;
+
+                // Access the view-type-specific options of the series.
+                //((XYDiagram)line_chart.Diagram).AxisY.Interlaced = true;
+                //((XYDiagram)line_chart.Diagram).AxisY.InterlacedColor = Color.FromArgb(20, 60, 60, 60);
+                //((XYDiagram)line_chart.Diagram).AxisX.NumericScaleOptions.AutoGrid = false;
+                //((XYDiagram)line_chart.Diagram).AxisX.NumericScaleOptions.GridSpacing = 1;
+                XYDiagram diagram = line_chart.Diagram as XYDiagram;
+
+                // Customize the appearance of the X-axis title.
+                diagram.AxisX.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                diagram.AxisX.Title.Alignment = StringAlignment.Center;
+                diagram.AxisX.Title.Text = "DAY RELEASE";
+                diagram.AxisX.Title.TextColor = Color.Red;
+                diagram.AxisX.Title.EnableAntialiasing = DevExpress.Utils.DefaultBoolean.True;
+
+                // Customize the appearance of the Y-axis title.
+                diagram.AxisY.Title.Visibility = DevExpress.Utils.DefaultBoolean.True;
+                diagram.AxisY.Title.Alignment = StringAlignment.Center;
+                diagram.AxisY.Title.Text = "% RELEASE";
+                diagram.AxisY.Title.TextColor = Color.Red;
+                diagram.AxisY.Title.EnableAntialiasing = DevExpress.Utils.DefaultBoolean.True;
+
+                line_chart.CrosshairOptions.ShowArgumentLine = true;
+                line_chart.CrosshairOptions.ShowArgumentLabels = false;
+                line_chart.CrosshairOptions.ShowCrosshairLabels = true;
+                line_chart.CrosshairOptions.ShowGroupHeaders = true;
+                line_chart.CrosshairOptions.ShowValueLabels = false;
+                line_chart.CrosshairOptions.ShowValueLine = false;
+
+                diagram.EnableAxisXScrolling = true;
+                diagram.EnableAxisXZooming = true;
+
+                diagram.EnableAxisYScrolling = true;
+                diagram.EnableAxisYZooming = true;
+                diagram.AxisX.WholeRange.MinValue = 0;
+                diagram.AxisX.WholeRange.MaxValue = 140;
+                // or use the SetMinMaxValues method to specify range limits.
+                diagram.AxisX.WholeRange.SetMinMaxValues(0, 140);
+
+                // Set limits for an x-axis's visual range
+                diagram.AxisX.VisualRange.MinValue = 0;
+                diagram.AxisX.VisualRange.MaxValue = 49;
+                // or use the SetMinMaxValues method to specify range limits.
+                diagram.AxisX.VisualRange.SetMinMaxValues(0,49);
+                diagram.AxisX.WholeRange.SideMarginsValue = 0;
+
+                NumericScaleOptions xAxisOptions = ((XYDiagram)line_chart.Diagram).AxisX.NumericScaleOptions;
+                xAxisOptions.GridSpacing = 7;
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
     }

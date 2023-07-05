@@ -26,7 +26,7 @@
     <InstallUrl>https://raw.githubusercontent.com/chuongiot/autoupdate_Production_log/main/published/</InstallUrl>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>47</ApplicationRevision>
+    <ApplicationRevision>48</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -111,6 +111,17 @@
     <Reference Include="AdvancedDataGridView, Version=1.2.26803.6, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\hima.lib.advanceddatagrid.1.2.26\lib\AdvancedDataGridView.dll</HintPath>
     </Reference>
+    <Reference Include="DevExpress.Charts.v19.2.Core, Version=19.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Data.v19.2, Version=19.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Printing.v19.2.Core, Version=19.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Utils.v19.2, Version=19.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Utils.v19.2.UI, Version=19.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraBars.v19.2, Version=19.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraCharts.v19.2, Version=19.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraCharts.v19.2.UI, Version=19.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraCharts.v19.2.Wizard, Version=19.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraEditors.v19.2, Version=19.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraPrinting.v19.2, Version=19.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="itextsharp">
       <HintPath>..\..\..\..\..\Downloads\itextsharp\itextsharp.dll</HintPath>
     </Reference>
@@ -153,6 +164,12 @@
     <Compile Include="changepassword.Designer.cs">
       <DependentUpon>changepassword.cs</DependentUpon>
     </Compile>
+    <Compile Include="Change_LOT.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Change_LOT.Designer.cs">
+      <DependentUpon>Change_LOT.cs</DependentUpon>
+    </Compile>
     <Compile Include="DataSet_xuatkho.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -183,9 +200,22 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>RSFLOGSANXUATDataSet1.xsd</DependentUpon>
     </Compile>
+    <Compile Include="RSFLOGSANXUATDataSet11.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RSFLOGSANXUATDataSet11.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="RSFLOGSANXUATDataSet2.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RSFLOGSANXUATDataSet2.xsd</DependentUpon>
+    </Compile>
     <Compile Include="SqlServerTypes\Loader.cs" />
     <EmbeddedResource Include="changepassword.resx">
       <DependentUpon>changepassword.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Change_LOT.resx">
+      <DependentUpon>Change_LOT.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form3.resx">
       <DependentUpon>Form3.cs</DependentUpon>
@@ -196,12 +226,12 @@
     <EmbeddedResource Include="Logsx.resx">
       <DependentUpon>Logsx.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Xuatkho.rdlc" />
     <None Include="DataSet_xuatkho.xsc">
       <DependentUpon>DataSet_xuatkho.xsd</DependentUpon>
     </None>
@@ -238,6 +268,28 @@
     </None>
     <None Include="RSFLOGSANXUATDataSet1.xss">
       <DependentUpon>RSFLOGSANXUATDataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="RSFLOGSANXUATDataSet11.xsc">
+      <DependentUpon>RSFLOGSANXUATDataSet11.xsd</DependentUpon>
+    </None>
+    <None Include="RSFLOGSANXUATDataSet11.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>RSFLOGSANXUATDataSet11.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="RSFLOGSANXUATDataSet11.xss">
+      <DependentUpon>RSFLOGSANXUATDataSet11.xsd</DependentUpon>
+    </None>
+    <None Include="RSFLOGSANXUATDataSet2.xsc">
+      <DependentUpon>RSFLOGSANXUATDataSet2.xsd</DependentUpon>
+    </None>
+    <None Include="RSFLOGSANXUATDataSet2.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>RSFLOGSANXUATDataSet2.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="RSFLOGSANXUATDataSet2.xss">
+      <DependentUpon>RSFLOGSANXUATDataSet2.xsd</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
