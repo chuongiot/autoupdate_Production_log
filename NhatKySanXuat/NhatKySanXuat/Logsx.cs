@@ -263,18 +263,6 @@ namespace NhatKySanXuat
             lb_xuatkhonvl.ForeColor = Color.Black;
             load_log();
         }
-        private void dataGridView1_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            try
-            {
-                Form3 form3 = new Form3(dataGridView1.SelectedRows[0].Cells[7].Value.ToString());
-                form3.ShowDialog();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
         public void load_data_with_date_S1_02()
         {
             try
@@ -18089,7 +18077,7 @@ namespace NhatKySanXuat
                 if (row[0]["ngay_98"].ToString() != "")
                 {
                     ngay98 = Convert.ToDouble(row[0]["ngay_98"].ToString());
-                    series1.Points.Add(new SeriesPoint(65, ngay98));
+                    series1.Points.Add(new SeriesPoint(98, ngay98));
                 }
                 if (row[0]["ngay_112"].ToString() != "")
                 {
@@ -18168,6 +18156,18 @@ namespace NhatKySanXuat
                 xAxisOptions.GridSpacing = 7;
             }
             catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        private void dataGridView1_CellMouseDoubleClick_1(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            try
+            {
+                Form3 form3 = new Form3(dataGridView1.SelectedRows[0].Cells[7].Value.ToString());
+                form3.ShowDialog();
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
