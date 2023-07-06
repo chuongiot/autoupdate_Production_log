@@ -16,7 +16,6 @@ using System.Runtime.InteropServices;
 using System.Data.OleDb;
 using System.Windows.Forms.DataVisualization.Charting;
 using DevExpress.XtraCharts;
-using System.Drawing;
 using Series = DevExpress.XtraCharts.Series;
 
 namespace NhatKySanXuat
@@ -34,9 +33,10 @@ namespace NhatKySanXuat
         }
         private void Form1_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'rSFLOGSANXUATDataSet2.nhatkysanxuat' table. You can move, or remove it, as needed.
-            this.nhatkysanxuatTableAdapter.Fill(this.rSFLOGSANXUATDataSet2.nhatkysanxuat);
-            this.du_tru_btpTableAdapter.Fill(this.rSFLOGSANXUATDataSet1.du_tru_btp);
+            // TODO: This line of code loads data into the 'sanxuat_btp_DataSet.sx_btp' table. You can move, or remove it, as needed.
+            this.sx_btpTableAdapter.Fill(this.sanxuat_btp_DataSet.sx_btp);
+            // TODO: This line of code loads data into the 'dutru_btp_DataSet.du_tru_btp' table. You can move, or remove it, as needed.
+            this.du_tru_btpTableAdapter.Fill(this.dutru_btp_DataSet.du_tru_btp);
             tabControl1.SelectedTab = tabPageblogsx;
             pnloading.Visible = false;
             button_search.Enabled = false;
@@ -46,10 +46,10 @@ namespace NhatKySanXuat
             loadcbbma_NVL();
             loadcbb_Loai();
             loadcbb_LOT();
-            dataGridView1.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridView1.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
-            dataGridView1.ColumnHeadersDefaultCellStyle.BackColor = Color.LightGray;
-            dataGridView1.ColumnHeadersDefaultCellStyle.ForeColor = Color.Black;
+            dgv_nhat_ky.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgv_nhat_ky.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+            dgv_nhat_ky.ColumnHeadersDefaultCellStyle.BackColor = Color.LightGray;
+            dgv_nhat_ky.ColumnHeadersDefaultCellStyle.ForeColor = Color.Black;
             chart1.Titles.Add("RELEASE CHART");
             chart1.ChartAreas[0].AxisY.Minimum = 0;
             chart1.ChartAreas[0].AxisY.Maximum = 100;
@@ -65,7 +65,21 @@ namespace NhatKySanXuat
             dgv_draw_chart.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
             dgv_draw_chart.ColumnHeadersDefaultCellStyle.BackColor = Color.LightGray;
             dgv_draw_chart.ColumnHeadersDefaultCellStyle.ForeColor = Color.Black;
-            foreach (DataGridViewColumn column in dataGridView1.Columns)
+            adgv_du_tru_btp.Columns[4].Frozen = true;
+
+
+            adgv_du_tru_btp.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            adgv_du_tru_btp.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+            adgv_du_tru_btp.ColumnHeadersDefaultCellStyle.BackColor = Color.LightGray;
+            adgv_du_tru_btp.ColumnHeadersDefaultCellStyle.ForeColor = Color.Black;
+
+
+            adgv_sx_btp.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            adgv_sx_btp.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+            adgv_sx_btp.ColumnHeadersDefaultCellStyle.BackColor = Color.LightGray;
+            adgv_sx_btp.ColumnHeadersDefaultCellStyle.ForeColor = Color.Black;
+
+            foreach (DataGridViewColumn column in dgv_nhat_ky.Columns)
             {
                 column.SortMode = DataGridViewColumnSortMode.NotSortable;
             }
@@ -119,17 +133,17 @@ namespace NhatKySanXuat
                 worksheet.Name = "Nhật ký sản xuất";
                 try
                 {
-                    for (int i = 0; i < dataGridView1.ColumnCount; i++)
+                    for (int i = 0; i < dgv_nhat_ky.ColumnCount; i++)
                     {
-                        worksheet.Cells[1, i + 1] = dataGridView1.Columns[i].HeaderText;
+                        worksheet.Cells[1, i + 1] = dgv_nhat_ky.Columns[i].HeaderText;
                     }
-                    for (int i = 0; i < dataGridView1.RowCount; i++)
+                    for (int i = 0; i < dgv_nhat_ky.RowCount; i++)
                     {
-                        for (int j = 0; j < dataGridView1.ColumnCount; j++)
+                        for (int j = 0; j < dgv_nhat_ky.ColumnCount; j++)
                         {
-                            if (dataGridView1.Rows[i].Cells[j].Value != null)
+                            if (dgv_nhat_ky.Rows[i].Cells[j].Value != null)
                             {
-                                worksheet.Cells[i + 2, j + 1] = dataGridView1.Rows[i].Cells[j].Value.ToString();
+                                worksheet.Cells[i + 2, j + 1] = dgv_nhat_ky.Rows[i].Cells[j].Value.ToString();
                             }
                             else
                             {
@@ -289,7 +303,7 @@ namespace NhatKySanXuat
                 adapter.Fill(tb_buff);
                 sqlcon.Close();
                 DataRow[] row = tb_buff.Select();
-                dataGridView1.Rows.Clear();
+                dgv_nhat_ky.Rows.Clear();
                 double TONG_KLSP = 0;
                 double TONG_KL_DONGKHOI = 0;
                 double TONG_KHOILUONG_KHONG_DONG_KHOI = 0;
@@ -551,7 +565,7 @@ namespace NhatKySanXuat
                         Nuoc_thuycuc = "0";
                     Tong_nuocthuycuc += Convert.ToDouble(Nuoc_thuycuc);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                dgv_nhat_ky.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
                 "", Math.Round(TONG_KL_LT, 3), Math.Round(Hieu_suat_thu_tb / row.Length, 3), Math.Round(Hieu_suat_release_tb / row.Length, 3),
                 "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
                 "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
@@ -705,7 +719,7 @@ namespace NhatKySanXuat
                     string ngay112 = row[i]["ngay_112"].ToString();
                     string ngay126 = row[i]["ngay_126"].ToString();
                     string ngay140 = row[i]["ngay_140"].ToString();
-                    dataGridView1.Rows.Add(Nguoi_nhap, Dot_sx, Ngay_sx, Thiet_bi, Ma_btp,
+                    dgv_nhat_ky.Rows.Add(Nguoi_nhap, Dot_sx, Ngay_sx, Thiet_bi, Ma_btp,
                         Ten_btp, Me, LOT, Toc_do_release, Ngay_release, Loai, Tong_klsp_thuduoc,
                         Vitri_tongspthuduoc, Kl_dongkhoi, Vitri_spdongkhoi, Khongdongkhoi,
                         Vitri_spkhongdongkhoi, Kl_lythuyet, Hieusuatthu, Hieusuatrelease, Thoigiancb,
@@ -717,11 +731,11 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
-                dataGridView1.Rows[0].Frozen = true;
-                dataGridView1.Columns[7].Frozen = true;
-                dataGridView1.CurrentCell = dataGridView1.Rows[1].Cells[0];
+                dgv_nhat_ky.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
+                dgv_nhat_ky.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dgv_nhat_ky.Rows[0].Frozen = true;
+                dgv_nhat_ky.Columns[7].Frozen = true;
+                dgv_nhat_ky.CurrentCell = dgv_nhat_ky.Rows[1].Cells[0];
             }
             catch (Exception ex)
             {
@@ -756,7 +770,7 @@ namespace NhatKySanXuat
                 adapter.Fill(tb_buff);
                 sqlcon.Close();
                 DataRow[] row = tb_buff.Select();
-                dataGridView1.Rows.Clear();
+                dgv_nhat_ky.Rows.Clear();
                 double TONG_KLSP = 0;
                 double TONG_KL_DONGKHOI = 0;
                 double TONG_KHOILUONG_KHONG_DONG_KHOI = 0;
@@ -1018,7 +1032,7 @@ namespace NhatKySanXuat
                         Nuoc_thuycuc = "0";
                     Tong_nuocthuycuc += Convert.ToDouble(Nuoc_thuycuc);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                dgv_nhat_ky.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
                 "", Math.Round(TONG_KL_LT, 3), Math.Round(Hieu_suat_thu_tb / row.Length, 3), Math.Round(Hieu_suat_release_tb / row.Length, 3),
                 "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
                 "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
@@ -1172,7 +1186,7 @@ namespace NhatKySanXuat
                     string ngay112 = row[i]["ngay_112"].ToString();
                     string ngay126 = row[i]["ngay_126"].ToString();
                     string ngay140 = row[i]["ngay_140"].ToString();
-                    dataGridView1.Rows.Add(Nguoi_nhap, Dot_sx, Ngay_sx, Thiet_bi, Ma_btp,
+                    dgv_nhat_ky.Rows.Add(Nguoi_nhap, Dot_sx, Ngay_sx, Thiet_bi, Ma_btp,
                         Ten_btp, Me, LOT, Toc_do_release, Ngay_release, Loai, Tong_klsp_thuduoc,
                         Vitri_tongspthuduoc, Kl_dongkhoi, Vitri_spdongkhoi, Khongdongkhoi,
                         Vitri_spkhongdongkhoi, Kl_lythuyet, Hieusuatthu, Hieusuatrelease, Thoigiancb,
@@ -1184,11 +1198,11 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
-                dataGridView1.Columns[7].Frozen = true;
-                dataGridView1.Rows[0].Frozen = true;
-                dataGridView1.CurrentCell = dataGridView1.Rows[1].Cells[0];
+                dgv_nhat_ky.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
+                dgv_nhat_ky.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dgv_nhat_ky.Columns[7].Frozen = true;
+                dgv_nhat_ky.Rows[0].Frozen = true;
+                dgv_nhat_ky.CurrentCell = dgv_nhat_ky.Rows[1].Cells[0];
             }
             catch (Exception ex)
             {
@@ -1213,7 +1227,7 @@ namespace NhatKySanXuat
                 adapter.Fill(tb_buff);
                 sqlcon.Close();
                 DataRow[] row = tb_buff.Select();
-                dataGridView1.Rows.Clear();
+                dgv_nhat_ky.Rows.Clear();
                 double TONG_KLSP = 0;
                 double TONG_KL_DONGKHOI = 0;
                 double TONG_KHOILUONG_KHONG_DONG_KHOI = 0;
@@ -1475,7 +1489,7 @@ namespace NhatKySanXuat
                         Nuoc_thuycuc = "0";
                     Tong_nuocthuycuc += Convert.ToDouble(Nuoc_thuycuc);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                dgv_nhat_ky.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
                 "", Math.Round(TONG_KL_LT, 3), Math.Round(Hieu_suat_thu_tb / row.Length, 3), Math.Round(Hieu_suat_release_tb / row.Length, 3),
                 "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
                 "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
@@ -1629,7 +1643,7 @@ namespace NhatKySanXuat
                     string ngay112 = row[i]["ngay_112"].ToString();
                     string ngay126 = row[i]["ngay_126"].ToString();
                     string ngay140 = row[i]["ngay_140"].ToString();
-                    dataGridView1.Rows.Add(Nguoi_nhap, Dot_sx, Ngay_sx, Thiet_bi, Ma_btp,
+                    dgv_nhat_ky.Rows.Add(Nguoi_nhap, Dot_sx, Ngay_sx, Thiet_bi, Ma_btp,
                         Ten_btp, Me, LOT, Toc_do_release, Ngay_release, Loai, Tong_klsp_thuduoc,
                         Vitri_tongspthuduoc, Kl_dongkhoi, Vitri_spdongkhoi, Khongdongkhoi,
                         Vitri_spkhongdongkhoi, Kl_lythuyet, Hieusuatthu, Hieusuatrelease, Thoigiancb,
@@ -1641,11 +1655,11 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
-                dataGridView1.Columns[7].Frozen = true;
-                dataGridView1.Rows[0].Frozen = true;
-                dataGridView1.CurrentCell = dataGridView1.Rows[1].Cells[0];
+                dgv_nhat_ky.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
+                dgv_nhat_ky.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dgv_nhat_ky.Columns[7].Frozen = true;
+                dgv_nhat_ky.Rows[0].Frozen = true;
+                dgv_nhat_ky.CurrentCell = dgv_nhat_ky.Rows[1].Cells[0];
             }
             catch (Exception ex)
             {
@@ -1680,7 +1694,7 @@ namespace NhatKySanXuat
                 adapter.Fill(tb_buff);
                 sqlcon.Close();
                 DataRow[] row = tb_buff.Select();
-                dataGridView1.Rows.Clear();
+                dgv_nhat_ky.Rows.Clear();
                 double TONG_KLSP = 0;
                 double TONG_KL_DONGKHOI = 0;
                 double TONG_KHOILUONG_KHONG_DONG_KHOI = 0;
@@ -1942,7 +1956,7 @@ namespace NhatKySanXuat
                         Nuoc_thuycuc = "0";
                     Tong_nuocthuycuc += Convert.ToDouble(Nuoc_thuycuc);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                dgv_nhat_ky.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
                 "", Math.Round(TONG_KL_LT, 3), Math.Round(Hieu_suat_thu_tb / row.Length, 3), Math.Round(Hieu_suat_release_tb / row.Length, 3),
                 "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
                 "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
@@ -2096,7 +2110,7 @@ namespace NhatKySanXuat
                     string ngay112 = row[i]["ngay_112"].ToString();
                     string ngay126 = row[i]["ngay_126"].ToString();
                     string ngay140 = row[i]["ngay_140"].ToString();
-                    dataGridView1.Rows.Add(Nguoi_nhap, Dot_sx, Ngay_sx, Thiet_bi, Ma_btp,
+                    dgv_nhat_ky.Rows.Add(Nguoi_nhap, Dot_sx, Ngay_sx, Thiet_bi, Ma_btp,
                         Ten_btp, Me, LOT, Toc_do_release, Ngay_release, Loai, Tong_klsp_thuduoc,
                         Vitri_tongspthuduoc, Kl_dongkhoi, Vitri_spdongkhoi, Khongdongkhoi,
                         Vitri_spkhongdongkhoi, Kl_lythuyet, Hieusuatthu, Hieusuatrelease, Thoigiancb,
@@ -2108,11 +2122,11 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
-                dataGridView1.Columns[7].Frozen = true;
-                dataGridView1.Rows[0].Frozen = true;
-                dataGridView1.CurrentCell = dataGridView1.Rows[1].Cells[0];
+                dgv_nhat_ky.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
+                dgv_nhat_ky.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dgv_nhat_ky.Columns[7].Frozen = true;
+                dgv_nhat_ky.Rows[0].Frozen = true;
+                dgv_nhat_ky.CurrentCell = dgv_nhat_ky.Rows[1].Cells[0];
             }
             catch (Exception ex)
             {
@@ -2147,7 +2161,7 @@ namespace NhatKySanXuat
                 adapter.Fill(tb_buff);
                 sqlcon.Close();
                 DataRow[] row = tb_buff.Select();
-                dataGridView1.Rows.Clear();
+                dgv_nhat_ky.Rows.Clear();
                 double TONG_KLSP = 0;
                 double TONG_KL_DONGKHOI = 0;
                 double TONG_KHOILUONG_KHONG_DONG_KHOI = 0;
@@ -2409,7 +2423,7 @@ namespace NhatKySanXuat
                         Nuoc_thuycuc = "0";
                     Tong_nuocthuycuc += Convert.ToDouble(Nuoc_thuycuc);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                dgv_nhat_ky.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
                 "", Math.Round(TONG_KL_LT, 3), Math.Round(Hieu_suat_thu_tb / row.Length, 3), Math.Round(Hieu_suat_release_tb / row.Length, 3),
                 "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
                 "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
@@ -2563,7 +2577,7 @@ namespace NhatKySanXuat
                     string ngay112 = row[i]["ngay_112"].ToString();
                     string ngay126 = row[i]["ngay_126"].ToString();
                     string ngay140 = row[i]["ngay_140"].ToString();
-                    dataGridView1.Rows.Add(Nguoi_nhap, Dot_sx, Ngay_sx, Thiet_bi, Ma_btp,
+                    dgv_nhat_ky.Rows.Add(Nguoi_nhap, Dot_sx, Ngay_sx, Thiet_bi, Ma_btp,
                         Ten_btp, Me, LOT, Toc_do_release, Ngay_release, Loai, Tong_klsp_thuduoc,
                         Vitri_tongspthuduoc, Kl_dongkhoi, Vitri_spdongkhoi, Khongdongkhoi,
                         Vitri_spkhongdongkhoi, Kl_lythuyet, Hieusuatthu, Hieusuatrelease, Thoigiancb,
@@ -2575,11 +2589,11 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
-                dataGridView1.Columns[7].Frozen = true;
-                dataGridView1.Rows[0].Frozen = true;
-                dataGridView1.CurrentCell = dataGridView1.Rows[1].Cells[0];
+                dgv_nhat_ky.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
+                dgv_nhat_ky.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dgv_nhat_ky.Columns[7].Frozen = true;
+                dgv_nhat_ky.Rows[0].Frozen = true;
+                dgv_nhat_ky.CurrentCell = dgv_nhat_ky.Rows[1].Cells[0];
             }
             catch (Exception ex)
             {
@@ -2614,7 +2628,7 @@ namespace NhatKySanXuat
                 adapter.Fill(tb_buff);
                 sqlcon.Close();
                 DataRow[] row = tb_buff.Select();
-                dataGridView1.Rows.Clear();
+                dgv_nhat_ky.Rows.Clear();
                 double TONG_KLSP = 0;
                 double TONG_KL_DONGKHOI = 0;
                 double TONG_KHOILUONG_KHONG_DONG_KHOI = 0;
@@ -2876,7 +2890,7 @@ namespace NhatKySanXuat
                         Nuoc_thuycuc = "0";
                     Tong_nuocthuycuc += Convert.ToDouble(Nuoc_thuycuc);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                dgv_nhat_ky.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
                 "", Math.Round(TONG_KL_LT, 3), Math.Round(Hieu_suat_thu_tb / row.Length, 3), Math.Round(Hieu_suat_release_tb / row.Length, 3),
                 "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
                 "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
@@ -3030,7 +3044,7 @@ namespace NhatKySanXuat
                     string ngay112 = row[i]["ngay_112"].ToString();
                     string ngay126 = row[i]["ngay_126"].ToString();
                     string ngay140 = row[i]["ngay_140"].ToString();
-                    dataGridView1.Rows.Add(Nguoi_nhap, Dot_sx, Ngay_sx, Thiet_bi, Ma_btp,
+                    dgv_nhat_ky.Rows.Add(Nguoi_nhap, Dot_sx, Ngay_sx, Thiet_bi, Ma_btp,
                         Ten_btp, Me, LOT, Toc_do_release, Ngay_release, Loai, Tong_klsp_thuduoc,
                         Vitri_tongspthuduoc, Kl_dongkhoi, Vitri_spdongkhoi, Khongdongkhoi,
                         Vitri_spkhongdongkhoi, Kl_lythuyet, Hieusuatthu, Hieusuatrelease, Thoigiancb,
@@ -3042,11 +3056,11 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
-                dataGridView1.Columns[7].Frozen = true;
-                dataGridView1.Rows[0].Frozen = true;
-                dataGridView1.CurrentCell = dataGridView1.Rows[1].Cells[0];
+                dgv_nhat_ky.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
+                dgv_nhat_ky.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dgv_nhat_ky.Columns[7].Frozen = true;
+                dgv_nhat_ky.Rows[0].Frozen = true;
+                dgv_nhat_ky.CurrentCell = dgv_nhat_ky.Rows[1].Cells[0];
             }
             catch (Exception ex)
             {
@@ -3081,7 +3095,7 @@ namespace NhatKySanXuat
                 adapter.Fill(tb_buff);
                 sqlcon.Close();
                 DataRow[] row = tb_buff.Select();
-                dataGridView1.Rows.Clear();
+                dgv_nhat_ky.Rows.Clear();
                 double TONG_KLSP = 0;
                 double TONG_KL_DONGKHOI = 0;
                 double TONG_KHOILUONG_KHONG_DONG_KHOI = 0;
@@ -3343,7 +3357,7 @@ namespace NhatKySanXuat
                         Nuoc_thuycuc = "0";
                     Tong_nuocthuycuc += Convert.ToDouble(Nuoc_thuycuc);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                dgv_nhat_ky.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
                 "", Math.Round(TONG_KL_LT, 3), Math.Round(Hieu_suat_thu_tb / row.Length, 3), Math.Round(Hieu_suat_release_tb / row.Length, 3),
                 "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
                 "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
@@ -3497,7 +3511,7 @@ namespace NhatKySanXuat
                     string ngay112 = row[i]["ngay_112"].ToString();
                     string ngay126 = row[i]["ngay_126"].ToString();
                     string ngay140 = row[i]["ngay_140"].ToString();
-                    dataGridView1.Rows.Add(Nguoi_nhap, Dot_sx, Ngay_sx, Thiet_bi, Ma_btp,
+                    dgv_nhat_ky.Rows.Add(Nguoi_nhap, Dot_sx, Ngay_sx, Thiet_bi, Ma_btp,
                         Ten_btp, Me, LOT, Toc_do_release, Ngay_release, Loai, Tong_klsp_thuduoc,
                         Vitri_tongspthuduoc, Kl_dongkhoi, Vitri_spdongkhoi, Khongdongkhoi,
                         Vitri_spkhongdongkhoi, Kl_lythuyet, Hieusuatthu, Hieusuatrelease, Thoigiancb,
@@ -3509,11 +3523,11 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
-                dataGridView1.Columns[7].Frozen = true;
-                dataGridView1.Rows[0].Frozen = true;
-                dataGridView1.CurrentCell = dataGridView1.Rows[1].Cells[0];
+                dgv_nhat_ky.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
+                dgv_nhat_ky.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dgv_nhat_ky.Columns[7].Frozen = true;
+                dgv_nhat_ky.Rows[0].Frozen = true;
+                dgv_nhat_ky.CurrentCell = dgv_nhat_ky.Rows[1].Cells[0];
             }
             catch (Exception ex)
             {
@@ -3548,7 +3562,7 @@ namespace NhatKySanXuat
                 adapter.Fill(tb_buff);
                 sqlcon.Close();
                 DataRow[] row = tb_buff.Select();
-                dataGridView1.Rows.Clear();
+                dgv_nhat_ky.Rows.Clear();
                 double TONG_KLSP = 0;
                 double TONG_KL_DONGKHOI = 0;
                 double TONG_KHOILUONG_KHONG_DONG_KHOI = 0;
@@ -3810,7 +3824,7 @@ namespace NhatKySanXuat
                         Nuoc_thuycuc = "0";
                     Tong_nuocthuycuc += Convert.ToDouble(Nuoc_thuycuc);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                dgv_nhat_ky.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
                 "", Math.Round(TONG_KL_LT, 3), Math.Round(Hieu_suat_thu_tb / row.Length, 3), Math.Round(Hieu_suat_release_tb / row.Length, 3),
                 "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
                 "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
@@ -3964,7 +3978,7 @@ namespace NhatKySanXuat
                     string ngay112 = row[i]["ngay_112"].ToString();
                     string ngay126 = row[i]["ngay_126"].ToString();
                     string ngay140 = row[i]["ngay_140"].ToString();
-                    dataGridView1.Rows.Add(Nguoi_nhap, Dot_sx, Ngay_sx, Thiet_bi, Ma_btp,
+                    dgv_nhat_ky.Rows.Add(Nguoi_nhap, Dot_sx, Ngay_sx, Thiet_bi, Ma_btp,
                         Ten_btp, Me, LOT, Toc_do_release, Ngay_release, Loai, Tong_klsp_thuduoc,
                         Vitri_tongspthuduoc, Kl_dongkhoi, Vitri_spdongkhoi, Khongdongkhoi,
                         Vitri_spkhongdongkhoi, Kl_lythuyet, Hieusuatthu, Hieusuatrelease, Thoigiancb,
@@ -3976,11 +3990,11 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
-                dataGridView1.Columns[7].Frozen = true;
-                dataGridView1.Rows[0].Frozen = true;
-                dataGridView1.CurrentCell = dataGridView1.Rows[1].Cells[0];
+                dgv_nhat_ky.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
+                dgv_nhat_ky.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dgv_nhat_ky.Columns[7].Frozen = true;
+                dgv_nhat_ky.Rows[0].Frozen = true;
+                dgv_nhat_ky.CurrentCell = dgv_nhat_ky.Rows[1].Cells[0];
             }
             catch (Exception ex)
             {
@@ -4015,7 +4029,7 @@ namespace NhatKySanXuat
                 adapter.Fill(tb_buff);
                 sqlcon.Close();
                 DataRow[] row = tb_buff.Select();
-                dataGridView1.Rows.Clear();
+                dgv_nhat_ky.Rows.Clear();
                 double TONG_KLSP = 0;
                 double TONG_KL_DONGKHOI = 0;
                 double TONG_KHOILUONG_KHONG_DONG_KHOI = 0;
@@ -4277,7 +4291,7 @@ namespace NhatKySanXuat
                         Nuoc_thuycuc = "0";
                     Tong_nuocthuycuc += Convert.ToDouble(Nuoc_thuycuc);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                dgv_nhat_ky.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
                 "", Math.Round(TONG_KL_LT, 3), Math.Round(Hieu_suat_thu_tb / row.Length, 3), Math.Round(Hieu_suat_release_tb / row.Length, 3),
                 "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
                 "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
@@ -4431,7 +4445,7 @@ namespace NhatKySanXuat
                     string ngay112 = row[i]["ngay_112"].ToString();
                     string ngay126 = row[i]["ngay_126"].ToString();
                     string ngay140 = row[i]["ngay_140"].ToString();
-                    dataGridView1.Rows.Add(Nguoi_nhap, Dot_sx, Ngay_sx, Thiet_bi, Ma_btp,
+                    dgv_nhat_ky.Rows.Add(Nguoi_nhap, Dot_sx, Ngay_sx, Thiet_bi, Ma_btp,
                         Ten_btp, Me, LOT, Toc_do_release, Ngay_release, Loai, Tong_klsp_thuduoc,
                         Vitri_tongspthuduoc, Kl_dongkhoi, Vitri_spdongkhoi, Khongdongkhoi,
                         Vitri_spkhongdongkhoi, Kl_lythuyet, Hieusuatthu, Hieusuatrelease, Thoigiancb,
@@ -4443,11 +4457,11 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
-                dataGridView1.Columns[7].Frozen = true;
-                dataGridView1.Rows[0].Frozen = true;
-                dataGridView1.CurrentCell = dataGridView1.Rows[1].Cells[0];
+                dgv_nhat_ky.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
+                dgv_nhat_ky.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dgv_nhat_ky.Columns[7].Frozen = true;
+                dgv_nhat_ky.Rows[0].Frozen = true;
+                dgv_nhat_ky.CurrentCell = dgv_nhat_ky.Rows[1].Cells[0];
             }
             catch (Exception ex)
             {
@@ -4482,7 +4496,7 @@ namespace NhatKySanXuat
                 adapter.Fill(tb_buff);
                 sqlcon.Close();
                 DataRow[] row = tb_buff.Select();
-                dataGridView1.Rows.Clear();
+                dgv_nhat_ky.Rows.Clear();
                 double TONG_KLSP = 0;
                 double TONG_KL_DONGKHOI = 0;
                 double TONG_KHOILUONG_KHONG_DONG_KHOI = 0;
@@ -4744,7 +4758,7 @@ namespace NhatKySanXuat
                         Nuoc_thuycuc = "0";
                     Tong_nuocthuycuc += Convert.ToDouble(Nuoc_thuycuc);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                dgv_nhat_ky.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
                 "", Math.Round(TONG_KL_LT, 3), Math.Round(Hieu_suat_thu_tb / row.Length, 3), Math.Round(Hieu_suat_release_tb / row.Length, 3),
                 "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
                 "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
@@ -4898,7 +4912,7 @@ namespace NhatKySanXuat
                     string ngay112 = row[i]["ngay_112"].ToString();
                     string ngay126 = row[i]["ngay_126"].ToString();
                     string ngay140 = row[i]["ngay_140"].ToString();
-                    dataGridView1.Rows.Add(Nguoi_nhap, Dot_sx, Ngay_sx, Thiet_bi, Ma_btp,
+                    dgv_nhat_ky.Rows.Add(Nguoi_nhap, Dot_sx, Ngay_sx, Thiet_bi, Ma_btp,
                         Ten_btp, Me, LOT, Toc_do_release, Ngay_release, Loai, Tong_klsp_thuduoc,
                         Vitri_tongspthuduoc, Kl_dongkhoi, Vitri_spdongkhoi, Khongdongkhoi,
                         Vitri_spkhongdongkhoi, Kl_lythuyet, Hieusuatthu, Hieusuatrelease, Thoigiancb,
@@ -4910,11 +4924,11 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
-                dataGridView1.Columns[7].Frozen = true;
-                dataGridView1.Rows[0].Frozen = true;
-                dataGridView1.CurrentCell = dataGridView1.Rows[1].Cells[0];
+                dgv_nhat_ky.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
+                dgv_nhat_ky.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dgv_nhat_ky.Columns[7].Frozen = true;
+                dgv_nhat_ky.Rows[0].Frozen = true;
+                dgv_nhat_ky.CurrentCell = dgv_nhat_ky.Rows[1].Cells[0];
             }
             catch (Exception ex)
             {
@@ -4949,7 +4963,7 @@ namespace NhatKySanXuat
                 adapter.Fill(tb_buff);
                 sqlcon.Close();
                 DataRow[] row = tb_buff.Select();
-                dataGridView1.Rows.Clear();
+                dgv_nhat_ky.Rows.Clear();
                 double TONG_KLSP = 0;
                 double TONG_KL_DONGKHOI = 0;
                 double TONG_KHOILUONG_KHONG_DONG_KHOI = 0;
@@ -5211,7 +5225,7 @@ namespace NhatKySanXuat
                         Nuoc_thuycuc = "0";
                     Tong_nuocthuycuc += Convert.ToDouble(Nuoc_thuycuc);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                dgv_nhat_ky.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
                 "", Math.Round(TONG_KL_LT, 3), Math.Round(Hieu_suat_thu_tb / row.Length, 3), Math.Round(Hieu_suat_release_tb / row.Length, 3),
                 "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
                 "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
@@ -5365,7 +5379,7 @@ namespace NhatKySanXuat
                     string ngay112 = row[i]["ngay_112"].ToString();
                     string ngay126 = row[i]["ngay_126"].ToString();
                     string ngay140 = row[i]["ngay_140"].ToString();
-                    dataGridView1.Rows.Add(Nguoi_nhap, Dot_sx, Ngay_sx, Thiet_bi, Ma_btp,
+                    dgv_nhat_ky.Rows.Add(Nguoi_nhap, Dot_sx, Ngay_sx, Thiet_bi, Ma_btp,
                         Ten_btp, Me, LOT, Toc_do_release, Ngay_release, Loai, Tong_klsp_thuduoc,
                         Vitri_tongspthuduoc, Kl_dongkhoi, Vitri_spdongkhoi, Khongdongkhoi,
                         Vitri_spkhongdongkhoi, Kl_lythuyet, Hieusuatthu, Hieusuatrelease, Thoigiancb,
@@ -5377,11 +5391,11 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
-                dataGridView1.Columns[7].Frozen = true;
-                dataGridView1.Rows[0].Frozen = true;
-                dataGridView1.CurrentCell = dataGridView1.Rows[1].Cells[0];
+                dgv_nhat_ky.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
+                dgv_nhat_ky.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dgv_nhat_ky.Columns[7].Frozen = true;
+                dgv_nhat_ky.Rows[0].Frozen = true;
+                dgv_nhat_ky.CurrentCell = dgv_nhat_ky.Rows[1].Cells[0];
             }
             catch (Exception ex)
             {
@@ -5416,7 +5430,7 @@ namespace NhatKySanXuat
                 adapter.Fill(tb_buff);
                 sqlcon.Close();
                 DataRow[] row = tb_buff.Select();
-                dataGridView1.Rows.Clear();
+                dgv_nhat_ky.Rows.Clear();
                 double TONG_KLSP = 0;
                 double TONG_KL_DONGKHOI = 0;
                 double TONG_KHOILUONG_KHONG_DONG_KHOI = 0;
@@ -5678,7 +5692,7 @@ namespace NhatKySanXuat
                         Nuoc_thuycuc = "0";
                     Tong_nuocthuycuc += Convert.ToDouble(Nuoc_thuycuc);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                dgv_nhat_ky.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
                 "", Math.Round(TONG_KL_LT, 3), Math.Round(Hieu_suat_thu_tb / row.Length, 3), Math.Round(Hieu_suat_release_tb / row.Length, 3),
                 "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
                 "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
@@ -5832,7 +5846,7 @@ namespace NhatKySanXuat
                     string ngay112 = row[i]["ngay_112"].ToString();
                     string ngay126 = row[i]["ngay_126"].ToString();
                     string ngay140 = row[i]["ngay_140"].ToString();
-                    dataGridView1.Rows.Add(Nguoi_nhap, Dot_sx, Ngay_sx, Thiet_bi, Ma_btp,
+                    dgv_nhat_ky.Rows.Add(Nguoi_nhap, Dot_sx, Ngay_sx, Thiet_bi, Ma_btp,
                         Ten_btp, Me, LOT, Toc_do_release, Ngay_release, Loai, Tong_klsp_thuduoc,
                         Vitri_tongspthuduoc, Kl_dongkhoi, Vitri_spdongkhoi, Khongdongkhoi,
                         Vitri_spkhongdongkhoi, Kl_lythuyet, Hieusuatthu, Hieusuatrelease, Thoigiancb,
@@ -5844,11 +5858,11 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
-                dataGridView1.Columns[7].Frozen = true;
-                dataGridView1.Rows[0].Frozen = true;
-                dataGridView1.CurrentCell = dataGridView1.Rows[1].Cells[0];
+                dgv_nhat_ky.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
+                dgv_nhat_ky.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dgv_nhat_ky.Columns[7].Frozen = true;
+                dgv_nhat_ky.Rows[0].Frozen = true;
+                dgv_nhat_ky.CurrentCell = dgv_nhat_ky.Rows[1].Cells[0];
             }
             catch (Exception ex)
             {
@@ -5883,7 +5897,7 @@ namespace NhatKySanXuat
                 adapter.Fill(tb_buff);
                 sqlcon.Close();
                 DataRow[] row = tb_buff.Select();
-                dataGridView1.Rows.Clear();
+                dgv_nhat_ky.Rows.Clear();
                 double TONG_KLSP = 0;
                 double TONG_KL_DONGKHOI = 0;
                 double TONG_KHOILUONG_KHONG_DONG_KHOI = 0;
@@ -6145,7 +6159,7 @@ namespace NhatKySanXuat
                         Nuoc_thuycuc = "0";
                     Tong_nuocthuycuc += Convert.ToDouble(Nuoc_thuycuc);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                dgv_nhat_ky.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
                 "", Math.Round(TONG_KL_LT, 3), Math.Round(Hieu_suat_thu_tb / row.Length, 3), Math.Round(Hieu_suat_release_tb / row.Length, 3),
                 "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
                 "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
@@ -6299,7 +6313,7 @@ namespace NhatKySanXuat
                     string ngay112 = row[i]["ngay_112"].ToString();
                     string ngay126 = row[i]["ngay_126"].ToString();
                     string ngay140 = row[i]["ngay_140"].ToString();
-                    dataGridView1.Rows.Add(Nguoi_nhap, Dot_sx, Ngay_sx, Thiet_bi, Ma_btp,
+                    dgv_nhat_ky.Rows.Add(Nguoi_nhap, Dot_sx, Ngay_sx, Thiet_bi, Ma_btp,
                         Ten_btp, Me, LOT, Toc_do_release, Ngay_release, Loai, Tong_klsp_thuduoc,
                         Vitri_tongspthuduoc, Kl_dongkhoi, Vitri_spdongkhoi, Khongdongkhoi,
                         Vitri_spkhongdongkhoi, Kl_lythuyet, Hieusuatthu, Hieusuatrelease, Thoigiancb,
@@ -6311,11 +6325,11 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
-                dataGridView1.Columns[7].Frozen = true;
-                dataGridView1.Rows[0].Frozen = true;
-                dataGridView1.CurrentCell = dataGridView1.Rows[1].Cells[0];
+                dgv_nhat_ky.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
+                dgv_nhat_ky.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dgv_nhat_ky.Columns[7].Frozen = true;
+                dgv_nhat_ky.Rows[0].Frozen = true;
+                dgv_nhat_ky.CurrentCell = dgv_nhat_ky.Rows[1].Cells[0];
             }
             catch (Exception ex)
             {
@@ -6350,7 +6364,7 @@ namespace NhatKySanXuat
                 adapter.Fill(tb_buff);
                 sqlcon.Close();
                 DataRow[] row = tb_buff.Select();
-                dataGridView1.Rows.Clear();
+                dgv_nhat_ky.Rows.Clear();
                 double TONG_KLSP = 0;
                 double TONG_KL_DONGKHOI = 0;
                 double TONG_KHOILUONG_KHONG_DONG_KHOI = 0;
@@ -6612,7 +6626,7 @@ namespace NhatKySanXuat
                         Nuoc_thuycuc = "0";
                     Tong_nuocthuycuc += Convert.ToDouble(Nuoc_thuycuc);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                dgv_nhat_ky.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
                 "", Math.Round(TONG_KL_LT, 3), Math.Round(Hieu_suat_thu_tb / row.Length, 3), Math.Round(Hieu_suat_release_tb / row.Length, 3),
                 "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
                 "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
@@ -6766,7 +6780,7 @@ namespace NhatKySanXuat
                     string ngay112 = row[i]["ngay_112"].ToString();
                     string ngay126 = row[i]["ngay_126"].ToString();
                     string ngay140 = row[i]["ngay_140"].ToString();
-                    dataGridView1.Rows.Add(Nguoi_nhap, Dot_sx, Ngay_sx, Thiet_bi, Ma_btp,
+                    dgv_nhat_ky.Rows.Add(Nguoi_nhap, Dot_sx, Ngay_sx, Thiet_bi, Ma_btp,
                         Ten_btp, Me, LOT, Toc_do_release, Ngay_release, Loai, Tong_klsp_thuduoc,
                         Vitri_tongspthuduoc, Kl_dongkhoi, Vitri_spdongkhoi, Khongdongkhoi,
                         Vitri_spkhongdongkhoi, Kl_lythuyet, Hieusuatthu, Hieusuatrelease, Thoigiancb,
@@ -6778,11 +6792,11 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
-                dataGridView1.Columns[7].Frozen = true;
-                dataGridView1.Rows[0].Frozen = true;
-                dataGridView1.CurrentCell = dataGridView1.Rows[1].Cells[0];
+                dgv_nhat_ky.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
+                dgv_nhat_ky.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dgv_nhat_ky.Columns[7].Frozen = true;
+                dgv_nhat_ky.Rows[0].Frozen = true;
+                dgv_nhat_ky.CurrentCell = dgv_nhat_ky.Rows[1].Cells[0];
             }
             catch (Exception ex)
             {
@@ -6817,7 +6831,7 @@ namespace NhatKySanXuat
                 adapter.Fill(tb_buff);
                 sqlcon.Close();
                 DataRow[] row = tb_buff.Select();
-                dataGridView1.Rows.Clear();
+                dgv_nhat_ky.Rows.Clear();
                 double TONG_KLSP = 0;
                 double TONG_KL_DONGKHOI = 0;
                 double TONG_KHOILUONG_KHONG_DONG_KHOI = 0;
@@ -7079,7 +7093,7 @@ namespace NhatKySanXuat
                         Nuoc_thuycuc = "0";
                     Tong_nuocthuycuc += Convert.ToDouble(Nuoc_thuycuc);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                dgv_nhat_ky.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
                 "", Math.Round(TONG_KL_LT, 3), Math.Round(Hieu_suat_thu_tb / row.Length, 3), Math.Round(Hieu_suat_release_tb / row.Length, 3),
                 "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
                 "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
@@ -7233,7 +7247,7 @@ namespace NhatKySanXuat
                     string ngay112 = row[i]["ngay_112"].ToString();
                     string ngay126 = row[i]["ngay_126"].ToString();
                     string ngay140 = row[i]["ngay_140"].ToString();
-                    dataGridView1.Rows.Add(Nguoi_nhap, Dot_sx, Ngay_sx, Thiet_bi, Ma_btp,
+                    dgv_nhat_ky.Rows.Add(Nguoi_nhap, Dot_sx, Ngay_sx, Thiet_bi, Ma_btp,
                         Ten_btp, Me, LOT, Toc_do_release, Ngay_release, Loai, Tong_klsp_thuduoc,
                         Vitri_tongspthuduoc, Kl_dongkhoi, Vitri_spdongkhoi, Khongdongkhoi,
                         Vitri_spkhongdongkhoi, Kl_lythuyet, Hieusuatthu, Hieusuatrelease, Thoigiancb,
@@ -7245,11 +7259,11 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
-                dataGridView1.Columns[7].Frozen = true;
-                dataGridView1.Rows[0].Frozen = true;
-                dataGridView1.CurrentCell = dataGridView1.Rows[1].Cells[0];
+                dgv_nhat_ky.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
+                dgv_nhat_ky.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dgv_nhat_ky.Columns[7].Frozen = true;
+                dgv_nhat_ky.Rows[0].Frozen = true;
+                dgv_nhat_ky.CurrentCell = dgv_nhat_ky.Rows[1].Cells[0];
             }
             catch (Exception ex)
             {
@@ -7284,7 +7298,7 @@ namespace NhatKySanXuat
                 adapter.Fill(tb_buff);
                 sqlcon.Close();
                 DataRow[] row = tb_buff.Select();
-                dataGridView1.Rows.Clear();
+                dgv_nhat_ky.Rows.Clear();
                 double TONG_KLSP = 0;
                 double TONG_KL_DONGKHOI = 0;
                 double TONG_KHOILUONG_KHONG_DONG_KHOI = 0;
@@ -7546,7 +7560,7 @@ namespace NhatKySanXuat
                         Nuoc_thuycuc = "0";
                     Tong_nuocthuycuc += Convert.ToDouble(Nuoc_thuycuc);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                dgv_nhat_ky.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
                 "", Math.Round(TONG_KL_LT, 3), Math.Round(Hieu_suat_thu_tb / row.Length, 3), Math.Round(Hieu_suat_release_tb / row.Length, 3),
                 "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
                 "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
@@ -7700,7 +7714,7 @@ namespace NhatKySanXuat
                     string ngay112 = row[i]["ngay_112"].ToString();
                     string ngay126 = row[i]["ngay_126"].ToString();
                     string ngay140 = row[i]["ngay_140"].ToString();
-                    dataGridView1.Rows.Add(Nguoi_nhap, Dot_sx, Ngay_sx, Thiet_bi, Ma_btp,
+                    dgv_nhat_ky.Rows.Add(Nguoi_nhap, Dot_sx, Ngay_sx, Thiet_bi, Ma_btp,
                         Ten_btp, Me, LOT, Toc_do_release, Ngay_release, Loai, Tong_klsp_thuduoc,
                         Vitri_tongspthuduoc, Kl_dongkhoi, Vitri_spdongkhoi, Khongdongkhoi,
                         Vitri_spkhongdongkhoi, Kl_lythuyet, Hieusuatthu, Hieusuatrelease, Thoigiancb,
@@ -7712,11 +7726,11 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
-                dataGridView1.Columns[7].Frozen = true;
-                dataGridView1.Rows[0].Frozen = true;
-                dataGridView1.CurrentCell = dataGridView1.Rows[1].Cells[0];
+                dgv_nhat_ky.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
+                dgv_nhat_ky.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dgv_nhat_ky.Columns[7].Frozen = true;
+                dgv_nhat_ky.Rows[0].Frozen = true;
+                dgv_nhat_ky.CurrentCell = dgv_nhat_ky.Rows[1].Cells[0];
             }
             catch (Exception ex)
             {
@@ -7751,7 +7765,7 @@ namespace NhatKySanXuat
                 adapter.Fill(tb_buff);
                 sqlcon.Close();
                 DataRow[] row = tb_buff.Select();
-                dataGridView1.Rows.Clear();
+                dgv_nhat_ky.Rows.Clear();
                 double TONG_KLSP = 0;
                 double TONG_KL_DONGKHOI = 0;
                 double TONG_KHOILUONG_KHONG_DONG_KHOI = 0;
@@ -8013,7 +8027,7 @@ namespace NhatKySanXuat
                         Nuoc_thuycuc = "0";
                     Tong_nuocthuycuc += Convert.ToDouble(Nuoc_thuycuc);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                dgv_nhat_ky.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
                 "", Math.Round(TONG_KL_LT, 3), Math.Round(Hieu_suat_thu_tb / row.Length, 3), Math.Round(Hieu_suat_release_tb / row.Length, 3),
                 "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
                 "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
@@ -8167,7 +8181,7 @@ namespace NhatKySanXuat
                     string ngay112 = row[i]["ngay_112"].ToString();
                     string ngay126 = row[i]["ngay_126"].ToString();
                     string ngay140 = row[i]["ngay_140"].ToString();
-                    dataGridView1.Rows.Add(Nguoi_nhap, Dot_sx, Ngay_sx, Thiet_bi, Ma_btp,
+                    dgv_nhat_ky.Rows.Add(Nguoi_nhap, Dot_sx, Ngay_sx, Thiet_bi, Ma_btp,
                         Ten_btp, Me, LOT, Toc_do_release, Ngay_release, Loai, Tong_klsp_thuduoc,
                         Vitri_tongspthuduoc, Kl_dongkhoi, Vitri_spdongkhoi, Khongdongkhoi,
                         Vitri_spkhongdongkhoi, Kl_lythuyet, Hieusuatthu, Hieusuatrelease, Thoigiancb,
@@ -8179,11 +8193,11 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
-                dataGridView1.Columns[7].Frozen = true;
-                dataGridView1.Rows[0].Frozen = true;
-                dataGridView1.CurrentCell = dataGridView1.Rows[1].Cells[0];
+                dgv_nhat_ky.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
+                dgv_nhat_ky.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dgv_nhat_ky.Columns[7].Frozen = true;
+                dgv_nhat_ky.Rows[0].Frozen = true;
+                dgv_nhat_ky.CurrentCell = dgv_nhat_ky.Rows[1].Cells[0];
             }
             catch (Exception ex)
             {
@@ -8218,7 +8232,7 @@ namespace NhatKySanXuat
                 adapter.Fill(tb_buff);
                 sqlcon.Close();
                 DataRow[] row = tb_buff.Select();
-                dataGridView1.Rows.Clear();
+                dgv_nhat_ky.Rows.Clear();
                 double TONG_KLSP = 0;
                 double TONG_KL_DONGKHOI = 0;
                 double TONG_KHOILUONG_KHONG_DONG_KHOI = 0;
@@ -8480,7 +8494,7 @@ namespace NhatKySanXuat
                         Nuoc_thuycuc = "0";
                     Tong_nuocthuycuc += Convert.ToDouble(Nuoc_thuycuc);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                dgv_nhat_ky.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
                 "", Math.Round(TONG_KL_LT, 3), Math.Round(Hieu_suat_thu_tb / row.Length, 3), Math.Round(Hieu_suat_release_tb / row.Length, 3),
                 "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
                 "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
@@ -8634,7 +8648,7 @@ namespace NhatKySanXuat
                     string ngay112 = row[i]["ngay_112"].ToString();
                     string ngay126 = row[i]["ngay_126"].ToString();
                     string ngay140 = row[i]["ngay_140"].ToString();
-                    dataGridView1.Rows.Add(Nguoi_nhap, Dot_sx, Ngay_sx, Thiet_bi, Ma_btp,
+                    dgv_nhat_ky.Rows.Add(Nguoi_nhap, Dot_sx, Ngay_sx, Thiet_bi, Ma_btp,
                         Ten_btp, Me, LOT, Toc_do_release, Ngay_release, Loai, Tong_klsp_thuduoc,
                         Vitri_tongspthuduoc, Kl_dongkhoi, Vitri_spdongkhoi, Khongdongkhoi,
                         Vitri_spkhongdongkhoi, Kl_lythuyet, Hieusuatthu, Hieusuatrelease, Thoigiancb,
@@ -8646,11 +8660,11 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
-                dataGridView1.Columns[7].Frozen = true;
-                dataGridView1.Rows[0].Frozen = true;
-                dataGridView1.CurrentCell = dataGridView1.Rows[1].Cells[0];
+                dgv_nhat_ky.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
+                dgv_nhat_ky.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dgv_nhat_ky.Columns[7].Frozen = true;
+                dgv_nhat_ky.Rows[0].Frozen = true;
+                dgv_nhat_ky.CurrentCell = dgv_nhat_ky.Rows[1].Cells[0];
             }
             catch (Exception ex)
             {
@@ -8685,7 +8699,7 @@ namespace NhatKySanXuat
                 adapter.Fill(tb_buff);
                 sqlcon.Close();
                 DataRow[] row = tb_buff.Select();
-                dataGridView1.Rows.Clear();
+                dgv_nhat_ky.Rows.Clear();
                 double TONG_KLSP = 0;
                 double TONG_KL_DONGKHOI = 0;
                 double TONG_KHOILUONG_KHONG_DONG_KHOI = 0;
@@ -8947,7 +8961,7 @@ namespace NhatKySanXuat
                         Nuoc_thuycuc = "0";
                     Tong_nuocthuycuc += Convert.ToDouble(Nuoc_thuycuc);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                dgv_nhat_ky.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
                 "", Math.Round(TONG_KL_LT, 3), Math.Round(Hieu_suat_thu_tb / row.Length, 3), Math.Round(Hieu_suat_release_tb / row.Length, 3),
                 "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
                 "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
@@ -9101,7 +9115,7 @@ namespace NhatKySanXuat
                     string ngay112 = row[i]["ngay_112"].ToString();
                     string ngay126 = row[i]["ngay_126"].ToString();
                     string ngay140 = row[i]["ngay_140"].ToString();
-                    dataGridView1.Rows.Add(Nguoi_nhap, Dot_sx, Ngay_sx, Thiet_bi, Ma_btp,
+                    dgv_nhat_ky.Rows.Add(Nguoi_nhap, Dot_sx, Ngay_sx, Thiet_bi, Ma_btp,
                         Ten_btp, Me, LOT, Toc_do_release, Ngay_release, Loai, Tong_klsp_thuduoc,
                         Vitri_tongspthuduoc, Kl_dongkhoi, Vitri_spdongkhoi, Khongdongkhoi,
                         Vitri_spkhongdongkhoi, Kl_lythuyet, Hieusuatthu, Hieusuatrelease, Thoigiancb,
@@ -9113,11 +9127,11 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
-                dataGridView1.Columns[7].Frozen = true;
-                dataGridView1.Rows[0].Frozen = true;
-                dataGridView1.CurrentCell = dataGridView1.Rows[1].Cells[0];
+                dgv_nhat_ky.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
+                dgv_nhat_ky.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dgv_nhat_ky.Columns[7].Frozen = true;
+                dgv_nhat_ky.Rows[0].Frozen = true;
+                dgv_nhat_ky.CurrentCell = dgv_nhat_ky.Rows[1].Cells[0];
             }
             catch (Exception ex)
             {
@@ -9152,7 +9166,7 @@ namespace NhatKySanXuat
                 adapter.Fill(tb_buff);
                 sqlcon.Close();
                 DataRow[] row = tb_buff.Select();
-                dataGridView1.Rows.Clear();
+                dgv_nhat_ky.Rows.Clear();
                 double TONG_KLSP = 0;
                 double TONG_KL_DONGKHOI = 0;
                 double TONG_KHOILUONG_KHONG_DONG_KHOI = 0;
@@ -9414,7 +9428,7 @@ namespace NhatKySanXuat
                         Nuoc_thuycuc = "0";
                     Tong_nuocthuycuc += Convert.ToDouble(Nuoc_thuycuc);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                dgv_nhat_ky.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
                 "", Math.Round(TONG_KL_LT, 3), Math.Round(Hieu_suat_thu_tb / row.Length, 3), Math.Round(Hieu_suat_release_tb / row.Length, 3),
                 "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
                 "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
@@ -9568,7 +9582,7 @@ namespace NhatKySanXuat
                     string ngay112 = row[i]["ngay_112"].ToString();
                     string ngay126 = row[i]["ngay_126"].ToString();
                     string ngay140 = row[i]["ngay_140"].ToString();
-                    dataGridView1.Rows.Add(Nguoi_nhap, Dot_sx, Ngay_sx, Thiet_bi, Ma_btp,
+                    dgv_nhat_ky.Rows.Add(Nguoi_nhap, Dot_sx, Ngay_sx, Thiet_bi, Ma_btp,
                         Ten_btp, Me, LOT, Toc_do_release, Ngay_release, Loai, Tong_klsp_thuduoc,
                         Vitri_tongspthuduoc, Kl_dongkhoi, Vitri_spdongkhoi, Khongdongkhoi,
                         Vitri_spkhongdongkhoi, Kl_lythuyet, Hieusuatthu, Hieusuatrelease, Thoigiancb,
@@ -9580,11 +9594,11 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
-                dataGridView1.Columns[7].Frozen = true;
-                dataGridView1.Rows[0].Frozen = true;
-                dataGridView1.CurrentCell = dataGridView1.Rows[1].Cells[0];
+                dgv_nhat_ky.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
+                dgv_nhat_ky.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dgv_nhat_ky.Columns[7].Frozen = true;
+                dgv_nhat_ky.Rows[0].Frozen = true;
+                dgv_nhat_ky.CurrentCell = dgv_nhat_ky.Rows[1].Cells[0];
             }
             catch (Exception ex)
             {
@@ -9619,7 +9633,7 @@ namespace NhatKySanXuat
                 adapter.Fill(tb_buff);
                 sqlcon.Close();
                 DataRow[] row = tb_buff.Select();
-                dataGridView1.Rows.Clear();
+                dgv_nhat_ky.Rows.Clear();
                 double TONG_KLSP = 0;
                 double TONG_KL_DONGKHOI = 0;
                 double TONG_KHOILUONG_KHONG_DONG_KHOI = 0;
@@ -9881,7 +9895,7 @@ namespace NhatKySanXuat
                         Nuoc_thuycuc = "0";
                     Tong_nuocthuycuc += Convert.ToDouble(Nuoc_thuycuc);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                dgv_nhat_ky.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
                 "", Math.Round(TONG_KL_LT, 3), Math.Round(Hieu_suat_thu_tb / row.Length, 3), Math.Round(Hieu_suat_release_tb / row.Length, 3),
                 "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
                 "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
@@ -10035,7 +10049,7 @@ namespace NhatKySanXuat
                     string ngay112 = row[i]["ngay_112"].ToString();
                     string ngay126 = row[i]["ngay_126"].ToString();
                     string ngay140 = row[i]["ngay_140"].ToString();
-                    dataGridView1.Rows.Add(Nguoi_nhap, Dot_sx, Ngay_sx, Thiet_bi, Ma_btp,
+                    dgv_nhat_ky.Rows.Add(Nguoi_nhap, Dot_sx, Ngay_sx, Thiet_bi, Ma_btp,
                         Ten_btp, Me, LOT, Toc_do_release, Ngay_release, Loai, Tong_klsp_thuduoc,
                         Vitri_tongspthuduoc, Kl_dongkhoi, Vitri_spdongkhoi, Khongdongkhoi,
                         Vitri_spkhongdongkhoi, Kl_lythuyet, Hieusuatthu, Hieusuatrelease, Thoigiancb,
@@ -10047,11 +10061,11 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
-                dataGridView1.Columns[7].Frozen = true;
-                dataGridView1.Rows[0].Frozen = true;
-                dataGridView1.CurrentCell = dataGridView1.Rows[1].Cells[0];
+                dgv_nhat_ky.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
+                dgv_nhat_ky.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dgv_nhat_ky.Columns[7].Frozen = true;
+                dgv_nhat_ky.Rows[0].Frozen = true;
+                dgv_nhat_ky.CurrentCell = dgv_nhat_ky.Rows[1].Cells[0];
             }
             catch (Exception ex)
             {
@@ -10086,7 +10100,7 @@ namespace NhatKySanXuat
                 adapter.Fill(tb_buff);
                 sqlcon.Close();
                 DataRow[] row = tb_buff.Select();
-                dataGridView1.Rows.Clear();
+                dgv_nhat_ky.Rows.Clear();
                 double TONG_KLSP = 0;
                 double TONG_KL_DONGKHOI = 0;
                 double TONG_KHOILUONG_KHONG_DONG_KHOI = 0;
@@ -10348,7 +10362,7 @@ namespace NhatKySanXuat
                         Nuoc_thuycuc = "0";
                     Tong_nuocthuycuc += Convert.ToDouble(Nuoc_thuycuc);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                dgv_nhat_ky.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
                 "", Math.Round(TONG_KL_LT, 3), Math.Round(Hieu_suat_thu_tb / row.Length, 3), Math.Round(Hieu_suat_release_tb / row.Length, 3),
                 "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
                 "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
@@ -10502,7 +10516,7 @@ namespace NhatKySanXuat
                     string ngay112 = row[i]["ngay_112"].ToString();
                     string ngay126 = row[i]["ngay_126"].ToString();
                     string ngay140 = row[i]["ngay_140"].ToString();
-                    dataGridView1.Rows.Add(Nguoi_nhap, Dot_sx, Ngay_sx, Thiet_bi, Ma_btp,
+                    dgv_nhat_ky.Rows.Add(Nguoi_nhap, Dot_sx, Ngay_sx, Thiet_bi, Ma_btp,
                         Ten_btp, Me, LOT, Toc_do_release, Ngay_release, Loai, Tong_klsp_thuduoc,
                         Vitri_tongspthuduoc, Kl_dongkhoi, Vitri_spdongkhoi, Khongdongkhoi,
                         Vitri_spkhongdongkhoi, Kl_lythuyet, Hieusuatthu, Hieusuatrelease, Thoigiancb,
@@ -10514,11 +10528,11 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
-                dataGridView1.Columns[7].Frozen = true;
-                dataGridView1.Rows[0].Frozen = true;
-                dataGridView1.CurrentCell = dataGridView1.Rows[1].Cells[0];
+                dgv_nhat_ky.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
+                dgv_nhat_ky.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dgv_nhat_ky.Columns[7].Frozen = true;
+                dgv_nhat_ky.Rows[0].Frozen = true;
+                dgv_nhat_ky.CurrentCell = dgv_nhat_ky.Rows[1].Cells[0];
             }
             catch (Exception ex)
             {
@@ -10553,7 +10567,7 @@ namespace NhatKySanXuat
                 adapter.Fill(tb_buff);
                 sqlcon.Close();
                 DataRow[] row = tb_buff.Select();
-                dataGridView1.Rows.Clear();
+                dgv_nhat_ky.Rows.Clear();
                 double TONG_KLSP = 0;
                 double TONG_KL_DONGKHOI = 0;
                 double TONG_KHOILUONG_KHONG_DONG_KHOI = 0;
@@ -10815,7 +10829,7 @@ namespace NhatKySanXuat
                         Nuoc_thuycuc = "0";
                     Tong_nuocthuycuc += Convert.ToDouble(Nuoc_thuycuc);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                dgv_nhat_ky.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
                 "", Math.Round(TONG_KL_LT, 3), Math.Round(Hieu_suat_thu_tb / row.Length, 3), Math.Round(Hieu_suat_release_tb / row.Length, 3),
                 "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
                 "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
@@ -10969,7 +10983,7 @@ namespace NhatKySanXuat
                     string ngay112 = row[i]["ngay_112"].ToString();
                     string ngay126 = row[i]["ngay_126"].ToString();
                     string ngay140 = row[i]["ngay_140"].ToString();
-                    dataGridView1.Rows.Add(Nguoi_nhap, Dot_sx, Ngay_sx, Thiet_bi, Ma_btp,
+                    dgv_nhat_ky.Rows.Add(Nguoi_nhap, Dot_sx, Ngay_sx, Thiet_bi, Ma_btp,
                         Ten_btp, Me, LOT, Toc_do_release, Ngay_release, Loai, Tong_klsp_thuduoc,
                         Vitri_tongspthuduoc, Kl_dongkhoi, Vitri_spdongkhoi, Khongdongkhoi,
                         Vitri_spkhongdongkhoi, Kl_lythuyet, Hieusuatthu, Hieusuatrelease, Thoigiancb,
@@ -10981,11 +10995,11 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
-                dataGridView1.Columns[7].Frozen = true;
-                dataGridView1.Rows[0].Frozen = true;
-                dataGridView1.CurrentCell = dataGridView1.Rows[1].Cells[0];
+                dgv_nhat_ky.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
+                dgv_nhat_ky.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dgv_nhat_ky.Columns[7].Frozen = true;
+                dgv_nhat_ky.Rows[0].Frozen = true;
+                dgv_nhat_ky.CurrentCell = dgv_nhat_ky.Rows[1].Cells[0];
             }
             catch (Exception ex)
             {
@@ -11020,7 +11034,7 @@ namespace NhatKySanXuat
                 adapter.Fill(tb_buff);
                 sqlcon.Close();
                 DataRow[] row = tb_buff.Select();
-                dataGridView1.Rows.Clear();
+                dgv_nhat_ky.Rows.Clear();
                 double TONG_KLSP = 0;
                 double TONG_KL_DONGKHOI = 0;
                 double TONG_KHOILUONG_KHONG_DONG_KHOI = 0;
@@ -11282,7 +11296,7 @@ namespace NhatKySanXuat
                         Nuoc_thuycuc = "0";
                     Tong_nuocthuycuc += Convert.ToDouble(Nuoc_thuycuc);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                dgv_nhat_ky.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
                 "", Math.Round(TONG_KL_LT, 3), Math.Round(Hieu_suat_thu_tb / row.Length, 3), Math.Round(Hieu_suat_release_tb / row.Length, 3),
                 "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
                 "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
@@ -11436,7 +11450,7 @@ namespace NhatKySanXuat
                     string ngay112 = row[i]["ngay_112"].ToString();
                     string ngay126 = row[i]["ngay_126"].ToString();
                     string ngay140 = row[i]["ngay_140"].ToString();
-                    dataGridView1.Rows.Add(Nguoi_nhap, Dot_sx, Ngay_sx, Thiet_bi, Ma_btp,
+                    dgv_nhat_ky.Rows.Add(Nguoi_nhap, Dot_sx, Ngay_sx, Thiet_bi, Ma_btp,
                         Ten_btp, Me, LOT, Toc_do_release, Ngay_release, Loai, Tong_klsp_thuduoc,
                         Vitri_tongspthuduoc, Kl_dongkhoi, Vitri_spdongkhoi, Khongdongkhoi,
                         Vitri_spkhongdongkhoi, Kl_lythuyet, Hieusuatthu, Hieusuatrelease, Thoigiancb,
@@ -11448,11 +11462,11 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
-                dataGridView1.Columns[7].Frozen = true;
-                dataGridView1.Rows[0].Frozen = true;
-                dataGridView1.CurrentCell = dataGridView1.Rows[1].Cells[0];
+                dgv_nhat_ky.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
+                dgv_nhat_ky.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dgv_nhat_ky.Columns[7].Frozen = true;
+                dgv_nhat_ky.Rows[0].Frozen = true;
+                dgv_nhat_ky.CurrentCell = dgv_nhat_ky.Rows[1].Cells[0];
             }
             catch (Exception ex)
             {
@@ -11487,7 +11501,7 @@ namespace NhatKySanXuat
                 adapter.Fill(tb_buff);
                 sqlcon.Close();
                 DataRow[] row = tb_buff.Select();
-                dataGridView1.Rows.Clear();
+                dgv_nhat_ky.Rows.Clear();
                 double TONG_KLSP = 0;
                 double TONG_KL_DONGKHOI = 0;
                 double TONG_KHOILUONG_KHONG_DONG_KHOI = 0;
@@ -11749,7 +11763,7 @@ namespace NhatKySanXuat
                         Nuoc_thuycuc = "0";
                     Tong_nuocthuycuc += Convert.ToDouble(Nuoc_thuycuc);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                dgv_nhat_ky.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
                 "", Math.Round(TONG_KL_LT, 3), Math.Round(Hieu_suat_thu_tb / row.Length, 3), Math.Round(Hieu_suat_release_tb / row.Length, 3),
                 "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
                 "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
@@ -11903,7 +11917,7 @@ namespace NhatKySanXuat
                     string ngay112 = row[i]["ngay_112"].ToString();
                     string ngay126 = row[i]["ngay_126"].ToString();
                     string ngay140 = row[i]["ngay_140"].ToString();
-                    dataGridView1.Rows.Add(Nguoi_nhap, Dot_sx, Ngay_sx, Thiet_bi, Ma_btp,
+                    dgv_nhat_ky.Rows.Add(Nguoi_nhap, Dot_sx, Ngay_sx, Thiet_bi, Ma_btp,
                         Ten_btp, Me, LOT, Toc_do_release, Ngay_release, Loai, Tong_klsp_thuduoc,
                         Vitri_tongspthuduoc, Kl_dongkhoi, Vitri_spdongkhoi, Khongdongkhoi,
                         Vitri_spkhongdongkhoi, Kl_lythuyet, Hieusuatthu, Hieusuatrelease, Thoigiancb,
@@ -11915,11 +11929,11 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
-                dataGridView1.Columns[7].Frozen = true;
-                dataGridView1.Rows[0].Frozen = true;
-                dataGridView1.CurrentCell = dataGridView1.Rows[1].Cells[0];
+                dgv_nhat_ky.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
+                dgv_nhat_ky.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dgv_nhat_ky.Columns[7].Frozen = true;
+                dgv_nhat_ky.Rows[0].Frozen = true;
+                dgv_nhat_ky.CurrentCell = dgv_nhat_ky.Rows[1].Cells[0];
             }
             catch (Exception ex)
             {
@@ -11954,7 +11968,7 @@ namespace NhatKySanXuat
                 adapter.Fill(tb_buff);
                 sqlcon.Close();
                 DataRow[] row = tb_buff.Select();
-                dataGridView1.Rows.Clear();
+                dgv_nhat_ky.Rows.Clear();
                 double TONG_KLSP = 0;
                 double TONG_KL_DONGKHOI = 0;
                 double TONG_KHOILUONG_KHONG_DONG_KHOI = 0;
@@ -12216,7 +12230,7 @@ namespace NhatKySanXuat
                         Nuoc_thuycuc = "0";
                     Tong_nuocthuycuc += Convert.ToDouble(Nuoc_thuycuc);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                dgv_nhat_ky.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
                 "", Math.Round(TONG_KL_LT, 3), Math.Round(Hieu_suat_thu_tb / row.Length, 3), Math.Round(Hieu_suat_release_tb / row.Length, 3),
                 "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
                 "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
@@ -12370,7 +12384,7 @@ namespace NhatKySanXuat
                     string ngay112 = row[i]["ngay_112"].ToString();
                     string ngay126 = row[i]["ngay_126"].ToString();
                     string ngay140 = row[i]["ngay_140"].ToString();
-                    dataGridView1.Rows.Add(Nguoi_nhap, Dot_sx, Ngay_sx, Thiet_bi, Ma_btp,
+                    dgv_nhat_ky.Rows.Add(Nguoi_nhap, Dot_sx, Ngay_sx, Thiet_bi, Ma_btp,
                         Ten_btp, Me, LOT, Toc_do_release, Ngay_release, Loai, Tong_klsp_thuduoc,
                         Vitri_tongspthuduoc, Kl_dongkhoi, Vitri_spdongkhoi, Khongdongkhoi,
                         Vitri_spkhongdongkhoi, Kl_lythuyet, Hieusuatthu, Hieusuatrelease, Thoigiancb,
@@ -12382,11 +12396,11 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
-                dataGridView1.Columns[7].Frozen = true;
-                dataGridView1.Rows[0].Frozen = true;
-                dataGridView1.CurrentCell = dataGridView1.Rows[1].Cells[0];
+                dgv_nhat_ky.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
+                dgv_nhat_ky.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dgv_nhat_ky.Columns[7].Frozen = true;
+                dgv_nhat_ky.Rows[0].Frozen = true;
+                dgv_nhat_ky.CurrentCell = dgv_nhat_ky.Rows[1].Cells[0];
             }
             catch (Exception ex)
             {
@@ -12421,7 +12435,7 @@ namespace NhatKySanXuat
                 adapter.Fill(tb_buff);
                 sqlcon.Close();
                 DataRow[] row = tb_buff.Select();
-                dataGridView1.Rows.Clear();
+                dgv_nhat_ky.Rows.Clear();
                 double TONG_KLSP = 0;
                 double TONG_KL_DONGKHOI = 0;
                 double TONG_KHOILUONG_KHONG_DONG_KHOI = 0;
@@ -12683,7 +12697,7 @@ namespace NhatKySanXuat
                         Nuoc_thuycuc = "0";
                     Tong_nuocthuycuc += Convert.ToDouble(Nuoc_thuycuc);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                dgv_nhat_ky.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
                 "", Math.Round(TONG_KL_LT, 3), Math.Round(Hieu_suat_thu_tb / row.Length, 3), Math.Round(Hieu_suat_release_tb / row.Length, 3),
                 "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
                 "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
@@ -12837,7 +12851,7 @@ namespace NhatKySanXuat
                     string ngay112 = row[i]["ngay_112"].ToString();
                     string ngay126 = row[i]["ngay_126"].ToString();
                     string ngay140 = row[i]["ngay_140"].ToString();
-                    dataGridView1.Rows.Add(Nguoi_nhap, Dot_sx, Ngay_sx, Thiet_bi, Ma_btp,
+                    dgv_nhat_ky.Rows.Add(Nguoi_nhap, Dot_sx, Ngay_sx, Thiet_bi, Ma_btp,
                         Ten_btp, Me, LOT, Toc_do_release, Ngay_release, Loai, Tong_klsp_thuduoc,
                         Vitri_tongspthuduoc, Kl_dongkhoi, Vitri_spdongkhoi, Khongdongkhoi,
                         Vitri_spkhongdongkhoi, Kl_lythuyet, Hieusuatthu, Hieusuatrelease, Thoigiancb,
@@ -12849,11 +12863,11 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
-                dataGridView1.Columns[7].Frozen = true;
-                dataGridView1.Rows[0].Frozen = true;
-                dataGridView1.CurrentCell = dataGridView1.Rows[1].Cells[0];
+                dgv_nhat_ky.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
+                dgv_nhat_ky.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dgv_nhat_ky.Columns[7].Frozen = true;
+                dgv_nhat_ky.Rows[0].Frozen = true;
+                dgv_nhat_ky.CurrentCell = dgv_nhat_ky.Rows[1].Cells[0];
             }
             catch (Exception ex)
             {
@@ -12888,7 +12902,7 @@ namespace NhatKySanXuat
                 adapter.Fill(tb_buff);
                 sqlcon.Close();
                 DataRow[] row = tb_buff.Select();
-                dataGridView1.Rows.Clear();
+                dgv_nhat_ky.Rows.Clear();
                 double TONG_KLSP = 0;
                 double TONG_KL_DONGKHOI = 0;
                 double TONG_KHOILUONG_KHONG_DONG_KHOI = 0;
@@ -13150,7 +13164,7 @@ namespace NhatKySanXuat
                         Nuoc_thuycuc = "0";
                     Tong_nuocthuycuc += Convert.ToDouble(Nuoc_thuycuc);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                dgv_nhat_ky.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
                 "", Math.Round(TONG_KL_LT, 3), Math.Round(Hieu_suat_thu_tb / row.Length, 3), Math.Round(Hieu_suat_release_tb / row.Length, 3),
                 "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
                 "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
@@ -13304,7 +13318,7 @@ namespace NhatKySanXuat
                     string ngay112 = row[i]["ngay_112"].ToString();
                     string ngay126 = row[i]["ngay_126"].ToString();
                     string ngay140 = row[i]["ngay_140"].ToString();
-                    dataGridView1.Rows.Add(Nguoi_nhap, Dot_sx, Ngay_sx, Thiet_bi, Ma_btp,
+                    dgv_nhat_ky.Rows.Add(Nguoi_nhap, Dot_sx, Ngay_sx, Thiet_bi, Ma_btp,
                         Ten_btp, Me, LOT, Toc_do_release, Ngay_release, Loai, Tong_klsp_thuduoc,
                         Vitri_tongspthuduoc, Kl_dongkhoi, Vitri_spdongkhoi, Khongdongkhoi,
                         Vitri_spkhongdongkhoi, Kl_lythuyet, Hieusuatthu, Hieusuatrelease, Thoigiancb,
@@ -13316,11 +13330,11 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
-                dataGridView1.Columns[7].Frozen = true;
-                dataGridView1.Rows[0].Frozen = true;
-                dataGridView1.CurrentCell = dataGridView1.Rows[1].Cells[0];
+                dgv_nhat_ky.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
+                dgv_nhat_ky.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dgv_nhat_ky.Columns[7].Frozen = true;
+                dgv_nhat_ky.Rows[0].Frozen = true;
+                dgv_nhat_ky.CurrentCell = dgv_nhat_ky.Rows[1].Cells[0];
             }
             catch (Exception ex)
             {
@@ -13355,7 +13369,7 @@ namespace NhatKySanXuat
                 adapter.Fill(tb_buff);
                 sqlcon.Close();
                 DataRow[] row = tb_buff.Select();
-                dataGridView1.Rows.Clear();
+                dgv_nhat_ky.Rows.Clear();
                 double TONG_KLSP = 0;
                 double TONG_KL_DONGKHOI = 0;
                 double TONG_KHOILUONG_KHONG_DONG_KHOI = 0;
@@ -13617,7 +13631,7 @@ namespace NhatKySanXuat
                         Nuoc_thuycuc = "0";
                     Tong_nuocthuycuc += Convert.ToDouble(Nuoc_thuycuc);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                dgv_nhat_ky.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
                 "", Math.Round(TONG_KL_LT, 3), Math.Round(Hieu_suat_thu_tb / row.Length, 3), Math.Round(Hieu_suat_release_tb / row.Length, 3),
                 "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
                 "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
@@ -13771,7 +13785,7 @@ namespace NhatKySanXuat
                     string ngay112 = row[i]["ngay_112"].ToString();
                     string ngay126 = row[i]["ngay_126"].ToString();
                     string ngay140 = row[i]["ngay_140"].ToString();
-                    dataGridView1.Rows.Add(Nguoi_nhap, Dot_sx, Ngay_sx, Thiet_bi, Ma_btp,
+                    dgv_nhat_ky.Rows.Add(Nguoi_nhap, Dot_sx, Ngay_sx, Thiet_bi, Ma_btp,
                         Ten_btp, Me, LOT, Toc_do_release, Ngay_release, Loai, Tong_klsp_thuduoc,
                         Vitri_tongspthuduoc, Kl_dongkhoi, Vitri_spdongkhoi, Khongdongkhoi,
                         Vitri_spkhongdongkhoi, Kl_lythuyet, Hieusuatthu, Hieusuatrelease, Thoigiancb,
@@ -13783,11 +13797,11 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
-                dataGridView1.Columns[7].Frozen = true;
-                dataGridView1.Rows[0].Frozen = true;
-                dataGridView1.CurrentCell = dataGridView1.Rows[1].Cells[0];
+                dgv_nhat_ky.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
+                dgv_nhat_ky.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dgv_nhat_ky.Columns[7].Frozen = true;
+                dgv_nhat_ky.Rows[0].Frozen = true;
+                dgv_nhat_ky.CurrentCell = dgv_nhat_ky.Rows[1].Cells[0];
             }
             catch (Exception ex)
             {
@@ -13822,7 +13836,7 @@ namespace NhatKySanXuat
                 adapter.Fill(tb_buff);
                 sqlcon.Close();
                 DataRow[] row = tb_buff.Select();
-                dataGridView1.Rows.Clear();
+                dgv_nhat_ky.Rows.Clear();
                 double TONG_KLSP = 0;
                 double TONG_KL_DONGKHOI = 0;
                 double TONG_KHOILUONG_KHONG_DONG_KHOI = 0;
@@ -14084,7 +14098,7 @@ namespace NhatKySanXuat
                         Nuoc_thuycuc = "0";
                     Tong_nuocthuycuc += Convert.ToDouble(Nuoc_thuycuc);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                dgv_nhat_ky.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
                 "", Math.Round(TONG_KL_LT, 3), Math.Round(Hieu_suat_thu_tb / row.Length, 3), Math.Round(Hieu_suat_release_tb / row.Length, 3),
                 "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
                 "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
@@ -14238,7 +14252,7 @@ namespace NhatKySanXuat
                     string ngay112 = row[i]["ngay_112"].ToString();
                     string ngay126 = row[i]["ngay_126"].ToString();
                     string ngay140 = row[i]["ngay_140"].ToString();
-                    dataGridView1.Rows.Add(Nguoi_nhap, Dot_sx, Ngay_sx, Thiet_bi, Ma_btp,
+                    dgv_nhat_ky.Rows.Add(Nguoi_nhap, Dot_sx, Ngay_sx, Thiet_bi, Ma_btp,
                         Ten_btp, Me, LOT, Toc_do_release, Ngay_release, Loai, Tong_klsp_thuduoc,
                         Vitri_tongspthuduoc, Kl_dongkhoi, Vitri_spdongkhoi, Khongdongkhoi,
                         Vitri_spkhongdongkhoi, Kl_lythuyet, Hieusuatthu, Hieusuatrelease, Thoigiancb,
@@ -14250,11 +14264,11 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
-                dataGridView1.Columns[7].Frozen = true;
-                dataGridView1.Rows[0].Frozen = true;
-                dataGridView1.CurrentCell = dataGridView1.Rows[1].Cells[0];
+                dgv_nhat_ky.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
+                dgv_nhat_ky.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dgv_nhat_ky.Columns[7].Frozen = true;
+                dgv_nhat_ky.Rows[0].Frozen = true;
+                dgv_nhat_ky.CurrentCell = dgv_nhat_ky.Rows[1].Cells[0];
             }
             catch (Exception ex)
             {
@@ -14289,7 +14303,7 @@ namespace NhatKySanXuat
                 adapter.Fill(tb_buff);
                 sqlcon.Close();
                 DataRow[] row = tb_buff.Select();
-                dataGridView1.Rows.Clear();
+                dgv_nhat_ky.Rows.Clear();
                 double TONG_KLSP = 0;
                 double TONG_KL_DONGKHOI = 0;
                 double TONG_KHOILUONG_KHONG_DONG_KHOI = 0;
@@ -14551,7 +14565,7 @@ namespace NhatKySanXuat
                         Nuoc_thuycuc = "0";
                     Tong_nuocthuycuc += Convert.ToDouble(Nuoc_thuycuc);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                dgv_nhat_ky.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
                 "", Math.Round(TONG_KL_LT, 3), Math.Round(Hieu_suat_thu_tb / row.Length, 3), Math.Round(Hieu_suat_release_tb / row.Length, 3),
                 "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
                 "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
@@ -14705,7 +14719,7 @@ namespace NhatKySanXuat
                     string ngay112 = row[i]["ngay_112"].ToString();
                     string ngay126 = row[i]["ngay_126"].ToString();
                     string ngay140 = row[i]["ngay_140"].ToString();
-                    dataGridView1.Rows.Add(Nguoi_nhap, Dot_sx, Ngay_sx, Thiet_bi, Ma_btp,
+                    dgv_nhat_ky.Rows.Add(Nguoi_nhap, Dot_sx, Ngay_sx, Thiet_bi, Ma_btp,
                         Ten_btp, Me, LOT, Toc_do_release, Ngay_release, Loai, Tong_klsp_thuduoc,
                         Vitri_tongspthuduoc, Kl_dongkhoi, Vitri_spdongkhoi, Khongdongkhoi,
                         Vitri_spkhongdongkhoi, Kl_lythuyet, Hieusuatthu, Hieusuatrelease, Thoigiancb,
@@ -14717,11 +14731,11 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
-                dataGridView1.Columns[7].Frozen = true;
-                dataGridView1.Rows[0].Frozen = true;
-                dataGridView1.CurrentCell = dataGridView1.Rows[1].Cells[0];
+                dgv_nhat_ky.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
+                dgv_nhat_ky.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dgv_nhat_ky.Columns[7].Frozen = true;
+                dgv_nhat_ky.Rows[0].Frozen = true;
+                dgv_nhat_ky.CurrentCell = dgv_nhat_ky.Rows[1].Cells[0];
             }
             catch (Exception ex)
             {
@@ -14756,7 +14770,7 @@ namespace NhatKySanXuat
                 adapter.Fill(tb_buff);
                 sqlcon.Close();
                 DataRow[] row = tb_buff.Select();
-                dataGridView1.Rows.Clear();
+                dgv_nhat_ky.Rows.Clear();
                 double TONG_KLSP = 0;
                 double TONG_KL_DONGKHOI = 0;
                 double TONG_KHOILUONG_KHONG_DONG_KHOI = 0;
@@ -15018,7 +15032,7 @@ namespace NhatKySanXuat
                         Nuoc_thuycuc = "0";
                     Tong_nuocthuycuc += Convert.ToDouble(Nuoc_thuycuc);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                dgv_nhat_ky.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
                 "", Math.Round(TONG_KL_LT, 3), Math.Round(Hieu_suat_thu_tb / row.Length, 3), Math.Round(Hieu_suat_release_tb / row.Length, 3),
                 "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
                 "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
@@ -15172,7 +15186,7 @@ namespace NhatKySanXuat
                     string ngay112 = row[i]["ngay_112"].ToString();
                     string ngay126 = row[i]["ngay_126"].ToString();
                     string ngay140 = row[i]["ngay_140"].ToString();
-                    dataGridView1.Rows.Add(Nguoi_nhap, Dot_sx, Ngay_sx, Thiet_bi, Ma_btp,
+                    dgv_nhat_ky.Rows.Add(Nguoi_nhap, Dot_sx, Ngay_sx, Thiet_bi, Ma_btp,
                         Ten_btp, Me, LOT, Toc_do_release, Ngay_release, Loai, Tong_klsp_thuduoc,
                         Vitri_tongspthuduoc, Kl_dongkhoi, Vitri_spdongkhoi, Khongdongkhoi,
                         Vitri_spkhongdongkhoi, Kl_lythuyet, Hieusuatthu, Hieusuatrelease, Thoigiancb,
@@ -15184,11 +15198,11 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
-                dataGridView1.Columns[7].Frozen = true;
-                dataGridView1.Rows[0].Frozen = true;
-                dataGridView1.CurrentCell = dataGridView1.Rows[1].Cells[0];
+                dgv_nhat_ky.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
+                dgv_nhat_ky.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dgv_nhat_ky.Columns[7].Frozen = true;
+                dgv_nhat_ky.Rows[0].Frozen = true;
+                dgv_nhat_ky.CurrentCell = dgv_nhat_ky.Rows[1].Cells[0];
             }
             catch (Exception ex)
             {
@@ -15249,7 +15263,7 @@ namespace NhatKySanXuat
                 adapter.Fill(tb_buff);
                 sqlcon.Close();
                 DataRow[] row = tb_buff.Select();
-                dataGridView1.Rows.Clear();
+                dgv_nhat_ky.Rows.Clear();
                 double TONG_KLSP = 0;
                 double TONG_KL_DONGKHOI = 0;
                 double TONG_KHOILUONG_KHONG_DONG_KHOI = 0;
@@ -15511,7 +15525,7 @@ namespace NhatKySanXuat
                         Nuoc_thuycuc = "0";
                     Tong_nuocthuycuc += Convert.ToDouble(Nuoc_thuycuc);
                 }
-                dataGridView1.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
+                dgv_nhat_ky.Rows.Add("Tổng", "", "", "", "", "", row.Length.ToString(), "", "", "", "", TONG_KLSP, "", TONG_KL_DONGKHOI, "", TONG_KHOILUONG_KHONG_DONG_KHOI,
                 "", Math.Round(TONG_KL_LT, 3), Math.Round(Hieu_suat_thu_tb / row.Length, 3), Math.Round(Hieu_suat_release_tb / row.Length, 3),
                 "", "", "", KHOI_LUONG_NVL, "", "", Tong_N1_KL, "", "", Tong_N2_KL, "", "", Tong_N3_KL, "", "", Tong_ga3, "", Tong_borax, "", Tong_Naa, "", Tong_sodium, "", Tong_citric, "", Tong_naoh,
                 "", Tong_solubo, "", Tong_edtazn, "", Tong_red, "", Tong_violet, "", Tong_blue, "", Tong_yellow, "", Tong_black, "", Tong_prev, "", Tong_thancam, Tong_dien, Tong_nuocro, Tong_nuocthuycuc,
@@ -15665,7 +15679,7 @@ namespace NhatKySanXuat
                     string ngay112 = row[i]["ngay_112"].ToString();
                     string ngay126 = row[i]["ngay_126"].ToString();
                     string ngay140 = row[i]["ngay_140"].ToString();
-                    dataGridView1.Rows.Add(Nguoi_nhap, Dot_sx, Ngay_sx, Thiet_bi, Ma_btp,
+                    dgv_nhat_ky.Rows.Add(Nguoi_nhap, Dot_sx, Ngay_sx, Thiet_bi, Ma_btp,
                         Ten_btp, Me, LOT, Toc_do_release, Ngay_release, Loai, Tong_klsp_thuduoc,
                         Vitri_tongspthuduoc, Kl_dongkhoi, Vitri_spdongkhoi, Khongdongkhoi,
                         Vitri_spkhongdongkhoi, Kl_lythuyet, Hieusuatthu, Hieusuatrelease, Thoigiancb,
@@ -15677,11 +15691,11 @@ namespace NhatKySanXuat
                         Nuoc_RO, Nuoc_thuycuc, BHLD, Ghi_chu, do_am, coating_layer, thoigian_ondinh, ngay0, ngay7, ngay14, ngay21,
                         ngay28, ngay42, ngay49, ngay56, ngay70, ngay84, ngay98, ngay112, ngay126, ngay140);
                 }
-                dataGridView1.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
-                dataGridView1.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
-                dataGridView1.Columns[7].Frozen = true;
-                dataGridView1.Rows[0].Frozen = true;
-                dataGridView1.CurrentCell = dataGridView1.Rows[1].Cells[0];
+                dgv_nhat_ky.Rows[0].DefaultCellStyle.BackColor = Color.Orange;
+                dgv_nhat_ky.Rows[0].DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
+                dgv_nhat_ky.Columns[7].Frozen = true;
+                dgv_nhat_ky.Rows[0].Frozen = true;
+                dgv_nhat_ky.CurrentCell = dgv_nhat_ky.Rows[1].Cells[0];
             }
             catch (Exception ex)
             {
@@ -16562,8 +16576,8 @@ namespace NhatKySanXuat
         {
             try
             {
-                int index_column = dataGridView1.CurrentCell.OwningColumn.Index;
-                dataGridView1.Columns[index_column].Visible = false;
+                int index_column = dgv_nhat_ky.CurrentCell.OwningColumn.Index;
+                dgv_nhat_ky.Columns[index_column].Visible = false;
                 old_index.Add(index_column);
             }
             catch (Exception ex)
@@ -16577,7 +16591,7 @@ namespace NhatKySanXuat
             {
                 for (int i = 0; i < old_index.Count; i++)
                 {
-                    dataGridView1.Columns[old_index[i]].Visible = true;
+                    dgv_nhat_ky.Columns[old_index[i]].Visible = true;
                 }
                 old_index.Clear();
             }
@@ -16592,7 +16606,7 @@ namespace NhatKySanXuat
         }
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string lot = dataGridView1.CurrentCell.Value.ToString();
+            string lot = dgv_nhat_ky.CurrentCell.Value.ToString();
             if (lbuser.Text == "admin")
             {
                 if (lot == "")
@@ -18023,7 +18037,7 @@ namespace NhatKySanXuat
                 sqlcon.Close();
                 DataRow[] row = tb_buff.Select();
                 string BTP = row[0]["ma_BTP"].ToString();
-                Series series1 = new Series(LOT+'-'+BTP, ViewType.Line);
+                Series series1 = new Series(BTP + '-' + LOT, ViewType.Line);
                 if (row[0]["ngay_0"].ToString() != "")
                 {
                     ngay0 = Convert.ToDouble(row[0]["ngay_0"].ToString());
@@ -18097,7 +18111,7 @@ namespace NhatKySanXuat
                 // Add the series to the chart
                 //line_chart.Series[LOT].ArgumentDataMember = "12";
                 line_chart.Series.Add(series1);
-                line_chart.Series[LOT + '-' + BTP].LabelsVisibility = DevExpress.Utils.DefaultBoolean.True;
+                line_chart.Series[BTP + '-' + LOT].LabelsVisibility = DevExpress.Utils.DefaultBoolean.True;
                 // Set the numerical argument scale types for the series,
                 // as it is qualitative, by default.
                 //series1.ArgumentScaleType = ScaleType.Numerical;
@@ -18141,21 +18155,21 @@ namespace NhatKySanXuat
                 diagram.EnableAxisYScrolling = true;
                 diagram.EnableAxisYZooming = true;
                 diagram.AxisX.WholeRange.MinValue = 0;
-                diagram.AxisX.WholeRange.MaxValue = 140;
+                diagram.AxisX.WholeRange.MaxValue = 147;
                 // or use the SetMinMaxValues method to specify range limits.
-                diagram.AxisX.WholeRange.SetMinMaxValues(0, 140);
+                diagram.AxisX.WholeRange.SetMinMaxValues(0, 147);
 
                 // Set limits for an x-axis's visual range
                 diagram.AxisX.VisualRange.MinValue = 0;
                 diagram.AxisX.VisualRange.MaxValue = 49;
                 // or use the SetMinMaxValues method to specify range limits.
-                diagram.AxisX.VisualRange.SetMinMaxValues(0,49);
+                diagram.AxisX.VisualRange.SetMinMaxValues(0, 49);
                 diagram.AxisX.WholeRange.SideMarginsValue = 0;
 
                 NumericScaleOptions xAxisOptions = ((XYDiagram)line_chart.Diagram).AxisX.NumericScaleOptions;
                 xAxisOptions.GridSpacing = 7;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -18164,7 +18178,7 @@ namespace NhatKySanXuat
         {
             try
             {
-                Form3 form3 = new Form3(dataGridView1.SelectedRows[0].Cells[7].Value.ToString());
+                Form3 form3 = new Form3(dgv_nhat_ky.SelectedRows[0].Cells[7].Value.ToString());
                 form3.ShowDialog();
             }
             catch (Exception ex)
