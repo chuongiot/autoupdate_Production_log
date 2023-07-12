@@ -32,7 +32,7 @@ namespace NhatKySanXuat
             dataGridView1.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
             dataGridView1.ColumnHeadersDefaultCellStyle.BackColor = Color.LightGray;
             dataGridView1.ColumnHeadersDefaultCellStyle.ForeColor = Color.Black;
-            Load_data_polymer_pro();
+            //Load_data_polymer_pro();
         }
         public void insert_data()
         {
