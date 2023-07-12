@@ -32,6 +32,7 @@ namespace NhatKySanXuat
             dataGridView1.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
             dataGridView1.ColumnHeadersDefaultCellStyle.BackColor = Color.LightGray;
             dataGridView1.ColumnHeadersDefaultCellStyle.ForeColor = Color.Black;
+            Load_data_polymer_pro();
         }
         public void insert_data()
         {
@@ -207,7 +208,7 @@ namespace NhatKySanXuat
                         "N1_2_lot,N1_3_lot,N2_1,N2_2,N2_1_barcode,N2_2_barcode,N2_1_lot,N2_2_lot,N3_1,N3_1_barcode,N3_1_lot,N1_4,N1_4_barcode," +
                         "N1_4_lot,N2_3,N2_3_barcode,N2_3_lot,N3_2,N3_2_barcode,N3_2_lot,N3_3,N3_3_barcode,N3_3_lot,thoigian_ondinh,do_am,coating_layer," +
                         "ngay_0,ngay_7,ngay_14,ngay_21,ngay_28,ngay_42,ngay_49,ngay_56,ngay_70,ngay_84,ngay_98,ngay_112,ngay_126,ngay_140,NVL_1," +
-                        "barcode_NVL_1,lot_NVL_1,NVL_2,barcode_NVL_2,lot_NVL_2,KL_NVL_1,KL_NVL_2,N1_BD,N1_KT,N2_BD,N2_KT,N3_BD,N3_KT)" +
+                        "barcode_NVL_1,lot_NVL_1,NVL_2,barcode_NVL_2,lot_NVL_2,KL_NVL_1,KL_NVL_2,N1_BD,N1_KT,N2_BD,N2_KT,N3_BD,N3_KT,TG_BD,TG_KT)" +
                         "values (N'" + Nguoi_nhap + "','" + Dotsx + "','" + Ngaysx + "','" + Thietbi + "','" + Mabtp + "','" + Tenbtp + "','" + Me + "','" + LOT + "','" + Tocdo_release + "'," +
                         "'" + Ngayrelease + "','" + Loai + "','" + Tongklsp_thuduoc + "','" + Kldongkhoi + "','" + Khongdongkhoi + "','" + Kl_lythuyet + "','" + Hieusuatthu + "'," +
                         "'" + Hieusuatrelease + "','" + Thoigiancb + "','" + Thoigiansx + "','" + Phanbon_nvl + "','" + KL_phan_nvl + "','" + Barcode_nvl + "','" + LOT_nvl + "'," +
@@ -223,7 +224,7 @@ namespace NhatKySanXuat
                         "'" + N3_3_kl + "','" + N3_3_code + "','" + N3_3_lot + "','" + thoi_gian + "','" + do_am + "','" + coating + "','" + ngay_0 + "','" + ngay_7 + "','" + ngay_14 + "'," +
                         "'" + ngay_21 + "','" + ngay_28 + "','" + ngay_42 + "','" + ngay_49 + "','" + ngay_56 + "','" + ngay_70 + "','" + ngay_84 + "','" + ngay_98 + "'," +
                         "'" + ngay_112 + "','" + ngay_126 + "','" + ngay_140 + "','" + phan_nvl1 + "','" + barcode_nvl1 + "','" + lot_nvl1 + "','" + phan_nvl2 + "','" + barcode_nvl2 + "','" + lot_nvl2 + "'," +
-                        "'" + kl_nvl_1 + "','" + kl_nvl_2 + "','" + N1_BD + "','" + N1_KT + "','" + N2_BD + "','" + N2_KT + "','" + N3_BD + "','" + N3_KT + "')";
+                        "'" + kl_nvl_1 + "','" + kl_nvl_2 + "','" + N1_BD + "','" + N1_KT + "','" + N2_BD + "','" + N2_KT + "','" + N3_BD + "','" + N3_KT + "','" + dateTimePicker_TG_BD.Text + "','" + dateTimePicker_TG_KT.Text + "')";
                     command.ExecuteNonQuery();
                     MessageBox.Show("Thêm Thành Công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     insert_blogtruycap("Đã thêm LOT : " + tblot.Text);
@@ -516,13 +517,14 @@ namespace NhatKySanXuat
                         sqlcon.Close();
                         DataRow[] row = dt_a.Select();
                         tbdotsx.Text = row[0]["DOT_SX"].ToString();
-                        tbme.Text = row[0]["ME_THU"].ToString();
+                        tbme.Text = tblot.Text.Substring(18, 3);
                         cbbthietbi.Text = row[0]["MA_TB"].ToString();
                         dateTimePickerngaysx.Text = row[0]["TG_BD"].ToString();
                         dateTimePicker_TG_BD.Text = row[0]["TG_BD"].ToString();
                         dateTimePicker_TG_KT.Text = row[0]["TG_KT"].ToString();
                         cbmaBTP.Text = row[0]["LOAI_SP"].ToString();
                         tbkhoiluongphanbonnvl.Text = row[0]["KL_NL"].ToString();
+                        tbloai.Text = "W";
                         update_or_add = false;
                     }
                     catch (Exception ex)
@@ -760,7 +762,7 @@ namespace NhatKySanXuat
         private void tb_n1_4_code_Leave(object sender, EventArgs e)
         {
             if (tb_n1_4_code.Text != "")
-                tbbarcodeN1.Text += tb_n1_4_code.Text;
+                tbbarcodeN1.Text += ", " + tb_n1_4_code.Text;
         }
         private void tb_n2_1_code_Leave(object sender, EventArgs e)
         {
@@ -1052,10 +1054,25 @@ namespace NhatKySanXuat
         private void tblot_SelectedValueChanged(object sender, EventArgs e)
         {
             load_data(tblot.Text);
+            if (cbbthietbi.Text == "02")
+            {
+                tbthoigiancb.Text = "40";
+            }
+            else
+            {
+                tbthoigiancb.Text = "15";
+            }
+            DateTime TG_BD = Convert.ToDateTime(dateTimePicker_TG_BD.Text);
+            DateTime TG_KT = Convert.ToDateTime(dateTimePicker_TG_KT.Text);
+            TimeSpan Time = TG_KT - TG_BD;
+            Double Min = Time.TotalMinutes;
+            tbthoigiansx.Text = Min.ToString();
+            load_data_polymer_use();
+            Load_data_polymer_pro();
         }
         public void Load_data_polymer_pro()
         {
-            if (tblot.Text != "")
+            /*if (tblot.Text != "")
             {
                 try
                 {
@@ -1070,9 +1087,11 @@ namespace NhatKySanXuat
                     dt.Clear();
                     adapter.Fill(dt);
                     sqlcon.Close();
-                    DateTime TG_KT = Convert.ToDateTime(dt.Rows[0]["TG_KT"].ToString());
-                    DateTime TG_KT_30 = TG_KT.AddMinutes(-35);
-                    DateTime TG_BD = Convert.ToDateTime(dt.Rows[0]["TG_BD"].ToString());
+                    //DateTime TG_KT = Convert.ToDateTime(dt.Rows[0]["TG_KT"].ToString());
+                    DateTime TG_KT = Convert.ToDateTime(dateTimePicker_TG_KT.Text);
+                    DateTime TG_KT_30 = TG_KT.AddMinutes(-30);
+                    DateTime TG_BD = Convert.ToDateTime(dateTimePicker_TG_BD.Text);
+                    //DateTime TG_BD = Convert.ToDateTime(dt.Rows[0]["TG_BD"].ToString());
                     if (tblot.Text.Substring(0, 2) == "02")
                     {
                         string sql = "select top 1 id ,Siemens_System_COAT2_DB101_COATING_RATE_KL_Kg_Pro_01_VALUE,"
@@ -1102,7 +1121,7 @@ namespace NhatKySanXuat
                                         + "FROM Coater03Resport "
                                         + "with (index(PK__Coater03__3213E83F5524E5D0)) "
                                         + "WHERE Siemens_System_COAT_100_V1_ACTIVE_PID_SAY_1_TIMESTAMP >= '" + TG_BD + "' AND Siemens_System_COAT_100_V1_ACTIVE_PID_SAY_1_TIMESTAMP <= '" + TG_KT_30 + "'"
-                                        + "ORDER by Siemens_System_COAT_100_V1_ACTIVE_PID_SAY_1_TIMESTAMP ASC ";
+                                        + "ORDER by Siemens_System_COAT_100_V1_ACTIVE_PID_SAY_1_TIMESTAMP DESC ";
                         SqlConnection connect = new SqlConnection(@"Data Source=192.168.23.219,1433;Initial Catalog=COATERS1_ResportDi_2023;User ID=sa;Password=rynan2020");
                         SqlCommand cmd = new SqlCommand(sql, connect);
                         cmd.CommandTimeout = 120;
@@ -1113,7 +1132,7 @@ namespace NhatKySanXuat
                         connect.Close();
                         if (dt_2.Rows[0]["Siemens_System_COAT_100_V1_DB222_COATING_RATE_AUTO_VAVLE_KL_Kg_Pro_01_VALUE"].ToString() == "")
                         {
-                            tbN1_pro.Text = "0";
+                            //tbN1_pro.Text = "0";
                         }
                         else
                         {
@@ -1121,7 +1140,7 @@ namespace NhatKySanXuat
                         }
                         if (dt_2.Rows[0]["Siemens_System_COAT_100_V1_DB222_COATING_RATE_AUTO_VAVLE_KL_Kg_Pro_02_VALUE"].ToString() == "")
                         {
-                            tbN2_pro.Text = "0";
+                            //tbN2_pro.Text = "0";
                         }
                         else
                         {
@@ -1129,7 +1148,7 @@ namespace NhatKySanXuat
                         }
                         if (dt_2.Rows[0]["Siemens_System_COAT_100_V1_DB222_COATING_RATE_AUTO_VAVLE_KL_Kg_Pro_03_VALUE"].ToString() == "")
                         {
-                            tbN3_pro.Text = "0";
+                            //tbN3_pro.Text = "0";
                         }
                         else
                         {
@@ -1137,9 +1156,205 @@ namespace NhatKySanXuat
                         }
                     }
                 }
-                catch
+                catch (Exception ex)
                 {
-                    //MessageBox.Show(ex.Message);
+                    MessageBox.Show(ex.Message);
+                }
+            }*/
+            if (tblot.Text != "")
+            {
+                DateTime StartTime = Convert.ToDateTime(dateTimePicker_TG_BD.Text);
+                DateTime EndTime = Convert.ToDateTime(dateTimePicker_TG_KT.Text);
+                if (tblot.Text.Substring(0, 2) == "S1")
+                {
+                    try
+                    {
+                        if (Convert.ToInt32(tbdotsx.Text) > 53)
+                        {
+                            sql = " Select Siemens_System_COAT_100_V1_FB_VALVE_DD_1_VALUE,"
+                            + "Siemens_System_COAT_100_V1_ACTIVE_PID_SAY_1_TIMESTAMP,"
+                            + "Siemens_System_COAT_100_V1_FB_VALVE_DD_2_VALUE,"
+                            + "Siemens_System_COAT_100_V1_FB_VALVE_DD_3_VALUE,"
+                            + "Siemens_System_COAT_100_V1_FB_VALVE_DD_NUOC_VALUE,"
+                            + "Siemens_System_COAT_100_V1_FB_VALVE_SUNG_VALUE,"
+                            + "Siemens_System_COAT_100_V1_FB_BOM_POLYMER_VALUE,"
+                            + "Siemens_System_COAT_100_V1_FB_FAN_VALUE,"
+                            + "Siemens_System_COAT_100_V1_DB222_COATING_RATE_AUTO_VAVLE_KL_Kg_Pro_01_VALUE,"
+                            + "Siemens_System_COAT_100_V1_DB222_COATING_RATE_AUTO_VAVLE_KL_Kg_Pro_02_VALUE,"
+                            + "Siemens_System_COAT_100_V1_DB222_COATING_RATE_AUTO_VAVLE_KL_Kg_Pro_03_VALUE "
+                            + "FROM Coater03Resport "
+                            + "with (index(PK__Coater03__3213E83F5524E5D0)) "
+                            + "WHERE Siemens_System_COAT_100_V1_ACTIVE_PID_SAY_1_TIMESTAMP >= '" + StartTime + "' AND Siemens_System_COAT_100_V1_ACTIVE_PID_SAY_1_TIMESTAMP <= '" + EndTime + "'"
+                            + "ORDER by Siemens_System_COAT_100_V1_ACTIVE_PID_SAY_1_TIMESTAMP ASC ";
+                            sqlcon = @"Data Source=192.168.23.219,1433;Initial Catalog=COATERS1_ResportDi_2023;User ID=sa;Password=rynan2020";
+                        }
+                        else
+                        {
+                            sql = " Select Siemens_System_COAT_100_V1_FB_VALVE_DD_1_VALUE,"
+                            + "Siemens_System_COAT_100_V1_ACTIVE_PID_SAY_1_TIMESTAMP,"
+                            + "Siemens_System_COAT_100_V1_FB_VALVE_DD_2_VALUE,"
+                            + "Siemens_System_COAT_100_V1_FB_VALVE_DD_3_VALUE,"
+                            + "Siemens_System_COAT_100_V1_FB_VALVE_DD_NUOC_VALUE,"
+                            + "Siemens_System_COAT_100_V1_FB_VALVE_SUNG_VALUE,"
+                            + "Siemens_System_COAT_100_V1_FB_BOM_POLYMER_VALUE,"
+                            + "Siemens_System_COAT_100_V1_FB_FAN_VALUE,"
+                            + "Siemens_System_COAT_100_V1_DB222_COATING_RATE_AUTO_VAVLE_KL_Kg_Pro_01_VALUE,"
+                            + "Siemens_System_COAT_100_V1_DB222_COATING_RATE_AUTO_VAVLE_KL_Kg_Pro_02_VALUE,"
+                            + "Siemens_System_COAT_100_V1_DB222_COATING_RATE_AUTO_VAVLE_KL_Kg_Pro_03_VALUE "
+                            + "FROM Coater03Resport "
+                            + "with (index(PK__Coater03__3213E83F5B1FD6E6)) "
+                            + "WHERE Siemens_System_COAT_100_V1_ACTIVE_PID_SAY_1_TIMESTAMP >= '" + StartTime + "' AND Siemens_System_COAT_100_V1_ACTIVE_PID_SAY_1_TIMESTAMP <= '" + EndTime + "'"
+                            + "ORDER by Siemens_System_COAT_100_V1_ACTIVE_PID_SAY_1_TIMESTAMP ASC ";
+                            sqlcon = @"Data Source=192.168.23.219,1433;Initial Catalog=COATERS1_ResportDi;User ID=sa;Password=rynan2020";
+                        }
+                        SqlConnection connect = new SqlConnection(sqlcon);
+                        SqlCommand cmd = new SqlCommand(sql, connect);
+                        cmd.CommandTimeout = 500;
+                        cmd.CommandType = CommandType.Text;
+                        SqlDataAdapter da = new SqlDataAdapter(cmd);
+                        DataTable dt = new DataTable();
+                        da.Fill(dt);
+                        int totalRows_1 = dt.Rows.Count;
+                        connect.Close();
+                        Boolean DD1, DD2, DD3, DD4, FAN, BOM, SUNG;
+                        for (int f = 0; f <= totalRows_1 - 1; f = f + 2)
+                        {
+                            try
+                            {
+                                if (dt.Rows[f]["Siemens_System_COAT_100_V1_FB_VALVE_DD_1_VALUE"].ToString() == "")
+                                    DD1 = true;
+                                else
+                                    DD1 = Convert.ToBoolean(dt.Rows[f]["Siemens_System_COAT_100_V1_FB_VALVE_DD_1_VALUE"]);
+                                if (dt.Rows[f]["Siemens_System_COAT_100_V1_FB_VALVE_DD_2_VALUE"].ToString() == "")
+                                    DD2 = true;
+                                else
+                                    DD2 = Convert.ToBoolean(dt.Rows[f]["Siemens_System_COAT_100_V1_FB_VALVE_DD_2_VALUE"]);
+                                if (dt.Rows[f]["Siemens_System_COAT_100_V1_FB_VALVE_DD_3_VALUE"].ToString() == "")
+                                    DD3 = true;
+                                else
+                                    DD3 = Convert.ToBoolean(dt.Rows[f]["Siemens_System_COAT_100_V1_FB_VALVE_DD_3_VALUE"]);
+                                if (dt.Rows[f]["Siemens_System_COAT_100_V1_FB_VALVE_DD_NUOC_VALUE"].ToString() == "")
+                                    DD4 = true;
+                                else
+                                    DD4 = Convert.ToBoolean(dt.Rows[f]["Siemens_System_COAT_100_V1_FB_VALVE_DD_NUOC_VALUE"]);
+                                if (dt.Rows[f]["Siemens_System_COAT_100_V1_FB_FAN_VALUE"].ToString() == "")
+                                    FAN = false;
+                                else
+                                    FAN = Convert.ToBoolean(dt.Rows[f]["Siemens_System_COAT_100_V1_FB_FAN_VALUE"]);
+                                if (dt.Rows[f]["Siemens_System_COAT_100_V1_FB_BOM_POLYMER_VALUE"].ToString() == "")
+                                    BOM = false;
+                                else
+                                    BOM = Convert.ToBoolean(dt.Rows[f]["Siemens_System_COAT_100_V1_FB_BOM_POLYMER_VALUE"]);
+                                if (dt.Rows[f]["Siemens_System_COAT_100_V1_FB_VALVE_SUNG_VALUE"].ToString() == "")
+                                    SUNG = false;
+                                else
+                                    SUNG = Convert.ToBoolean(dt.Rows[f]["Siemens_System_COAT_100_V1_FB_VALVE_SUNG_VALUE"]);
+                                if (FAN == true && BOM == true & SUNG == true && DD1 == true & DD2 == true && DD3 == true && DD4 == false && bit_tank1 == false)
+                                {
+                                    tbN1_pro.Text = Math.Round(Convert.ToDouble(dt.Rows[f]["Siemens_System_COAT_100_V1_DB222_COATING_RATE_AUTO_VAVLE_KL_Kg_Pro_01_VALUE"]),1).ToString();
+                                    tbN2_pro.Text = Math.Round(Convert.ToDouble(dt.Rows[f]["Siemens_System_COAT_100_V1_DB222_COATING_RATE_AUTO_VAVLE_KL_Kg_Pro_02_VALUE"]), 1).ToString();
+                                    tbN3_pro.Text = Math.Round(Convert.ToDouble(dt.Rows[f]["Siemens_System_COAT_100_V1_DB222_COATING_RATE_AUTO_VAVLE_KL_Kg_Pro_03_VALUE"]), 1).ToString();
+                                    bit_tank1 = true;
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show(ex.Message);
+                            }
+                        }
+                        bit_tank1 = false;
+                        bit_tank2 = false;
+                        bit_tank3 = false;
+                        bit_tank4 = false;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+                if (tblot.Text.Substring(0, 2) == "02")
+                {
+                    try
+                    {
+                        string sql = " Select Siemens_System_COAT2_DB101_COATING_RATE_COATING_RATE_01_TIMESTAMP,"
+                            + "Siemens_System_COAT2_I1_2_COAT2_RUN_QUAT_CAP_GIO_FB_VALUE,"
+                            + "Siemens_System_COAT2_I14_0_PNEUM2_VALVE_DD_1_FB_VALUE,"
+                            + "Siemens_System_COAT2_I14_1_PNEUM2_VALVE_DD_2_FB_VALUE,"
+                            + "Siemens_System_COAT2_I14_2_PNEUM2_VALVE_DD_3_FB_VALUE,"
+                            + "Siemens_System_COAT2_I14_3_PNEUM2_VALVE_DD_4_FB_VALUE,"
+                            + "Siemens_System_COAT2_I6_3_SUPPLY2_RUN_CAP_DICH_01_FB_VALUE,"
+                            + "Siemens_System_COAT2_I6_5_SUPPLY2_RUN_CAP_DICH_02_FB_VALUE,"
+                            + "Siemens_System_COAT2_DB101_COATING_RATE_KL_Kg_Pro_01_VALUE,"
+                            + "Siemens_System_COAT2_DB101_COATING_RATE_KL_Kg_Pro_02_VALUE,"
+                            + "Siemens_System_COAT2_DB101_COATING_RATE_KL_Kg_Pro_03_VALUE "
+                            + "FROM Coater02_Resport "
+                            + "with (index(PK__Coater02__3213E83FF4576378)) "
+                            + "WHERE Siemens_System_COAT2_DB101_COATING_RATE_COATING_RATE_01_TIMESTAMP >= '" + StartTime + "' AND Siemens_System_COAT2_DB101_COATING_RATE_COATING_RATE_01_TIMESTAMP <= '" + EndTime + "'"
+                            + "ORDER by Siemens_System_COAT2_DB101_COATING_RATE_COATING_RATE_01_TIMESTAMP ASC ";
+                        SqlConnection connect = new SqlConnection(@"Data Source=192.168.23.219,1433;Initial Catalog=COATER02_ResportDi_2023;Persist Security Info=True;User ID=sa;Password=rynan2020");
+                        SqlCommand cmd = new SqlCommand(sql, connect);
+                        cmd.CommandTimeout = 120;
+                        cmd.CommandType = CommandType.Text;
+                        SqlDataAdapter da = new SqlDataAdapter(cmd);
+                        DataTable dt = new DataTable();
+                        da.Fill(dt);
+                        int totalRows_1 = dt.Rows.Count;
+                        connect.Close();
+                        Boolean DD1, DD2, DD3, DD4, FAN, BOM1, BOM2;
+                        for (int i = 0; i <= totalRows_1 - 1; i++)
+                        {
+                            try
+                            {
+                                if (dt.Rows[i]["Siemens_System_COAT2_I14_0_PNEUM2_VALVE_DD_1_FB_VALUE"].ToString() == "")
+                                    DD1 = true;
+                                else
+                                    DD1 = Convert.ToBoolean(dt.Rows[i]["Siemens_System_COAT2_I14_0_PNEUM2_VALVE_DD_1_FB_VALUE"]);
+                                if (dt.Rows[i]["Siemens_System_COAT2_I14_1_PNEUM2_VALVE_DD_2_FB_VALUE"].ToString() == "")
+                                    DD2 = true;
+                                else
+                                    DD2 = Convert.ToBoolean(dt.Rows[i]["Siemens_System_COAT2_I14_1_PNEUM2_VALVE_DD_2_FB_VALUE"]);
+                                if (dt.Rows[i]["Siemens_System_COAT2_I14_2_PNEUM2_VALVE_DD_3_FB_VALUE"].ToString() == "")
+                                    DD3 = true;
+                                else
+                                    DD3 = Convert.ToBoolean(dt.Rows[i]["Siemens_System_COAT2_I14_2_PNEUM2_VALVE_DD_3_FB_VALUE"]);
+                                if (dt.Rows[i]["Siemens_System_COAT2_I14_3_PNEUM2_VALVE_DD_4_FB_VALUE"].ToString() == "")
+                                    DD4 = true;
+                                else
+                                    DD4 = Convert.ToBoolean(dt.Rows[i]["Siemens_System_COAT2_I14_3_PNEUM2_VALVE_DD_4_FB_VALUE"]);
+                                if (dt.Rows[i]["Siemens_System_COAT2_I1_2_COAT2_RUN_QUAT_CAP_GIO_FB_VALUE"].ToString() == "")
+                                    FAN = false;
+                                else
+                                    FAN = Convert.ToBoolean(dt.Rows[i]["Siemens_System_COAT2_I1_2_COAT2_RUN_QUAT_CAP_GIO_FB_VALUE"]);
+                                if (dt.Rows[i]["Siemens_System_COAT2_I6_3_SUPPLY2_RUN_CAP_DICH_01_FB_VALUE"].ToString() == "")
+                                    BOM1 = false;
+                                else
+                                    BOM1 = Convert.ToBoolean(dt.Rows[i]["Siemens_System_COAT2_I6_3_SUPPLY2_RUN_CAP_DICH_01_FB_VALUE"]);
+                                if (dt.Rows[i]["Siemens_System_COAT2_I6_5_SUPPLY2_RUN_CAP_DICH_02_FB_VALUE"].ToString() == "")
+                                    BOM2 = false;
+                                else
+                                    BOM2 = Convert.ToBoolean(dt.Rows[i]["Siemens_System_COAT2_I6_5_SUPPLY2_RUN_CAP_DICH_02_FB_VALUE"]);
+                                if (FAN == true && BOM1 == true && BOM2 == true && DD1 == true && DD2 == true && DD3 == true && DD4 == false && bit_tank1_02 == false)
+                                {
+                                    tbN1_pro.Text = Math.Round(Convert.ToDouble(dt.Rows[i]["Siemens_System_COAT2_DB101_COATING_RATE_KL_Kg_Pro_01_VALUE"]),1).ToString();
+                                    tbN2_pro.Text = Math.Round(Convert.ToDouble(dt.Rows[i]["Siemens_System_COAT2_DB101_COATING_RATE_KL_Kg_Pro_02_VALUE"]), 1).ToString();
+                                    tbN3_pro.Text = Math.Round(Convert.ToDouble(dt.Rows[i]["Siemens_System_COAT2_DB101_COATING_RATE_KL_Kg_Pro_03_VALUE"]), 1).ToString();
+                                    bit_tank1_02 = true;
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show(ex.Message);
+                            }
+                        }
+                        bit_tank1_02 = false;
+                        bit_tank2_02 = false;
+                        bit_tank3_02 = false;
+                        bit_tank4_02 = false;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
                 }
             }
         }
@@ -1229,6 +1444,41 @@ namespace NhatKySanXuat
         }
         Double TANK1_BD, TANK1_KT, TANK2_BD, TANK2_KT, TANK3_BD, TANK3_KT;
         Boolean bit_tank1, bit_tank2, bit_tank3, bit_tank4;
+        private void tbkhoiluongdongkhoi_Leave(object sender, EventArgs e)
+        {
+            double kl_dongkhoi = 0;
+            double kl_khongdongkhoi = 0;
+            if (tbkhoiluongdongkhoi.Text == "")
+            {
+                kl_dongkhoi = 0;
+            }
+            else
+            {
+                kl_dongkhoi = Convert.ToDouble(tbkhoiluongdongkhoi.Text);
+            }
+            if (tbspkhongbidongkhoi.Text == "")
+            {
+                kl_khongdongkhoi = 0;
+            }
+            else
+            {
+                kl_khongdongkhoi = Convert.ToDouble(tbspkhongbidongkhoi.Text);
+            }
+            tbtongklspthuduoc.Text = (kl_dongkhoi + kl_khongdongkhoi).ToString();
+        }
+
+        private void cbbthietbi_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if (cbbthietbi.Text == "02")
+            {
+                tbthoigiancb.Text = "40";
+            }
+            else
+            {
+                tbthoigiancb.Text = "15";
+            }
+        }
+
         private void load_polymer_Click(object sender, EventArgs e)
         {
             button_load_polymer.Enabled = false;
@@ -1237,6 +1487,7 @@ namespace NhatKySanXuat
             thread.Start();
             thread.IsBackground = true;
             pnloading.Visible = true;
+            Load_data_polymer_pro();
         }
         Double TANK1_BD_02, TANK1_KT_02, TANK2_BD_02, TANK2_KT_02, TANK3_BD_02, TANK3_KT_02;
         Boolean bit_tank1_02, bit_tank2_02, bit_tank3_02, bit_tank4_02;
@@ -1363,6 +1614,9 @@ namespace NhatKySanXuat
                         dataGridView1.Rows.Add("N1-157", TANK1_BD, TANK1_KT, Math.Round(TANK1_BD - TANK1_KT, 1));
                         dataGridView1.Rows.Add("N2-21", TANK2_BD, TANK2_KT, Math.Round(TANK2_BD - TANK2_KT, 1));
                         dataGridView1.Rows.Add("N3-190", TANK3_BD, TANK3_KT, Math.Round(TANK3_BD - TANK3_KT, 1));
+                        tbn1157.Text = Math.Round(TANK1_BD - TANK1_KT, 1).ToString();
+                        tbn221.Text = Math.Round(TANK2_BD - TANK2_KT, 1).ToString();
+                        tbn3190.Text = Math.Round(TANK3_BD - TANK3_KT, 1).ToString();
                         bit_tank1 = false;
                         bit_tank2 = false;
                         bit_tank3 = false;

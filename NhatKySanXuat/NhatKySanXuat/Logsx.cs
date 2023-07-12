@@ -65,20 +65,6 @@ namespace NhatKySanXuat
             dgv_draw_chart.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
             dgv_draw_chart.ColumnHeadersDefaultCellStyle.BackColor = Color.LightGray;
             dgv_draw_chart.ColumnHeadersDefaultCellStyle.ForeColor = Color.Black;
-            adgv_du_tru_btp.Columns[4].Frozen = true;
-
-
-            adgv_du_tru_btp.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            adgv_du_tru_btp.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
-            adgv_du_tru_btp.ColumnHeadersDefaultCellStyle.BackColor = Color.LightGray;
-            adgv_du_tru_btp.ColumnHeadersDefaultCellStyle.ForeColor = Color.Black;
-
-
-            adgv_sx_btp.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            adgv_sx_btp.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8, FontStyle.Bold);
-            adgv_sx_btp.ColumnHeadersDefaultCellStyle.BackColor = Color.LightGray;
-            adgv_sx_btp.ColumnHeadersDefaultCellStyle.ForeColor = Color.Black;
-
             foreach (DataGridViewColumn column in dgv_nhat_ky.Columns)
             {
                 column.SortMode = DataGridViewColumnSortMode.NotSortable;
@@ -16574,30 +16560,36 @@ namespace NhatKySanXuat
         List<int> old_index = new List<int>();
         private void hideStripMenuItem1_Click(object sender, EventArgs e)
         {
-            try
+            if(tabControl1.SelectedTab == tabPageblogsx)
             {
-                int index_column = dgv_nhat_ky.CurrentCell.OwningColumn.Index;
-                dgv_nhat_ky.Columns[index_column].Visible = false;
-                old_index.Add(index_column);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
+                try
+                {
+                    int index_column = dgv_nhat_ky.CurrentCell.OwningColumn.Index;
+                    dgv_nhat_ky.Columns[index_column].Visible = false;
+                    old_index.Add(index_column);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
         }
         private void showAllToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            try
+            if (tabControl1.SelectedTab == tabPageblogsx)
             {
-                for (int i = 0; i < old_index.Count; i++)
+                try
                 {
-                    dgv_nhat_ky.Columns[old_index[i]].Visible = true;
+                    for (int i = 0; i < old_index.Count; i++)
+                    {
+                        dgv_nhat_ky.Columns[old_index[i]].Visible = true;
+                    }
+                    old_index.Clear();
                 }
-                old_index.Clear();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
         }
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -16606,335 +16598,338 @@ namespace NhatKySanXuat
         }
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string lot = dgv_nhat_ky.CurrentCell.Value.ToString();
-            if (lbuser.Text == "admin")
+            if (tabControl1.SelectedTab == tabPageblogsx)
             {
-                if (lot == "")
+                string lot = dgv_nhat_ky.CurrentCell.Value.ToString();
+                if (lbuser.Text == "admin")
                 {
-                    MessageBox.Show("Chưa chọn đối tượng cần xóa", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    if (lot == "")
+                    {
+                        MessageBox.Show("Chưa chọn đối tượng cần xóa", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                    else
+                    {
+                        try
+                        {
+                            DialogResult dialogResult;
+                            dialogResult = MessageBox.Show("Bạn có muốn xóa LOT : '" + lot + "'?", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                            if (dialogResult == DialogResult.OK)
+                            {
+                                SqlConnection sqlcon = new SqlConnection(@"Data Source = 192.168.21.244,1433; Initial Catalog= RSFLOGSANXUAT ;User ID = sa; Password =mylan@2016");
+                                sqlcon.Open();
+                                string query_delete = "delete from nhatkysanxuat where LOT ='" + lot + "'";
+                                SqlCommand cmd = new SqlCommand(query_delete, sqlcon);
+                                cmd.ExecuteNonQuery();
+                                MessageBox.Show("Xóa Thành Công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                insert_blogtruycap("Đã xóa LOT : " + lot);
+                                sqlcon.Close();
+                                if (status_search == 0)
+                                {
+                                    button_search.Enabled = false;
+                                    pnloading.Visible = true;
+                                    ThreadStart threadStart = new ThreadStart(load_data_with_date);
+                                    Thread thread = new Thread(threadStart);
+                                    thread.Start();
+                                    thread.IsBackground = true;
+                                }
+                                else if (status_search == 1)
+                                {
+                                    button_search.Enabled = false;
+                                    pnloading.Visible = true;
+                                    ThreadStart threadStart = new ThreadStart(load_data_with_date_S1_02);
+                                    Thread thread = new Thread(threadStart);
+                                    thread.Start();
+                                    thread.IsBackground = true;
+                                }
+                                else if (status_search == 2)
+                                {
+                                    button_search.Enabled = false;
+                                    pnloading.Visible = true;
+                                    ThreadStart threadStart = new ThreadStart(load_data_with_ma_BTP);
+                                    Thread thread = new Thread(threadStart);
+                                    thread.Start();
+                                    thread.IsBackground = true;
+                                }
+                                else if (status_search == 3)
+                                {
+                                    button_search.Enabled = false;
+                                    pnloading.Visible = true;
+                                    ThreadStart threadStart = new ThreadStart(load_data_with_ma_BTP_S1_02);
+                                    Thread thread = new Thread(threadStart);
+                                    thread.Start();
+                                    thread.IsBackground = true;
+                                }
+                                else if (status_search == 4)
+                                {
+                                    button_search.Enabled = false;
+                                    pnloading.Visible = true;
+                                    ThreadStart threadStart = new ThreadStart(load_data_with_loai);
+                                    Thread thread = new Thread(threadStart);
+                                    thread.Start();
+                                    thread.IsBackground = true;
+                                }
+                                else if (status_search == 5)
+                                {
+                                    button_search.Enabled = false;
+                                    pnloading.Visible = true;
+                                    ThreadStart threadStart = new ThreadStart(load_data_with_loai_S1_02);
+                                    Thread thread = new Thread(threadStart);
+                                    thread.Start();
+                                    thread.IsBackground = true;
+                                }
+                                else if (status_search == 6)
+                                {
+                                    button_search.Enabled = false;
+                                    pnloading.Visible = true;
+                                    ThreadStart threadStart = new ThreadStart(load_data_with_phan_bon_nvl);
+                                    Thread thread = new Thread(threadStart);
+                                    thread.Start();
+                                    thread.IsBackground = true;
+                                }
+                                else if (status_search == 7)
+                                {
+                                    button_search.Enabled = false;
+                                    pnloading.Visible = true;
+                                    ThreadStart threadStart = new ThreadStart(load_data_with_phan_bon_nvl_S1_02);
+                                    Thread thread = new Thread(threadStart);
+                                    thread.Start();
+                                    thread.IsBackground = true;
+                                }
+                                else if (status_search == 8)
+                                {
+                                    button_search.Enabled = false;
+                                    pnloading.Visible = true;
+                                    ThreadStart threadStart = new ThreadStart(load_data_with_dotsx);
+                                    Thread thread = new Thread(threadStart);
+                                    thread.Start();
+                                    thread.IsBackground = true;
+                                }
+                                else if (status_search == 9)
+                                {
+                                    button_search.Enabled = false;
+                                    pnloading.Visible = true;
+                                    ThreadStart threadStart = new ThreadStart(load_data_with_dotsx_S1_02);
+                                    Thread thread = new Thread(threadStart);
+                                    thread.Start();
+                                    thread.IsBackground = true;
+                                }
+                                else if (status_search == 10)
+                                {
+                                    button_search.Enabled = false;
+                                    pnloading.Visible = true;
+                                    ThreadStart threadStart = new ThreadStart(load_data_ALL);
+                                    Thread thread = new Thread(threadStart);
+                                    thread.Start();
+                                    thread.IsBackground = true;
+                                }
+                                else if (status_search == 11)
+                                {
+                                    button_search.Enabled = false;
+                                    pnloading.Visible = true;
+                                    ThreadStart threadStart = new ThreadStart(load_data_ALL_S1_02);
+                                    Thread thread = new Thread(threadStart);
+                                    thread.Start();
+                                    thread.IsBackground = true;
+                                }
+                                else if (status_search == 12)
+                                {
+                                    button_search.Enabled = false;
+                                    pnloading.Visible = true;
+                                    ThreadStart threadStart = new ThreadStart(load_data_dotsx_loai);
+                                    Thread thread = new Thread(threadStart);
+                                    thread.Start();
+                                    thread.IsBackground = true;
+                                }
+                                else if (status_search == 13)
+                                {
+                                    button_search.Enabled = false;
+                                    pnloading.Visible = true;
+                                    ThreadStart threadStart = new ThreadStart(load_data_dotsx_loai_S1_02);
+                                    Thread thread = new Thread(threadStart);
+                                    thread.Start();
+                                    thread.IsBackground = true;
+                                }
+                                else if (status_search == 14)
+                                {
+                                    button_search.Enabled = false;
+                                    pnloading.Visible = true;
+                                    ThreadStart threadStart = new ThreadStart(load_data_dotsx_BTP);
+                                    Thread thread = new Thread(threadStart);
+                                    thread.Start();
+                                    thread.IsBackground = true;
+                                }
+                                else if (status_search == 15)
+                                {
+                                    button_search.Enabled = false;
+                                    pnloading.Visible = true;
+                                    ThreadStart threadStart = new ThreadStart(load_data_dotsx_BTP_S1_02);
+                                    Thread thread = new Thread(threadStart);
+                                    thread.Start();
+                                    thread.IsBackground = true;
+                                }
+                                else if (status_search == 16)
+                                {
+                                    button_search.Enabled = false;
+                                    pnloading.Visible = true;
+                                    ThreadStart threadStart = new ThreadStart(load_data_dotsx_NVL);
+                                    Thread thread = new Thread(threadStart);
+                                    thread.Start();
+                                    thread.IsBackground = true;
+                                }
+                                else if (status_search == 17)
+                                {
+                                    button_search.Enabled = false;
+                                    pnloading.Visible = true;
+                                    ThreadStart threadStart = new ThreadStart(load_data_dotsx_NVL_S1_02);
+                                    Thread thread = new Thread(threadStart);
+                                    thread.Start();
+                                    thread.IsBackground = true;
+                                }
+                                else if (status_search == 18)
+                                {
+                                    button_search.Enabled = false;
+                                    pnloading.Visible = true;
+                                    ThreadStart threadStart = new ThreadStart(load_data_with_loai_ma_BTP);
+                                    Thread thread = new Thread(threadStart);
+                                    thread.Start();
+                                    thread.IsBackground = true;
+                                }
+                                else if (status_search == 19)
+                                {
+                                    button_search.Enabled = false;
+                                    pnloading.Visible = true;
+                                    ThreadStart threadStart = new ThreadStart(load_data_with_loai_ma_BTP_S1_02);
+                                    Thread thread = new Thread(threadStart);
+                                    thread.Start();
+                                    thread.IsBackground = true;
+                                }
+                                else if (status_search == 21)
+                                {
+                                    button_search.Enabled = false;
+                                    pnloading.Visible = true;
+                                    ThreadStart threadStart = new ThreadStart(load_data_with_loai_NVL);
+                                    Thread thread = new Thread(threadStart);
+                                    thread.Start();
+                                    thread.IsBackground = true;
+                                }
+                                else if (status_search == 21)
+                                {
+                                    button_search.Enabled = false;
+                                    pnloading.Visible = true;
+                                    ThreadStart threadStart = new ThreadStart(load_data_with_loai_NVL_S1_02);
+                                    Thread thread = new Thread(threadStart);
+                                    thread.Start();
+                                    thread.IsBackground = true;
+                                }
+                                else if (status_search == 22)
+                                {
+                                    button_search.Enabled = false;
+                                    pnloading.Visible = true;
+                                    ThreadStart threadStart = new ThreadStart(load_data_with_BTP_NVL);
+                                    Thread thread = new Thread(threadStart);
+                                    thread.Start();
+                                    thread.IsBackground = true;
+                                }
+                                else if (status_search == 23)
+                                {
+                                    button_search.Enabled = false;
+                                    pnloading.Visible = true;
+                                    ThreadStart threadStart = new ThreadStart(load_data_with_BTP_NVL_S1_02);
+                                    Thread thread = new Thread(threadStart);
+                                    thread.Start();
+                                    thread.IsBackground = true;
+                                }
+                                else if (status_search == 24)
+                                {
+                                    button_search.Enabled = false;
+                                    pnloading.Visible = true;
+                                    ThreadStart threadStart = new ThreadStart(load_data_with_dotsx_loai_BTP);
+                                    Thread thread = new Thread(threadStart);
+                                    thread.Start();
+                                    thread.IsBackground = true;
+                                }
+                                else if (status_search == 25)
+                                {
+                                    button_search.Enabled = false;
+                                    pnloading.Visible = true;
+                                    ThreadStart threadStart = new ThreadStart(load_data_with_dotsx_loai_BTP_S1_02);
+                                    Thread thread = new Thread(threadStart);
+                                    thread.Start();
+                                    thread.IsBackground = true;
+                                }
+                                else if (status_search == 26)
+                                {
+                                    button_search.Enabled = false;
+                                    pnloading.Visible = true;
+                                    ThreadStart threadStart = new ThreadStart(load_data_with_dotsx_loai_NVL);
+                                    Thread thread = new Thread(threadStart);
+                                    thread.Start();
+                                    thread.IsBackground = true;
+                                }
+                                else if (status_search == 27)
+                                {
+                                    button_search.Enabled = false;
+                                    pnloading.Visible = true;
+                                    ThreadStart threadStart = new ThreadStart(load_data_with_dotsx_loai_NVL_S1_02);
+                                    Thread thread = new Thread(threadStart);
+                                    thread.Start();
+                                    thread.IsBackground = true;
+                                }
+                                else if (status_search == 28)
+                                {
+                                    button_search.Enabled = false;
+                                    pnloading.Visible = true;
+                                    ThreadStart threadStart = new ThreadStart(load_data_with_LOAI_BTP_NVL);
+                                    Thread thread = new Thread(threadStart);
+                                    thread.Start();
+                                    thread.IsBackground = true;
+                                }
+                                else if (status_search == 29)
+                                {
+                                    button_search.Enabled = false;
+                                    pnloading.Visible = true;
+                                    ThreadStart threadStart = new ThreadStart(load_data_with_LOAI_BTP_NVL_S1_02);
+                                    Thread thread = new Thread(threadStart);
+                                    thread.Start();
+                                    thread.IsBackground = true;
+                                }
+                                else if (status_search == 30)
+                                {
+                                    button_search.Enabled = false;
+                                    pnloading.Visible = true;
+                                    ThreadStart threadStart = new ThreadStart(load_data_with_DOTSX_BTP_NVL);
+                                    Thread thread = new Thread(threadStart);
+                                    thread.Start();
+                                    thread.IsBackground = true;
+                                }
+                                else if (status_search == 31)
+                                {
+                                    button_search.Enabled = false;
+                                    pnloading.Visible = true;
+                                    ThreadStart threadStart = new ThreadStart(load_data_with_DOTSX_BTP_NVL_S1_02);
+                                    Thread thread = new Thread(threadStart);
+                                    thread.Start();
+                                    thread.IsBackground = true;
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+                    }
                 }
                 else
                 {
+                    MessageBox.Show("Không được xóa, liên hệ Chương để xóa", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     try
                     {
-                        DialogResult dialogResult;
-                        dialogResult = MessageBox.Show("Bạn có muốn xóa LOT : '" + lot + "'?", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-                        if (dialogResult == DialogResult.OK)
-                        {
-                            SqlConnection sqlcon = new SqlConnection(@"Data Source = 192.168.21.244,1433; Initial Catalog= RSFLOGSANXUAT ;User ID = sa; Password =mylan@2016");
-                            sqlcon.Open();
-                            string query_delete = "delete from nhatkysanxuat where LOT ='" + lot + "'";
-                            SqlCommand cmd = new SqlCommand(query_delete, sqlcon);
-                            cmd.ExecuteNonQuery();
-                            MessageBox.Show("Xóa Thành Công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            insert_blogtruycap("Đã xóa LOT : " + lot);
-                            sqlcon.Close();
-                            if (status_search == 0)
-                            {
-                                button_search.Enabled = false;
-                                pnloading.Visible = true;
-                                ThreadStart threadStart = new ThreadStart(load_data_with_date);
-                                Thread thread = new Thread(threadStart);
-                                thread.Start();
-                                thread.IsBackground = true;
-                            }
-                            else if (status_search == 1)
-                            {
-                                button_search.Enabled = false;
-                                pnloading.Visible = true;
-                                ThreadStart threadStart = new ThreadStart(load_data_with_date_S1_02);
-                                Thread thread = new Thread(threadStart);
-                                thread.Start();
-                                thread.IsBackground = true;
-                            }
-                            else if (status_search == 2)
-                            {
-                                button_search.Enabled = false;
-                                pnloading.Visible = true;
-                                ThreadStart threadStart = new ThreadStart(load_data_with_ma_BTP);
-                                Thread thread = new Thread(threadStart);
-                                thread.Start();
-                                thread.IsBackground = true;
-                            }
-                            else if (status_search == 3)
-                            {
-                                button_search.Enabled = false;
-                                pnloading.Visible = true;
-                                ThreadStart threadStart = new ThreadStart(load_data_with_ma_BTP_S1_02);
-                                Thread thread = new Thread(threadStart);
-                                thread.Start();
-                                thread.IsBackground = true;
-                            }
-                            else if (status_search == 4)
-                            {
-                                button_search.Enabled = false;
-                                pnloading.Visible = true;
-                                ThreadStart threadStart = new ThreadStart(load_data_with_loai);
-                                Thread thread = new Thread(threadStart);
-                                thread.Start();
-                                thread.IsBackground = true;
-                            }
-                            else if (status_search == 5)
-                            {
-                                button_search.Enabled = false;
-                                pnloading.Visible = true;
-                                ThreadStart threadStart = new ThreadStart(load_data_with_loai_S1_02);
-                                Thread thread = new Thread(threadStart);
-                                thread.Start();
-                                thread.IsBackground = true;
-                            }
-                            else if (status_search == 6)
-                            {
-                                button_search.Enabled = false;
-                                pnloading.Visible = true;
-                                ThreadStart threadStart = new ThreadStart(load_data_with_phan_bon_nvl);
-                                Thread thread = new Thread(threadStart);
-                                thread.Start();
-                                thread.IsBackground = true;
-                            }
-                            else if (status_search == 7)
-                            {
-                                button_search.Enabled = false;
-                                pnloading.Visible = true;
-                                ThreadStart threadStart = new ThreadStart(load_data_with_phan_bon_nvl_S1_02);
-                                Thread thread = new Thread(threadStart);
-                                thread.Start();
-                                thread.IsBackground = true;
-                            }
-                            else if (status_search == 8)
-                            {
-                                button_search.Enabled = false;
-                                pnloading.Visible = true;
-                                ThreadStart threadStart = new ThreadStart(load_data_with_dotsx);
-                                Thread thread = new Thread(threadStart);
-                                thread.Start();
-                                thread.IsBackground = true;
-                            }
-                            else if (status_search == 9)
-                            {
-                                button_search.Enabled = false;
-                                pnloading.Visible = true;
-                                ThreadStart threadStart = new ThreadStart(load_data_with_dotsx_S1_02);
-                                Thread thread = new Thread(threadStart);
-                                thread.Start();
-                                thread.IsBackground = true;
-                            }
-                            else if (status_search == 10)
-                            {
-                                button_search.Enabled = false;
-                                pnloading.Visible = true;
-                                ThreadStart threadStart = new ThreadStart(load_data_ALL);
-                                Thread thread = new Thread(threadStart);
-                                thread.Start();
-                                thread.IsBackground = true;
-                            }
-                            else if (status_search == 11)
-                            {
-                                button_search.Enabled = false;
-                                pnloading.Visible = true;
-                                ThreadStart threadStart = new ThreadStart(load_data_ALL_S1_02);
-                                Thread thread = new Thread(threadStart);
-                                thread.Start();
-                                thread.IsBackground = true;
-                            }
-                            else if (status_search == 12)
-                            {
-                                button_search.Enabled = false;
-                                pnloading.Visible = true;
-                                ThreadStart threadStart = new ThreadStart(load_data_dotsx_loai);
-                                Thread thread = new Thread(threadStart);
-                                thread.Start();
-                                thread.IsBackground = true;
-                            }
-                            else if (status_search == 13)
-                            {
-                                button_search.Enabled = false;
-                                pnloading.Visible = true;
-                                ThreadStart threadStart = new ThreadStart(load_data_dotsx_loai_S1_02);
-                                Thread thread = new Thread(threadStart);
-                                thread.Start();
-                                thread.IsBackground = true;
-                            }
-                            else if (status_search == 14)
-                            {
-                                button_search.Enabled = false;
-                                pnloading.Visible = true;
-                                ThreadStart threadStart = new ThreadStart(load_data_dotsx_BTP);
-                                Thread thread = new Thread(threadStart);
-                                thread.Start();
-                                thread.IsBackground = true;
-                            }
-                            else if (status_search == 15)
-                            {
-                                button_search.Enabled = false;
-                                pnloading.Visible = true;
-                                ThreadStart threadStart = new ThreadStart(load_data_dotsx_BTP_S1_02);
-                                Thread thread = new Thread(threadStart);
-                                thread.Start();
-                                thread.IsBackground = true;
-                            }
-                            else if (status_search == 16)
-                            {
-                                button_search.Enabled = false;
-                                pnloading.Visible = true;
-                                ThreadStart threadStart = new ThreadStart(load_data_dotsx_NVL);
-                                Thread thread = new Thread(threadStart);
-                                thread.Start();
-                                thread.IsBackground = true;
-                            }
-                            else if (status_search == 17)
-                            {
-                                button_search.Enabled = false;
-                                pnloading.Visible = true;
-                                ThreadStart threadStart = new ThreadStart(load_data_dotsx_NVL_S1_02);
-                                Thread thread = new Thread(threadStart);
-                                thread.Start();
-                                thread.IsBackground = true;
-                            }
-                            else if (status_search == 18)
-                            {
-                                button_search.Enabled = false;
-                                pnloading.Visible = true;
-                                ThreadStart threadStart = new ThreadStart(load_data_with_loai_ma_BTP);
-                                Thread thread = new Thread(threadStart);
-                                thread.Start();
-                                thread.IsBackground = true;
-                            }
-                            else if (status_search == 19)
-                            {
-                                button_search.Enabled = false;
-                                pnloading.Visible = true;
-                                ThreadStart threadStart = new ThreadStart(load_data_with_loai_ma_BTP_S1_02);
-                                Thread thread = new Thread(threadStart);
-                                thread.Start();
-                                thread.IsBackground = true;
-                            }
-                            else if (status_search == 21)
-                            {
-                                button_search.Enabled = false;
-                                pnloading.Visible = true;
-                                ThreadStart threadStart = new ThreadStart(load_data_with_loai_NVL);
-                                Thread thread = new Thread(threadStart);
-                                thread.Start();
-                                thread.IsBackground = true;
-                            }
-                            else if (status_search == 21)
-                            {
-                                button_search.Enabled = false;
-                                pnloading.Visible = true;
-                                ThreadStart threadStart = new ThreadStart(load_data_with_loai_NVL_S1_02);
-                                Thread thread = new Thread(threadStart);
-                                thread.Start();
-                                thread.IsBackground = true;
-                            }
-                            else if (status_search == 22)
-                            {
-                                button_search.Enabled = false;
-                                pnloading.Visible = true;
-                                ThreadStart threadStart = new ThreadStart(load_data_with_BTP_NVL);
-                                Thread thread = new Thread(threadStart);
-                                thread.Start();
-                                thread.IsBackground = true;
-                            }
-                            else if (status_search == 23)
-                            {
-                                button_search.Enabled = false;
-                                pnloading.Visible = true;
-                                ThreadStart threadStart = new ThreadStart(load_data_with_BTP_NVL_S1_02);
-                                Thread thread = new Thread(threadStart);
-                                thread.Start();
-                                thread.IsBackground = true;
-                            }
-                            else if (status_search == 24)
-                            {
-                                button_search.Enabled = false;
-                                pnloading.Visible = true;
-                                ThreadStart threadStart = new ThreadStart(load_data_with_dotsx_loai_BTP);
-                                Thread thread = new Thread(threadStart);
-                                thread.Start();
-                                thread.IsBackground = true;
-                            }
-                            else if (status_search == 25)
-                            {
-                                button_search.Enabled = false;
-                                pnloading.Visible = true;
-                                ThreadStart threadStart = new ThreadStart(load_data_with_dotsx_loai_BTP_S1_02);
-                                Thread thread = new Thread(threadStart);
-                                thread.Start();
-                                thread.IsBackground = true;
-                            }
-                            else if (status_search == 26)
-                            {
-                                button_search.Enabled = false;
-                                pnloading.Visible = true;
-                                ThreadStart threadStart = new ThreadStart(load_data_with_dotsx_loai_NVL);
-                                Thread thread = new Thread(threadStart);
-                                thread.Start();
-                                thread.IsBackground = true;
-                            }
-                            else if (status_search == 27)
-                            {
-                                button_search.Enabled = false;
-                                pnloading.Visible = true;
-                                ThreadStart threadStart = new ThreadStart(load_data_with_dotsx_loai_NVL_S1_02);
-                                Thread thread = new Thread(threadStart);
-                                thread.Start();
-                                thread.IsBackground = true;
-                            }
-                            else if (status_search == 28)
-                            {
-                                button_search.Enabled = false;
-                                pnloading.Visible = true;
-                                ThreadStart threadStart = new ThreadStart(load_data_with_LOAI_BTP_NVL);
-                                Thread thread = new Thread(threadStart);
-                                thread.Start();
-                                thread.IsBackground = true;
-                            }
-                            else if (status_search == 29)
-                            {
-                                button_search.Enabled = false;
-                                pnloading.Visible = true;
-                                ThreadStart threadStart = new ThreadStart(load_data_with_LOAI_BTP_NVL_S1_02);
-                                Thread thread = new Thread(threadStart);
-                                thread.Start();
-                                thread.IsBackground = true;
-                            }
-                            else if (status_search == 30)
-                            {
-                                button_search.Enabled = false;
-                                pnloading.Visible = true;
-                                ThreadStart threadStart = new ThreadStart(load_data_with_DOTSX_BTP_NVL);
-                                Thread thread = new Thread(threadStart);
-                                thread.Start();
-                                thread.IsBackground = true;
-                            }
-                            else if (status_search == 31)
-                            {
-                                button_search.Enabled = false;
-                                pnloading.Visible = true;
-                                ThreadStart threadStart = new ThreadStart(load_data_with_DOTSX_BTP_NVL_S1_02);
-                                Thread thread = new Thread(threadStart);
-                                thread.Start();
-                                thread.IsBackground = true;
-                            }
-                        }
+                        insert_blogtruycap("Đang cố xóa LOT : " + lot);
                     }
                     catch (Exception ex)
                     {
                         MessageBox.Show(ex.Message);
                     }
-                }
-            }
-            else
-            {
-                MessageBox.Show("Không được xóa, liên hệ Chương để xóa", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                try
-                {
-                    insert_blogtruycap("Đang cố xóa LOT : " + lot);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
                 }
             }
         }
@@ -18142,12 +18137,12 @@ namespace NhatKySanXuat
                 diagram.AxisY.Title.TextColor = Color.Red;
                 diagram.AxisY.Title.EnableAntialiasing = DevExpress.Utils.DefaultBoolean.True;
 
-                line_chart.CrosshairOptions.ShowArgumentLine = true;
-                line_chart.CrosshairOptions.ShowArgumentLabels = false;
-                line_chart.CrosshairOptions.ShowCrosshairLabels = true;
-                line_chart.CrosshairOptions.ShowGroupHeaders = true;
-                line_chart.CrosshairOptions.ShowValueLabels = false;
-                line_chart.CrosshairOptions.ShowValueLine = false;
+                //line_chart.CrosshairOptions.ShowArgumentLine = true;
+                //line_chart.CrosshairOptions.ShowArgumentLabels = false;
+                //line_chart.CrosshairOptions.ShowCrosshairLabels = true;
+                //line_chart.CrosshairOptions.ShowGroupHeaders = true;
+                //line_chart.CrosshairOptions.ShowValueLabels = false;
+                //line_chart.CrosshairOptions.ShowValueLine = false;
 
                 diagram.EnableAxisXScrolling = true;
                 diagram.EnableAxisXZooming = true;
