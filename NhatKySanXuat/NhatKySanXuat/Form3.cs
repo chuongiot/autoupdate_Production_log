@@ -1251,15 +1251,24 @@ namespace NhatKySanXuat
                                     SUNG = Convert.ToBoolean(dt.Rows[f]["Siemens_System_COAT_100_V1_FB_VALVE_SUNG_VALUE"]);
                                 if (FAN == true && BOM == true & SUNG == true && DD1 == true & DD2 == true && DD3 == true && DD4 == false && bit_tank1 == false)
                                 {
-                                    tbN1_pro.Text = Math.Round(Convert.ToDouble(dt.Rows[f]["Siemens_System_COAT_100_V1_DB222_COATING_RATE_AUTO_VAVLE_KL_Kg_Pro_01_VALUE"]),1).ToString();
-                                    tbN2_pro.Text = Math.Round(Convert.ToDouble(dt.Rows[f]["Siemens_System_COAT_100_V1_DB222_COATING_RATE_AUTO_VAVLE_KL_Kg_Pro_02_VALUE"]), 1).ToString();
-                                    tbN3_pro.Text = Math.Round(Convert.ToDouble(dt.Rows[f]["Siemens_System_COAT_100_V1_DB222_COATING_RATE_AUTO_VAVLE_KL_Kg_Pro_03_VALUE"]), 1).ToString();
+                                    if (dt.Rows[f]["Siemens_System_COAT_100_V1_DB222_COATING_RATE_AUTO_VAVLE_KL_Kg_Pro_01_VALUE"].ToString() != "")
+                                    {
+                                        tbN1_pro.Text = Math.Round(Convert.ToDouble(dt.Rows[f]["Siemens_System_COAT_100_V1_DB222_COATING_RATE_AUTO_VAVLE_KL_Kg_Pro_01_VALUE"]), 1).ToString();
+                                    }
+                                    if (dt.Rows[f]["Siemens_System_COAT_100_V1_DB222_COATING_RATE_AUTO_VAVLE_KL_Kg_Pro_02_VALUE"].ToString() != "")
+                                    {
+                                        tbN2_pro.Text = Math.Round(Convert.ToDouble(dt.Rows[f]["Siemens_System_COAT_100_V1_DB222_COATING_RATE_AUTO_VAVLE_KL_Kg_Pro_02_VALUE"]), 1).ToString();
+                                    }
+                                    if (dt.Rows[f]["Siemens_System_COAT_100_V1_DB222_COATING_RATE_AUTO_VAVLE_KL_Kg_Pro_02_VALUE"].ToString() != "")
+                                    {
+                                        tbN3_pro.Text = Math.Round(Convert.ToDouble(dt.Rows[f]["Siemens_System_COAT_100_V1_DB222_COATING_RATE_AUTO_VAVLE_KL_Kg_Pro_03_VALUE"]), 1).ToString();
+                                    }
                                     bit_tank1 = true;
                                 }
                             }
-                            catch (Exception ex)
+                            catch
                             {
-                                MessageBox.Show(ex.Message);
+                                MessageBox.Show("Không có dư liêu polymer PV tháp s1");
                             }
                         }
                         bit_tank1 = false;
@@ -1267,7 +1276,7 @@ namespace NhatKySanXuat
                         bit_tank3 = false;
                         bit_tank4 = false;
                     }
-                    catch (Exception ex)
+                    catch(Exception ex)
                     {
                         MessageBox.Show(ex.Message);
                     }
@@ -1335,15 +1344,24 @@ namespace NhatKySanXuat
                                     BOM2 = Convert.ToBoolean(dt.Rows[i]["Siemens_System_COAT2_I6_5_SUPPLY2_RUN_CAP_DICH_02_FB_VALUE"]);
                                 if (FAN == true && BOM1 == true && BOM2 == true && DD1 == true && DD2 == true && DD3 == true && DD4 == false && bit_tank1_02 == false)
                                 {
-                                    tbN1_pro.Text = Math.Round(Convert.ToDouble(dt.Rows[i]["Siemens_System_COAT2_DB101_COATING_RATE_KL_Kg_Pro_01_VALUE"]),1).ToString();
-                                    tbN2_pro.Text = Math.Round(Convert.ToDouble(dt.Rows[i]["Siemens_System_COAT2_DB101_COATING_RATE_KL_Kg_Pro_02_VALUE"]), 1).ToString();
-                                    tbN3_pro.Text = Math.Round(Convert.ToDouble(dt.Rows[i]["Siemens_System_COAT2_DB101_COATING_RATE_KL_Kg_Pro_03_VALUE"]), 1).ToString();
+                                    if (dt.Rows[i]["Siemens_System_COAT2_DB101_COATING_RATE_KL_Kg_Pro_01_VALUE"].ToString()!="")
+                                    {
+                                        tbN1_pro.Text = Math.Round(Convert.ToDouble(dt.Rows[i]["Siemens_System_COAT2_DB101_COATING_RATE_KL_Kg_Pro_01_VALUE"]), 1).ToString();
+                                    }
+                                    if (dt.Rows[i]["Siemens_System_COAT2_DB101_COATING_RATE_KL_Kg_Pro_02_VALUE"].ToString() != "")
+                                    {
+                                        tbN2_pro.Text = Math.Round(Convert.ToDouble(dt.Rows[i]["Siemens_System_COAT2_DB101_COATING_RATE_KL_Kg_Pro_02_VALUE"]), 1).ToString();
+                                    }
+                                    if (dt.Rows[i]["Siemens_System_COAT2_DB101_COATING_RATE_KL_Kg_Pro_03_VALUE"].ToString() != "")
+                                    {
+                                        tbN3_pro.Text = Math.Round(Convert.ToDouble(dt.Rows[i]["Siemens_System_COAT2_DB101_COATING_RATE_KL_Kg_Pro_03_VALUE"]), 1).ToString();
+                                    }
                                     bit_tank1_02 = true;
                                 }
                             }
-                            catch (Exception ex)
+                            catch
                             {
-                                MessageBox.Show(ex.Message);
+                                MessageBox.Show("Không có dữ liệu polymer PV tháp 02");
                             }
                         }
                         bit_tank1_02 = false;
@@ -1606,9 +1624,9 @@ namespace NhatKySanXuat
                                     bit_tank4 = true;
                                 }
                             }
-                            catch (Exception ex)
+                            catch
                             {
-                                MessageBox.Show(ex.Message);
+                                MessageBox.Show("Không có dữ liệu polymer use s1");
                             }
                         }
                         dataGridView1.Rows.Add("N1-157", TANK1_BD, TANK1_KT, Math.Round(TANK1_BD - TANK1_KT, 1));
